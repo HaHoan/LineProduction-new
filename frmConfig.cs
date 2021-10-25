@@ -61,12 +61,12 @@ namespace Line_Production
             if (!string.IsNullOrEmpty(txtId.Text))
                 DataProvider.Instance.TimeLines.InsertLine(txtId.Text);
 
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.useWip, chkWip.Checked.ToString());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.pathWip, txtLog.Text);
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, txtStation.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.COM, cbbCOM.Text.Trim());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkWip, chkLinkWip.Checked.ToString());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.Process, cbbProcess.Text.Trim());
+            Common.WriteRegistry(Control.PathConfig, RegistryKeys.Customer, txbCustomer.Text.Trim());
+            Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkPathLog, cbLinkPathLog.Checked.ToString());
             var confirm = MessageBox.Show("Save success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (confirm == DialogResult.OK)
             {
@@ -80,16 +80,16 @@ namespace Line_Production
             txtId.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id);
             try
             {
-                bool chkWipValue = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, "useWip"));
-                chkWip.Checked = chkWipValue;
+                bool chkWipValue = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.LinkPathLog));
+                cbLinkPathLog.Checked = chkWipValue;
             }
             catch { }
 
-            txtLog.Text = Common.GetValueRegistryKey(Control.PathConfig, "pathWip");
-            txtStation.Text = Common.GetValueRegistryKey(Control.PathConfig, "station");
-            cbbCOM.Text = Common.GetValueRegistryKey(Control.PathConfig, "COM");
+            txtLog.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.pathWip);
+            txtStation.Text = Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.station);
+            cbbCOM.Text = Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.COM);
             cbbProcess.Text = Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.Process);
-
+            txbCustomer.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer);
         }
 
         private void btnBrower_Click(object sender, EventArgs e)

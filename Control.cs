@@ -829,16 +829,17 @@ namespace Line_Production
             Application.Exit();
         }
 
-        private void KiemTraTrenHondaLock(Action ChuaTonTai, Action DaTonTai)
+        private bool KiemTraTrenHondaLock(string barcode, Action ChuaTonTai, Action DaTonTai)
         {
             // Check trên HondaLock
-            if (DataProvider.Instance.HondaLocks.KiemTraBanMachDaBan(TextMacBox.Text.ToString(), txtSerial.Text.ToString()))
+            if (DataProvider.Instance.HondaLocks.KiemTraBanMachDaBan(TextMacBox.Text.ToString(), barcode))
             {
                 DaTonTai();
                 NG_FORM NG_FORM = new NG_FORM();
-                NG_FORM.Lb_inform_NG.Text = "Đã tồn tại bản mạch " + txtSerial.Text;
+                NG_FORM.Lb_inform_NG.Text = "Đã tồn tại bản mạch " + barcode;
                 NG_FORM.GroupBox3.Visible = false;
                 NG_FORM.ShowDialog();
+                return false;
             }
             else
             {
@@ -846,7 +847,7 @@ namespace Line_Production
                 {
                     ProductionID = cbbModel.Text.ToString(),
                     BoxID = TextMacBox.Text,
-                    BoardNo = txtSerial.Text,
+                    BoardNo = barcode,
                     UpdateTime = pvsservice.GetDateTime(),
                     Status = chkOK.Checked ? "1" : "0",
                     Update_Code = lblCode.Text,
@@ -855,6 +856,7 @@ namespace Line_Production
                 });
 
                 ChuaTonTai();
+                return true;
             }
         }
 
@@ -977,7 +979,6 @@ namespace Line_Production
             frmConfig frmConfig = new frmConfig();
             frmConfig.updateAfterSetting = () => { lblComcontrol.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.COM); };
             frmConfig.ShowDialog();
-            useWip = bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.useWip));
             pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
             txtLine.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
             Init();
@@ -1092,183 +1093,254 @@ namespace Line_Production
                     {
                         try
                         {
-                            var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text.Trim());
-                            var orderNo = pvsservice.GetWorkOrdersByOrderNo(orderItem.ORDER_NO);
-                            string customer = "";
-                            if (CUSTOMER.CUSTOMERS.TryGetValue(orderNo.CUSTOMER_ID, out customer))
+                            txtSerial.Enabled = false;
+                            var model = DataProvider.Instance.ModelQuantities.Select(ModelCurrent);
+                            var listBarcode = Common.CreateBarcode(txtSerial.Text.Trim(), model.PCB, model.ContentIndex, model.ContentLength, model.CheckFirst);
+
+                            // Hàng sửa
+                            if (cbRepair.Checked)
                             {
-                                Common.WriteRegistry(PathConfig, RegistryKeys.Customer, customer);
-                            }
-
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Không tồn tại serial trên Wip");
-                        }
-
-                        if (chkNG.Checked)
-                        {
-                            var content = new StringBuilder();
-                            string sTime = pvsservice.GetDateTime().ToString("yyMMddHHmmss");
-                            content.AppendLine(string.Join("|", cbbModel.Text, txtSerial.Text, sTime, State.F.ToString(), STATION));
-                            Common.WriteLog(Path.Combine(pathWip, $"{sTime}_{txtSerial.Text.Trim()}.txt"), content);
-                            Common.WriteLog(Path.Combine(pathBackup, "NG", $"{sTime}_{txtSerial.Text.Trim()}.txt"), content);
-
-                        }
-                        /* TODO ERROR: Skipped RegionDirectiveTrivia */
-                        else if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkWip)))
-                        {
-                            try
-                            {
-                                string nameSoft = Common.FindApplication(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process));
-                                int wipHandle = 0;
-                                wipHandle = NativeWin32.FindWindow(null, nameSoft);
-                                bool temp = Common.IsRunning(nameSoft);
-                                if (!temp)
+                                bool isRepair = false;
+                                foreach (var barcode in listBarcode)
                                 {
-                                    MessageBox.Show("Chương trình Wip chưa bật", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    if (pvsservice.CheckRepair(barcode))
+                                    {
+                                        isRepair = true;
+                                        break;
+                                    }
+                                }
+                                if (!isRepair)
+                                {
+                                    txtSerial.Enabled = true;
+                                    txtSerial.Focus();
+                                    txtSerial.SelectAll();
+                                   
+                                    NG_FORM NG_FORM = new NG_FORM();
+                                    NG_FORM.Lb_inform_NG.Text = "Không có bản mạch sửa!";
+                                    NG_FORM.ControlBox = true;
+                                    NG_FORM.GroupBox3.Visible = false;
+                                    NG_FORM.ShowDialog();
                                     return;
                                 }
+
+                            }
+                            foreach (var barcode in listBarcode)
+                            {
+                                var orderItem = pvsservice.GetWorkOrderItemByBoardNo(barcode);
+                                if(orderItem == null)
+                                {
+                                    txtSerial.Enabled = true;
+                                    txtSerial.Focus();
+                                    txtSerial.SelectAll();
+                                 
+                                    NG_FORM NG_FORM = new NG_FORM();
+                                    NG_FORM.Lb_inform_NG.Text = "Không tồn tại bản mạch!";
+                                    NG_FORM.ControlBox = true;
+                                    NG_FORM.GroupBox3.Visible = false;
+                                    NG_FORM.ShowDialog();
+                                    return;
+                                }
+                                var orderNo = pvsservice.GetWorkOrdersByOrderNo(orderItem.ORDER_NO);
+                             
+                                if (chkNG.Checked)
+                                {
+                                    var content = new StringBuilder();
+                                    string sTime = pvsservice.GetDateTime().ToString("yyMMddHHmmss");
+                                    content.AppendLine(string.Join("|", cbbModel.Text, txtSerial.Text, sTime, State.F.ToString(), STATION));
+                                    Common.WriteLog(Path.Combine(pathWip, $"{sTime}_{txtSerial.Text.Trim()}.txt"), content);
+                                    Common.WriteLog(Path.Combine(pathBackup, "NG", $"{sTime}_{txtSerial.Text.Trim()}.txt"), content);
+
+                                }
+
                                 else
                                 {
-                                    Common.ActiveProcess(nameSoft);
-                                    Console.Write(nameSoft);
-                                    Clipboard.SetText(txtSerial.Text.Trim());
-                                    SendKeys.Send("^V");
-                                    Thread.Sleep(170);
-                                    SendKeys.Send("{ENTER}");
-                                    Thread.Sleep(170);
-                                    Common.ActiveProcess(this.Text);
-                                    Thread.Sleep(220);
-                                    //bool IsWipSuccess = false;
-                                    //for (int i = 0; i < 10; i++)
-                                    //{
-                                    //    if (pvsservice.GetWorkOrderItem(txtSerial.Text.Trim(), STATION) != null)
-                                    //    {
-                                    //        IsWipSuccess = true;
-                                    //        break;
-                                    //    }
-                                    //    Thread.Sleep(100);
-                                    //}
-                                    if (pvsservice.GetWorkOrderItem(txtSerial.Text.Trim(), STATION) == null)
-                                    {
-                                        txtSerial.SelectAll();
-                                        txtSerial.Focus();
-                                        return;
-                                    }
-                                    
 
-                                    KiemTraTrenHondaLock(() =>
+                                    if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkPathLog)))
                                     {
-                                        IDCount += 1;
-
-                                        if (IDCount == PCBBOX)
+                                        try
                                         {
-                                            if (NumberInModel == 0)
+                                            var contentWip = new StringBuilder();
+                                            string sTime = pvsservice.GetDateTime().ToString("yyMMddHHmmss");
+                                            contentWip.AppendLine(string.Join("|", cbbModel.Text, barcode, sTime, State.P.ToString(), STATION));
+                                            Common.WriteLog(Path.Combine(pathWip, $"{sTime}_{barcode}.txt"), contentWip);
+                                            Common.WriteLog(Path.Combine(pathBackup, "OK", $"{sTime}_{barcode}.txt"), contentWip);
+
+                                            var valid = KiemTraTrenHondaLock(barcode,() =>
                                             {
-                                                TextMacBox.Enabled = true;
-                                                TextMacBox.Focus();
-                                                txtSerial.Enabled = false;
-                                                TextMacBox.Clear();
+                                                IDCount += 1;
+
+                                                if (IDCount == PCBBOX)
+                                                {
+                                                    if (NumberInModel == 0)
+                                                    {
+                                                        TextMacBox.Enabled = true;
+                                                        TextMacBox.Focus();
+                                                        txtSerial.Enabled = false;
+                                                        TextMacBox.Clear();
+                                                    }
+                                                    else
+                                                    {
+                                                        txtSerial.Enabled = true;
+                                                        txtSerial.Clear();
+                                                        txtSerial.Focus();
+                                                        
+                                                    }
+
+
+                                                    IDCount = 0;
+                                                    IDCount_box += 1;
+                                                    Box_curent = "";
+                                                }
+
+                                                LabelPCBA.Text = IDCount.ToString();
+                                                LabelSoThung.Text = IDCount_box.ToString();
+                                                IncreaseProduct();
+                                                if (ConfirmModel & IDCount != 0)
+                                                {
+                                                    txtConfirm.Enabled = true;
+                                                    txtConfirm.SelectAll();
+                                                    txtConfirm.Focus();
+                                                    txtSerial.Enabled = false;
+                                                }
+
+                                            }, () => {
+                                               
+                                            });
+                                            if (!valid)
+                                            {
+                                                txtSerial.Enabled = true;
+                                                txtSerial.Focus();
+                                                txtSerial.SelectAll();
+                                                return;
+                                            }
+
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show("Kết nối đến server thất bại !", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            string nameSoft = Common.FindApplication(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process));
+                                            int wipHandle = 0;
+                                            wipHandle = NativeWin32.FindWindow(null, nameSoft);
+                                            bool temp = Common.IsRunning(nameSoft);
+                                            if (!temp)
+                                            {
+                                                MessageBox.Show("Chương trình Wip chưa bật", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                                return;
                                             }
                                             else
                                             {
-                                                txtSerial.SelectAll();
-                                                txtSerial.Focus();
+                                                Common.ActiveProcess(nameSoft);
+                                                Console.Write(nameSoft);
+                                                Clipboard.SetText(txtSerial.Text.Trim());
+                                                SendKeys.Send("^V");
+                                                Thread.Sleep(170);
+                                                SendKeys.Send("{ENTER}");
+                                                Thread.Sleep(170);
+                                                Common.ActiveProcess(this.Text);
+                                                Thread.Sleep(220);
+                                                //bool IsWipSuccess = false;
+                                                //for (int i = 0; i < 10; i++)
+                                                //{
+                                                //    if (pvsservice.GetWorkOrderItem(txtSerial.Text.Trim(), STATION) != null)
+                                                //    {
+                                                //        IsWipSuccess = true;
+                                                //        break;
+                                                //    }
+                                                //    Thread.Sleep(100);
+                                                //}
+                                                if (pvsservice.GetWorkOrderItem(txtSerial.Text.Trim(), STATION) == null)
+                                                {
+                                                    txtSerial.Enabled = true;
+                                                    txtSerial.SelectAll();
+                                                    txtSerial.Focus();
+                                                 
+                                                    return;
+                                                }
+
+
+                                                var valid = KiemTraTrenHondaLock(barcode,() =>
+                                                {
+                                                    IDCount += 1;
+
+                                                    if (IDCount == PCBBOX)
+                                                    {
+                                                        if (NumberInModel == 0)
+                                                        {
+                                                            TextMacBox.Enabled = true;
+                                                            TextMacBox.Focus();
+                                                            txtSerial.Enabled = false;
+                                                            TextMacBox.Clear();
+                                                        }
+                                                        else
+                                                        {
+                                                            txtSerial.SelectAll();
+                                                            txtSerial.Focus();
+
+                                                        }
+
+                                                        IDCount = 0;
+                                                        IDCount_box += 1;
+                                                        Box_curent = "";
+                                                    }
+
+                                                    LabelPCBA.Text = IDCount.ToString();
+                                                    LabelSoThung.Text = IDCount_box.ToString();
+                                                    IncreaseProduct();
+                                                    if (ConfirmModel & IDCount != 0)
+                                                    {
+                                                        txtConfirm.Enabled = true;
+                                                        txtConfirm.SelectAll();
+                                                        txtConfirm.Focus();
+                                                        txtSerial.Enabled = false;
+                                                    }
+
+                                                }, () =>
+                                                {
+                                                  
+                                                });
+                                                if (!valid)
+                                                {
+                                                    txtSerial.Enabled = true;
+                                                    txtSerial.Focus();
+                                                  
+                                                    txtSerial.SelectAll();
+                                                    return;
+                                                }
 
                                             }
-
-                                            IDCount = 0;
-                                            IDCount_box += 1;
-                                            Box_curent = "";
                                         }
-
-                                        LabelPCBA.Text = IDCount.ToString();
-                                        LabelSoThung.Text = IDCount_box.ToString();
-                                        IncreaseProduct();
-                                        if (ConfirmModel & IDCount != 0)
+                                        catch (Exception ex)
                                         {
-                                            txtConfirm.Enabled = true;
-                                            txtConfirm.SelectAll();
-                                            txtConfirm.Focus();
-                                            txtSerial.Enabled = false;
+                                            Console.WriteLine("Error: " + ex.Message.ToString());
                                         }
-
-                                    }, () =>
-                                    {
-                                        txtSerial.Focus();
-                                    });
-
+                                    }
                                 }
                             }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine("Error: " + ex.Message.ToString());
-                            }
-
+                          
                         }
-
-                        else
+                        catch (Exception ex)
                         {
-                            try
-                            {
-                                var contentWip = new StringBuilder();
-                                string sTime = pvsservice.GetDateTime().ToString("yyMMddHHmmss");
-                                contentWip.AppendLine(string.Join("|", cbbModel.Text, txtSerial.Text, sTime, State.P.ToString(), STATION));
-                                Common.WriteLog(Path.Combine(pathWip, $"{sTime}_{txtSerial.Text.Trim()}.txt"), contentWip);
-                                Common.WriteLog(Path.Combine(pathBackup, "OK", $"{sTime}_{txtSerial.Text.Trim()}.txt"), contentWip);
-
-                                KiemTraTrenHondaLock(() =>
-                                {
-                                    /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
-                                    IDCount += 1;
-                                   
-                                    if (IDCount == PCBBOX)
-                                    {
-                                        if (NumberInModel == 0)
-                                        {
-                                            TextMacBox.Enabled = true;
-                                            TextMacBox.Focus();
-                                            txtSerial.Enabled = false;
-                                            TextMacBox.Clear();
-                                        }
-                                        else
-                                        {
-                                            txtSerial.Clear();
-                                            txtSerial.Focus();
-                                        }
-
-
-                                        IDCount = 0;
-                                        IDCount_box += 1;
-                                        Box_curent = "";
-                                    }
-
-                                    LabelPCBA.Text = IDCount.ToString();
-                                    LabelSoThung.Text = IDCount_box.ToString();
-                                    IncreaseProduct();
-                                    if (ConfirmModel & IDCount != 0)
-                                    {
-                                        txtConfirm.Enabled = true;
-                                        txtConfirm.SelectAll();
-                                        txtConfirm.Focus();
-                                        txtSerial.Enabled = false;
-                                    }
-
-                                }, () => { });
-
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Kết nối đến server thất bại !", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                return;
-                            }
-                            /* TODO ERROR: Skipped EndRegionDirectiveTrivia */
+                            txtSerial.Enabled = true;
+                            txtSerial.Focus();
+                            txtSerial.SelectAll();
+                            MessageBox.Show("txtSerial_PreviewKeyDown : " + e.ToString());
+                            return;
                         }
+
 
                     }
                     else
                     {
+                        txtSerial.Enabled = true;
+                        txtSerial.Focus();
+                        txtSerial.SelectAll();
                         NG_FORM NG_FORM = new NG_FORM();
                         NG_FORM.Lb_inform_NG.Text = "Đang thời gian nghỉ!";
                         NG_FORM.ControlBox = true;
@@ -1278,6 +1350,9 @@ namespace Line_Production
                 }
                 else
                 {
+                    txtSerial.Enabled = true;
+                    txtSerial.Focus();
+                    txtSerial.SelectAll();
                     NG_FORM NG_FORM = new NG_FORM();
                     NG_FORM.Lb_inform_NG.Text = txtSerial.Text + " sai ma quy dinh model: " + ModelRev;
                     NG_FORM.GroupBox3.Visible = false;
@@ -1285,6 +1360,8 @@ namespace Line_Production
                     // NG_FORM.ShowInTaskbar = False
                     NG_FORM.ShowDialog();
                 }
+                txtSerial.Enabled = true;
+                txtSerial.Focus();
                 txtSerial.SelectAll();
             }
         }
@@ -1313,6 +1390,11 @@ namespace Line_Production
 
             }
 
+        }
+
+        private void cbRepair_CheckedChanged(object sender, EventArgs e)
+        {
+            Common.WriteRegistry(Control.PathConfig, RegistryKeys.IsRepair, cbRepair.Checked.ToString());
         }
     }
 }

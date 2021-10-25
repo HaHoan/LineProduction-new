@@ -64,9 +64,9 @@ namespace Line_Production
             this.Lb_inform_NG.ForeColor = System.Drawing.Color.Red;
             this.Lb_inform_NG.Location = new System.Drawing.Point(3, 16);
             this.Lb_inform_NG.Name = "Lb_inform_NG";
-            this.Lb_inform_NG.Size = new System.Drawing.Size(1078, 201);
+            this.Lb_inform_NG.Size = new System.Drawing.Size(1078, 323);
             this.Lb_inform_NG.TabIndex = 1;
-            this.Lb_inform_NG.Text = "Label must be 10 digitals";
+            this.Lb_inform_NG.Text = "Label must be 10 digitals 222222222";
             this.Lb_inform_NG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Timer1
@@ -78,9 +78,9 @@ namespace Line_Production
             // 
             this.GroupBox2.Controls.Add(this.Lb_inform_NG);
             this.GroupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.GroupBox2.Location = new System.Drawing.Point(0, 494);
+            this.GroupBox2.Location = new System.Drawing.Point(0, 372);
             this.GroupBox2.Name = "GroupBox2";
-            this.GroupBox2.Size = new System.Drawing.Size(1084, 220);
+            this.GroupBox2.Size = new System.Drawing.Size(1084, 342);
             this.GroupBox2.TabIndex = 3;
             this.GroupBox2.TabStop = false;
             // 
@@ -88,7 +88,7 @@ namespace Line_Production
             // 
             this.GroupBox3.Controls.Add(this.Label2);
             this.GroupBox3.Controls.Add(this.txtPass);
-            this.GroupBox3.Location = new System.Drawing.Point(274, 372);
+            this.GroupBox3.Location = new System.Drawing.Point(274, 295);
             this.GroupBox3.Name = "GroupBox3";
             this.GroupBox3.Size = new System.Drawing.Size(548, 59);
             this.GroupBox3.TabIndex = 4;

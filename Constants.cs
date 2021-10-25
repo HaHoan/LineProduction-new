@@ -22,13 +22,13 @@ namespace Line_Production
     public static class RegistryKeys
     {
         public static string id = "id";
-        public static string useWip = "useWip";
         public static string pathWip = "pathWip";
         public static string station = "station";
         public static string COM = "COM";
-        public static string LinkWip = "LinkWip";
         public static string Customer = "Customer";
         public static string Process = "Process";
+        public static string LinkPathLog = "LinkPathLog";
+        public static string IsRepair = "IsRepair";
     }
     public static class CaSX
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
@@ -17,6 +18,36 @@ namespace Line_Production
 {
     public partial class Common
     {
+        public static List<string> CreateBarcode(string boardNo, int pcb, int contentIndex, int contentLength, bool checkFirst = false)
+        {
+            
+            List<string> lst = new List<string>();
+            if(pcb == 1)
+            {
+                lst.Add(boardNo);
+                return lst;
+            }
+            var boardHeader = boardNo.Substring(0, contentIndex);
+            var start = Convert.ToInt32(boardNo.Substring(contentIndex, contentLength));
+            if (checkFirst)
+            {
+                while (start % pcb != 1)
+                {
+                    Console.WriteLine("------> " + start);
+                    start--;
+                }
+            }
+            for (int i = 0; i < pcb; i++)
+            {
+                var boardMid = (i + start).ToString($"D{contentLength}");
+                var right = boardNo.Length - boardHeader.Length - boardMid.Length;
+                var boarZen = right == 0
+                    ? $"{boardHeader}{boardMid}"
+                    : $"{boardHeader}{boardMid}{boardNo.Substring(boardNo.Length - right, right)}";
+                lst.Add(boarZen);
+            }
+            return lst;
+        }
         public static void ActiveProcess(string title)
         {
             Process[] processes = Process.GetProcesses();

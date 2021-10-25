@@ -20,6 +20,7 @@ namespace Line_Production
         {
             InitializeComponent();
             this.ID = ID;
+          
 
         }
 
@@ -37,8 +38,12 @@ namespace Line_Production
                     MinQuantity = float.Parse(txbMnQuantity.Text.ToString()),
                     CharModel = txbRegex.Text.ToString().Trim(),
                     UseBarcode = ckbUseBarcode.Checked,
-                    NumberInModel = int.Parse(txbNumberInModel.Text.Trim())
-
+                    NumberInModel = int.Parse(txbNumberInModel.Text.Trim()),
+                    PCB = int.Parse(txbPCB.Text.Trim()),
+                    Customer = txbCustomer.Text.Trim(),
+                    ContentIndex = int.Parse(txbContentIndex.Text.Trim()),
+                    ContentLength = int.Parse(txbContentLength.Text.Trim()),
+                    CheckFirst = cbCheckFirst.Checked
                 };
                 if (model.Id == 0)
                 {
@@ -67,29 +72,41 @@ namespace Line_Production
 
         private void AddModelForm_Shown(object sender, EventArgs e)
         {
-            if (ID == 0)
+            try
             {
-                return;
+                if (ID == 0)
+                {
+                    return;
+                }
+                Model model = DataProvider.Instance.ModelQuantities.Select(ID);
+                if (model != null)
+                {
+                    ID = model.Id;
+                    txbModelID.Text = model.ModelID;
+                    txbPersonInLine.Text = model.PersonInLine.ToString();
+                    txbCycle.Text = model.Cycle.ToString();
+                    txbWarmQuatity.Text = model.WarnQuantity.ToString();
+                    txbMnQuantity.Text = model.MinQuantity.ToString();
+                    txbRegex.Text = model.CharModel;
+                    ckbUseBarcode.Checked = model.UseBarcode;
+                    txbNumberInModel.Text = model.NumberInModel.ToString();
+                    txbPCB.Text = model.PCB.ToString();
+                    txbCustomer.Text = model.Customer.ToString();
+                    txbContentIndex.Text = model.ContentIndex.ToString();
+                    txbContentLength.Text = model.ContentLength.ToString();
+                    cbCheckFirst.Checked = model.CheckFirst;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy model này");
+                }
             }
-            Model model = DataProvider.Instance.ModelQuantities.Select(ID);
-            if (model != null)
+            catch (Exception ex)
             {
-                ID = model.Id;
-                txbModelID.Text = model.ModelID;
-                txbPersonInLine.Text = model.PersonInLine.ToString();
-                txbCycle.Text = model.Cycle.ToString();
-                txbWarmQuatity.Text = model.WarnQuantity.ToString();
-                txbMnQuantity.Text = model.MinQuantity.ToString();
-                txbRegex.Text = model.CharModel;
-                ckbUseBarcode.Checked = model.UseBarcode;
-                txbNumberInModel.Text = model.NumberInModel.ToString();
-            }
-            else
-            {
-                MessageBox.Show("Không tìm thấy model này");
-            }
+                MessageBox.Show(ex.ToString());
 
-
+            }
+          
         }
 
         private void txbModelID_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -111,6 +128,8 @@ namespace Line_Production
                         txbRegex.Text = model.CharModel;
                         ckbUseBarcode.Checked = model.UseBarcode;
                         txbNumberInModel.Text = model.NumberInModel.ToString();
+                        txbPCB.Text = model.PCB.ToString();
+                        txbCustomer.Text = model.Customer.ToString();
                     }
                 }
             }

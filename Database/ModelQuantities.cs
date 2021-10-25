@@ -17,7 +17,7 @@ namespace Line_Production.Database
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand("insert into " + TABLE + "(Model,PersonPerLine,CycleTime,WarnQuantity,MinQuantity,CharModel,UseBarcode,NumberInModel) values(@Model, @PersonPerLine, @CycleTime, @WarnQuantity, @MinQuantity, @CharModel,@UseBarcode,@NumberInModel); SELECT CAST(scope_identity() AS int)", DataProvider.Instance.DB))
+                using (SqlCommand cmd = new SqlCommand("insert into " + TABLE + "(Model,PersonPerLine,CycleTime,WarnQuantity,MinQuantity,CharModel,UseBarcode,NumberInModel,PCB,Customer,ContentIndex, ContentLength, CheckFirst) values(@Model, @PersonPerLine, @CycleTime, @WarnQuantity, @MinQuantity, @CharModel,@UseBarcode,@NumberInModel,@PCB, @Customer,@ContentIndex, @ContentLength,@CheckFirst); SELECT CAST(scope_identity() AS int)", DataProvider.Instance.DB))
                 {
                     cmd.Parameters.AddWithValue("@Model", (o as Model).ModelID);
                     cmd.Parameters.AddWithValue("@PersonPerLine", (o as Model).PersonInLine);
@@ -27,7 +27,11 @@ namespace Line_Production.Database
                     cmd.Parameters.AddWithValue("@CharModel", (o as Model).CharModel);
                     cmd.Parameters.AddWithValue("@UseBarcode", (o as Model).UseBarcode);
                     cmd.Parameters.AddWithValue("@NumberInModel", (o as Model).NumberInModel);
-
+                    cmd.Parameters.AddWithValue("@Customer", (o as Model).Customer);
+                    cmd.Parameters.AddWithValue("@PCB", (o as Model).PCB);
+                    cmd.Parameters.AddWithValue("@ContentIndex", (o as Model).ContentIndex);
+                    cmd.Parameters.AddWithValue("@ContentLength", (o as Model).ContentLength);
+                    cmd.Parameters.AddWithValue("@CheckFirst", (o as Model).CheckFirst);
                     (o as Model).Id = (int)cmd.ExecuteScalar();
                     return o;
                 }
@@ -43,7 +47,7 @@ namespace Line_Production.Database
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand("update " + TABLE + " set Model = @Model, PersonPerLine = @PersonPerLine, CycleTime = @CycleTime, WarnQuantity = @WarnQuantity, MinQuantity = @MinQuantity, CharModel = @CharModel,UseBarcode = @UseBarcode,NumberInModel = @NumberInModel  where Id = '" + o.Id + "'", DataProvider.Instance.DB))
+                using (SqlCommand cmd = new SqlCommand("update " + TABLE + " set Model = @Model, PersonPerLine = @PersonPerLine, CycleTime = @CycleTime, WarnQuantity = @WarnQuantity, MinQuantity = @MinQuantity, CharModel = @CharModel,UseBarcode = @UseBarcode,NumberInModel = @NumberInModel, PCB = @PCB, Customer = @Customer, ContentIndex = @ContentIndex, ContentLength = @ContentLength, CheckFirst = @CheckFirst  where Id = '" + o.Id + "'", DataProvider.Instance.DB))
                 {
                     cmd.Parameters.AddWithValue("@Model", (o as Model).ModelID);
                     cmd.Parameters.AddWithValue("@PersonPerLine", (o as Model).PersonInLine);
@@ -53,6 +57,11 @@ namespace Line_Production.Database
                     cmd.Parameters.AddWithValue("@CharModel", (o as Model).CharModel);
                     cmd.Parameters.AddWithValue("@UseBarcode", (o as Model).UseBarcode);
                     cmd.Parameters.AddWithValue("@NumberInModel", (o as Model).NumberInModel);
+                    cmd.Parameters.AddWithValue("@PCB", (o as Model).PCB);
+                    cmd.Parameters.AddWithValue("@Customer", (o as Model).Customer);
+                    cmd.Parameters.AddWithValue("@ContentIndex", (o as Model).ContentIndex);
+                    cmd.Parameters.AddWithValue("@ContentLength", (o as Model).ContentLength);
+                    cmd.Parameters.AddWithValue("@CheckFirst", (o as Model).CheckFirst);
 
                     (o as Model).Id = (int)cmd.ExecuteScalar();
                 }
@@ -102,6 +111,47 @@ namespace Line_Production.Database
             }
             return list;
         }
+        public List<Model> SelectListBy(string Customer)
+        {
+            var list = new List<Model>();
+            try
+            {
+                string sql = "select * from " + TABLE + " where Customer like '%" + Customer + "%'"; ;
+                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
+
+                using (DbDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+
+                        while (reader.Read())
+                        {
+                            Model model = new Model();
+                            model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
+                            model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
+                            model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
+                            model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
+                            model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
+                            model.WarnQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.WarnQuantity));
+                            model.MinQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.MinQuantity));
+                            model.CharModel = reader[reader.GetOrdinal(ModelString.CharModel)] as string;
+                            model.Customer = reader[reader.GetOrdinal(ModelString.Customer)] as string;
+                            model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
+                            model.PCB = reader.GetInt32(reader.GetOrdinal(ModelString.PCB));
+                            list.Add(model);
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message.ToString());
+                return null;
+            }
+            return list;
+        }
         public Model Select(string ModelID)
         {
             try
@@ -125,7 +175,12 @@ namespace Line_Production.Database
                             model.WarnQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.WarnQuantity));
                             model.MinQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.MinQuantity));
                             model.CharModel = reader[reader.GetOrdinal(ModelString.CharModel)] as string;
+                            model.Customer = reader[reader.GetOrdinal(ModelString.Customer)] as string;
                             model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
+                            model.PCB = reader.GetInt32(reader.GetOrdinal(ModelString.PCB));
+                            model.ContentIndex = reader.GetInt32(reader.GetOrdinal(ModelString.ContentIndex));
+                            model.ContentLength = reader.GetInt32(reader.GetOrdinal(ModelString.ContentLength));
+                            model.CheckFirst = reader.GetBoolean(reader.GetOrdinal(ModelString.CheckFirst));
                             return model;
                         }
 
@@ -163,7 +218,12 @@ namespace Line_Production.Database
                             model.WarnQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.WarnQuantity));
                             model.MinQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.MinQuantity));
                             model.CharModel = reader[reader.GetOrdinal(ModelString.CharModel)] as string;
+                            model.Customer = reader[reader.GetOrdinal(ModelString.Customer)] as string;
                             model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
+                            model.PCB = reader.GetInt32(reader.GetOrdinal(ModelString.PCB));
+                            model.ContentIndex = reader.GetInt32(reader.GetOrdinal(ModelString.ContentIndex));
+                            model.ContentLength = reader.GetInt32(reader.GetOrdinal(ModelString.ContentLength));
+                            model.CheckFirst = reader.GetBoolean(reader.GetOrdinal(ModelString.CheckFirst));
                             return model;
                         }
 
@@ -178,7 +238,45 @@ namespace Line_Production.Database
                 return null;
             }
         }
+        public List<Model> SelectBy(string Customer)
+        {
+            var list = new List<Model>();
+            try
+            {
+                string sql = "select * from " + TABLE + " where Customer like '%" + Customer + "%'"; ;
+                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
 
+                using (DbDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+
+                        while (reader.Read())
+                        {
+                            Model model = new Model();
+                            model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
+                            model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
+                            model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
+                            model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
+                            model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
+                            model.WarnQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.WarnQuantity));
+                            model.MinQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.MinQuantity));
+                            model.CharModel = reader[reader.GetOrdinal(ModelString.CharModel)] as string;
+                            model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
+                            list.Add(model);
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message.ToString());
+                return null;
+            }
+            return list;
+        }
         public int Delete(string Model)
         {
             try

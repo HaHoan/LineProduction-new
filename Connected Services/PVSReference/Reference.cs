@@ -17,6 +17,13 @@ namespace Line_Production.PVSReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseEntity", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.STEEL_MESH_STATUSEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.NichiconEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.MuratasEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.MasterEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.Base_Soft_InfoEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.Base_ModelsEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.WORK_ORDERSEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.KyoMacEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.KYOCERAEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.USERSEntity))]
@@ -35,7 +42,7 @@ namespace Line_Production.PVSReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.WORK_ORDER_PROCEDURESEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.MACHINESEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.ROLE_MEMBERSEntity))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.WORK_ORDERSEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Line_Production.PVSReference.REPLACING_LOGSEntity))]
     public partial class BaseEntity : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -57,6 +64,1577 @@ namespace Line_Production.PVSReference {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="STEEL_MESH_STATUSEntity", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class STEEL_MESH_STATUSEntity : Line_Production.PVSReference.BaseEntity {
+        
+        private System.Guid IDField;
+        
+        private int CHECK_STATEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MATERIAL_ORDER_IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MESH_NOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PART_IDField;
+        
+        private int MAX_USE_COUNTField;
+        
+        private System.Nullable<System.DateTime> INPUT_TIMEField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public System.Guid ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=1)]
+        public int CHECK_STATE {
+            get {
+                return this.CHECK_STATEField;
+            }
+            set {
+                if ((this.CHECK_STATEField.Equals(value) != true)) {
+                    this.CHECK_STATEField = value;
+                    this.RaisePropertyChanged("CHECK_STATE");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string MATERIAL_ORDER_ID {
+            get {
+                return this.MATERIAL_ORDER_IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MATERIAL_ORDER_IDField, value) != true)) {
+                    this.MATERIAL_ORDER_IDField = value;
+                    this.RaisePropertyChanged("MATERIAL_ORDER_ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string MESH_NO {
+            get {
+                return this.MESH_NOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MESH_NOField, value) != true)) {
+                    this.MESH_NOField = value;
+                    this.RaisePropertyChanged("MESH_NO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string PART_ID {
+            get {
+                return this.PART_IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PART_IDField, value) != true)) {
+                    this.PART_IDField = value;
+                    this.RaisePropertyChanged("PART_ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public int MAX_USE_COUNT {
+            get {
+                return this.MAX_USE_COUNTField;
+            }
+            set {
+                if ((this.MAX_USE_COUNTField.Equals(value) != true)) {
+                    this.MAX_USE_COUNTField = value;
+                    this.RaisePropertyChanged("MAX_USE_COUNT");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
+        public System.Nullable<System.DateTime> INPUT_TIME {
+            get {
+                return this.INPUT_TIMEField;
+            }
+            set {
+                if ((this.INPUT_TIMEField.Equals(value) != true)) {
+                    this.INPUT_TIMEField = value;
+                    this.RaisePropertyChanged("INPUT_TIME");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NichiconEntity", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class NichiconEntity : Line_Production.PVSReference.BaseEntity {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductionIDField;
+        
+        private int LineIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BoxIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ModelIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ModelNameField;
+        
+        private System.DateTime DateCheckField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TimeCheckField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperatorCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string JudgeResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperatorNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string ProductionID {
+            get {
+                return this.ProductionIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductionIDField, value) != true)) {
+                    this.ProductionIDField = value;
+                    this.RaisePropertyChanged("ProductionID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=1)]
+        public int LineID {
+            get {
+                return this.LineIDField;
+            }
+            set {
+                if ((this.LineIDField.Equals(value) != true)) {
+                    this.LineIDField = value;
+                    this.RaisePropertyChanged("LineID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string BoxID {
+            get {
+                return this.BoxIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BoxIDField, value) != true)) {
+                    this.BoxIDField = value;
+                    this.RaisePropertyChanged("BoxID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string ModelID {
+            get {
+                return this.ModelIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelIDField, value) != true)) {
+                    this.ModelIDField = value;
+                    this.RaisePropertyChanged("ModelID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string ModelName {
+            get {
+                return this.ModelNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelNameField, value) != true)) {
+                    this.ModelNameField = value;
+                    this.RaisePropertyChanged("ModelName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public System.DateTime DateCheck {
+            get {
+                return this.DateCheckField;
+            }
+            set {
+                if ((this.DateCheckField.Equals(value) != true)) {
+                    this.DateCheckField = value;
+                    this.RaisePropertyChanged("DateCheck");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
+        public string TimeCheck {
+            get {
+                return this.TimeCheckField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TimeCheckField, value) != true)) {
+                    this.TimeCheckField = value;
+                    this.RaisePropertyChanged("TimeCheck");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        public string OperatorCode {
+            get {
+                return this.OperatorCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperatorCodeField, value) != true)) {
+                    this.OperatorCodeField = value;
+                    this.RaisePropertyChanged("OperatorCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=8)]
+        public string JudgeResult {
+            get {
+                return this.JudgeResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.JudgeResultField, value) != true)) {
+                    this.JudgeResultField = value;
+                    this.RaisePropertyChanged("JudgeResult");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=9)]
+        public string OperatorName {
+            get {
+                return this.OperatorNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperatorNameField, value) != true)) {
+                    this.OperatorNameField = value;
+                    this.RaisePropertyChanged("OperatorName");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MuratasEntity", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class MuratasEntity : Line_Production.PVSReference.BaseEntity {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductionIDField;
+        
+        private System.Nullable<int> LineIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BoxIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ModelIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ModelNameField;
+        
+        private System.Nullable<System.DateTime> DateCheckField;
+        
+        private Line_Production.PVSReference.TimeSpan TimeCheckField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperatorCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ModelCustomerField;
+        
+        private System.Nullable<bool> JudgeResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomerNameField;
+        
+        private System.Nullable<bool> RetailBarrelField;
+        
+        private System.Nullable<System.DateTime> UpdateDateField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string ProductionID {
+            get {
+                return this.ProductionIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductionIDField, value) != true)) {
+                    this.ProductionIDField = value;
+                    this.RaisePropertyChanged("ProductionID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=1)]
+        public System.Nullable<int> LineID {
+            get {
+                return this.LineIDField;
+            }
+            set {
+                if ((this.LineIDField.Equals(value) != true)) {
+                    this.LineIDField = value;
+                    this.RaisePropertyChanged("LineID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string BoxID {
+            get {
+                return this.BoxIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BoxIDField, value) != true)) {
+                    this.BoxIDField = value;
+                    this.RaisePropertyChanged("BoxID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string ModelID {
+            get {
+                return this.ModelIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelIDField, value) != true)) {
+                    this.ModelIDField = value;
+                    this.RaisePropertyChanged("ModelID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string ModelName {
+            get {
+                return this.ModelNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelNameField, value) != true)) {
+                    this.ModelNameField = value;
+                    this.RaisePropertyChanged("ModelName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public System.Nullable<System.DateTime> DateCheck {
+            get {
+                return this.DateCheckField;
+            }
+            set {
+                if ((this.DateCheckField.Equals(value) != true)) {
+                    this.DateCheckField = value;
+                    this.RaisePropertyChanged("DateCheck");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
+        public Line_Production.PVSReference.TimeSpan TimeCheck {
+            get {
+                return this.TimeCheckField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TimeCheckField, value) != true)) {
+                    this.TimeCheckField = value;
+                    this.RaisePropertyChanged("TimeCheck");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        public string OperatorCode {
+            get {
+                return this.OperatorCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperatorCodeField, value) != true)) {
+                    this.OperatorCodeField = value;
+                    this.RaisePropertyChanged("OperatorCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=8)]
+        public string ModelCustomer {
+            get {
+                return this.ModelCustomerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelCustomerField, value) != true)) {
+                    this.ModelCustomerField = value;
+                    this.RaisePropertyChanged("ModelCustomer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
+        public System.Nullable<bool> JudgeResult {
+            get {
+                return this.JudgeResultField;
+            }
+            set {
+                if ((this.JudgeResultField.Equals(value) != true)) {
+                    this.JudgeResultField = value;
+                    this.RaisePropertyChanged("JudgeResult");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=10)]
+        public string CustomerName {
+            get {
+                return this.CustomerNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerNameField, value) != true)) {
+                    this.CustomerNameField = value;
+                    this.RaisePropertyChanged("CustomerName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=11)]
+        public System.Nullable<bool> RetailBarrel {
+            get {
+                return this.RetailBarrelField;
+            }
+            set {
+                if ((this.RetailBarrelField.Equals(value) != true)) {
+                    this.RetailBarrelField = value;
+                    this.RaisePropertyChanged("RetailBarrel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=12)]
+        public System.Nullable<System.DateTime> UpdateDate {
+            get {
+                return this.UpdateDateField;
+            }
+            set {
+                if ((this.UpdateDateField.Equals(value) != true)) {
+                    this.UpdateDateField = value;
+                    this.RaisePropertyChanged("UpdateDate");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MasterEntity", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class MasterEntity : Line_Production.PVSReference.BaseEntity {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PRODUCT_IDField;
+        
+        private System.Nullable<bool> AUTOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HOST_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string STATION_NOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OK_MASTERField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NG_MASTERField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUSField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DESField;
+        
+        private System.Nullable<System.DateTime> UPDATE_TIMEField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IDField, value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string PRODUCT_ID {
+            get {
+                return this.PRODUCT_IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PRODUCT_IDField, value) != true)) {
+                    this.PRODUCT_IDField = value;
+                    this.RaisePropertyChanged("PRODUCT_ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
+        public System.Nullable<bool> AUTO {
+            get {
+                return this.AUTOField;
+            }
+            set {
+                if ((this.AUTOField.Equals(value) != true)) {
+                    this.AUTOField = value;
+                    this.RaisePropertyChanged("AUTO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string HOST_NAME {
+            get {
+                return this.HOST_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HOST_NAMEField, value) != true)) {
+                    this.HOST_NAMEField = value;
+                    this.RaisePropertyChanged("HOST_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string STATION_NO {
+            get {
+                return this.STATION_NOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.STATION_NOField, value) != true)) {
+                    this.STATION_NOField = value;
+                    this.RaisePropertyChanged("STATION_NO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
+        public string OK_MASTER {
+            get {
+                return this.OK_MASTERField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OK_MASTERField, value) != true)) {
+                    this.OK_MASTERField = value;
+                    this.RaisePropertyChanged("OK_MASTER");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
+        public string NG_MASTER {
+            get {
+                return this.NG_MASTERField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NG_MASTERField, value) != true)) {
+                    this.NG_MASTERField = value;
+                    this.RaisePropertyChanged("NG_MASTER");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        public string CUS {
+            get {
+                return this.CUSField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUSField, value) != true)) {
+                    this.CUSField = value;
+                    this.RaisePropertyChanged("CUS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=8)]
+        public string DES {
+            get {
+                return this.DESField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DESField, value) != true)) {
+                    this.DESField = value;
+                    this.RaisePropertyChanged("DES");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
+        public System.Nullable<System.DateTime> UPDATE_TIME {
+            get {
+                return this.UPDATE_TIMEField;
+            }
+            set {
+                if ((this.UPDATE_TIMEField.Equals(value) != true)) {
+                    this.UPDATE_TIMEField = value;
+                    this.RaisePropertyChanged("UPDATE_TIME");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Base_Soft_InfoEntity", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class Base_Soft_InfoEntity : Line_Production.PVSReference.BaseEntity {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MAC_ADDRESSField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HOST_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IP_ADDRESSField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LOCAL_USERField;
+        
+        private System.DateTime UPDATE_TIMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SOFT_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VERSIONField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WINDOWS_EDITIONField;
+        
+        private System.Nullable<bool> IS_WINDOWS_ACTIVEField;
+        
+        private System.Nullable<bool> IS_WINDOWS_64Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DES1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DES2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DES3Field;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IDField, value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string MAC_ADDRESS {
+            get {
+                return this.MAC_ADDRESSField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MAC_ADDRESSField, value) != true)) {
+                    this.MAC_ADDRESSField = value;
+                    this.RaisePropertyChanged("MAC_ADDRESS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string HOST_NAME {
+            get {
+                return this.HOST_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HOST_NAMEField, value) != true)) {
+                    this.HOST_NAMEField = value;
+                    this.RaisePropertyChanged("HOST_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string IP_ADDRESS {
+            get {
+                return this.IP_ADDRESSField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IP_ADDRESSField, value) != true)) {
+                    this.IP_ADDRESSField = value;
+                    this.RaisePropertyChanged("IP_ADDRESS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string LOCAL_USER {
+            get {
+                return this.LOCAL_USERField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LOCAL_USERField, value) != true)) {
+                    this.LOCAL_USERField = value;
+                    this.RaisePropertyChanged("LOCAL_USER");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public System.DateTime UPDATE_TIME {
+            get {
+                return this.UPDATE_TIMEField;
+            }
+            set {
+                if ((this.UPDATE_TIMEField.Equals(value) != true)) {
+                    this.UPDATE_TIMEField = value;
+                    this.RaisePropertyChanged("UPDATE_TIME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
+        public string SOFT_NAME {
+            get {
+                return this.SOFT_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SOFT_NAMEField, value) != true)) {
+                    this.SOFT_NAMEField = value;
+                    this.RaisePropertyChanged("SOFT_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        public string VERSION {
+            get {
+                return this.VERSIONField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VERSIONField, value) != true)) {
+                    this.VERSIONField = value;
+                    this.RaisePropertyChanged("VERSION");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=8)]
+        public string WINDOWS_EDITION {
+            get {
+                return this.WINDOWS_EDITIONField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WINDOWS_EDITIONField, value) != true)) {
+                    this.WINDOWS_EDITIONField = value;
+                    this.RaisePropertyChanged("WINDOWS_EDITION");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
+        public System.Nullable<bool> IS_WINDOWS_ACTIVE {
+            get {
+                return this.IS_WINDOWS_ACTIVEField;
+            }
+            set {
+                if ((this.IS_WINDOWS_ACTIVEField.Equals(value) != true)) {
+                    this.IS_WINDOWS_ACTIVEField = value;
+                    this.RaisePropertyChanged("IS_WINDOWS_ACTIVE");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
+        public System.Nullable<bool> IS_WINDOWS_64 {
+            get {
+                return this.IS_WINDOWS_64Field;
+            }
+            set {
+                if ((this.IS_WINDOWS_64Field.Equals(value) != true)) {
+                    this.IS_WINDOWS_64Field = value;
+                    this.RaisePropertyChanged("IS_WINDOWS_64");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
+        public string DES1 {
+            get {
+                return this.DES1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DES1Field, value) != true)) {
+                    this.DES1Field = value;
+                    this.RaisePropertyChanged("DES1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
+        public string DES2 {
+            get {
+                return this.DES2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DES2Field, value) != true)) {
+                    this.DES2Field = value;
+                    this.RaisePropertyChanged("DES2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
+        public string DES3 {
+            get {
+                return this.DES3Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DES3Field, value) != true)) {
+                    this.DES3Field = value;
+                    this.RaisePropertyChanged("DES3");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Base_ModelsEntity", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class Base_ModelsEntity : Line_Production.PVSReference.BaseEntity {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Product_IdField;
+        
+        private System.Nullable<int> PcbField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomerField;
+        
+        private System.Nullable<int> Content_IndexField;
+        
+        private System.Nullable<int> Content_LengthField;
+        
+        private System.Nullable<int> LocationField;
+        
+        private System.Nullable<bool> Is_HexaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DesField;
+        
+        private bool Check_FirstField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Product_Id {
+            get {
+                return this.Product_IdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Product_IdField, value) != true)) {
+                    this.Product_IdField = value;
+                    this.RaisePropertyChanged("Product_Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=1)]
+        public System.Nullable<int> Pcb {
+            get {
+                return this.PcbField;
+            }
+            set {
+                if ((this.PcbField.Equals(value) != true)) {
+                    this.PcbField = value;
+                    this.RaisePropertyChanged("Pcb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string Customer {
+            get {
+                return this.CustomerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerField, value) != true)) {
+                    this.CustomerField = value;
+                    this.RaisePropertyChanged("Customer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
+        public System.Nullable<int> Content_Index {
+            get {
+                return this.Content_IndexField;
+            }
+            set {
+                if ((this.Content_IndexField.Equals(value) != true)) {
+                    this.Content_IndexField = value;
+                    this.RaisePropertyChanged("Content_Index");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
+        public System.Nullable<int> Content_Length {
+            get {
+                return this.Content_LengthField;
+            }
+            set {
+                if ((this.Content_LengthField.Equals(value) != true)) {
+                    this.Content_LengthField = value;
+                    this.RaisePropertyChanged("Content_Length");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public System.Nullable<int> Location {
+            get {
+                return this.LocationField;
+            }
+            set {
+                if ((this.LocationField.Equals(value) != true)) {
+                    this.LocationField = value;
+                    this.RaisePropertyChanged("Location");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
+        public System.Nullable<bool> Is_Hexa {
+            get {
+                return this.Is_HexaField;
+            }
+            set {
+                if ((this.Is_HexaField.Equals(value) != true)) {
+                    this.Is_HexaField = value;
+                    this.RaisePropertyChanged("Is_Hexa");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        public string Des {
+            get {
+                return this.DesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DesField, value) != true)) {
+                    this.DesField = value;
+                    this.RaisePropertyChanged("Des");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=8)]
+        public bool Check_First {
+            get {
+                return this.Check_FirstField;
+            }
+            set {
+                if ((this.Check_FirstField.Equals(value) != true)) {
+                    this.Check_FirstField = value;
+                    this.RaisePropertyChanged("Check_First");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WORK_ORDERSEntity", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class WORK_ORDERSEntity : Line_Production.PVSReference.BaseEntity {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CLIENT_NAMEField;
+        
+        private System.DateTime CREATE_TIMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CREATOR_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUSTOMER_IDField;
+        
+        private double DEFECT_QUANTITYField;
+        
+        private int DISASSEMBLING_COUNTField;
+        
+        private double DISCARD_QUANTITYField;
+        
+        private System.DateTime FINISH_TIMEField;
+        
+        private double FINISHED_QUANTITYField;
+        
+        private System.Guid IDField;
+        
+        private double INCOMING_DEFECT_QUANTITYField;
+        
+        private double INITIATED_QUANTITYField;
+        
+        private bool IS_FINISHEDField;
+        
+        private bool IS_STARTEDField;
+        
+        private bool IS_USING_DISASSEMBLINGField;
+        
+        private bool IS_USING_MATERIAL_IMPORTINGField;
+        
+        private bool IS_USING_PACKINGField;
+        
+        private bool IS_USING_TRANSPOSINGField;
+        
+        private bool IS_USING_UNIQUE_PACK_NOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LOT_NOField;
+        
+        private double MATERIAL_ORDER_CAPACITYField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MATERIAL_ORDER_NOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ORDER_NOField;
+        
+        private int PACKING_CAPACITYField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PLANTField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PROCESS_NOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PRODUCT_IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PRODUCTION_ORDER_IDField;
+        
+        private double QUANTITYField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string REMARKSField;
+        
+        private int SECTIONField;
+        
+        private System.DateTime START_TIMEField;
+        
+        private System.DateTime UPDATE_TIMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UPDATER_NAMEField;
+        
+        private double SAMPLE_QUANTITYField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string CLIENT_NAME {
+            get {
+                return this.CLIENT_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CLIENT_NAMEField, value) != true)) {
+                    this.CLIENT_NAMEField = value;
+                    this.RaisePropertyChanged("CLIENT_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public System.DateTime CREATE_TIME {
+            get {
+                return this.CREATE_TIMEField;
+            }
+            set {
+                if ((this.CREATE_TIMEField.Equals(value) != true)) {
+                    this.CREATE_TIMEField = value;
+                    this.RaisePropertyChanged("CREATE_TIME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string CREATOR_NAME {
+            get {
+                return this.CREATOR_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CREATOR_NAMEField, value) != true)) {
+                    this.CREATOR_NAMEField = value;
+                    this.RaisePropertyChanged("CREATOR_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string CUSTOMER_ID {
+            get {
+                return this.CUSTOMER_IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUSTOMER_IDField, value) != true)) {
+                    this.CUSTOMER_IDField = value;
+                    this.RaisePropertyChanged("CUSTOMER_ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public double DEFECT_QUANTITY {
+            get {
+                return this.DEFECT_QUANTITYField;
+            }
+            set {
+                if ((this.DEFECT_QUANTITYField.Equals(value) != true)) {
+                    this.DEFECT_QUANTITYField = value;
+                    this.RaisePropertyChanged("DEFECT_QUANTITY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int DISASSEMBLING_COUNT {
+            get {
+                return this.DISASSEMBLING_COUNTField;
+            }
+            set {
+                if ((this.DISASSEMBLING_COUNTField.Equals(value) != true)) {
+                    this.DISASSEMBLING_COUNTField = value;
+                    this.RaisePropertyChanged("DISASSEMBLING_COUNT");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public double DISCARD_QUANTITY {
+            get {
+                return this.DISCARD_QUANTITYField;
+            }
+            set {
+                if ((this.DISCARD_QUANTITYField.Equals(value) != true)) {
+                    this.DISCARD_QUANTITYField = value;
+                    this.RaisePropertyChanged("DISCARD_QUANTITY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public System.DateTime FINISH_TIME {
+            get {
+                return this.FINISH_TIMEField;
+            }
+            set {
+                if ((this.FINISH_TIMEField.Equals(value) != true)) {
+                    this.FINISH_TIMEField = value;
+                    this.RaisePropertyChanged("FINISH_TIME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=8)]
+        public double FINISHED_QUANTITY {
+            get {
+                return this.FINISHED_QUANTITYField;
+            }
+            set {
+                if ((this.FINISHED_QUANTITYField.Equals(value) != true)) {
+                    this.FINISHED_QUANTITYField = value;
+                    this.RaisePropertyChanged("FINISHED_QUANTITY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
+        public System.Guid ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
+        public double INCOMING_DEFECT_QUANTITY {
+            get {
+                return this.INCOMING_DEFECT_QUANTITYField;
+            }
+            set {
+                if ((this.INCOMING_DEFECT_QUANTITYField.Equals(value) != true)) {
+                    this.INCOMING_DEFECT_QUANTITYField = value;
+                    this.RaisePropertyChanged("INCOMING_DEFECT_QUANTITY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=11)]
+        public double INITIATED_QUANTITY {
+            get {
+                return this.INITIATED_QUANTITYField;
+            }
+            set {
+                if ((this.INITIATED_QUANTITYField.Equals(value) != true)) {
+                    this.INITIATED_QUANTITYField = value;
+                    this.RaisePropertyChanged("INITIATED_QUANTITY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=12)]
+        public bool IS_FINISHED {
+            get {
+                return this.IS_FINISHEDField;
+            }
+            set {
+                if ((this.IS_FINISHEDField.Equals(value) != true)) {
+                    this.IS_FINISHEDField = value;
+                    this.RaisePropertyChanged("IS_FINISHED");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=13)]
+        public bool IS_STARTED {
+            get {
+                return this.IS_STARTEDField;
+            }
+            set {
+                if ((this.IS_STARTEDField.Equals(value) != true)) {
+                    this.IS_STARTEDField = value;
+                    this.RaisePropertyChanged("IS_STARTED");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=14)]
+        public bool IS_USING_DISASSEMBLING {
+            get {
+                return this.IS_USING_DISASSEMBLINGField;
+            }
+            set {
+                if ((this.IS_USING_DISASSEMBLINGField.Equals(value) != true)) {
+                    this.IS_USING_DISASSEMBLINGField = value;
+                    this.RaisePropertyChanged("IS_USING_DISASSEMBLING");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=15)]
+        public bool IS_USING_MATERIAL_IMPORTING {
+            get {
+                return this.IS_USING_MATERIAL_IMPORTINGField;
+            }
+            set {
+                if ((this.IS_USING_MATERIAL_IMPORTINGField.Equals(value) != true)) {
+                    this.IS_USING_MATERIAL_IMPORTINGField = value;
+                    this.RaisePropertyChanged("IS_USING_MATERIAL_IMPORTING");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=16)]
+        public bool IS_USING_PACKING {
+            get {
+                return this.IS_USING_PACKINGField;
+            }
+            set {
+                if ((this.IS_USING_PACKINGField.Equals(value) != true)) {
+                    this.IS_USING_PACKINGField = value;
+                    this.RaisePropertyChanged("IS_USING_PACKING");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=17)]
+        public bool IS_USING_TRANSPOSING {
+            get {
+                return this.IS_USING_TRANSPOSINGField;
+            }
+            set {
+                if ((this.IS_USING_TRANSPOSINGField.Equals(value) != true)) {
+                    this.IS_USING_TRANSPOSINGField = value;
+                    this.RaisePropertyChanged("IS_USING_TRANSPOSING");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=18)]
+        public bool IS_USING_UNIQUE_PACK_NO {
+            get {
+                return this.IS_USING_UNIQUE_PACK_NOField;
+            }
+            set {
+                if ((this.IS_USING_UNIQUE_PACK_NOField.Equals(value) != true)) {
+                    this.IS_USING_UNIQUE_PACK_NOField = value;
+                    this.RaisePropertyChanged("IS_USING_UNIQUE_PACK_NO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=19)]
+        public string LOT_NO {
+            get {
+                return this.LOT_NOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LOT_NOField, value) != true)) {
+                    this.LOT_NOField = value;
+                    this.RaisePropertyChanged("LOT_NO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=20)]
+        public double MATERIAL_ORDER_CAPACITY {
+            get {
+                return this.MATERIAL_ORDER_CAPACITYField;
+            }
+            set {
+                if ((this.MATERIAL_ORDER_CAPACITYField.Equals(value) != true)) {
+                    this.MATERIAL_ORDER_CAPACITYField = value;
+                    this.RaisePropertyChanged("MATERIAL_ORDER_CAPACITY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=21)]
+        public string MATERIAL_ORDER_NO {
+            get {
+                return this.MATERIAL_ORDER_NOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MATERIAL_ORDER_NOField, value) != true)) {
+                    this.MATERIAL_ORDER_NOField = value;
+                    this.RaisePropertyChanged("MATERIAL_ORDER_NO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=22)]
+        public string ORDER_NO {
+            get {
+                return this.ORDER_NOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ORDER_NOField, value) != true)) {
+                    this.ORDER_NOField = value;
+                    this.RaisePropertyChanged("ORDER_NO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=23)]
+        public int PACKING_CAPACITY {
+            get {
+                return this.PACKING_CAPACITYField;
+            }
+            set {
+                if ((this.PACKING_CAPACITYField.Equals(value) != true)) {
+                    this.PACKING_CAPACITYField = value;
+                    this.RaisePropertyChanged("PACKING_CAPACITY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=24)]
+        public string PLANT {
+            get {
+                return this.PLANTField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PLANTField, value) != true)) {
+                    this.PLANTField = value;
+                    this.RaisePropertyChanged("PLANT");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=25)]
+        public string PROCESS_NO {
+            get {
+                return this.PROCESS_NOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PROCESS_NOField, value) != true)) {
+                    this.PROCESS_NOField = value;
+                    this.RaisePropertyChanged("PROCESS_NO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=26)]
+        public string PRODUCT_ID {
+            get {
+                return this.PRODUCT_IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PRODUCT_IDField, value) != true)) {
+                    this.PRODUCT_IDField = value;
+                    this.RaisePropertyChanged("PRODUCT_ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=27)]
+        public string PRODUCTION_ORDER_ID {
+            get {
+                return this.PRODUCTION_ORDER_IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PRODUCTION_ORDER_IDField, value) != true)) {
+                    this.PRODUCTION_ORDER_IDField = value;
+                    this.RaisePropertyChanged("PRODUCTION_ORDER_ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=28)]
+        public double QUANTITY {
+            get {
+                return this.QUANTITYField;
+            }
+            set {
+                if ((this.QUANTITYField.Equals(value) != true)) {
+                    this.QUANTITYField = value;
+                    this.RaisePropertyChanged("QUANTITY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=29)]
+        public string REMARKS {
+            get {
+                return this.REMARKSField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.REMARKSField, value) != true)) {
+                    this.REMARKSField = value;
+                    this.RaisePropertyChanged("REMARKS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=30)]
+        public int SECTION {
+            get {
+                return this.SECTIONField;
+            }
+            set {
+                if ((this.SECTIONField.Equals(value) != true)) {
+                    this.SECTIONField = value;
+                    this.RaisePropertyChanged("SECTION");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=31)]
+        public System.DateTime START_TIME {
+            get {
+                return this.START_TIMEField;
+            }
+            set {
+                if ((this.START_TIMEField.Equals(value) != true)) {
+                    this.START_TIMEField = value;
+                    this.RaisePropertyChanged("START_TIME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=32)]
+        public System.DateTime UPDATE_TIME {
+            get {
+                return this.UPDATE_TIMEField;
+            }
+            set {
+                if ((this.UPDATE_TIMEField.Equals(value) != true)) {
+                    this.UPDATE_TIMEField = value;
+                    this.RaisePropertyChanged("UPDATE_TIME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=33)]
+        public string UPDATER_NAME {
+            get {
+                return this.UPDATER_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UPDATER_NAMEField, value) != true)) {
+                    this.UPDATER_NAMEField = value;
+                    this.RaisePropertyChanged("UPDATER_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=34)]
+        public double SAMPLE_QUANTITY {
+            get {
+                return this.SAMPLE_QUANTITYField;
+            }
+            set {
+                if ((this.SAMPLE_QUANTITYField.Equals(value) != true)) {
+                    this.SAMPLE_QUANTITYField = value;
+                    this.RaisePropertyChanged("SAMPLE_QUANTITY");
+                }
             }
         }
     }
@@ -1042,7 +2620,7 @@ namespace Line_Production.PVSReference {
         
         private System.Nullable<int> STATION_TYPEField;
         
-        private System.Nullable<System.DateTime> UPDATE_TIMEField;
+        private System.DateTime UPDATE_TIMEField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UPDATER_NAMEField;
@@ -1389,7 +2967,7 @@ namespace Line_Production.PVSReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Nullable<System.DateTime> UPDATE_TIME {
+        public System.DateTime UPDATE_TIME {
             get {
                 return this.UPDATE_TIMEField;
             }
@@ -4779,210 +6357,24 @@ namespace Line_Production.PVSReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="WORK_ORDERSEntity", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="REPLACING_LOGSEntity", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
-    public partial class WORK_ORDERSEntity : Line_Production.PVSReference.BaseEntity {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CLIENT_NAMEField;
-        
-        private System.DateTime CREATE_TIMEField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CREATOR_NAMEField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CUSTOMER_IDField;
-        
-        private double DEFECT_QUANTITYField;
-        
-        private int DISASSEMBLING_COUNTField;
-        
-        private double DISCARD_QUANTITYField;
-        
-        private System.DateTime FINISH_TIMEField;
-        
-        private double FINISHED_QUANTITYField;
+    public partial class REPLACING_LOGSEntity : Line_Production.PVSReference.BaseEntity {
         
         private System.Guid IDField;
         
-        private double INCOMING_DEFECT_QUANTITYField;
-        
-        private double INITIATED_QUANTITYField;
-        
-        private bool IS_FINISHEDField;
-        
-        private bool IS_STARTEDField;
-        
-        private bool IS_USING_DISASSEMBLINGField;
-        
-        private bool IS_USING_MATERIAL_IMPORTINGField;
-        
-        private bool IS_USING_PACKINGField;
-        
-        private bool IS_USING_TRANSPOSINGField;
-        
-        private bool IS_USING_UNIQUE_PACK_NOField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NEW_BARCODEField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LOT_NOField;
-        
-        private double MATERIAL_ORDER_CAPACITYField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MATERIAL_ORDER_NOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ORDER_NOField;
-        
-        private int PACKING_CAPACITYField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PLANTField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PROCESS_NOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PRODUCT_IDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PRODUCTION_ORDER_IDField;
-        
-        private double QUANTITYField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string REMARKSField;
-        
-        private int SECTIONField;
-        
-        private System.DateTime START_TIMEField;
+        private string OLD_BARCODEField;
         
         private System.DateTime UPDATE_TIMEField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UPDATER_NAMEField;
         
-        private double SAMPLE_QUANTITYField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string CLIENT_NAME {
-            get {
-                return this.CLIENT_NAMEField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CLIENT_NAMEField, value) != true)) {
-                    this.CLIENT_NAMEField = value;
-                    this.RaisePropertyChanged("CLIENT_NAME");
-                }
-            }
-        }
-        
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.DateTime CREATE_TIME {
-            get {
-                return this.CREATE_TIMEField;
-            }
-            set {
-                if ((this.CREATE_TIMEField.Equals(value) != true)) {
-                    this.CREATE_TIMEField = value;
-                    this.RaisePropertyChanged("CREATE_TIME");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string CREATOR_NAME {
-            get {
-                return this.CREATOR_NAMEField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CREATOR_NAMEField, value) != true)) {
-                    this.CREATOR_NAMEField = value;
-                    this.RaisePropertyChanged("CREATOR_NAME");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string CUSTOMER_ID {
-            get {
-                return this.CUSTOMER_IDField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CUSTOMER_IDField, value) != true)) {
-                    this.CUSTOMER_IDField = value;
-                    this.RaisePropertyChanged("CUSTOMER_ID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public double DEFECT_QUANTITY {
-            get {
-                return this.DEFECT_QUANTITYField;
-            }
-            set {
-                if ((this.DEFECT_QUANTITYField.Equals(value) != true)) {
-                    this.DEFECT_QUANTITYField = value;
-                    this.RaisePropertyChanged("DEFECT_QUANTITY");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int DISASSEMBLING_COUNT {
-            get {
-                return this.DISASSEMBLING_COUNTField;
-            }
-            set {
-                if ((this.DISASSEMBLING_COUNTField.Equals(value) != true)) {
-                    this.DISASSEMBLING_COUNTField = value;
-                    this.RaisePropertyChanged("DISASSEMBLING_COUNT");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public double DISCARD_QUANTITY {
-            get {
-                return this.DISCARD_QUANTITYField;
-            }
-            set {
-                if ((this.DISCARD_QUANTITYField.Equals(value) != true)) {
-                    this.DISCARD_QUANTITYField = value;
-                    this.RaisePropertyChanged("DISCARD_QUANTITY");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.DateTime FINISH_TIME {
-            get {
-                return this.FINISH_TIMEField;
-            }
-            set {
-                if ((this.FINISH_TIMEField.Equals(value) != true)) {
-                    this.FINISH_TIMEField = value;
-                    this.RaisePropertyChanged("FINISH_TIME");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=8)]
-        public double FINISHED_QUANTITY {
-            get {
-                return this.FINISHED_QUANTITYField;
-            }
-            set {
-                if ((this.FINISHED_QUANTITYField.Equals(value) != true)) {
-                    this.FINISHED_QUANTITYField = value;
-                    this.RaisePropertyChanged("FINISHED_QUANTITY");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
         public System.Guid ID {
             get {
                 return this.IDField;
@@ -4995,293 +6387,33 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
-        public double INCOMING_DEFECT_QUANTITY {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string NEW_BARCODE {
             get {
-                return this.INCOMING_DEFECT_QUANTITYField;
+                return this.NEW_BARCODEField;
             }
             set {
-                if ((this.INCOMING_DEFECT_QUANTITYField.Equals(value) != true)) {
-                    this.INCOMING_DEFECT_QUANTITYField = value;
-                    this.RaisePropertyChanged("INCOMING_DEFECT_QUANTITY");
+                if ((object.ReferenceEquals(this.NEW_BARCODEField, value) != true)) {
+                    this.NEW_BARCODEField = value;
+                    this.RaisePropertyChanged("NEW_BARCODE");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=11)]
-        public double INITIATED_QUANTITY {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string OLD_BARCODE {
             get {
-                return this.INITIATED_QUANTITYField;
+                return this.OLD_BARCODEField;
             }
             set {
-                if ((this.INITIATED_QUANTITYField.Equals(value) != true)) {
-                    this.INITIATED_QUANTITYField = value;
-                    this.RaisePropertyChanged("INITIATED_QUANTITY");
+                if ((object.ReferenceEquals(this.OLD_BARCODEField, value) != true)) {
+                    this.OLD_BARCODEField = value;
+                    this.RaisePropertyChanged("OLD_BARCODE");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=12)]
-        public bool IS_FINISHED {
-            get {
-                return this.IS_FINISHEDField;
-            }
-            set {
-                if ((this.IS_FINISHEDField.Equals(value) != true)) {
-                    this.IS_FINISHEDField = value;
-                    this.RaisePropertyChanged("IS_FINISHED");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=13)]
-        public bool IS_STARTED {
-            get {
-                return this.IS_STARTEDField;
-            }
-            set {
-                if ((this.IS_STARTEDField.Equals(value) != true)) {
-                    this.IS_STARTEDField = value;
-                    this.RaisePropertyChanged("IS_STARTED");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=14)]
-        public bool IS_USING_DISASSEMBLING {
-            get {
-                return this.IS_USING_DISASSEMBLINGField;
-            }
-            set {
-                if ((this.IS_USING_DISASSEMBLINGField.Equals(value) != true)) {
-                    this.IS_USING_DISASSEMBLINGField = value;
-                    this.RaisePropertyChanged("IS_USING_DISASSEMBLING");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=15)]
-        public bool IS_USING_MATERIAL_IMPORTING {
-            get {
-                return this.IS_USING_MATERIAL_IMPORTINGField;
-            }
-            set {
-                if ((this.IS_USING_MATERIAL_IMPORTINGField.Equals(value) != true)) {
-                    this.IS_USING_MATERIAL_IMPORTINGField = value;
-                    this.RaisePropertyChanged("IS_USING_MATERIAL_IMPORTING");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=16)]
-        public bool IS_USING_PACKING {
-            get {
-                return this.IS_USING_PACKINGField;
-            }
-            set {
-                if ((this.IS_USING_PACKINGField.Equals(value) != true)) {
-                    this.IS_USING_PACKINGField = value;
-                    this.RaisePropertyChanged("IS_USING_PACKING");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=17)]
-        public bool IS_USING_TRANSPOSING {
-            get {
-                return this.IS_USING_TRANSPOSINGField;
-            }
-            set {
-                if ((this.IS_USING_TRANSPOSINGField.Equals(value) != true)) {
-                    this.IS_USING_TRANSPOSINGField = value;
-                    this.RaisePropertyChanged("IS_USING_TRANSPOSING");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=18)]
-        public bool IS_USING_UNIQUE_PACK_NO {
-            get {
-                return this.IS_USING_UNIQUE_PACK_NOField;
-            }
-            set {
-                if ((this.IS_USING_UNIQUE_PACK_NOField.Equals(value) != true)) {
-                    this.IS_USING_UNIQUE_PACK_NOField = value;
-                    this.RaisePropertyChanged("IS_USING_UNIQUE_PACK_NO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=19)]
-        public string LOT_NO {
-            get {
-                return this.LOT_NOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LOT_NOField, value) != true)) {
-                    this.LOT_NOField = value;
-                    this.RaisePropertyChanged("LOT_NO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=20)]
-        public double MATERIAL_ORDER_CAPACITY {
-            get {
-                return this.MATERIAL_ORDER_CAPACITYField;
-            }
-            set {
-                if ((this.MATERIAL_ORDER_CAPACITYField.Equals(value) != true)) {
-                    this.MATERIAL_ORDER_CAPACITYField = value;
-                    this.RaisePropertyChanged("MATERIAL_ORDER_CAPACITY");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=21)]
-        public string MATERIAL_ORDER_NO {
-            get {
-                return this.MATERIAL_ORDER_NOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MATERIAL_ORDER_NOField, value) != true)) {
-                    this.MATERIAL_ORDER_NOField = value;
-                    this.RaisePropertyChanged("MATERIAL_ORDER_NO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=22)]
-        public string ORDER_NO {
-            get {
-                return this.ORDER_NOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ORDER_NOField, value) != true)) {
-                    this.ORDER_NOField = value;
-                    this.RaisePropertyChanged("ORDER_NO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=23)]
-        public int PACKING_CAPACITY {
-            get {
-                return this.PACKING_CAPACITYField;
-            }
-            set {
-                if ((this.PACKING_CAPACITYField.Equals(value) != true)) {
-                    this.PACKING_CAPACITYField = value;
-                    this.RaisePropertyChanged("PACKING_CAPACITY");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=24)]
-        public string PLANT {
-            get {
-                return this.PLANTField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PLANTField, value) != true)) {
-                    this.PLANTField = value;
-                    this.RaisePropertyChanged("PLANT");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=25)]
-        public string PROCESS_NO {
-            get {
-                return this.PROCESS_NOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PROCESS_NOField, value) != true)) {
-                    this.PROCESS_NOField = value;
-                    this.RaisePropertyChanged("PROCESS_NO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=26)]
-        public string PRODUCT_ID {
-            get {
-                return this.PRODUCT_IDField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PRODUCT_IDField, value) != true)) {
-                    this.PRODUCT_IDField = value;
-                    this.RaisePropertyChanged("PRODUCT_ID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=27)]
-        public string PRODUCTION_ORDER_ID {
-            get {
-                return this.PRODUCTION_ORDER_IDField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PRODUCTION_ORDER_IDField, value) != true)) {
-                    this.PRODUCTION_ORDER_IDField = value;
-                    this.RaisePropertyChanged("PRODUCTION_ORDER_ID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=28)]
-        public double QUANTITY {
-            get {
-                return this.QUANTITYField;
-            }
-            set {
-                if ((this.QUANTITYField.Equals(value) != true)) {
-                    this.QUANTITYField = value;
-                    this.RaisePropertyChanged("QUANTITY");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=29)]
-        public string REMARKS {
-            get {
-                return this.REMARKSField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.REMARKSField, value) != true)) {
-                    this.REMARKSField = value;
-                    this.RaisePropertyChanged("REMARKS");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=30)]
-        public int SECTION {
-            get {
-                return this.SECTIONField;
-            }
-            set {
-                if ((this.SECTIONField.Equals(value) != true)) {
-                    this.SECTIONField = value;
-                    this.RaisePropertyChanged("SECTION");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=31)]
-        public System.DateTime START_TIME {
-            get {
-                return this.START_TIMEField;
-            }
-            set {
-                if ((this.START_TIMEField.Equals(value) != true)) {
-                    this.START_TIMEField = value;
-                    this.RaisePropertyChanged("START_TIME");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=32)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
         public System.DateTime UPDATE_TIME {
             get {
                 return this.UPDATE_TIMEField;
@@ -5294,7 +6426,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=33)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
         public string UPDATER_NAME {
             get {
                 return this.UPDATER_NAMEField;
@@ -5306,17 +6438,33 @@ namespace Line_Production.PVSReference {
                 }
             }
         }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TimeSpan", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class TimeSpan : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=34)]
-        public double SAMPLE_QUANTITY {
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
-                return this.SAMPLE_QUANTITYField;
+                return this.extensionDataField;
             }
             set {
-                if ((this.SAMPLE_QUANTITYField.Equals(value) != true)) {
-                    this.SAMPLE_QUANTITYField = value;
-                    this.RaisePropertyChanged("SAMPLE_QUANTITY");
-                }
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -5331,6 +6479,90 @@ namespace Line_Production.PVSReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="PVSReference.PVSWebServiceSoap")]
     public interface PVSWebServiceSoap {
+        
+        // CODEGEN: Generating message contract since element name boardNo from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CheckRepair", ReplyAction="*")]
+        Line_Production.PVSReference.CheckRepairResponse CheckRepair(Line_Production.PVSReference.CheckRepairRequest request);
+        
+        // CODEGEN: Generating message contract since element name orderID from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTotal", ReplyAction="*")]
+        Line_Production.PVSReference.GetTotalResponse GetTotal(Line_Production.PVSReference.GetTotalRequest request);
+        
+        // CODEGEN: Generating message contract since element name oldBarcode from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetReplacingLog", ReplyAction="*")]
+        Line_Production.PVSReference.GetReplacingLogResponse GetReplacingLog(Line_Production.PVSReference.GetReplacingLogRequest request);
+        
+        // CODEGEN: Generating message contract since element name materialOrderId from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetSteelMesh", ReplyAction="*")]
+        Line_Production.PVSReference.GetSteelMeshResponse GetSteelMesh(Line_Production.PVSReference.GetSteelMeshRequest request);
+        
+        // CODEGEN: Generating message contract since element name boardNo from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/NichiconBarcodeExist", ReplyAction="*")]
+        Line_Production.PVSReference.NichiconBarcodeExistResponse NichiconBarcodeExist(Line_Production.PVSReference.NichiconBarcodeExistRequest request);
+        
+        // CODEGEN: Generating message contract since element name boxID from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/NichiconGetPack", ReplyAction="*")]
+        Line_Production.PVSReference.NichiconGetPackResponse NichiconGetPack(Line_Production.PVSReference.NichiconGetPackRequest request);
+        
+        // CODEGEN: Generating message contract since element name entity from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/NichiconSavePack", ReplyAction="*")]
+        Line_Production.PVSReference.NichiconSavePackResponse NichiconSavePack(Line_Production.PVSReference.NichiconSavePackRequest request);
+        
+        // CODEGEN: Generating message contract since element name entity from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MurataSavePack", ReplyAction="*")]
+        Line_Production.PVSReference.MurataSavePackResponse MurataSavePack(Line_Production.PVSReference.MurataSavePackRequest request);
+        
+        // CODEGEN: Generating message contract since element name boxID from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MurataGetPack", ReplyAction="*")]
+        Line_Production.PVSReference.MurataGetPackResponse MurataGetPack(Line_Production.PVSReference.MurataGetPackRequest request);
+        
+        // CODEGEN: Generating message contract since element name boardNo from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MurataGetPackByBoardNo", ReplyAction="*")]
+        Line_Production.PVSReference.MurataGetPackByBoardNoResponse MurataGetPackByBoardNo(Line_Production.PVSReference.MurataGetPackByBoardNoRequest request);
+        
+        // CODEGEN: Generating message contract since element name boardNo from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MurataRemove", ReplyAction="*")]
+        Line_Production.PVSReference.MurataRemoveResponse MurataRemove(Line_Production.PVSReference.MurataRemoveRequest request);
+        
+        // CODEGEN: Generating message contract since element name modelCus from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MurataModelCusExist", ReplyAction="*")]
+        Line_Production.PVSReference.MurataModelCusExistResponse MurataModelCusExist(Line_Production.PVSReference.MurataModelCusExistRequest request);
+        
+        // CODEGEN: Generating message contract since element name boardNo from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MurataBarcodeExist", ReplyAction="*")]
+        Line_Production.PVSReference.MurataBarcodeExistResponse MurataBarcodeExist(Line_Production.PVSReference.MurataBarcodeExistRequest request);
+        
+        // CODEGEN: Generating message contract since element name producId from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MasterInfos", ReplyAction="*")]
+        Line_Production.PVSReference.MasterInfosResponse MasterInfos(Line_Production.PVSReference.MasterInfosRequest request);
+        
+        // CODEGEN: Generating message contract since element name entity from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MasterSaves", ReplyAction="*")]
+        Line_Production.PVSReference.MasterSavesResponse MasterSaves(Line_Production.PVSReference.MasterSavesRequest request);
+        
+        // CODEGEN: Generating message contract since element name ID from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MasterRemove", ReplyAction="*")]
+        Line_Production.PVSReference.MasterRemoveResponse MasterRemove(Line_Production.PVSReference.MasterRemoveRequest request);
+        
+        // CODEGEN: Generating message contract since element name softInfo from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegisterSoftInfo", ReplyAction="*")]
+        Line_Production.PVSReference.RegisterSoftInfoResponse RegisterSoftInfo(Line_Production.PVSReference.RegisterSoftInfoRequest request);
+        
+        // CODEGEN: Generating message contract since element name productId from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetModelInfo", ReplyAction="*")]
+        Line_Production.PVSReference.GetModelInfoResponse GetModelInfo(Line_Production.PVSReference.GetModelInfoRequest request);
+        
+        // CODEGEN: Generating message contract since element name customer from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetModelInfos", ReplyAction="*")]
+        Line_Production.PVSReference.GetModelInfosResponse GetModelInfos(Line_Production.PVSReference.GetModelInfosRequest request);
+        
+        // CODEGEN: Generating message contract since element name entity from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SaveModelInfo", ReplyAction="*")]
+        Line_Production.PVSReference.SaveModelInfoResponse SaveModelInfo(Line_Production.PVSReference.SaveModelInfoRequest request);
+        
+        // CODEGEN: Generating message contract since element name productId from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RemoveModelInfo", ReplyAction="*")]
+        Line_Production.PVSReference.RemoveModelInfoResponse RemoveModelInfo(Line_Production.PVSReference.RemoveModelInfoRequest request);
         
         // CODEGEN: Generating message contract since element name orderNo from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetWorkOrdersByOrderNo", ReplyAction="*")]
@@ -5394,10 +6626,6 @@ namespace Line_Production.PVSReference {
         // CODEGEN: Generating message contract since element name boardNo from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetWorkOrderItem", ReplyAction="*")]
         Line_Production.PVSReference.GetWorkOrderItemResponse GetWorkOrderItem(Line_Production.PVSReference.GetWorkOrderItemRequest request);
-        
-        // CODEGEN: Generating message contract since element name boardNo from namespace http://tempuri.org/ is not marked nillable
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetScanningLogsByBoardNo", ReplyAction="*")]
-        Line_Production.PVSReference.GetScanningLogsByBoardNoResponse GetScanningLogsByBoardNo(Line_Production.PVSReference.GetScanningLogsByBoardNoRequest request);
         
         // CODEGEN: Generating message contract since element name boardNo from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetScanningLogsWithParam", ReplyAction="*")]
@@ -5494,6 +6722,10 @@ namespace Line_Production.PVSReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetModels", ReplyAction="*")]
         Line_Production.PVSReference.GetModelsResponse GetModels(Line_Production.PVSReference.GetModelsRequest request);
         
+        // CODEGEN: Generating message contract since element name modelName from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetModelbyModelName", ReplyAction="*")]
+        Line_Production.PVSReference.GetModelbyModelNameResponse GetModelbyModelName(Line_Production.PVSReference.GetModelbyModelNameRequest request);
+        
         // CODEGEN: Generating message contract since element name keyValue from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ModelSaves", ReplyAction="*")]
         Line_Production.PVSReference.ModelSavesResponse ModelSaves(Line_Production.PVSReference.ModelSavesRequest request);
@@ -5529,6 +6761,1404 @@ namespace Line_Production.PVSReference {
         // CODEGEN: Generating message contract since element name memberID from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetRoleMember", ReplyAction="*")]
         Line_Production.PVSReference.GetRoleMemberResponse GetRoleMember(Line_Production.PVSReference.GetRoleMemberRequest request);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CheckRepairRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CheckRepair", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.CheckRepairRequestBody Body;
+        
+        public CheckRepairRequest() {
+        }
+        
+        public CheckRepairRequest(Line_Production.PVSReference.CheckRepairRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class CheckRepairRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string boardNo;
+        
+        public CheckRepairRequestBody() {
+        }
+        
+        public CheckRepairRequestBody(string boardNo) {
+            this.boardNo = boardNo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CheckRepairResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CheckRepairResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.CheckRepairResponseBody Body;
+        
+        public CheckRepairResponse() {
+        }
+        
+        public CheckRepairResponse(Line_Production.PVSReference.CheckRepairResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class CheckRepairResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool CheckRepairResult;
+        
+        public CheckRepairResponseBody() {
+        }
+        
+        public CheckRepairResponseBody(bool CheckRepairResult) {
+            this.CheckRepairResult = CheckRepairResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetTotalRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetTotal", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetTotalRequestBody Body;
+        
+        public GetTotalRequest() {
+        }
+        
+        public GetTotalRequest(Line_Production.PVSReference.GetTotalRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetTotalRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string orderID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public int procedureIndex;
+        
+        public GetTotalRequestBody() {
+        }
+        
+        public GetTotalRequestBody(string orderID, int procedureIndex) {
+            this.orderID = orderID;
+            this.procedureIndex = procedureIndex;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetTotalResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetTotalResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetTotalResponseBody Body;
+        
+        public GetTotalResponse() {
+        }
+        
+        public GetTotalResponse(Line_Production.PVSReference.GetTotalResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetTotalResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int GetTotalResult;
+        
+        public GetTotalResponseBody() {
+        }
+        
+        public GetTotalResponseBody(int GetTotalResult) {
+            this.GetTotalResult = GetTotalResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetReplacingLogRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetReplacingLog", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetReplacingLogRequestBody Body;
+        
+        public GetReplacingLogRequest() {
+        }
+        
+        public GetReplacingLogRequest(Line_Production.PVSReference.GetReplacingLogRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetReplacingLogRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string oldBarcode;
+        
+        public GetReplacingLogRequestBody() {
+        }
+        
+        public GetReplacingLogRequestBody(string oldBarcode) {
+            this.oldBarcode = oldBarcode;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetReplacingLogResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetReplacingLogResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetReplacingLogResponseBody Body;
+        
+        public GetReplacingLogResponse() {
+        }
+        
+        public GetReplacingLogResponse(Line_Production.PVSReference.GetReplacingLogResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetReplacingLogResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.REPLACING_LOGSEntity GetReplacingLogResult;
+        
+        public GetReplacingLogResponseBody() {
+        }
+        
+        public GetReplacingLogResponseBody(Line_Production.PVSReference.REPLACING_LOGSEntity GetReplacingLogResult) {
+            this.GetReplacingLogResult = GetReplacingLogResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetSteelMeshRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetSteelMesh", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetSteelMeshRequestBody Body;
+        
+        public GetSteelMeshRequest() {
+        }
+        
+        public GetSteelMeshRequest(Line_Production.PVSReference.GetSteelMeshRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetSteelMeshRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string materialOrderId;
+        
+        public GetSteelMeshRequestBody() {
+        }
+        
+        public GetSteelMeshRequestBody(string materialOrderId) {
+            this.materialOrderId = materialOrderId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetSteelMeshResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetSteelMeshResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetSteelMeshResponseBody Body;
+        
+        public GetSteelMeshResponse() {
+        }
+        
+        public GetSteelMeshResponse(Line_Production.PVSReference.GetSteelMeshResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetSteelMeshResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.STEEL_MESH_STATUSEntity GetSteelMeshResult;
+        
+        public GetSteelMeshResponseBody() {
+        }
+        
+        public GetSteelMeshResponseBody(Line_Production.PVSReference.STEEL_MESH_STATUSEntity GetSteelMeshResult) {
+            this.GetSteelMeshResult = GetSteelMeshResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class NichiconBarcodeExistRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="NichiconBarcodeExist", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.NichiconBarcodeExistRequestBody Body;
+        
+        public NichiconBarcodeExistRequest() {
+        }
+        
+        public NichiconBarcodeExistRequest(Line_Production.PVSReference.NichiconBarcodeExistRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class NichiconBarcodeExistRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string boardNo;
+        
+        public NichiconBarcodeExistRequestBody() {
+        }
+        
+        public NichiconBarcodeExistRequestBody(string boardNo) {
+            this.boardNo = boardNo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class NichiconBarcodeExistResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="NichiconBarcodeExistResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.NichiconBarcodeExistResponseBody Body;
+        
+        public NichiconBarcodeExistResponse() {
+        }
+        
+        public NichiconBarcodeExistResponse(Line_Production.PVSReference.NichiconBarcodeExistResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class NichiconBarcodeExistResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool NichiconBarcodeExistResult;
+        
+        public NichiconBarcodeExistResponseBody() {
+        }
+        
+        public NichiconBarcodeExistResponseBody(bool NichiconBarcodeExistResult) {
+            this.NichiconBarcodeExistResult = NichiconBarcodeExistResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class NichiconGetPackRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="NichiconGetPack", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.NichiconGetPackRequestBody Body;
+        
+        public NichiconGetPackRequest() {
+        }
+        
+        public NichiconGetPackRequest(Line_Production.PVSReference.NichiconGetPackRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class NichiconGetPackRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string boxID;
+        
+        public NichiconGetPackRequestBody() {
+        }
+        
+        public NichiconGetPackRequestBody(string boxID) {
+            this.boxID = boxID;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class NichiconGetPackResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="NichiconGetPackResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.NichiconGetPackResponseBody Body;
+        
+        public NichiconGetPackResponse() {
+        }
+        
+        public NichiconGetPackResponse(Line_Production.PVSReference.NichiconGetPackResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class NichiconGetPackResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.NichiconEntity[] NichiconGetPackResult;
+        
+        public NichiconGetPackResponseBody() {
+        }
+        
+        public NichiconGetPackResponseBody(Line_Production.PVSReference.NichiconEntity[] NichiconGetPackResult) {
+            this.NichiconGetPackResult = NichiconGetPackResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class NichiconSavePackRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="NichiconSavePack", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.NichiconSavePackRequestBody Body;
+        
+        public NichiconSavePackRequest() {
+        }
+        
+        public NichiconSavePackRequest(Line_Production.PVSReference.NichiconSavePackRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class NichiconSavePackRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.NichiconEntity entity;
+        
+        public NichiconSavePackRequestBody() {
+        }
+        
+        public NichiconSavePackRequestBody(Line_Production.PVSReference.NichiconEntity entity) {
+            this.entity = entity;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class NichiconSavePackResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="NichiconSavePackResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.NichiconSavePackResponseBody Body;
+        
+        public NichiconSavePackResponse() {
+        }
+        
+        public NichiconSavePackResponse(Line_Production.PVSReference.NichiconSavePackResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class NichiconSavePackResponseBody {
+        
+        public NichiconSavePackResponseBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataSavePackRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataSavePack", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataSavePackRequestBody Body;
+        
+        public MurataSavePackRequest() {
+        }
+        
+        public MurataSavePackRequest(Line_Production.PVSReference.MurataSavePackRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataSavePackRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.MuratasEntity entity;
+        
+        public MurataSavePackRequestBody() {
+        }
+        
+        public MurataSavePackRequestBody(Line_Production.PVSReference.MuratasEntity entity) {
+            this.entity = entity;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataSavePackResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataSavePackResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataSavePackResponseBody Body;
+        
+        public MurataSavePackResponse() {
+        }
+        
+        public MurataSavePackResponse(Line_Production.PVSReference.MurataSavePackResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class MurataSavePackResponseBody {
+        
+        public MurataSavePackResponseBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataGetPackRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataGetPack", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataGetPackRequestBody Body;
+        
+        public MurataGetPackRequest() {
+        }
+        
+        public MurataGetPackRequest(Line_Production.PVSReference.MurataGetPackRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataGetPackRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string boxID;
+        
+        public MurataGetPackRequestBody() {
+        }
+        
+        public MurataGetPackRequestBody(string boxID) {
+            this.boxID = boxID;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataGetPackResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataGetPackResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataGetPackResponseBody Body;
+        
+        public MurataGetPackResponse() {
+        }
+        
+        public MurataGetPackResponse(Line_Production.PVSReference.MurataGetPackResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataGetPackResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.MuratasEntity[] MurataGetPackResult;
+        
+        public MurataGetPackResponseBody() {
+        }
+        
+        public MurataGetPackResponseBody(Line_Production.PVSReference.MuratasEntity[] MurataGetPackResult) {
+            this.MurataGetPackResult = MurataGetPackResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataGetPackByBoardNoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataGetPackByBoardNo", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataGetPackByBoardNoRequestBody Body;
+        
+        public MurataGetPackByBoardNoRequest() {
+        }
+        
+        public MurataGetPackByBoardNoRequest(Line_Production.PVSReference.MurataGetPackByBoardNoRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataGetPackByBoardNoRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string boardNo;
+        
+        public MurataGetPackByBoardNoRequestBody() {
+        }
+        
+        public MurataGetPackByBoardNoRequestBody(string boardNo) {
+            this.boardNo = boardNo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataGetPackByBoardNoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataGetPackByBoardNoResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataGetPackByBoardNoResponseBody Body;
+        
+        public MurataGetPackByBoardNoResponse() {
+        }
+        
+        public MurataGetPackByBoardNoResponse(Line_Production.PVSReference.MurataGetPackByBoardNoResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataGetPackByBoardNoResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.MuratasEntity MurataGetPackByBoardNoResult;
+        
+        public MurataGetPackByBoardNoResponseBody() {
+        }
+        
+        public MurataGetPackByBoardNoResponseBody(Line_Production.PVSReference.MuratasEntity MurataGetPackByBoardNoResult) {
+            this.MurataGetPackByBoardNoResult = MurataGetPackByBoardNoResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataRemoveRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataRemove", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataRemoveRequestBody Body;
+        
+        public MurataRemoveRequest() {
+        }
+        
+        public MurataRemoveRequest(Line_Production.PVSReference.MurataRemoveRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataRemoveRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string boardNo;
+        
+        public MurataRemoveRequestBody() {
+        }
+        
+        public MurataRemoveRequestBody(string boardNo) {
+            this.boardNo = boardNo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataRemoveResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataRemoveResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataRemoveResponseBody Body;
+        
+        public MurataRemoveResponse() {
+        }
+        
+        public MurataRemoveResponse(Line_Production.PVSReference.MurataRemoveResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class MurataRemoveResponseBody {
+        
+        public MurataRemoveResponseBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataModelCusExistRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataModelCusExist", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataModelCusExistRequestBody Body;
+        
+        public MurataModelCusExistRequest() {
+        }
+        
+        public MurataModelCusExistRequest(Line_Production.PVSReference.MurataModelCusExistRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataModelCusExistRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string modelCus;
+        
+        public MurataModelCusExistRequestBody() {
+        }
+        
+        public MurataModelCusExistRequestBody(string modelCus) {
+            this.modelCus = modelCus;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataModelCusExistResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataModelCusExistResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataModelCusExistResponseBody Body;
+        
+        public MurataModelCusExistResponse() {
+        }
+        
+        public MurataModelCusExistResponse(Line_Production.PVSReference.MurataModelCusExistResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataModelCusExistResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool MurataModelCusExistResult;
+        
+        public MurataModelCusExistResponseBody() {
+        }
+        
+        public MurataModelCusExistResponseBody(bool MurataModelCusExistResult) {
+            this.MurataModelCusExistResult = MurataModelCusExistResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataBarcodeExistRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataBarcodeExist", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataBarcodeExistRequestBody Body;
+        
+        public MurataBarcodeExistRequest() {
+        }
+        
+        public MurataBarcodeExistRequest(Line_Production.PVSReference.MurataBarcodeExistRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataBarcodeExistRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string boardNo;
+        
+        public MurataBarcodeExistRequestBody() {
+        }
+        
+        public MurataBarcodeExistRequestBody(string boardNo) {
+            this.boardNo = boardNo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MurataBarcodeExistResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MurataBarcodeExistResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MurataBarcodeExistResponseBody Body;
+        
+        public MurataBarcodeExistResponse() {
+        }
+        
+        public MurataBarcodeExistResponse(Line_Production.PVSReference.MurataBarcodeExistResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MurataBarcodeExistResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool MurataBarcodeExistResult;
+        
+        public MurataBarcodeExistResponseBody() {
+        }
+        
+        public MurataBarcodeExistResponseBody(bool MurataBarcodeExistResult) {
+            this.MurataBarcodeExistResult = MurataBarcodeExistResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MasterInfosRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MasterInfos", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MasterInfosRequestBody Body;
+        
+        public MasterInfosRequest() {
+        }
+        
+        public MasterInfosRequest(Line_Production.PVSReference.MasterInfosRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MasterInfosRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string producId;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string stationNo;
+        
+        public MasterInfosRequestBody() {
+        }
+        
+        public MasterInfosRequestBody(string producId, string stationNo) {
+            this.producId = producId;
+            this.stationNo = stationNo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MasterInfosResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MasterInfosResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MasterInfosResponseBody Body;
+        
+        public MasterInfosResponse() {
+        }
+        
+        public MasterInfosResponse(Line_Production.PVSReference.MasterInfosResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MasterInfosResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.MasterEntity[] MasterInfosResult;
+        
+        public MasterInfosResponseBody() {
+        }
+        
+        public MasterInfosResponseBody(Line_Production.PVSReference.MasterEntity[] MasterInfosResult) {
+            this.MasterInfosResult = MasterInfosResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MasterSavesRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MasterSaves", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MasterSavesRequestBody Body;
+        
+        public MasterSavesRequest() {
+        }
+        
+        public MasterSavesRequest(Line_Production.PVSReference.MasterSavesRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MasterSavesRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.MasterEntity entity;
+        
+        public MasterSavesRequestBody() {
+        }
+        
+        public MasterSavesRequestBody(Line_Production.PVSReference.MasterEntity entity) {
+            this.entity = entity;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MasterSavesResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MasterSavesResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MasterSavesResponseBody Body;
+        
+        public MasterSavesResponse() {
+        }
+        
+        public MasterSavesResponse(Line_Production.PVSReference.MasterSavesResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MasterSavesResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool MasterSavesResult;
+        
+        public MasterSavesResponseBody() {
+        }
+        
+        public MasterSavesResponseBody(bool MasterSavesResult) {
+            this.MasterSavesResult = MasterSavesResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MasterRemoveRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MasterRemove", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MasterRemoveRequestBody Body;
+        
+        public MasterRemoveRequest() {
+        }
+        
+        public MasterRemoveRequest(Line_Production.PVSReference.MasterRemoveRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class MasterRemoveRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string ID;
+        
+        public MasterRemoveRequestBody() {
+        }
+        
+        public MasterRemoveRequestBody(string ID) {
+            this.ID = ID;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class MasterRemoveResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="MasterRemoveResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.MasterRemoveResponseBody Body;
+        
+        public MasterRemoveResponse() {
+        }
+        
+        public MasterRemoveResponse(Line_Production.PVSReference.MasterRemoveResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class MasterRemoveResponseBody {
+        
+        public MasterRemoveResponseBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RegisterSoftInfoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RegisterSoftInfo", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.RegisterSoftInfoRequestBody Body;
+        
+        public RegisterSoftInfoRequest() {
+        }
+        
+        public RegisterSoftInfoRequest(Line_Production.PVSReference.RegisterSoftInfoRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class RegisterSoftInfoRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.Base_Soft_InfoEntity softInfo;
+        
+        public RegisterSoftInfoRequestBody() {
+        }
+        
+        public RegisterSoftInfoRequestBody(Line_Production.PVSReference.Base_Soft_InfoEntity softInfo) {
+            this.softInfo = softInfo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RegisterSoftInfoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RegisterSoftInfoResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.RegisterSoftInfoResponseBody Body;
+        
+        public RegisterSoftInfoResponse() {
+        }
+        
+        public RegisterSoftInfoResponse(Line_Production.PVSReference.RegisterSoftInfoResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class RegisterSoftInfoResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool RegisterSoftInfoResult;
+        
+        public RegisterSoftInfoResponseBody() {
+        }
+        
+        public RegisterSoftInfoResponseBody(bool RegisterSoftInfoResult) {
+            this.RegisterSoftInfoResult = RegisterSoftInfoResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetModelInfoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetModelInfo", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetModelInfoRequestBody Body;
+        
+        public GetModelInfoRequest() {
+        }
+        
+        public GetModelInfoRequest(Line_Production.PVSReference.GetModelInfoRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetModelInfoRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string productId;
+        
+        public GetModelInfoRequestBody() {
+        }
+        
+        public GetModelInfoRequestBody(string productId) {
+            this.productId = productId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetModelInfoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetModelInfoResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetModelInfoResponseBody Body;
+        
+        public GetModelInfoResponse() {
+        }
+        
+        public GetModelInfoResponse(Line_Production.PVSReference.GetModelInfoResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetModelInfoResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.Base_ModelsEntity GetModelInfoResult;
+        
+        public GetModelInfoResponseBody() {
+        }
+        
+        public GetModelInfoResponseBody(Line_Production.PVSReference.Base_ModelsEntity GetModelInfoResult) {
+            this.GetModelInfoResult = GetModelInfoResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetModelInfosRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetModelInfos", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetModelInfosRequestBody Body;
+        
+        public GetModelInfosRequest() {
+        }
+        
+        public GetModelInfosRequest(Line_Production.PVSReference.GetModelInfosRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetModelInfosRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string customer;
+        
+        public GetModelInfosRequestBody() {
+        }
+        
+        public GetModelInfosRequestBody(string customer) {
+            this.customer = customer;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetModelInfosResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetModelInfosResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetModelInfosResponseBody Body;
+        
+        public GetModelInfosResponse() {
+        }
+        
+        public GetModelInfosResponse(Line_Production.PVSReference.GetModelInfosResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetModelInfosResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.Base_ModelsEntity[] GetModelInfosResult;
+        
+        public GetModelInfosResponseBody() {
+        }
+        
+        public GetModelInfosResponseBody(Line_Production.PVSReference.Base_ModelsEntity[] GetModelInfosResult) {
+            this.GetModelInfosResult = GetModelInfosResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SaveModelInfoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SaveModelInfo", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.SaveModelInfoRequestBody Body;
+        
+        public SaveModelInfoRequest() {
+        }
+        
+        public SaveModelInfoRequest(Line_Production.PVSReference.SaveModelInfoRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SaveModelInfoRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.Base_ModelsEntity entity;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string productId;
+        
+        public SaveModelInfoRequestBody() {
+        }
+        
+        public SaveModelInfoRequestBody(Line_Production.PVSReference.Base_ModelsEntity entity, string productId) {
+            this.entity = entity;
+            this.productId = productId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SaveModelInfoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SaveModelInfoResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.SaveModelInfoResponseBody Body;
+        
+        public SaveModelInfoResponse() {
+        }
+        
+        public SaveModelInfoResponse(Line_Production.PVSReference.SaveModelInfoResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class SaveModelInfoResponseBody {
+        
+        public SaveModelInfoResponseBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RemoveModelInfoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RemoveModelInfo", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.RemoveModelInfoRequestBody Body;
+        
+        public RemoveModelInfoRequest() {
+        }
+        
+        public RemoveModelInfoRequest(Line_Production.PVSReference.RemoveModelInfoRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class RemoveModelInfoRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string productId;
+        
+        public RemoveModelInfoRequestBody() {
+        }
+        
+        public RemoveModelInfoRequestBody(string productId) {
+            this.productId = productId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RemoveModelInfoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RemoveModelInfoResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.RemoveModelInfoResponseBody Body;
+        
+        public RemoveModelInfoResponse() {
+        }
+        
+        public RemoveModelInfoResponse(Line_Production.PVSReference.RemoveModelInfoResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class RemoveModelInfoResponseBody {
+        
+        public RemoveModelInfoResponseBody() {
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6550,74 +9180,6 @@ namespace Line_Production.PVSReference {
         
         public GetWorkOrderItemResponseBody(Line_Production.PVSReference.WORK_ORDER_ITEMSEntity GetWorkOrderItemResult) {
             this.GetWorkOrderItemResult = GetWorkOrderItemResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetScanningLogsByBoardNoRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetScanningLogsByBoardNo", Namespace="http://tempuri.org/", Order=0)]
-        public Line_Production.PVSReference.GetScanningLogsByBoardNoRequestBody Body;
-        
-        public GetScanningLogsByBoardNoRequest() {
-        }
-        
-        public GetScanningLogsByBoardNoRequest(Line_Production.PVSReference.GetScanningLogsByBoardNoRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetScanningLogsByBoardNoRequestBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string boardNo;
-        
-        public GetScanningLogsByBoardNoRequestBody() {
-        }
-        
-        public GetScanningLogsByBoardNoRequestBody(string boardNo) {
-            this.boardNo = boardNo;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetScanningLogsByBoardNoResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetScanningLogsByBoardNoResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Line_Production.PVSReference.GetScanningLogsByBoardNoResponseBody Body;
-        
-        public GetScanningLogsByBoardNoResponse() {
-        }
-        
-        public GetScanningLogsByBoardNoResponse(Line_Production.PVSReference.GetScanningLogsByBoardNoResponseBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetScanningLogsByBoardNoResponseBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Line_Production.PVSReference.SCANNING_LOGSEntity[] GetScanningLogsByBoardNoResult;
-        
-        public GetScanningLogsByBoardNoResponseBody() {
-        }
-        
-        public GetScanningLogsByBoardNoResponseBody(Line_Production.PVSReference.SCANNING_LOGSEntity[] GetScanningLogsByBoardNoResult) {
-            this.GetScanningLogsByBoardNoResult = GetScanningLogsByBoardNoResult;
         }
     }
     
@@ -8210,6 +10772,74 @@ namespace Line_Production.PVSReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetModelbyModelNameRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetModelbyModelName", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetModelbyModelNameRequestBody Body;
+        
+        public GetModelbyModelNameRequest() {
+        }
+        
+        public GetModelbyModelNameRequest(Line_Production.PVSReference.GetModelbyModelNameRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetModelbyModelNameRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string modelName;
+        
+        public GetModelbyModelNameRequestBody() {
+        }
+        
+        public GetModelbyModelNameRequestBody(string modelName) {
+            this.modelName = modelName;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetModelbyModelNameResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetModelbyModelNameResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetModelbyModelNameResponseBody Body;
+        
+        public GetModelbyModelNameResponse() {
+        }
+        
+        public GetModelbyModelNameResponse(Line_Production.PVSReference.GetModelbyModelNameResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetModelbyModelNameResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.PVSReference.ModelsEntity[] GetModelbyModelNameResult;
+        
+        public GetModelbyModelNameResponseBody() {
+        }
+        
+        public GetModelbyModelNameResponseBody(Line_Production.PVSReference.ModelsEntity[] GetModelbyModelNameResult) {
+            this.GetModelbyModelNameResult = GetModelbyModelNameResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class ModelSavesRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="ModelSaves", Namespace="http://tempuri.org/", Order=0)]
@@ -8868,6 +11498,276 @@ namespace Line_Production.PVSReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.CheckRepairResponse Line_Production.PVSReference.PVSWebServiceSoap.CheckRepair(Line_Production.PVSReference.CheckRepairRequest request) {
+            return base.Channel.CheckRepair(request);
+        }
+        
+        public bool CheckRepair(string boardNo) {
+            Line_Production.PVSReference.CheckRepairRequest inValue = new Line_Production.PVSReference.CheckRepairRequest();
+            inValue.Body = new Line_Production.PVSReference.CheckRepairRequestBody();
+            inValue.Body.boardNo = boardNo;
+            Line_Production.PVSReference.CheckRepairResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).CheckRepair(inValue);
+            return retVal.Body.CheckRepairResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.GetTotalResponse Line_Production.PVSReference.PVSWebServiceSoap.GetTotal(Line_Production.PVSReference.GetTotalRequest request) {
+            return base.Channel.GetTotal(request);
+        }
+        
+        public int GetTotal(string orderID, int procedureIndex) {
+            Line_Production.PVSReference.GetTotalRequest inValue = new Line_Production.PVSReference.GetTotalRequest();
+            inValue.Body = new Line_Production.PVSReference.GetTotalRequestBody();
+            inValue.Body.orderID = orderID;
+            inValue.Body.procedureIndex = procedureIndex;
+            Line_Production.PVSReference.GetTotalResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetTotal(inValue);
+            return retVal.Body.GetTotalResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.GetReplacingLogResponse Line_Production.PVSReference.PVSWebServiceSoap.GetReplacingLog(Line_Production.PVSReference.GetReplacingLogRequest request) {
+            return base.Channel.GetReplacingLog(request);
+        }
+        
+        public Line_Production.PVSReference.REPLACING_LOGSEntity GetReplacingLog(string oldBarcode) {
+            Line_Production.PVSReference.GetReplacingLogRequest inValue = new Line_Production.PVSReference.GetReplacingLogRequest();
+            inValue.Body = new Line_Production.PVSReference.GetReplacingLogRequestBody();
+            inValue.Body.oldBarcode = oldBarcode;
+            Line_Production.PVSReference.GetReplacingLogResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetReplacingLog(inValue);
+            return retVal.Body.GetReplacingLogResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.GetSteelMeshResponse Line_Production.PVSReference.PVSWebServiceSoap.GetSteelMesh(Line_Production.PVSReference.GetSteelMeshRequest request) {
+            return base.Channel.GetSteelMesh(request);
+        }
+        
+        public Line_Production.PVSReference.STEEL_MESH_STATUSEntity GetSteelMesh(string materialOrderId) {
+            Line_Production.PVSReference.GetSteelMeshRequest inValue = new Line_Production.PVSReference.GetSteelMeshRequest();
+            inValue.Body = new Line_Production.PVSReference.GetSteelMeshRequestBody();
+            inValue.Body.materialOrderId = materialOrderId;
+            Line_Production.PVSReference.GetSteelMeshResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetSteelMesh(inValue);
+            return retVal.Body.GetSteelMeshResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.NichiconBarcodeExistResponse Line_Production.PVSReference.PVSWebServiceSoap.NichiconBarcodeExist(Line_Production.PVSReference.NichiconBarcodeExistRequest request) {
+            return base.Channel.NichiconBarcodeExist(request);
+        }
+        
+        public bool NichiconBarcodeExist(string boardNo) {
+            Line_Production.PVSReference.NichiconBarcodeExistRequest inValue = new Line_Production.PVSReference.NichiconBarcodeExistRequest();
+            inValue.Body = new Line_Production.PVSReference.NichiconBarcodeExistRequestBody();
+            inValue.Body.boardNo = boardNo;
+            Line_Production.PVSReference.NichiconBarcodeExistResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).NichiconBarcodeExist(inValue);
+            return retVal.Body.NichiconBarcodeExistResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.NichiconGetPackResponse Line_Production.PVSReference.PVSWebServiceSoap.NichiconGetPack(Line_Production.PVSReference.NichiconGetPackRequest request) {
+            return base.Channel.NichiconGetPack(request);
+        }
+        
+        public Line_Production.PVSReference.NichiconEntity[] NichiconGetPack(string boxID) {
+            Line_Production.PVSReference.NichiconGetPackRequest inValue = new Line_Production.PVSReference.NichiconGetPackRequest();
+            inValue.Body = new Line_Production.PVSReference.NichiconGetPackRequestBody();
+            inValue.Body.boxID = boxID;
+            Line_Production.PVSReference.NichiconGetPackResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).NichiconGetPack(inValue);
+            return retVal.Body.NichiconGetPackResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.NichiconSavePackResponse Line_Production.PVSReference.PVSWebServiceSoap.NichiconSavePack(Line_Production.PVSReference.NichiconSavePackRequest request) {
+            return base.Channel.NichiconSavePack(request);
+        }
+        
+        public void NichiconSavePack(Line_Production.PVSReference.NichiconEntity entity) {
+            Line_Production.PVSReference.NichiconSavePackRequest inValue = new Line_Production.PVSReference.NichiconSavePackRequest();
+            inValue.Body = new Line_Production.PVSReference.NichiconSavePackRequestBody();
+            inValue.Body.entity = entity;
+            Line_Production.PVSReference.NichiconSavePackResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).NichiconSavePack(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MurataSavePackResponse Line_Production.PVSReference.PVSWebServiceSoap.MurataSavePack(Line_Production.PVSReference.MurataSavePackRequest request) {
+            return base.Channel.MurataSavePack(request);
+        }
+        
+        public void MurataSavePack(Line_Production.PVSReference.MuratasEntity entity) {
+            Line_Production.PVSReference.MurataSavePackRequest inValue = new Line_Production.PVSReference.MurataSavePackRequest();
+            inValue.Body = new Line_Production.PVSReference.MurataSavePackRequestBody();
+            inValue.Body.entity = entity;
+            Line_Production.PVSReference.MurataSavePackResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MurataSavePack(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MurataGetPackResponse Line_Production.PVSReference.PVSWebServiceSoap.MurataGetPack(Line_Production.PVSReference.MurataGetPackRequest request) {
+            return base.Channel.MurataGetPack(request);
+        }
+        
+        public Line_Production.PVSReference.MuratasEntity[] MurataGetPack(string boxID) {
+            Line_Production.PVSReference.MurataGetPackRequest inValue = new Line_Production.PVSReference.MurataGetPackRequest();
+            inValue.Body = new Line_Production.PVSReference.MurataGetPackRequestBody();
+            inValue.Body.boxID = boxID;
+            Line_Production.PVSReference.MurataGetPackResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MurataGetPack(inValue);
+            return retVal.Body.MurataGetPackResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MurataGetPackByBoardNoResponse Line_Production.PVSReference.PVSWebServiceSoap.MurataGetPackByBoardNo(Line_Production.PVSReference.MurataGetPackByBoardNoRequest request) {
+            return base.Channel.MurataGetPackByBoardNo(request);
+        }
+        
+        public Line_Production.PVSReference.MuratasEntity MurataGetPackByBoardNo(string boardNo) {
+            Line_Production.PVSReference.MurataGetPackByBoardNoRequest inValue = new Line_Production.PVSReference.MurataGetPackByBoardNoRequest();
+            inValue.Body = new Line_Production.PVSReference.MurataGetPackByBoardNoRequestBody();
+            inValue.Body.boardNo = boardNo;
+            Line_Production.PVSReference.MurataGetPackByBoardNoResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MurataGetPackByBoardNo(inValue);
+            return retVal.Body.MurataGetPackByBoardNoResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MurataRemoveResponse Line_Production.PVSReference.PVSWebServiceSoap.MurataRemove(Line_Production.PVSReference.MurataRemoveRequest request) {
+            return base.Channel.MurataRemove(request);
+        }
+        
+        public void MurataRemove(string boardNo) {
+            Line_Production.PVSReference.MurataRemoveRequest inValue = new Line_Production.PVSReference.MurataRemoveRequest();
+            inValue.Body = new Line_Production.PVSReference.MurataRemoveRequestBody();
+            inValue.Body.boardNo = boardNo;
+            Line_Production.PVSReference.MurataRemoveResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MurataRemove(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MurataModelCusExistResponse Line_Production.PVSReference.PVSWebServiceSoap.MurataModelCusExist(Line_Production.PVSReference.MurataModelCusExistRequest request) {
+            return base.Channel.MurataModelCusExist(request);
+        }
+        
+        public bool MurataModelCusExist(string modelCus) {
+            Line_Production.PVSReference.MurataModelCusExistRequest inValue = new Line_Production.PVSReference.MurataModelCusExistRequest();
+            inValue.Body = new Line_Production.PVSReference.MurataModelCusExistRequestBody();
+            inValue.Body.modelCus = modelCus;
+            Line_Production.PVSReference.MurataModelCusExistResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MurataModelCusExist(inValue);
+            return retVal.Body.MurataModelCusExistResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MurataBarcodeExistResponse Line_Production.PVSReference.PVSWebServiceSoap.MurataBarcodeExist(Line_Production.PVSReference.MurataBarcodeExistRequest request) {
+            return base.Channel.MurataBarcodeExist(request);
+        }
+        
+        public bool MurataBarcodeExist(string boardNo) {
+            Line_Production.PVSReference.MurataBarcodeExistRequest inValue = new Line_Production.PVSReference.MurataBarcodeExistRequest();
+            inValue.Body = new Line_Production.PVSReference.MurataBarcodeExistRequestBody();
+            inValue.Body.boardNo = boardNo;
+            Line_Production.PVSReference.MurataBarcodeExistResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MurataBarcodeExist(inValue);
+            return retVal.Body.MurataBarcodeExistResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MasterInfosResponse Line_Production.PVSReference.PVSWebServiceSoap.MasterInfos(Line_Production.PVSReference.MasterInfosRequest request) {
+            return base.Channel.MasterInfos(request);
+        }
+        
+        public Line_Production.PVSReference.MasterEntity[] MasterInfos(string producId, string stationNo) {
+            Line_Production.PVSReference.MasterInfosRequest inValue = new Line_Production.PVSReference.MasterInfosRequest();
+            inValue.Body = new Line_Production.PVSReference.MasterInfosRequestBody();
+            inValue.Body.producId = producId;
+            inValue.Body.stationNo = stationNo;
+            Line_Production.PVSReference.MasterInfosResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MasterInfos(inValue);
+            return retVal.Body.MasterInfosResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MasterSavesResponse Line_Production.PVSReference.PVSWebServiceSoap.MasterSaves(Line_Production.PVSReference.MasterSavesRequest request) {
+            return base.Channel.MasterSaves(request);
+        }
+        
+        public bool MasterSaves(Line_Production.PVSReference.MasterEntity entity) {
+            Line_Production.PVSReference.MasterSavesRequest inValue = new Line_Production.PVSReference.MasterSavesRequest();
+            inValue.Body = new Line_Production.PVSReference.MasterSavesRequestBody();
+            inValue.Body.entity = entity;
+            Line_Production.PVSReference.MasterSavesResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MasterSaves(inValue);
+            return retVal.Body.MasterSavesResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.MasterRemoveResponse Line_Production.PVSReference.PVSWebServiceSoap.MasterRemove(Line_Production.PVSReference.MasterRemoveRequest request) {
+            return base.Channel.MasterRemove(request);
+        }
+        
+        public void MasterRemove(string ID) {
+            Line_Production.PVSReference.MasterRemoveRequest inValue = new Line_Production.PVSReference.MasterRemoveRequest();
+            inValue.Body = new Line_Production.PVSReference.MasterRemoveRequestBody();
+            inValue.Body.ID = ID;
+            Line_Production.PVSReference.MasterRemoveResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).MasterRemove(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.RegisterSoftInfoResponse Line_Production.PVSReference.PVSWebServiceSoap.RegisterSoftInfo(Line_Production.PVSReference.RegisterSoftInfoRequest request) {
+            return base.Channel.RegisterSoftInfo(request);
+        }
+        
+        public bool RegisterSoftInfo(Line_Production.PVSReference.Base_Soft_InfoEntity softInfo) {
+            Line_Production.PVSReference.RegisterSoftInfoRequest inValue = new Line_Production.PVSReference.RegisterSoftInfoRequest();
+            inValue.Body = new Line_Production.PVSReference.RegisterSoftInfoRequestBody();
+            inValue.Body.softInfo = softInfo;
+            Line_Production.PVSReference.RegisterSoftInfoResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).RegisterSoftInfo(inValue);
+            return retVal.Body.RegisterSoftInfoResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.GetModelInfoResponse Line_Production.PVSReference.PVSWebServiceSoap.GetModelInfo(Line_Production.PVSReference.GetModelInfoRequest request) {
+            return base.Channel.GetModelInfo(request);
+        }
+        
+        public Line_Production.PVSReference.Base_ModelsEntity GetModelInfo(string productId) {
+            Line_Production.PVSReference.GetModelInfoRequest inValue = new Line_Production.PVSReference.GetModelInfoRequest();
+            inValue.Body = new Line_Production.PVSReference.GetModelInfoRequestBody();
+            inValue.Body.productId = productId;
+            Line_Production.PVSReference.GetModelInfoResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetModelInfo(inValue);
+            return retVal.Body.GetModelInfoResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.GetModelInfosResponse Line_Production.PVSReference.PVSWebServiceSoap.GetModelInfos(Line_Production.PVSReference.GetModelInfosRequest request) {
+            return base.Channel.GetModelInfos(request);
+        }
+        
+        public Line_Production.PVSReference.Base_ModelsEntity[] GetModelInfos(string customer) {
+            Line_Production.PVSReference.GetModelInfosRequest inValue = new Line_Production.PVSReference.GetModelInfosRequest();
+            inValue.Body = new Line_Production.PVSReference.GetModelInfosRequestBody();
+            inValue.Body.customer = customer;
+            Line_Production.PVSReference.GetModelInfosResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetModelInfos(inValue);
+            return retVal.Body.GetModelInfosResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.SaveModelInfoResponse Line_Production.PVSReference.PVSWebServiceSoap.SaveModelInfo(Line_Production.PVSReference.SaveModelInfoRequest request) {
+            return base.Channel.SaveModelInfo(request);
+        }
+        
+        public void SaveModelInfo(Line_Production.PVSReference.Base_ModelsEntity entity, string productId) {
+            Line_Production.PVSReference.SaveModelInfoRequest inValue = new Line_Production.PVSReference.SaveModelInfoRequest();
+            inValue.Body = new Line_Production.PVSReference.SaveModelInfoRequestBody();
+            inValue.Body.entity = entity;
+            inValue.Body.productId = productId;
+            Line_Production.PVSReference.SaveModelInfoResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).SaveModelInfo(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.RemoveModelInfoResponse Line_Production.PVSReference.PVSWebServiceSoap.RemoveModelInfo(Line_Production.PVSReference.RemoveModelInfoRequest request) {
+            return base.Channel.RemoveModelInfo(request);
+        }
+        
+        public void RemoveModelInfo(string productId) {
+            Line_Production.PVSReference.RemoveModelInfoRequest inValue = new Line_Production.PVSReference.RemoveModelInfoRequest();
+            inValue.Body = new Line_Production.PVSReference.RemoveModelInfoRequestBody();
+            inValue.Body.productId = productId;
+            Line_Production.PVSReference.RemoveModelInfoResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).RemoveModelInfo(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         Line_Production.PVSReference.GetWorkOrdersByOrderNoResponse Line_Production.PVSReference.PVSWebServiceSoap.GetWorkOrdersByOrderNo(Line_Production.PVSReference.GetWorkOrdersByOrderNoRequest request) {
             return base.Channel.GetWorkOrdersByOrderNo(request);
         }
@@ -9066,19 +11966,6 @@ namespace Line_Production.PVSReference {
             inValue.Body.stationNo = stationNo;
             Line_Production.PVSReference.GetWorkOrderItemResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetWorkOrderItem(inValue);
             return retVal.Body.GetWorkOrderItemResult;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Line_Production.PVSReference.GetScanningLogsByBoardNoResponse Line_Production.PVSReference.PVSWebServiceSoap.GetScanningLogsByBoardNo(Line_Production.PVSReference.GetScanningLogsByBoardNoRequest request) {
-            return base.Channel.GetScanningLogsByBoardNo(request);
-        }
-        
-        public Line_Production.PVSReference.SCANNING_LOGSEntity[] GetScanningLogsByBoardNo(string boardNo) {
-            Line_Production.PVSReference.GetScanningLogsByBoardNoRequest inValue = new Line_Production.PVSReference.GetScanningLogsByBoardNoRequest();
-            inValue.Body = new Line_Production.PVSReference.GetScanningLogsByBoardNoRequestBody();
-            inValue.Body.boardNo = boardNo;
-            Line_Production.PVSReference.GetScanningLogsByBoardNoResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetScanningLogsByBoardNo(inValue);
-            return retVal.Body.GetScanningLogsByBoardNoResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -9388,6 +12275,19 @@ namespace Line_Production.PVSReference {
             inValue.Body.customer = customer;
             Line_Production.PVSReference.GetModelsResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetModels(inValue);
             return retVal.Body.GetModelsResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.PVSReference.GetModelbyModelNameResponse Line_Production.PVSReference.PVSWebServiceSoap.GetModelbyModelName(Line_Production.PVSReference.GetModelbyModelNameRequest request) {
+            return base.Channel.GetModelbyModelName(request);
+        }
+        
+        public Line_Production.PVSReference.ModelsEntity[] GetModelbyModelName(string modelName) {
+            Line_Production.PVSReference.GetModelbyModelNameRequest inValue = new Line_Production.PVSReference.GetModelbyModelNameRequest();
+            inValue.Body = new Line_Production.PVSReference.GetModelbyModelNameRequestBody();
+            inValue.Body.modelName = modelName;
+            Line_Production.PVSReference.GetModelbyModelNameResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetModelbyModelName(inValue);
+            return retVal.Body.GetModelbyModelNameResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

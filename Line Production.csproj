@@ -247,6 +247,9 @@
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.BARCODE_RULE_ITEMSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.Base_ModelsEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.BOARD_BIND_STATUSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -265,6 +268,9 @@
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.MACHINESEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.MasterEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.MATERIAL_DOCUMENTSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -277,13 +283,25 @@
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.ModelsEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.MuratasEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.NichiconEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.OPERATION_LOGSEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.REPLACING_LOGSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.ROLE_MEMBERSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.SCANNING_LOGSEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.STEEL_MESH_STATUSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.USERSEntity.datasource">
@@ -343,6 +361,7 @@
     <Content Include="favicon.ico" />
     <None Include="Resources\construction.png" />
     <None Include="Resources\icons8-time-30.png" />
+    <None Include="Resources\Capture.JPG" />
     <Content Include="Resources\icons8-user-16.png" />
     <Content Include="Resources\icons8-user-30.png" />
     <Content Include="Resources\login-16x14.png" />

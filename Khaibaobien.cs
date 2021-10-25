@@ -97,6 +97,13 @@ namespace Line_Production
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
                 pathBackup = Path.Combine(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip), "backup", DateTime.Now.ToString("yyyyMMdd"));
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
+                try
+                {
+                    bool repair = bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.IsRepair));
+                    cbRepair.Checked = repair;
+                }
+                catch {
+                }
 
                 if (!Directory.Exists(pathBackup))
                     Directory.CreateDirectory(pathBackup);
@@ -123,8 +130,7 @@ namespace Line_Production
                 Common.WriteRegistry(PathConfig, RegistryKeys.id, "CA-Default");
                 Common.WriteRegistry(PathConfig, RegistryKeys.pathWip, @"C:\LOGPROCESS");
                 Common.WriteRegistry(PathConfig, RegistryKeys.station, "VI2_CAN");
-                Common.WriteRegistry(PathConfig, RegistryKeys.useWip, true.ToString());
-                Common.WriteRegistry(PathConfig, RegistryKeys.LinkWip, true.ToString());
+                Common.WriteRegistry(PathConfig, RegistryKeys.LinkPathLog, true.ToString());
                 string[] listCOM = SerialPort.GetPortNames();
                 if (listCOM != null && listCOM.Length > 0)
                 {
@@ -138,14 +144,25 @@ namespace Line_Production
 
         public bool CheckModelList()
         {
-            var list = DataProvider.Instance.ModelQuantities.Select();
-            if (list == null) return false;
-            foreach (var model in list)
+            try
             {
-                cbbModel.Items.Add(model.ModelID);
-            }
 
-            return true;
+                var list = DataProvider.Instance.ModelQuantities.SelectListBy(Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer));
+                if (list == null) return false;
+                foreach (var model in list)
+                {
+                    cbbModel.Items.Add(model.ModelID);
+                }
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+           
 
         }
 
