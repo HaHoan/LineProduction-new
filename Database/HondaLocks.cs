@@ -145,7 +145,9 @@ namespace Line_Production.Database
                         {
                             string BoxID = reader[reader.GetOrdinal("BoxID")] as string;
                             string BoardNo = reader[reader.GetOrdinal("BoardNo")] as string;
+
                             bool repair = false;
+                            int columnIndex = reader.GetOrdinal("Repair");
                             if (!reader.IsDBNull(columnIndex))
                             {
                                 repair = reader.GetBoolean(reader.GetOrdinal("Repair"));
