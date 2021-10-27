@@ -17,7 +17,7 @@ namespace Line_Production.Database
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand("insert into " + TABLE + "(ProductionID,BoxID,BoardNo,UpdateTime,Status,Updator_Code,Updator_Name,Line) values(@ProductionID,@BoxID,@BoardNo,@UpdateTime,@Status,@Updator_Code,@Updator_Name,@Line);SELECT CAST(scope_identity() AS int)", DataProvider.Instance.DB))
+                using (SqlCommand cmd = new SqlCommand("insert into " + TABLE + "(ProductionID,BoxID,BoardNo,UpdateTime,Status,Updator_Code,Updator_Name,Line,Repair) values(@ProductionID,@BoxID,@BoardNo,@UpdateTime,@Status,@Updator_Code,@Updator_Name,@Line,@Repair);SELECT CAST(scope_identity() AS int)", DataProvider.Instance.DB))
                 {
 
                     cmd.Parameters.AddWithValue("@ProductionID", (o as HondaLock).ProductionID);
@@ -28,6 +28,7 @@ namespace Line_Production.Database
                     cmd.Parameters.AddWithValue("@Updator_Code", (o as HondaLock).Update_Code ?? "");
                     cmd.Parameters.AddWithValue("@Updator_Name", (o as HondaLock).Update_Name ?? "");
                     cmd.Parameters.AddWithValue("@Line", (o as HondaLock).Line ?? "");
+                    cmd.Parameters.AddWithValue("@Repair", (o as HondaLock).Repair ? 1 : 0);
                     (o as HondaLock).ID = (int)cmd.ExecuteScalar();
 
                     return o;
@@ -79,6 +80,21 @@ namespace Line_Production.Database
                 return 0;
             }
         }
+        public int BoxIsRepair(string mathung, string Model)
+        {
+            try
+            {
+                string sql = "select TOP 1 Repair from " + TABLE + " where ProductionID = '" + Model + "' and BoxID = '" + mathung + "'";
+                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
+                int Repair = Convert.ToInt32(command.ExecuteScalar());
+                return Repair;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message.ToString());
+                return -1;
+            }
+        }
         public int SoLuongBanMachDaDem(string Model)
         {
             try
@@ -109,16 +125,17 @@ namespace Line_Production.Database
                 Console.Write(e.Message.ToString());
                 return 0;
             }
+
+
         }
 
-        public List<Tuple<string, string>> SearchSerial(string serial)
+        public List<Tuple<string, string, string>> SearchSerial(string serial)
         {
-            var list = new List<Tuple<string, string>>();
+            var list = new List<Tuple<string, string,string>>();
             try
             {
-                string sql = "select BoxID, BoardNo from " + TABLE + " where BoardNo = '" + serial + "';";
+                string sql = "select BoxID, BoardNo,Repair from " + TABLE + " where BoardNo = '" + serial + "';";
                 SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
-
                 using (DbDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
@@ -128,13 +145,20 @@ namespace Line_Production.Database
                         {
                             string BoxID = reader[reader.GetOrdinal("BoxID")] as string;
                             string BoardNo = reader[reader.GetOrdinal("BoardNo")] as string;
-                            var hondaLock = Tuple.Create(BoxID, BoardNo);
+                            bool repair = false;
+                            if (!reader.IsDBNull(columnIndex))
+                            {
+                                repair = reader.GetBoolean(reader.GetOrdinal("Repair"));
+                            }
+
+                            var hondaLock = Tuple.Create(BoxID, BoardNo, repair == true ? "Có" : "");
                             list.Add(hondaLock);
                         }
 
                     }
 
                 }
+                
             }
             catch (Exception e)
             {
@@ -142,6 +166,46 @@ namespace Line_Production.Database
                 return null;
             }
             return list;
+        }
+        public List<Tuple<string, string,string>> SearchBoxID(string boxID)
+        {
+            var list = new List<Tuple<string, string, string>>();
+            try
+            {
+                string sql = "select BoxID, BoardNo,Repair from " + TABLE + " where BoxID = '" + boxID + "';";
+                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
+                using (DbDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+
+                        while (reader.Read())
+                        {
+                            string BoxID = reader[reader.GetOrdinal("BoxID")] as string;
+                            string BoardNo = reader[reader.GetOrdinal("BoardNo")] as string;
+                            int columnIndex = reader.GetOrdinal("Repair");
+                            bool repair = false;
+                            if (!reader.IsDBNull(columnIndex))
+                            {
+                                repair = reader.GetBoolean(reader.GetOrdinal("Repair"));
+                            }
+                            
+                            var hondaLock = Tuple.Create(BoxID, BoardNo, repair == true ? "Có" : "");
+                            list.Add(hondaLock);
+                        }
+
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message.ToString());
+                return null;
+            }
+            return list;
+           
         }
     }
 }

@@ -37,6 +37,7 @@ namespace Line_Production
             this.dgrvSearch = new System.Windows.Forms.DataGridView();
             this._macBox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Repair = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgrvSearch)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,7 +46,8 @@ namespace Line_Production
             this.dgrvSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgrvSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this._macBox,
-            this._id});
+            this._id,
+            this.Repair});
             this.dgrvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgrvSearch.Location = new System.Drawing.Point(0, 0);
             this.dgrvSearch.Name = "dgrvSearch";
@@ -68,6 +70,12 @@ namespace Line_Production
             this._id.Name = "_id";
             this._id.ReadOnly = true;
             // 
+            // Repair
+            // 
+            this.Repair.DataPropertyName = "Item3";
+            this.Repair.HeaderText = "Repair";
+            this.Repair.Name = "Repair";
+            // 
             // ResultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,5 +92,6 @@ namespace Line_Production
         internal DataGridView dgrvSearch;
         private DataGridViewTextBoxColumn _macBox;
         private DataGridViewTextBoxColumn _id;
+        private DataGridViewTextBoxColumn Repair;
     }
 }

@@ -17,6 +17,7 @@ namespace Line_Production.Entities
         public string Update_Code { get; set; }
         public string Update_Name { get; set; }
         public string Line { get; set; }
+        public bool Repair { get; set; }
 
     }
 }

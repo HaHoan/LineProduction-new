@@ -13,7 +13,7 @@
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>\\vn-file\Share\18 IT\U34811%28hoanht%29\LineProduction\LineProduction\</PublishUrl>
+    <PublishUrl>\\vn-file\Share\18 IT\U34811%28hoanht%29\6.CANON-LINEPRODUCTION\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,7 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -148,6 +148,12 @@
     <Compile Include="frmConfig.Designer.cs">
       <DependentUpon>frmConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSelectRepair.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectRepair.Designer.cs">
+      <DependentUpon>frmSelectRepair.cs</DependentUpon>
+    </Compile>
     <Compile Include="Khaibaobien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfig.resx">
       <DependentUpon>frmConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectRepair.resx">
+      <DependentUpon>frmSelectRepair.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListModel.resx">
       <DependentUpon>ListModel.cs</DependentUpon>

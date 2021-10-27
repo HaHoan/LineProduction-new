@@ -41,6 +41,7 @@ namespace Line_Production
             this.GroupBox3 = new System.Windows.Forms.GroupBox();
             this.Label2 = new System.Windows.Forms.Label();
             this.txtPass = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.GroupBox2.SuspendLayout();
             this.GroupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +77,7 @@ namespace Line_Production
             // 
             // GroupBox2
             // 
+            this.GroupBox2.Controls.Add(this.label3);
             this.GroupBox2.Controls.Add(this.Lb_inform_NG);
             this.GroupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.GroupBox2.Location = new System.Drawing.Point(0, 372);
@@ -113,6 +115,15 @@ namespace Line_Production
             this.txtPass.Size = new System.Drawing.Size(291, 35);
             this.txtPass.TabIndex = 0;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(357, 206);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "label3";
+            // 
             // NG_FORM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -132,6 +143,7 @@ namespace Line_Production
             this.Load += new System.EventHandler(this.NG_FORM_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NG_FORM_KeyDown);
             this.GroupBox2.ResumeLayout(false);
+            this.GroupBox2.PerformLayout();
             this.GroupBox3.ResumeLayout(false);
             this.GroupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -146,5 +158,6 @@ namespace Line_Production
         internal GroupBox GroupBox3;
         internal Label Label2;
         internal TextBox txtPass;
+        private Label label3;
     }
 }

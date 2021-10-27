@@ -852,7 +852,8 @@ namespace Line_Production
                     Status = chkOK.Checked ? "1" : "0",
                     Update_Code = lblCode.Text,
                     Update_Name = lUser.Text,
-                    Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id)
+                    Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
+                    Repair = lblRepair.Visible
                 });
 
                 ChuaTonTai();
@@ -886,7 +887,7 @@ namespace Line_Production
         {
             if (e.KeyChar == '\r')
             {
-
+             
                 MacCurrent = TextMacBox.Text.Trim().TrimEnd().TrimStart();
                 IDCount = DataProvider.Instance.HondaLocks.SoLuongBanMachDaDem(MacCurrent, cbbModel.Text);
                 PCBBOX = LaySoThung(TextMacBox.Text);
@@ -932,10 +933,28 @@ namespace Line_Production
 
                 cbUserMacBox.Enabled = false;
                 LabelPCBA.Text = IDCount.ToString();
+                if(IDCount == 0)
+                {
+                    var selectRepair = new frmSelectRepair();
+                    selectRepair.CloseForm = (check) =>
+                    {
+                        lblRepair.Visible = check;
+                    };
+                    selectRepair.ShowDialog();
+                }
+                else
+                {
+                    int BoxIsRepair = DataProvider.Instance.HondaLocks.BoxIsRepair(MacCurrent, cbbModel.Text);
+                    if(BoxIsRepair == -1)
+                    {
+                        MessageBox.Show("Có lỗi xảy ra!");
+                    }
+                    else
+                    {
+                        lblRepair.Visible = BoxIsRepair == 1 ? true : false;
+                    }
+                }
                 //Box_curent = TextMacBox.Text;
-
-
-
             }
         }
 
@@ -1098,7 +1117,7 @@ namespace Line_Production
                             var listBarcode = Common.CreateBarcode(txtSerial.Text.Trim(), model.PCB, model.ContentIndex, model.ContentLength, model.CheckFirst);
 
                             // Hàng sửa
-                            if (cbRepair.Checked)
+                            if (lblRepair.Visible)
                             {
                                 bool isRepair = false;
                                 foreach (var barcode in listBarcode)
@@ -1385,16 +1404,15 @@ namespace Line_Production
                 var text = txtSearch.Text;
                 if (!string.IsNullOrEmpty(text))
                 {
-                    new ResultForm(text).ShowDialog();
+                    new ResultForm(text,cbbFilter.Text).ShowDialog();
                 }
-
             }
 
         }
 
-        private void cbRepair_CheckedChanged(object sender, EventArgs e)
+        private void cbbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.IsRepair, cbRepair.Checked.ToString());
+
         }
     }
 }

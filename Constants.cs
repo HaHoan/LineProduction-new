@@ -12,6 +12,8 @@ namespace Line_Production
         public static string DataBits = "8";
         public static string Parity = "None";
         public static string StopBits = "1";
+        public static string SERIAL = "SERIAL";
+        public static string BOXID = "BOXID";
 
     }
     public static class ConstantsText

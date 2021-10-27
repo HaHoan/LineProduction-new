@@ -97,13 +97,7 @@ namespace Line_Production
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
                 pathBackup = Path.Combine(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip), "backup", DateTime.Now.ToString("yyyyMMdd"));
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
-                try
-                {
-                    bool repair = bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.IsRepair));
-                    cbRepair.Checked = repair;
-                }
-                catch {
-                }
+                
 
                 if (!Directory.Exists(pathBackup))
                     Directory.CreateDirectory(pathBackup);
