@@ -20,7 +20,7 @@ namespace Line_Production
     {
         public static List<string> CreateBarcode(string boardNo, int pcb, int contentIndex, int contentLength, bool checkFirst = false)
         {
-            
+
             List<string> lst = new List<string>();
             if(pcb == 1)
             {

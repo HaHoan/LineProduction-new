@@ -1143,15 +1143,15 @@ namespace Line_Production
                                 }
 
                             }
-                            foreach (var barcode in listBarcode)
+                            foreach(var barcode in listBarcode)
                             {
                                 var orderItem = pvsservice.GetWorkOrderItemByBoardNo(barcode);
-                                if(orderItem == null)
+                                if (orderItem == null)
                                 {
                                     txtSerial.Enabled = true;
                                     txtSerial.Focus();
                                     txtSerial.SelectAll();
-                                 
+
                                     NG_FORM NG_FORM = new NG_FORM();
                                     NG_FORM.Lb_inform_NG.Text = "Không tồn tại bản mạch!";
                                     NG_FORM.ControlBox = true;
@@ -1159,6 +1159,10 @@ namespace Line_Production
                                     NG_FORM.ShowDialog();
                                     return;
                                 }
+                            }
+                            foreach (var barcode in listBarcode)
+                            {
+                                var orderItem = pvsservice.GetWorkOrderItemByBoardNo(barcode);
                                 var orderNo = pvsservice.GetWorkOrdersByOrderNo(orderItem.ORDER_NO);
                              
                                 if (chkNG.Checked)
