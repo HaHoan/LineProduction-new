@@ -67,6 +67,7 @@ namespace Line_Production
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.Process, cbbProcess.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.Customer, txbCustomer.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkPathLog, cbLinkPathLog.Checked.ToString());
+            Common.WriteRegistry(Control.PathConfig, RegistryKeys.SleepTime, txbSleepTime.Text.Trim());
             var confirm = MessageBox.Show("Save success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (confirm == DialogResult.OK)
             {
@@ -86,10 +87,11 @@ namespace Line_Production
             catch { }
 
             txtLog.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.pathWip);
-            txtStation.Text = Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.station);
-            cbbCOM.Text = Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.COM);
-            cbbProcess.Text = Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.Process);
+            txtStation.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.station);
+            cbbCOM.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM);
+            cbbProcess.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process);
             txbCustomer.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer);
+            txbSleepTime.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
         }
 
         private void btnBrower_Click(object sender, EventArgs e)
@@ -107,5 +109,19 @@ namespace Line_Production
             Common.SendToComport("test", result => { MessageBox.Show("Test COM connection : " + result); });
         }
 
+        private void txbSleepTime_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+               (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

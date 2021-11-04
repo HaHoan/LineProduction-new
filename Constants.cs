@@ -31,6 +31,7 @@ namespace Line_Production
         public static string Process = "Process";
         public static string LinkPathLog = "LinkPathLog";
         public static string IsRepair = "IsRepair";
+        public static string SleepTime = "SleepTime";
     }
     public static class CaSX
     {

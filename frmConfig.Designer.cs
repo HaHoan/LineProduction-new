@@ -53,6 +53,8 @@ namespace Line_Production
             this.label2 = new System.Windows.Forms.Label();
             this.txbCustomer = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.txbSleepTime = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbLinkPathLog
@@ -60,7 +62,7 @@ namespace Line_Production
             this.cbLinkPathLog.AutoSize = true;
             this.cbLinkPathLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbLinkPathLog.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.cbLinkPathLog.Location = new System.Drawing.Point(183, 235);
+            this.cbLinkPathLog.Location = new System.Drawing.Point(183, 272);
             this.cbLinkPathLog.Name = "cbLinkPathLog";
             this.cbLinkPathLog.Size = new System.Drawing.Size(109, 17);
             this.cbLinkPathLog.TabIndex = 2;
@@ -162,7 +164,7 @@ namespace Line_Production
             this.btnSaveChanged.ForeColor = System.Drawing.Color.White;
             this.btnSaveChanged.Image = global::Line_Production.Properties.Resources.Save;
             this.btnSaveChanged.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveChanged.Location = new System.Drawing.Point(174, 274);
+            this.btnSaveChanged.Location = new System.Drawing.Point(174, 308);
             this.btnSaveChanged.Name = "btnSaveChanged";
             this.btnSaveChanged.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnSaveChanged.Size = new System.Drawing.Size(118, 30);
@@ -206,12 +208,32 @@ namespace Line_Production
             this.label6.TabIndex = 51;
             this.label6.Text = "Customer";
             // 
+            // txbSleepTime
+            // 
+            this.txbSleepTime.Location = new System.Drawing.Point(88, 227);
+            this.txbSleepTime.Name = "txbSleepTime";
+            this.txbSleepTime.Size = new System.Drawing.Size(205, 20);
+            this.txbSleepTime.TabIndex = 54;
+            this.txbSleepTime.Text = "1000";
+            this.txbSleepTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSleepTime_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(13, 230);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 13);
+            this.label7.TabIndex = 53;
+            this.label7.Text = "Sleep Time";
+            // 
             // frmConfig
             // 
             this.AcceptButton = this.btnSaveChanged;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 327);
+            this.ClientSize = new System.Drawing.Size(350, 382);
+            this.Controls.Add(this.txbSleepTime);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.txbCustomer);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbbProcess);
@@ -256,5 +278,7 @@ namespace Line_Production
         private Label label2;
         internal TextBox txbCustomer;
         internal Label label6;
+        internal TextBox txbSleepTime;
+        internal Label label7;
     }
 }
