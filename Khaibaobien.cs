@@ -52,6 +52,7 @@ namespace Line_Production
         public static int IDCount = 0;
         public static int IDCount_box = 0;
         public static bool ConfirmModel = false;
+        public static string HistoryNo = "";
         // Public MacLe As Boolean = False
         // QuyetPham add 26.11
         public static string pathConfirm = PathApplication + @"\Confirm";
@@ -177,6 +178,7 @@ namespace Line_Production
                     ModelRev = model.CharModel;
                     NumberInModel = model.NumberInModel;
                     ConfirmModel = false;
+                    HistoryNo = model.HistoryNo;
                 }
                 catch (Exception e)
                 {

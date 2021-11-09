@@ -43,7 +43,8 @@ namespace Line_Production
                     Customer = txbCustomer.Text.Trim(),
                     ContentIndex = int.Parse(txbContentIndex.Text.Trim()),
                     ContentLength = int.Parse(txbContentLength.Text.Trim()),
-                    CheckFirst = cbCheckFirst.Checked
+                    CheckFirst = cbCheckFirst.Checked,
+                    HistoryNo = txbHistoryNo.Text.Trim()
                 };
                 if (model.Id == 0)
                 {
@@ -95,6 +96,7 @@ namespace Line_Production
                     txbContentIndex.Text = model.ContentIndex.ToString();
                     txbContentLength.Text = model.ContentLength.ToString();
                     cbCheckFirst.Checked = model.CheckFirst;
+                    txbHistoryNo.Text = model.HistoryNo;
                 }
                 else
                 {
@@ -130,6 +132,7 @@ namespace Line_Production
                         txbNumberInModel.Text = model.NumberInModel.ToString();
                         txbPCB.Text = model.PCB.ToString();
                         txbCustomer.Text = model.Customer.ToString();
+                        txbHistoryNo.Text = model.HistoryNo;
                     }
                 }
             }

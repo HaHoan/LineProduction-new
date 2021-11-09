@@ -16,6 +16,7 @@
         public int ContentLength { get; set; }
         public int ContentIndex { get; set; }
         public string Customer { get; set; }
+        public string HistoryNo { get; set; }
     }
     public static class ModelString
     {
@@ -33,6 +34,7 @@
         public static string ContentLength = "ContentLength";
         public static string ContentIndex = "ContentIndex";
         public static string CheckFirst = "CheckFirst";
+        public static string HistoryNo = "HistoryNo";
 
     }
 }

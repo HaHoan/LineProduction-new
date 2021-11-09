@@ -56,6 +56,8 @@
             this.cbCheckFirst = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.txbHistoryNo = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,7 +135,7 @@
             // 
             // txbRegex
             // 
-            this.txbRegex.Location = new System.Drawing.Point(154, 249);
+            this.txbRegex.Location = new System.Drawing.Point(154, 248);
             this.txbRegex.Name = "txbRegex";
             this.txbRegex.Size = new System.Drawing.Size(172, 20);
             this.txbRegex.TabIndex = 11;
@@ -141,7 +143,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(25, 252);
+            this.label6.Location = new System.Drawing.Point(25, 251);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 10;
@@ -152,7 +154,7 @@
             this.ckbUseBarcode.AutoSize = true;
             this.ckbUseBarcode.Checked = true;
             this.ckbUseBarcode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbUseBarcode.Location = new System.Drawing.Point(217, 395);
+            this.ckbUseBarcode.Location = new System.Drawing.Point(217, 425);
             this.ckbUseBarcode.Name = "ckbUseBarcode";
             this.ckbUseBarcode.Size = new System.Drawing.Size(109, 17);
             this.ckbUseBarcode.TabIndex = 13;
@@ -170,7 +172,7 @@
             // 
             // txbNumberInModel
             // 
-            this.txbNumberInModel.Location = new System.Drawing.Point(154, 316);
+            this.txbNumberInModel.Location = new System.Drawing.Point(154, 350);
             this.txbNumberInModel.Name = "txbNumberInModel";
             this.txbNumberInModel.Size = new System.Drawing.Size(172, 20);
             this.txbNumberInModel.TabIndex = 27;
@@ -179,7 +181,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(25, 294);
+            this.label7.Location = new System.Drawing.Point(25, 329);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(314, 13);
             this.label7.TabIndex = 26;
@@ -204,7 +206,7 @@
             // 
             // txbCustomer
             // 
-            this.txbCustomer.Location = new System.Drawing.Point(154, 353);
+            this.txbCustomer.Location = new System.Drawing.Point(154, 389);
             this.txbCustomer.Name = "txbCustomer";
             this.txbCustomer.Size = new System.Drawing.Size(172, 20);
             this.txbCustomer.TabIndex = 31;
@@ -212,7 +214,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 356);
+            this.label9.Location = new System.Drawing.Point(25, 392);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 13);
             this.label9.TabIndex = 30;
@@ -309,11 +311,29 @@
             this.label13.TabIndex = 39;
             this.label13.Text = "Hình ảnh tham khảo";
             // 
+            // txbHistoryNo
+            // 
+            this.txbHistoryNo.Location = new System.Drawing.Point(154, 289);
+            this.txbHistoryNo.Name = "txbHistoryNo";
+            this.txbHistoryNo.Size = new System.Drawing.Size(172, 20);
+            this.txbHistoryNo.TabIndex = 41;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(25, 292);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(56, 13);
+            this.label14.TabIndex = 40;
+            this.label14.Text = "History No";
+            // 
             // AddModelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 506);
+            this.Controls.Add(this.txbHistoryNo);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.cbCheckFirst);
@@ -382,5 +402,7 @@
         private System.Windows.Forms.CheckBox cbCheckFirst;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txbHistoryNo;
+        private System.Windows.Forms.Label label14;
     }
 }

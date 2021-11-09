@@ -17,7 +17,7 @@ namespace Line_Production.Database
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand("insert into " + TABLE + "(Model,PersonPerLine,CycleTime,WarnQuantity,MinQuantity,CharModel,UseBarcode,NumberInModel,PCB,Customer,ContentIndex, ContentLength, CheckFirst) values(@Model, @PersonPerLine, @CycleTime, @WarnQuantity, @MinQuantity, @CharModel,@UseBarcode,@NumberInModel,@PCB, @Customer,@ContentIndex, @ContentLength,@CheckFirst); SELECT CAST(scope_identity() AS int)", DataProvider.Instance.DB))
+                using (SqlCommand cmd = new SqlCommand("insert into " + TABLE + "(Model,PersonPerLine,CycleTime,WarnQuantity,MinQuantity,CharModel,UseBarcode,NumberInModel,PCB,Customer,ContentIndex, ContentLength, CheckFirst,HistoryNo) values(@Model, @PersonPerLine, @CycleTime, @WarnQuantity, @MinQuantity, @CharModel,@UseBarcode,@NumberInModel,@PCB, @Customer,@ContentIndex, @ContentLength,@CheckFirst,@HistoryNo); SELECT CAST(scope_identity() AS int)", DataProvider.Instance.DB))
                 {
                     cmd.Parameters.AddWithValue("@Model", (o as Model).ModelID);
                     cmd.Parameters.AddWithValue("@PersonPerLine", (o as Model).PersonInLine);
@@ -32,6 +32,7 @@ namespace Line_Production.Database
                     cmd.Parameters.AddWithValue("@ContentIndex", (o as Model).ContentIndex);
                     cmd.Parameters.AddWithValue("@ContentLength", (o as Model).ContentLength);
                     cmd.Parameters.AddWithValue("@CheckFirst", (o as Model).CheckFirst);
+                    cmd.Parameters.AddWithValue("@HistoryNo", (o as Model).HistoryNo);
                     (o as Model).Id = (int)cmd.ExecuteScalar();
                     return o;
                 }
@@ -47,7 +48,7 @@ namespace Line_Production.Database
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand("update " + TABLE + " set Model = @Model, PersonPerLine = @PersonPerLine, CycleTime = @CycleTime, WarnQuantity = @WarnQuantity, MinQuantity = @MinQuantity, CharModel = @CharModel,UseBarcode = @UseBarcode,NumberInModel = @NumberInModel, PCB = @PCB, Customer = @Customer, ContentIndex = @ContentIndex, ContentLength = @ContentLength, CheckFirst = @CheckFirst  where Id = '" + o.Id + "'", DataProvider.Instance.DB))
+                using (SqlCommand cmd = new SqlCommand("update " + TABLE + " set Model = @Model, PersonPerLine = @PersonPerLine, CycleTime = @CycleTime, WarnQuantity = @WarnQuantity, MinQuantity = @MinQuantity, CharModel = @CharModel,UseBarcode = @UseBarcode,NumberInModel = @NumberInModel, PCB = @PCB, Customer = @Customer, ContentIndex = @ContentIndex, ContentLength = @ContentLength, CheckFirst = @CheckFirst , HistoryNo = @HistoryNo where Id = '" + o.Id + "'", DataProvider.Instance.DB))
                 {
                     cmd.Parameters.AddWithValue("@Model", (o as Model).ModelID);
                     cmd.Parameters.AddWithValue("@PersonPerLine", (o as Model).PersonInLine);
@@ -62,6 +63,7 @@ namespace Line_Production.Database
                     cmd.Parameters.AddWithValue("@ContentIndex", (o as Model).ContentIndex);
                     cmd.Parameters.AddWithValue("@ContentLength", (o as Model).ContentLength);
                     cmd.Parameters.AddWithValue("@CheckFirst", (o as Model).CheckFirst);
+                    cmd.Parameters.AddWithValue("@HistoryNo", (o as Model).HistoryNo);
 
                     (o as Model).Id = (int)cmd.ExecuteScalar();
                 }
@@ -90,6 +92,7 @@ namespace Line_Production.Database
                             Model model = new Model();
                             model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
                             model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
+                            model.HistoryNo = reader[reader.GetOrdinal(ModelString.HistoryNo)] as string;
                             model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
                             model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
                             model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
@@ -129,6 +132,7 @@ namespace Line_Production.Database
                             Model model = new Model();
                             model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
                             model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
+                            model.HistoryNo = reader[reader.GetOrdinal(ModelString.HistoryNo)] as string;
                             model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
                             model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
                             model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
@@ -138,6 +142,7 @@ namespace Line_Production.Database
                             model.Customer = reader[reader.GetOrdinal(ModelString.Customer)] as string;
                             model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
                             model.PCB = reader.GetInt32(reader.GetOrdinal(ModelString.PCB));
+
                             list.Add(model);
                         }
 
@@ -169,6 +174,7 @@ namespace Line_Production.Database
                             Model model = new Model();
                             model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
                             model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
+                            model.HistoryNo = reader[reader.GetOrdinal(ModelString.HistoryNo)] as string;
                             model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
                             model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
                             model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
@@ -178,9 +184,33 @@ namespace Line_Production.Database
                             model.Customer = reader[reader.GetOrdinal(ModelString.Customer)] as string;
                             model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
                             model.PCB = reader.GetInt32(reader.GetOrdinal(ModelString.PCB));
-                            model.ContentIndex = reader.GetInt32(reader.GetOrdinal(ModelString.ContentIndex));
-                            model.ContentLength = reader.GetInt32(reader.GetOrdinal(ModelString.ContentLength));
-                            model.CheckFirst = reader.GetBoolean(reader.GetOrdinal(ModelString.CheckFirst));
+
+                            if (!checkNull(reader, ModelString.ContentIndex))
+                            {
+                                model.ContentIndex = reader.GetInt32(reader.GetOrdinal(ModelString.ContentIndex));
+
+                            }
+                            else
+                            {
+                                model.ContentIndex = 0;
+                            }
+
+                            if (!checkNull(reader, ModelString.ContentLength))
+                            {
+                                model.ContentLength = reader.GetInt32(reader.GetOrdinal(ModelString.ContentLength));
+                            }
+                            else
+                            {
+                                model.ContentLength = 0;
+                            }
+                            if (!checkNull(reader, ModelString.CheckFirst))
+                            {
+                                model.CheckFirst = reader.GetBoolean(reader.GetOrdinal(ModelString.CheckFirst));
+                            }
+                            else
+                            {
+                                model.CheckFirst = false;
+                            }
                             return model;
                         }
 
@@ -194,6 +224,20 @@ namespace Line_Production.Database
                 Console.Write(e.Message.ToString());
                 return null;
             }
+        }
+        public bool checkNull(DbDataReader reader, string colName)
+        {
+            try
+            {
+              int index =   reader.GetOrdinal(colName);
+                return reader.IsDBNull(index);
+            }
+            catch (Exception e)
+            {
+
+                return true;
+            }
+       
         }
         public Model Select(int ID)
         {
@@ -212,6 +256,7 @@ namespace Line_Production.Database
                             Model model = new Model();
                             model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
                             model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
+                            model.HistoryNo = reader[reader.GetOrdinal(ModelString.HistoryNo)] as string;
                             model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
                             model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
                             model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
@@ -221,9 +266,33 @@ namespace Line_Production.Database
                             model.Customer = reader[reader.GetOrdinal(ModelString.Customer)] as string;
                             model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
                             model.PCB = reader.GetInt32(reader.GetOrdinal(ModelString.PCB));
-                            model.ContentIndex = reader.GetInt32(reader.GetOrdinal(ModelString.ContentIndex));
-                            model.ContentLength = reader.GetInt32(reader.GetOrdinal(ModelString.ContentLength));
-                            model.CheckFirst = reader.GetBoolean(reader.GetOrdinal(ModelString.CheckFirst));
+
+                            if(!checkNull(reader, ModelString.ContentIndex))
+                            {
+                                model.ContentIndex = reader.GetInt32(reader.GetOrdinal(ModelString.ContentIndex));
+
+                            }
+                            else
+                            {
+                                model.ContentIndex = 0;
+                            }
+
+                            if(!checkNull(reader, ModelString.ContentLength))
+                            {
+                                model.ContentLength = reader.GetInt32(reader.GetOrdinal(ModelString.ContentLength));
+                            }else
+                            {
+                                model.ContentLength = 0;
+                            }
+                            if(!checkNull(reader, ModelString.CheckFirst))
+                            {
+                                model.CheckFirst = reader.GetBoolean(reader.GetOrdinal(ModelString.CheckFirst));
+                            }
+                            else
+                            {
+                                model.CheckFirst = false;
+                            }
+                          
                             return model;
                         }
 

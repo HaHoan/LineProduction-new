@@ -329,7 +329,7 @@ namespace Line_Production
                     TextCycleTimeModel.Text = CycleTimeModel.ToString();
                     TextCycleTimeCurrent.Text = "";
                     txtPeople.Text = NoPeople.ToString();
-
+                    lblHistoryNo.Text = HistoryNo;
                     FormatNgayCasx();
                     BtStart.Enabled = true;
                     BtStop.Enabled = true;
