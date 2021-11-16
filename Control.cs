@@ -330,7 +330,7 @@ namespace Line_Production
                     TextCycleTimeModel.Text = CycleTimeModel.ToString();
                     TextCycleTimeCurrent.Text = "";
                     txtPeople.Text = NoPeople.ToString();
-                    lblHistoryNo.Text ="HIS:" +  HistoryNo;
+                    lblHistoryNo.Text = "HIS:" + HistoryNo;
                     FormatNgayCasx();
                     BtStart.Enabled = true;
                     BtStop.Enabled = true;
@@ -848,7 +848,7 @@ namespace Line_Production
                 return true;
             }
         }
-     
+
         /*
         * db : 172.28.10.9 / UMC3000 / BCLBFLM 
         */
@@ -1163,11 +1163,12 @@ namespace Line_Production
                             }
                             else
                             {
-                                // sinh ra log
-                                foreach (var barcode in listBarcode)
+                                if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkPathLog)))
                                 {
-                                    if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkPathLog)))
+                                    // sinh ra log
+                                    foreach (var barcode in listBarcode)
                                     {
+
                                         try
                                         {
                                             var contentWip = new StringBuilder();
@@ -1183,85 +1184,44 @@ namespace Line_Production
                                             return;
                                         }
                                     }
-                                    else
+                                    // Kiểm tra trên wip có dữ liệu chưa
+                                    bool isSuccess = false;
+
+                                    lblWaiting.Text = $"Wait...";
+                                    Task t = Task.Factory.StartNew(() =>
                                     {
-                                        try
+                                        for (int i = 0; i < 10; i++)
                                         {
-                                            string nameSoft = Common.FindApplication(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process));
-                                            int wipHandle = 0;
-                                            wipHandle = NativeWin32.FindWindow(null, nameSoft);
-                                            bool temp = Common.IsRunning(nameSoft);
-                                            if (!temp)
+
+                                            //Chờ lên wip 1s
+                                            string sleepTime = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
+                                            Thread.Sleep(string.IsNullOrEmpty(sleepTime) ? 0 : int.Parse(sleepTime));
+                                            if (CheckWIPOK(listBarcode))
                                             {
-                                                MessageBox.Show("Chương trình Wip chưa bật", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                                return;
+                                                isSuccess = true;
+                                                break;
                                             }
-                                            else
-                                            {
-                                                Common.ActiveProcess(nameSoft);
-                                                Console.Write(nameSoft);
-                                                Clipboard.SetText(txtSerial.Text.Trim());
-                                                SendKeys.Send("^V");
-                                                Thread.Sleep(170);
-                                                SendKeys.Send("{ENTER}");
-                                                Thread.Sleep(170);
-                                                Common.ActiveProcess(this.Text);
-                                                Thread.Sleep(220);
 
-                                                if (pvsservice.GetWorkOrderItem(txtSerial.Text.Trim(), STATION) == null)
-                                                {
-                                                    txtSerial.Enabled = true;
-                                                    txtSerial.SelectAll();
-                                                    txtSerial.Focus();
-
-                                                    return;
-                                                }
-
-                                            }
                                         }
-                                        catch (Exception ex)
-                                        {
-                                            Console.WriteLine("Error: " + ex.Message.ToString());
-                                        }
+                                    });
+
+                                    Task.WaitAll(t);
+                                    lblWaiting.Text = $"";
+                                    if (!isSuccess)
+                                    {
+                                        txtSerial.Enabled = true;
+                                        txtSerial.Focus();
+                                        txtSerial.SelectAll();
+                                        NG_FORM NG_FORM = new NG_FORM();
+                                        NG_FORM.Lb_inform_NG.Text = "Link Wip NG! Vui lòng chạy lại!";
+                                        NG_FORM.ControlBox = true;
+                                        NG_FORM.GroupBox3.Visible = false;
+                                        NG_FORM.ShowDialog();
+                                        return;
                                     }
 
                                 }
 
-                                // Kiểm tra trên wip có dữ liệu chưa
-                                bool isSuccess = false;
-
-                                lblWaiting.Text = $"Wait...";
-                                Task t = Task.Factory.StartNew(() =>
-                                {
-                                    for (int i = 0; i < 10; i++)
-                                    {
-
-                                        //Chờ lên wip 1s
-                                        string sleepTime = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
-                                        Thread.Sleep(string.IsNullOrEmpty(sleepTime) ? 0 : int.Parse(sleepTime));
-                                        if (CheckWIPOK(listBarcode))
-                                        {
-                                            isSuccess = true;
-                                            break;
-                                        }
-
-                                    }
-                                });
-
-                                Task.WaitAll(t);
-                                lblWaiting.Text = $"";
-                                if (!isSuccess)
-                                {
-                                    txtSerial.Enabled = true;
-                                    txtSerial.Focus();
-                                    txtSerial.SelectAll();
-                                    NG_FORM NG_FORM = new NG_FORM();
-                                    NG_FORM.Lb_inform_NG.Text = "Link Wip NG! Vui lòng chạy lại!";
-                                    NG_FORM.ControlBox = true;
-                                    NG_FORM.GroupBox3.Visible = false;
-                                    NG_FORM.ShowDialog();
-                                    return;
-                                }
 
                                 using (var db = new barcode_dbEntities())
                                 {

@@ -64,9 +64,9 @@ namespace Line_Production
             this.cbLinkPathLog.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.cbLinkPathLog.Location = new System.Drawing.Point(183, 272);
             this.cbLinkPathLog.Name = "cbLinkPathLog";
-            this.cbLinkPathLog.Size = new System.Drawing.Size(109, 17);
+            this.cbLinkPathLog.Size = new System.Drawing.Size(74, 17);
             this.cbLinkPathLog.TabIndex = 2;
-            this.cbLinkPathLog.Text = "Write Log WIP";
+            this.cbLinkPathLog.Text = "LinkWIP";
             this.cbLinkPathLog.UseVisualStyleBackColor = true;
             // 
             // Label1
