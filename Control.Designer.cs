@@ -28,7 +28,6 @@ namespace Line_Production
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Label1 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.GroupBox5 = new System.Windows.Forms.GroupBox();
@@ -162,13 +161,12 @@ namespace Line_Production
             this.lblTotal = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.LabelTimeDate = new System.Windows.Forms.Label();
-            this.TableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Timer3 = new System.Windows.Forms.Timer(this.components);
             this.lblSettingTime = new System.Windows.Forms.LinkLabel();
             this.lblListModel = new System.Windows.Forms.LinkLabel();
             this.lblConfig = new System.Windows.Forms.LinkLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.LabelTimeDate = new System.Windows.Forms.Label();
+            this.Label1 = new System.Windows.Forms.Label();
             this.lblHistoryNo = new System.Windows.Forms.Label();
             this.GroupBox1.SuspendLayout();
             this.GroupBox5.SuspendLayout();
@@ -179,23 +177,7 @@ namespace Line_Production
             this.GroupBox3.SuspendLayout();
             this.GroupBox7.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
-            this.TableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Label1
-            // 
-            this.Label1.AutoSize = true;
-            this.Label1.BackColor = System.Drawing.Color.Transparent;
-            this.Label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Label1.Font = new System.Drawing.Font("Times New Roman", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label1.ForeColor = System.Drawing.Color.Red;
-            this.Label1.Location = new System.Drawing.Point(3, 0);
-            this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(566, 65);
-            this.Label1.TabIndex = 0;
-            this.Label1.Text = "Bảng Quản Lý Sản Lượng";
-            this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label2
             // 
@@ -1748,38 +1730,6 @@ namespace Line_Production
             this.ToolStripStatusLabel8.Size = new System.Drawing.Size(76, 17);
             this.ToolStripStatusLabel8.Text = "172.28.10.8";
             // 
-            // LabelTimeDate
-            // 
-            this.LabelTimeDate.AutoSize = true;
-            this.LabelTimeDate.BackColor = System.Drawing.Color.Black;
-            this.LabelTimeDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LabelTimeDate.Font = new System.Drawing.Font("Times New Roman", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelTimeDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.LabelTimeDate.Location = new System.Drawing.Point(575, 0);
-            this.LabelTimeDate.Name = "LabelTimeDate";
-            this.LabelTimeDate.Size = new System.Drawing.Size(495, 65);
-            this.LabelTimeDate.TabIndex = 18;
-            this.LabelTimeDate.Text = "10:10:50   2016/08/16";
-            this.LabelTimeDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // TableLayoutPanel1
-            // 
-            this.TableLayoutPanel1.ColumnCount = 3;
-            this.TableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.98433F));
-            this.TableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.44444F));
-            this.TableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.63492F));
-            this.TableLayoutPanel1.Controls.Add(this.Label1, 0, 0);
-            this.TableLayoutPanel1.Controls.Add(this.LabelTimeDate, 1, 0);
-            this.TableLayoutPanel1.Controls.Add(this.panel1, 2, 0);
-            this.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.TableLayoutPanel1.Name = "TableLayoutPanel1";
-            this.TableLayoutPanel1.RowCount = 1;
-            this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.TableLayoutPanel1.Size = new System.Drawing.Size(1273, 65);
-            this.TableLayoutPanel1.TabIndex = 20;
-            // 
             // Timer3
             // 
             this.Timer3.Enabled = true;
@@ -1822,24 +1772,39 @@ namespace Line_Production
             this.lblConfig.TabIndex = 17;
             this.lblConfig.Click += new System.EventHandler(this.lblConfig_Click);
             // 
-            // panel1
+            // LabelTimeDate
             // 
-            this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Controls.Add(this.lblHistoryNo);
-            this.panel1.Location = new System.Drawing.Point(1076, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(194, 59);
-            this.panel1.TabIndex = 19;
+            this.LabelTimeDate.BackColor = System.Drawing.Color.Black;
+            this.LabelTimeDate.Font = new System.Drawing.Font("Times New Roman", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelTimeDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.LabelTimeDate.Location = new System.Drawing.Point(533, 1);
+            this.LabelTimeDate.Name = "LabelTimeDate";
+            this.LabelTimeDate.Size = new System.Drawing.Size(440, 65);
+            this.LabelTimeDate.TabIndex = 18;
+            this.LabelTimeDate.Text = "10:10:50   2016/08/16";
+            this.LabelTimeDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Label1
+            // 
+            this.Label1.BackColor = System.Drawing.Color.Transparent;
+            this.Label1.Font = new System.Drawing.Font("Times New Roman", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label1.ForeColor = System.Drawing.Color.Red;
+            this.Label1.Location = new System.Drawing.Point(10, 3);
+            this.Label1.Name = "Label1";
+            this.Label1.Size = new System.Drawing.Size(538, 65);
+            this.Label1.TabIndex = 0;
+            this.Label1.Text = "Bảng Quản Lý Sản Lượng";
+            this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblHistoryNo
             // 
-            this.lblHistoryNo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblHistoryNo.Font = new System.Drawing.Font("Times New Roman", 33F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHistoryNo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblHistoryNo.Location = new System.Drawing.Point(0, 0);
+            this.lblHistoryNo.BackColor = System.Drawing.Color.Black;
+            this.lblHistoryNo.Font = new System.Drawing.Font("Times New Roman", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHistoryNo.ForeColor = System.Drawing.Color.Yellow;
+            this.lblHistoryNo.Location = new System.Drawing.Point(977, 3);
             this.lblHistoryNo.Name = "lblHistoryNo";
-            this.lblHistoryNo.Size = new System.Drawing.Size(194, 59);
-            this.lblHistoryNo.TabIndex = 0;
+            this.lblHistoryNo.Size = new System.Drawing.Size(284, 65);
+            this.lblHistoryNo.TabIndex = 23;
             this.lblHistoryNo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Control
@@ -1849,9 +1814,11 @@ namespace Line_Production
             this.BackColor = System.Drawing.Color.Silver;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1273, 891);
+            this.Controls.Add(this.lblHistoryNo);
+            this.Controls.Add(this.LabelTimeDate);
+            this.Controls.Add(this.Label1);
             this.Controls.Add(this.lblSettingTime);
             this.Controls.Add(this.lblListModel);
-            this.Controls.Add(this.TableLayoutPanel1);
             this.Controls.Add(this.lblConfig);
             this.Controls.Add(this.StatusStrip1);
             this.Controls.Add(this.GroupBox7);
@@ -1881,15 +1848,10 @@ namespace Line_Production
             this.GroupBox7.PerformLayout();
             this.StatusStrip1.ResumeLayout(false);
             this.StatusStrip1.PerformLayout();
-            this.TableLayoutPanel1.ResumeLayout(false);
-            this.TableLayoutPanel1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
-
-        internal Label Label1;
         internal Label Label2;
         internal GroupBox GroupBox1;
         internal TextBox txtDate;
@@ -2011,8 +1973,6 @@ namespace Line_Production
         public ToolStripStatusLabel lblUser;
         internal ToolStripStatusLabel ToolStripStatusLabel5;
         internal ToolStripStatusLabel ToolStripStatusLabel8;
-        internal Label LabelTimeDate;
-        internal TableLayoutPanel TableLayoutPanel1;
         internal ToolStripStatusLabel ToolStripStatusLabel9;
         internal ToolStripStatusLabel lblTotal;
         internal Timer Timer3;
@@ -2029,7 +1989,8 @@ namespace Line_Production
         private Label lblRepair;
         private ComboBox cbbFilter;
         private Label lblWaiting;
-        private Panel panel1;
-        private Label lblHistoryNo;
+        internal Label LabelTimeDate;
+        internal Label Label1;
+        internal Label lblHistoryNo;
     }
 }
