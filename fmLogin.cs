@@ -44,9 +44,7 @@ namespace Line_Production
                 {
                     this.Hide();
                     Control control = new Control();
-                    control.lUser.Text = user.NAME;
-                    control.lblCode.Text = user.ID;
-                    control.lblUser.Text = user.ID;
+                   
                     control.Show();
                 }
                 else

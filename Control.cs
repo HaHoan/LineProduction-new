@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -847,22 +848,7 @@ namespace Line_Production
                 return true;
             }
         }
-        private bool ThemVaoDB(string barcode)
-        {
-            var insert = DataProvider.Instance.HondaLocks.Insert(new HondaLock()
-            {
-                ProductionID = cbbModel.Text.ToString(),
-                BoxID = TextMacBox.Text,
-                BoardNo = barcode,
-                UpdateTime = pvsservice.GetDateTime(),
-                Status = chkOK.Checked ? "1" : "0",
-                Update_Code = lblCode.Text,
-                Update_Name = lUser.Text,
-                Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
-                Repair = lblRepair.Visible
-            });
-            return insert != null;
-        }
+     
         /*
         * db : 172.28.10.9 / UMC3000 / BCLBFLM 
         */
@@ -1177,22 +1163,6 @@ namespace Line_Production
                             }
                             else
                             {
-                                // kiểm tra nếu tồn tại 1 bản rồi thì không bắn nữa
-                                foreach (var barcode in listBarcode)
-                                {
-                                    if (DataProvider.Instance.HondaLocks.KiemTraBanMachDaBan(TextMacBox.Text.ToString(), barcode))
-                                    {
-                                        txtSerial.Enabled = true;
-                                        txtSerial.Focus();
-                                        txtSerial.SelectAll();
-                                        NG_FORM NG_FORM = new NG_FORM();
-                                        NG_FORM.Lb_inform_NG.Text = "Đã tồn tại bản mạch " + barcode;
-                                        NG_FORM.GroupBox3.Visible = false;
-                                        NG_FORM.ShowDialog();
-                                        return;
-                                    }
-                                }
-                               
                                 // sinh ra log
                                 foreach (var barcode in listBarcode)
                                 {
@@ -1237,7 +1207,7 @@ namespace Line_Production
                                                 Thread.Sleep(170);
                                                 Common.ActiveProcess(this.Text);
                                                 Thread.Sleep(220);
-                                               
+
                                                 if (pvsservice.GetWorkOrderItem(txtSerial.Text.Trim(), STATION) == null)
                                                 {
                                                     txtSerial.Enabled = true;
@@ -1293,28 +1263,76 @@ namespace Line_Production
                                     return;
                                 }
 
+                                using (var db = new barcode_dbEntities())
+                                {
+                                    using (DbContextTransaction transaction = db.Database.BeginTransaction())
+                                    {
+                                        try
+                                        {
+                                            foreach (var barcode in listBarcode)
+                                            {
+                                                var existItem = db.HondaLocks.Where(m => m.BoardNo == barcode).FirstOrDefault();
+                                                if (existItem != null)
+                                                {
+                                                    transaction.Rollback();
+                                                    txtSerial.Enabled = true;
+                                                    txtSerial.Focus();
+                                                    txtSerial.SelectAll();
+                                                    NG_FORM NG_FORM = new NG_FORM();
+                                                    NG_FORM.Lb_inform_NG.Text = "Đã tồn tại bản mạch " + barcode;
+                                                    NG_FORM.GroupBox3.Visible = false;
+                                                    NG_FORM.ShowDialog();
+                                                    return;
+                                                }
+                                                var item = new HondaLock()
+                                                {
+                                                    ProductionID = cbbModel.Text.ToString(),
+                                                    BoxID = TextMacBox.Text,
+                                                    BoardNo = barcode,
+                                                    UpdateTime = pvsservice.GetDateTime(),
+                                                    Status = chkOK.Checked ? "1" : "0",
+                                                    Updator_Code = "",
+                                                    Updator_Name = "",
+                                                    Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
+                                                    Repair = lblRepair.Visible
+                                                };
+                                                db.HondaLocks.Add(item);
+                                                db.SaveChanges();
+                                            }
+                                            transaction.Commit();
+
+                                        }
+                                        catch (Exception)
+                                        {
+                                            transaction.Rollback();
+                                            txtSerial.Enabled = true;
+                                            txtSerial.Focus();
+                                            txtSerial.SelectAll();
+                                            NG_FORM NG_FORM = new NG_FORM();
+                                            NG_FORM.Lb_inform_NG.Text = "Thêm vào DB thất bại!";
+                                            NG_FORM.ControlBox = true;
+                                            NG_FORM.GroupBox3.Visible = false;
+                                            NG_FORM.ShowDialog();
+                                            return;
+                                        }
+
+                                    }
+                                }
+
                                 // wip ok thì thêm vào db
+                                IDCount += listBarcode.Count();
+                                LabelPCBA.Text = IDCount.ToString();
+
                                 foreach (var barcode in listBarcode)
                                 {
-                                    if (!ThemVaoDB(barcode))
-                                    {
-                                        txtSerial.Enabled = true;
-                                        txtSerial.Focus();
-                                        txtSerial.SelectAll();
-                                        NG_FORM NG_FORM = new NG_FORM();
-                                        NG_FORM.Lb_inform_NG.Text = "Thêm vào DB thất bại!";
-                                        NG_FORM.ControlBox = true;
-                                        NG_FORM.GroupBox3.Visible = false;
-                                        NG_FORM.ShowDialog();
-                                        return;
-                                    }
-                                   
-                                  
+                                    IncreaseProduct();
                                 }
-                                IDCount = DataProvider.Instance.HondaLocks.SoLuongBanMachDaDem(MacCurrent, cbbModel.Text);
-
                                 if (IDCount >= PCBBOX)
                                 {
+                                    IDCount = 0;
+                                    IDCount_box += 1;
+                                    Box_curent = "";
+                                    LabelSoThung.Text = IDCount_box.ToString();
                                     if (NumberInModel == 0)
                                     {
                                         TextMacBox.Enabled = true;
@@ -1330,10 +1348,6 @@ namespace Line_Production
 
                                     }
 
-
-                                    IDCount = 0;
-                                    IDCount_box += 1;
-                                    Box_curent = "";
                                 }
                                 else
                                 {
@@ -1341,10 +1355,9 @@ namespace Line_Production
                                     txtSerial.Focus();
                                     txtSerial.SelectAll();
                                 }
-                              
-                                LabelPCBA.Text = IDCount.ToString();
-                                LabelSoThung.Text = IDCount_box.ToString();
-                                IncreaseProduct();
+
+
+
                                 if (ConfirmModel & IDCount != 0)
                                 {
                                     txtConfirm.Enabled = true;
@@ -1352,7 +1365,7 @@ namespace Line_Production
                                     txtConfirm.Focus();
                                     txtSerial.Enabled = false;
                                 }
-                                
+
 
                             }
 
@@ -1392,7 +1405,7 @@ namespace Line_Production
                     // NG_FORM.ShowInTaskbar = False
                     NG_FORM.ShowDialog();
                 }
-               
+
             }
         }
 
