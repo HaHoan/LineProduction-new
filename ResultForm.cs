@@ -21,16 +21,22 @@ namespace Line_Production
 
         private void SetUpData(string text,string filter)
         {
-            var list = new List<Tuple<string, string,string>>();
-            if(filter == Constants.SERIAL)
+            using(var db = new barcode_dbEntities())
             {
-                list = DataProvider.Instance.HondaLocks.SearchSerial(text);
-            }else if(filter == Constants.BOXID)
-            {
-                list = DataProvider.Instance.HondaLocks.SearchBoxID(text);
+                var list = new List<HondaLock>();
+                if (filter == Constants.SERIAL)
+                {
+                    list = db.HondaLocks.Where(m => m.BoardNo == text).ToList();
+                }
+                else if (filter == Constants.BOXID)
+                {
+                    list = db.HondaLocks.Where(m => m.BoxID == text).ToList();
+                }
+
+                dgrvSearch.DataSource = list;
+
             }
-           
-            dgrvSearch.DataSource = list;
+          
         }
     }
 }

@@ -222,16 +222,19 @@ namespace Line_Production
                 ProductPlan = passRate.ProductPlan;
                 CountProduct = passRate.Actual;
                 IDCount = 0;
-
-                if (NumberInModel > 0)
+                using(var db = new barcode_dbEntities())
                 {
-                    IDCount_box = DataProvider.Instance.HondaLocks.SoLuongBanMachDaDem(cbbModel.Text.Trim());
-                    IDCount_box = IDCount_box / NumberInModel;
+                    if (NumberInModel > 0)
+                    {
+                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck).Count();
+                        IDCount_box = IDCount_box / NumberInModel;
+                    }
+                    else
+                    {
+                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck).GroupBy(m => m.BoxID).Count();
+                    }
                 }
-                else
-                {
-                    IDCount_box = DataProvider.Instance.HondaLocks.SoLuongThungDaDem(cbbModel.Text.Trim());
-                }
+               
 
                 Box_curent = "";
                 TimeCycleActual = (int)passRate.TimeCycleActual;
@@ -548,7 +551,11 @@ namespace Line_Production
             }
             else
             {
-                IDCount = DataProvider.Instance.HondaLocks.SoLuongBanMachDaDem(cbbModel.Text) - IDCount_box * NumberInModel;
+                using(var db = new barcode_dbEntities())
+                {
+                    IDCount = db.HondaLocks.Where(m => m.ShiftDate == (Datecheck + "_" + Shiftcheck) && m.ProductionID == ModelCurrent).Count() - IDCount_box * NumberInModel;
+                }
+               
                 PCBBOX = NumberInModel;
                 if (PCBBOX < 0)
                 {
@@ -877,7 +884,11 @@ namespace Line_Production
             {
                 Console.WriteLine("alallalala");
                 MacCurrent = TextMacBox.Text.Trim().TrimEnd().TrimStart();
-                IDCount = DataProvider.Instance.HondaLocks.SoLuongBanMachDaDem(MacCurrent, cbbModel.Text);
+                using(var db = new barcode_dbEntities())
+                {
+                    IDCount = db.HondaLocks.Where(m => m.ShiftDate == (Datecheck + "_" + Shiftcheck) && m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent).Count();
+                }
+                
                 PCBBOX = LaySoThung(TextMacBox.Text);
                 if (PCBBOX < 0)
                 {
@@ -1264,7 +1275,8 @@ namespace Line_Production
                                                     Updator_Code = "",
                                                     Updator_Name = "",
                                                     Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
-                                                    Repair = lblRepair.Visible
+                                                    Repair = lblRepair.Visible,
+                                                    ShiftDate = Datecheck + "_" + Shiftcheck
                                                 };
                                                 db.HondaLocks.Add(item);
                                                 db.SaveChanges();

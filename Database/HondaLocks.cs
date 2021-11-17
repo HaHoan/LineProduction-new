@@ -65,7 +65,7 @@ namespace Line_Production.Database
                 return -1;
             }
         }
-        public int SoLuongBanMachDaDem(string Model)
+        public int SoLuongBanMachDaDemTheoShift(string Model, string shift)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace Line_Production.Database
             var list = new List<Tuple<string, string,string>>();
             try
             {
-                string sql = "select BoxID, BoardNo,Repair from " + TABLE + " where BoardNo = '" + serial + "';";
+                string sql = "select BoxID, BoardNo,Repair,UpdateTime from " + TABLE + " where BoardNo = '" + serial + "';";
                 SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
                 using (DbDataReader reader = command.ExecuteReader())
                 {

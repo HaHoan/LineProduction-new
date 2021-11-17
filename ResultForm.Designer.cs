@@ -35,46 +35,123 @@ namespace Line_Production
         private void InitializeComponent()
         {
             this.dgrvSearch = new System.Windows.Forms.DataGridView();
-            this._macBox = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductionID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BoxID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Repair = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Updator_Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Updator_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Line = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NamePC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShiftDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgrvSearch)).BeginInit();
             this.SuspendLayout();
             // 
             // dgrvSearch
             // 
+            this.dgrvSearch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgrvSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgrvSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this._macBox,
-            this._id,
-            this.Repair});
+            this.ProductionID,
+            this.BoxID,
+            this.Serial,
+            this.UpdateTime,
+            this.Repair,
+            this.ID,
+            this.Updator_Code,
+            this.Updator_Name,
+            this.Line,
+            this.NamePC,
+            this.ShiftDate,
+            this.Status});
             this.dgrvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgrvSearch.Location = new System.Drawing.Point(0, 0);
             this.dgrvSearch.Name = "dgrvSearch";
             this.dgrvSearch.Size = new System.Drawing.Size(841, 721);
             this.dgrvSearch.TabIndex = 0;
             // 
-            // _macBox
+            // ProductionID
             // 
-            this._macBox.DataPropertyName = "Item1";
-            this._macBox.HeaderText = "Mac box";
-            this._macBox.Name = "_macBox";
-            this._macBox.ReadOnly = true;
-            this._macBox.Width = 300;
+            this.ProductionID.DataPropertyName = "ProductionID";
+            this.ProductionID.HeaderText = "ProductionID";
+            this.ProductionID.Name = "ProductionID";
             // 
-            // _id
+            // BoxID
             // 
-            this._id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this._id.DataPropertyName = "Item2";
-            this._id.HeaderText = "Serial";
-            this._id.Name = "_id";
-            this._id.ReadOnly = true;
+            this.BoxID.DataPropertyName = "BoxID";
+            this.BoxID.HeaderText = "BoxID";
+            this.BoxID.Name = "BoxID";
+            // 
+            // Serial
+            // 
+            this.Serial.DataPropertyName = "BoardNo";
+            this.Serial.HeaderText = "Serial";
+            this.Serial.Name = "Serial";
+            // 
+            // UpdateTime
+            // 
+            this.UpdateTime.DataPropertyName = "UpdateTime";
+            this.UpdateTime.HeaderText = "UpdateTime";
+            this.UpdateTime.Name = "UpdateTime";
             // 
             // Repair
             // 
-            this.Repair.DataPropertyName = "Item3";
+            this.Repair.DataPropertyName = "Repair";
             this.Repair.HeaderText = "Repair";
             this.Repair.Name = "Repair";
+            this.Repair.Visible = false;
+            // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // Updator_Code
+            // 
+            this.Updator_Code.DataPropertyName = "Updator_Code";
+            this.Updator_Code.HeaderText = "Updator_Code";
+            this.Updator_Code.Name = "Updator_Code";
+            this.Updator_Code.Visible = false;
+            // 
+            // Updator_Name
+            // 
+            this.Updator_Name.DataPropertyName = "Updator_Name";
+            this.Updator_Name.HeaderText = "Updator_Name";
+            this.Updator_Name.Name = "Updator_Name";
+            this.Updator_Name.Visible = false;
+            // 
+            // Line
+            // 
+            this.Line.DataPropertyName = "Line";
+            this.Line.HeaderText = "Line";
+            this.Line.Name = "Line";
+            this.Line.Visible = false;
+            // 
+            // NamePC
+            // 
+            this.NamePC.DataPropertyName = "NamePC";
+            this.NamePC.HeaderText = "NamePC";
+            this.NamePC.Name = "NamePC";
+            this.NamePC.Visible = false;
+            // 
+            // ShiftDate
+            // 
+            this.ShiftDate.DataPropertyName = "ShiftDate";
+            this.ShiftDate.HeaderText = "ShiftDate";
+            this.ShiftDate.Name = "ShiftDate";
+            this.ShiftDate.Visible = false;
+            // 
+            // Status
+            // 
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.Visible = false;
             // 
             // ResultForm
             // 
@@ -90,8 +167,17 @@ namespace Line_Production
         }
 
         internal DataGridView dgrvSearch;
-        private DataGridViewTextBoxColumn _macBox;
-        private DataGridViewTextBoxColumn _id;
+        private DataGridViewTextBoxColumn ProductionID;
+        private DataGridViewTextBoxColumn BoxID;
+        private DataGridViewTextBoxColumn Serial;
+        private DataGridViewTextBoxColumn UpdateTime;
         private DataGridViewTextBoxColumn Repair;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn Updator_Code;
+        private DataGridViewTextBoxColumn Updator_Name;
+        private DataGridViewTextBoxColumn Line;
+        private DataGridViewTextBoxColumn NamePC;
+        private DataGridViewTextBoxColumn ShiftDate;
+        private DataGridViewTextBoxColumn Status;
     }
 }
