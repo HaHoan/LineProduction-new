@@ -921,27 +921,31 @@ namespace Line_Production
 
                 cbUserMacBox.Enabled = false;
                 LabelPCBA.Text = IDCount.ToString();
-                if (IDCount == 0)
+                if(ModelCurrent == Constants.MODEL_SPECIAL)
                 {
-                    var selectRepair = new frmSelectRepair();
-                    selectRepair.CloseForm = (check) =>
+                    if (IDCount == 0)
                     {
-                        lblRepair.Visible = check;
-                    };
-                    selectRepair.ShowDialog();
-                }
-                else
-                {
-                    int BoxIsRepair = DataProvider.Instance.HondaLocks.BoxIsRepair(MacCurrent, cbbModel.Text);
-                    if (BoxIsRepair == -1)
-                    {
-                        MessageBox.Show("Có lỗi xảy ra!");
+                        var selectRepair = new frmSelectRepair();
+                        selectRepair.CloseForm = (check) =>
+                        {
+                            lblRepair.Visible = check;
+                        };
+                        selectRepair.ShowDialog();
                     }
                     else
                     {
-                        lblRepair.Visible = BoxIsRepair == 1 ? true : false;
+                        int BoxIsRepair = DataProvider.Instance.HondaLocks.BoxIsRepair(MacCurrent, cbbModel.Text);
+                        if (BoxIsRepair == -1)
+                        {
+                            MessageBox.Show("Có lỗi xảy ra!");
+                        }
+                        else
+                        {
+                            lblRepair.Visible = BoxIsRepair == 1 ? true : false;
+                        }
                     }
                 }
+              
                 //Box_curent = TextMacBox.Text;
             }
         }
@@ -1184,41 +1188,47 @@ namespace Line_Production
                                             return;
                                         }
                                     }
-                                    // Kiểm tra trên wip có dữ liệu chưa
-                                    bool isSuccess = false;
 
-                                    lblWaiting.Text = $"Wait...";
-                                    Task t = Task.Factory.StartNew(() =>
+                                    if (listBarcode.Count > 1)
                                     {
-                                        for (int i = 0; i < 10; i++)
+                                        // Kiểm tra trên wip có dữ liệu chưa
+                                        bool isSuccess = false;
+
+                                        lblWaiting.Text = $"Wait...";
+                                        Task t = Task.Factory.StartNew(() =>
                                         {
-
-                                            //Chờ lên wip 1s
-                                            string sleepTime = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
-                                            Thread.Sleep(string.IsNullOrEmpty(sleepTime) ? 0 : int.Parse(sleepTime));
-                                            if (CheckWIPOK(listBarcode))
+                                            for (int i = 0; i < 10; i++)
                                             {
-                                                isSuccess = true;
-                                                break;
+
+                                                //Chờ lên wip 1s
+                                                string sleepTime = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
+                                                Thread.Sleep(string.IsNullOrEmpty(sleepTime) ? 0 : int.Parse(sleepTime));
+                                                if (CheckWIPOK(listBarcode))
+                                                {
+                                                    isSuccess = true;
+                                                    break;
+                                                }
+
                                             }
+                                        });
 
+                                        Task.WaitAll(t);
+                                        lblWaiting.Text = $"";
+                                        if (!isSuccess)
+                                        {
+                                            txtSerial.Enabled = true;
+                                            txtSerial.Focus();
+                                            txtSerial.SelectAll();
+                                            NG_FORM NG_FORM = new NG_FORM();
+                                            NG_FORM.Lb_inform_NG.Text = "Link Wip NG! Vui lòng chạy lại!";
+                                            NG_FORM.ControlBox = true;
+                                            NG_FORM.GroupBox3.Visible = false;
+                                            NG_FORM.ShowDialog();
+                                            return;
                                         }
-                                    });
 
-                                    Task.WaitAll(t);
-                                    lblWaiting.Text = $"";
-                                    if (!isSuccess)
-                                    {
-                                        txtSerial.Enabled = true;
-                                        txtSerial.Focus();
-                                        txtSerial.SelectAll();
-                                        NG_FORM NG_FORM = new NG_FORM();
-                                        NG_FORM.Lb_inform_NG.Text = "Link Wip NG! Vui lòng chạy lại!";
-                                        NG_FORM.ControlBox = true;
-                                        NG_FORM.GroupBox3.Visible = false;
-                                        NG_FORM.ShowDialog();
-                                        return;
                                     }
+
 
                                 }
 

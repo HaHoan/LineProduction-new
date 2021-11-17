@@ -14,6 +14,8 @@ namespace Line_Production
         public static string StopBits = "1";
         public static string SERIAL = "SERIAL";
         public static string BOXID = "BOXID";
+        public static string MODEL_SPECIAL = "QM7-1890-000SS01";
+        
 
     }
     public static class ConstantsText
