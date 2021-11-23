@@ -222,19 +222,19 @@ namespace Line_Production
                 ProductPlan = passRate.ProductPlan;
                 CountProduct = passRate.Actual;
                 IDCount = 0;
-                using(var db = new barcode_dbEntities())
+                using (var db = new barcode_dbEntities())
                 {
                     if (NumberInModel > 0)
                     {
-                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck).Count();
+                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck && mbox.ProductionID == ModelCurrent).Count();
                         IDCount_box = IDCount_box / NumberInModel;
                     }
                     else
                     {
-                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck).GroupBy(m => m.BoxID).Count();
+                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck && mbox.ProductionID == ModelCurrent).GroupBy(m => m.BoxID).Count();
                     }
                 }
-               
+
 
                 Box_curent = "";
                 TimeCycleActual = (int)passRate.TimeCycleActual;
@@ -551,11 +551,11 @@ namespace Line_Production
             }
             else
             {
-                using(var db = new barcode_dbEntities())
+                using (var db = new barcode_dbEntities())
                 {
                     IDCount = db.HondaLocks.Where(m => m.ShiftDate == (Datecheck + "_" + Shiftcheck) && m.ProductionID == ModelCurrent).Count() - IDCount_box * NumberInModel;
                 }
-               
+
                 PCBBOX = NumberInModel;
                 if (PCBBOX < 0)
                 {
@@ -884,11 +884,11 @@ namespace Line_Production
             {
                 Console.WriteLine("alallalala");
                 MacCurrent = TextMacBox.Text.Trim().TrimEnd().TrimStart();
-                using(var db = new barcode_dbEntities())
+                using (var db = new barcode_dbEntities())
                 {
                     IDCount = db.HondaLocks.Where(m => m.ShiftDate == (Datecheck + "_" + Shiftcheck) && m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent).Count();
                 }
-                
+
                 PCBBOX = LaySoThung(TextMacBox.Text);
                 if (PCBBOX < 0)
                 {
@@ -932,7 +932,7 @@ namespace Line_Production
 
                 cbUserMacBox.Enabled = false;
                 LabelPCBA.Text = IDCount.ToString();
-                if(ModelCurrent == Constants.MODEL_SPECIAL)
+                if (ModelCurrent == Constants.MODEL_SPECIAL)
                 {
                     if (IDCount == 0)
                     {
@@ -956,7 +956,7 @@ namespace Line_Production
                         }
                     }
                 }
-              
+
                 //Box_curent = TextMacBox.Text;
             }
         }
@@ -1180,6 +1180,43 @@ namespace Line_Production
                             {
                                 if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkPathLog)))
                                 {
+                                    //Kiểm tra trạm trước đã ok chưa
+                                    if (listBarcode.Count == 1)
+                                    {
+                                        try
+                                        {
+                                            var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text);
+                                            var proceduces = pvsservice.GetWorkOrderProcedureByOrderId(orderItem.ORDER_ID.ToString());
+                                            var requireStation = proceduces.Where(m => m.STATION_NAME == Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)).FirstOrDefault();
+                                            if(orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
+                                            {
+                                                var currentStation = proceduces.Where(m => m.INDEX == (orderItem.PROCEDURE_INDEX + 1)).FirstOrDefault();
+                                                txtSerial.Enabled = true;
+                                                txtSerial.Focus();
+                                                txtSerial.SelectAll();
+                                                NG_FORM NG_FORM = new NG_FORM();
+                                                NG_FORM.Lb_inform_NG.Text = "Mạch đang ở trạm " + currentStation.STATION_NAME;
+                                                NG_FORM.GroupBox3.Visible = false;
+                                                NG_FORM.ShowDialog();
+                                                return;
+                                            }
+                                        }
+                                        catch
+                                        {
+
+                                            txtSerial.Enabled = true;
+                                            txtSerial.Focus();
+                                            txtSerial.SelectAll();
+                                            NG_FORM NG_FORM = new NG_FORM();
+                                            NG_FORM.Lb_inform_NG.Text = "WIP NG!";
+                                            NG_FORM.GroupBox3.Visible = false;
+                                            NG_FORM.ShowDialog();
+                                            return;
+                                        }
+
+
+
+                                    }
                                     // sinh ra log
                                     foreach (var barcode in listBarcode)
                                     {
@@ -1203,150 +1240,18 @@ namespace Line_Production
                                     if (listBarcode.Count > 1)
                                     {
                                         // Kiểm tra trên wip có dữ liệu chưa
-                                        bool isSuccess = false;
 
                                         lblWaiting.Text = $"Wait...";
-                                        Task t = Task.Factory.StartNew(() =>
-                                        {
-                                            for (int i = 0; i < 10; i++)
-                                            {
-
-                                                //Chờ lên wip 1s
-                                                string sleepTime = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
-                                                Thread.Sleep(string.IsNullOrEmpty(sleepTime) ? 0 : int.Parse(sleepTime));
-                                                if (CheckWIPOK(listBarcode))
-                                                {
-                                                    isSuccess = true;
-                                                    break;
-                                                }
-
-                                            }
-                                        });
-
-                                        Task.WaitAll(t);
-                                        lblWaiting.Text = $"";
-                                        if (!isSuccess)
-                                        {
-                                            txtSerial.Enabled = true;
-                                            txtSerial.Focus();
-                                            txtSerial.SelectAll();
-                                            NG_FORM NG_FORM = new NG_FORM();
-                                            NG_FORM.Lb_inform_NG.Text = "Link Wip NG! Vui lòng chạy lại!";
-                                            NG_FORM.ControlBox = true;
-                                            NG_FORM.GroupBox3.Visible = false;
-                                            NG_FORM.ShowDialog();
-                                            return;
-                                        }
-
-                                    }
-
-
-                                }
-
-
-                                using (var db = new barcode_dbEntities())
-                                {
-                                    using (DbContextTransaction transaction = db.Database.BeginTransaction())
-                                    {
-                                        try
-                                        {
-                                            foreach (var barcode in listBarcode)
-                                            {
-                                                var existItem = db.HondaLocks.Where(m => m.BoardNo == barcode).FirstOrDefault();
-                                                if (existItem != null)
-                                                {
-                                                    transaction.Rollback();
-                                                    txtSerial.Enabled = true;
-                                                    txtSerial.Focus();
-                                                    txtSerial.SelectAll();
-                                                    NG_FORM NG_FORM = new NG_FORM();
-                                                    NG_FORM.Lb_inform_NG.Text = "Đã tồn tại bản mạch " + barcode;
-                                                    NG_FORM.GroupBox3.Visible = false;
-                                                    NG_FORM.ShowDialog();
-                                                    return;
-                                                }
-                                                var item = new HondaLock()
-                                                {
-                                                    ProductionID = cbbModel.Text.ToString(),
-                                                    BoxID = TextMacBox.Text,
-                                                    BoardNo = barcode,
-                                                    UpdateTime = pvsservice.GetDateTime(),
-                                                    Status = chkOK.Checked ? "1" : "0",
-                                                    Updator_Code = "",
-                                                    Updator_Name = "",
-                                                    Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
-                                                    Repair = lblRepair.Visible,
-                                                    ShiftDate = Datecheck + "_" + Shiftcheck
-                                                };
-                                                db.HondaLocks.Add(item);
-                                                db.SaveChanges();
-                                            }
-                                            transaction.Commit();
-
-                                        }
-                                        catch (Exception)
-                                        {
-                                            transaction.Rollback();
-                                            txtSerial.Enabled = true;
-                                            txtSerial.Focus();
-                                            txtSerial.SelectAll();
-                                            NG_FORM NG_FORM = new NG_FORM();
-                                            NG_FORM.Lb_inform_NG.Text = "Thêm vào DB thất bại!";
-                                            NG_FORM.ControlBox = true;
-                                            NG_FORM.GroupBox3.Visible = false;
-                                            NG_FORM.ShowDialog();
-                                            return;
-                                        }
-
-                                    }
-                                }
-
-                                // wip ok thì thêm vào db
-                                IDCount += listBarcode.Count();
-                                LabelPCBA.Text = IDCount.ToString();
-
-                                foreach (var barcode in listBarcode)
-                                {
-                                    IncreaseProduct();
-                                }
-                                if (IDCount >= PCBBOX)
-                                {
-                                    IDCount = 0;
-                                    IDCount_box += 1;
-                                    Box_curent = "";
-                                    LabelSoThung.Text = IDCount_box.ToString();
-                                    if (NumberInModel == 0)
-                                    {
-                                        TextMacBox.Enabled = true;
-                                        TextMacBox.Focus();
-                                        txtSerial.Enabled = false;
-                                        TextMacBox.Clear();
+                                        bgwLinkWip.RunWorkerAsync(argument: listBarcode);
                                     }
                                     else
                                     {
-                                        txtSerial.Enabled = true;
-                                        txtSerial.Clear();
-                                        txtSerial.Focus();
-
+                                        increaseInDb(listBarcode);
                                     }
 
-                                }
-                                else
-                                {
-                                    txtSerial.Enabled = true;
-                                    txtSerial.Focus();
-                                    txtSerial.SelectAll();
+
                                 }
 
-
-
-                                if (ConfirmModel & IDCount != 0)
-                                {
-                                    txtConfirm.Enabled = true;
-                                    txtConfirm.SelectAll();
-                                    txtConfirm.Focus();
-                                    txtSerial.Enabled = false;
-                                }
 
 
                             }
@@ -1390,7 +1295,114 @@ namespace Line_Production
 
             }
         }
+        private void increaseInDb(List<string> listBarcode)
+        {
+            using (var db = new barcode_dbEntities())
+            {
+                using (DbContextTransaction transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var barcode in listBarcode)
+                        {
+                            var existItem = db.HondaLocks.Where(m => m.BoardNo == barcode).FirstOrDefault();
+                            if (existItem != null)
+                            {
+                                transaction.Rollback();
+                                txtSerial.Enabled = true;
+                                txtSerial.Focus();
+                                txtSerial.SelectAll();
+                                NG_FORM NG_FORM = new NG_FORM();
+                                NG_FORM.Lb_inform_NG.Text = "Đã tồn tại bản mạch " + barcode;
+                                NG_FORM.GroupBox3.Visible = false;
+                                NG_FORM.ShowDialog();
+                                return;
+                            }
+                            var item = new HondaLock()
+                            {
+                                ProductionID = cbbModel.Text.ToString(),
+                                BoxID = TextMacBox.Text,
+                                BoardNo = barcode,
+                                UpdateTime = pvsservice.GetDateTime(),
+                                Status = chkOK.Checked ? "1" : "0",
+                                Updator_Code = "",
+                                Updator_Name = "",
+                                Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
+                                Repair = lblRepair.Visible,
+                                ShiftDate = Datecheck + "_" + Shiftcheck
+                            };
+                            db.HondaLocks.Add(item);
+                            db.SaveChanges();
+                        }
+                        transaction.Commit();
 
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        txtSerial.Enabled = true;
+                        txtSerial.Focus();
+                        txtSerial.SelectAll();
+                        NG_FORM NG_FORM = new NG_FORM();
+                        NG_FORM.Lb_inform_NG.Text = "Thêm vào DB thất bại!";
+                        NG_FORM.ControlBox = true;
+                        NG_FORM.GroupBox3.Visible = false;
+                        NG_FORM.ShowDialog();
+                        return;
+                    }
+
+                }
+            }
+
+            // wip ok thì thêm vào db
+            IDCount += listBarcode.Count();
+            LabelPCBA.Text = IDCount.ToString();
+
+            foreach (var barcode in listBarcode)
+            {
+                IncreaseProduct();
+            }
+            if (IDCount >= PCBBOX)
+            {
+                IDCount = 0;
+                IDCount_box += 1;
+                Box_curent = "";
+                LabelSoThung.Text = IDCount_box.ToString();
+                if (NumberInModel == 0)
+                {
+                    TextMacBox.Enabled = true;
+                    TextMacBox.Focus();
+                    txtSerial.Enabled = false;
+                    TextMacBox.Clear();
+                }
+                else
+                {
+                    txtSerial.Enabled = true;
+                    txtSerial.Clear();
+                    txtSerial.Focus();
+
+                }
+
+            }
+            else
+            {
+                txtSerial.Enabled = true;
+                txtSerial.Focus();
+                txtSerial.SelectAll();
+            }
+
+
+
+            if (ConfirmModel & IDCount != 0)
+            {
+                txtConfirm.Enabled = true;
+                txtConfirm.SelectAll();
+                txtConfirm.Focus();
+                txtSerial.Enabled = false;
+            }
+
+
+        }
         private void lblListModel_Click(object sender, EventArgs e)
         {
             new ListModel().ShowDialog();
@@ -1419,6 +1431,48 @@ namespace Line_Production
         private void cbbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void bgwLinkWip_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            List<string> listBarcode = (List<string>)e.Argument;
+            bool isSuccess = false;
+            for (int i = 0; i < 10; i++)
+            {
+
+                //Chờ lên wip 1s
+                string sleepTime = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
+                Thread.Sleep(string.IsNullOrEmpty(sleepTime) ? 0 : int.Parse(sleepTime));
+                if (CheckWIPOK(listBarcode))
+                {
+                    isSuccess = true;
+                    break;
+                }
+
+            }
+            e.Result = Tuple.Create(isSuccess, listBarcode);
+        }
+
+        private void bgwLinkWip_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            Tuple<bool, List<string>> result = (Tuple<bool, List<string>>)e.Result;
+            lblWaiting.Text = $"";
+            if (result.Item1)
+            {
+                increaseInDb(result.Item2);
+            }
+            else
+            {
+                txtSerial.Enabled = true;
+                txtSerial.Focus();
+                txtSerial.SelectAll();
+                NG_FORM NG_FORM = new NG_FORM();
+                NG_FORM.Lb_inform_NG.Text = "Link Wip NG! Vui lòng chạy lại!";
+                NG_FORM.ControlBox = true;
+                NG_FORM.GroupBox3.Visible = false;
+                NG_FORM.ShowDialog();
+                return;
+            }
         }
     }
 }

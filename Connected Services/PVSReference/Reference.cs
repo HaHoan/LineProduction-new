@@ -1047,6 +1047,9 @@ namespace Line_Production.PVSReference {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CustomerField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContentField;
+        
         private System.Nullable<int> Content_IndexField;
         
         private System.Nullable<int> Content_LengthField;
@@ -1101,7 +1104,20 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string Content {
+            get {
+                return this.ContentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContentField, value) != true)) {
+                    this.ContentField = value;
+                    this.RaisePropertyChanged("Content");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
         public System.Nullable<int> Content_Index {
             get {
                 return this.Content_IndexField;
@@ -1114,7 +1130,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
         public System.Nullable<int> Content_Length {
             get {
                 return this.Content_LengthField;
@@ -1127,7 +1143,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
         public System.Nullable<int> Location {
             get {
                 return this.LocationField;
@@ -1140,7 +1156,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=7)]
         public System.Nullable<bool> Is_Hexa {
             get {
                 return this.Is_HexaField;
@@ -1153,7 +1169,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=8)]
         public string Des {
             get {
                 return this.DesField;
@@ -1166,7 +1182,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=8)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
         public bool Check_First {
             get {
                 return this.Check_FirstField;
@@ -1179,7 +1195,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
         public bool Is_Wip {
             get {
                 return this.Is_WipField;
@@ -5754,8 +5770,8 @@ namespace Line_Production.PVSReference {
         Line_Production.PVSReference.GetBarodeRuleItemsByRuleNoResponse GetBarodeRuleItemsByRuleNo(Line_Production.PVSReference.GetBarodeRuleItemsByRuleNoRequest request);
         
         // CODEGEN: Generating message contract since element name id from namespace http://tempuri.org/ is not marked nillable
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetBarodeRuleItemsByRuleId", ReplyAction="*")]
-        Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdResponse GetBarodeRuleItemsByRuleId(Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetBarcodeRuleItemsById", ReplyAction="*")]
+        Line_Production.PVSReference.GetBarcodeRuleItemsByIdResponse GetBarcodeRuleItemsById(Line_Production.PVSReference.GetBarcodeRuleItemsByIdRequest request);
         
         // CODEGEN: Generating message contract since element name orderId from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetRuleNo", ReplyAction="*")]
@@ -8957,15 +8973,15 @@ namespace Line_Production.PVSReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetBarodeRuleItemsByRuleIdRequest {
+    public partial class GetBarcodeRuleItemsByIdRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetBarodeRuleItemsByRuleId", Namespace="http://tempuri.org/", Order=0)]
-        public Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdRequestBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetBarcodeRuleItemsById", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetBarcodeRuleItemsByIdRequestBody Body;
         
-        public GetBarodeRuleItemsByRuleIdRequest() {
+        public GetBarcodeRuleItemsByIdRequest() {
         }
         
-        public GetBarodeRuleItemsByRuleIdRequest(Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdRequestBody Body) {
+        public GetBarcodeRuleItemsByIdRequest(Line_Production.PVSReference.GetBarcodeRuleItemsByIdRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -8974,15 +8990,15 @@ namespace Line_Production.PVSReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetBarodeRuleItemsByRuleIdRequestBody {
+    public partial class GetBarcodeRuleItemsByIdRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
         public string id;
         
-        public GetBarodeRuleItemsByRuleIdRequestBody() {
+        public GetBarcodeRuleItemsByIdRequestBody() {
         }
         
-        public GetBarodeRuleItemsByRuleIdRequestBody(string id) {
+        public GetBarcodeRuleItemsByIdRequestBody(string id) {
             this.id = id;
         }
     }
@@ -8991,15 +9007,15 @@ namespace Line_Production.PVSReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetBarodeRuleItemsByRuleIdResponse {
+    public partial class GetBarcodeRuleItemsByIdResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetBarodeRuleItemsByRuleIdResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdResponseBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetBarcodeRuleItemsByIdResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.PVSReference.GetBarcodeRuleItemsByIdResponseBody Body;
         
-        public GetBarodeRuleItemsByRuleIdResponse() {
+        public GetBarcodeRuleItemsByIdResponse() {
         }
         
-        public GetBarodeRuleItemsByRuleIdResponse(Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdResponseBody Body) {
+        public GetBarcodeRuleItemsByIdResponse(Line_Production.PVSReference.GetBarcodeRuleItemsByIdResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -9008,16 +9024,16 @@ namespace Line_Production.PVSReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetBarodeRuleItemsByRuleIdResponseBody {
+    public partial class GetBarcodeRuleItemsByIdResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Line_Production.PVSReference.BARCODE_RULE_ITEMSEntity GetBarodeRuleItemsByRuleIdResult;
+        public Line_Production.PVSReference.BARCODE_RULE_ITEMSEntity GetBarcodeRuleItemsByIdResult;
         
-        public GetBarodeRuleItemsByRuleIdResponseBody() {
+        public GetBarcodeRuleItemsByIdResponseBody() {
         }
         
-        public GetBarodeRuleItemsByRuleIdResponseBody(Line_Production.PVSReference.BARCODE_RULE_ITEMSEntity GetBarodeRuleItemsByRuleIdResult) {
-            this.GetBarodeRuleItemsByRuleIdResult = GetBarodeRuleItemsByRuleIdResult;
+        public GetBarcodeRuleItemsByIdResponseBody(Line_Production.PVSReference.BARCODE_RULE_ITEMSEntity GetBarcodeRuleItemsByIdResult) {
+            this.GetBarcodeRuleItemsByIdResult = GetBarcodeRuleItemsByIdResult;
         }
     }
     
@@ -10904,16 +10920,16 @@ namespace Line_Production.PVSReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdResponse Line_Production.PVSReference.PVSWebServiceSoap.GetBarodeRuleItemsByRuleId(Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdRequest request) {
-            return base.Channel.GetBarodeRuleItemsByRuleId(request);
+        Line_Production.PVSReference.GetBarcodeRuleItemsByIdResponse Line_Production.PVSReference.PVSWebServiceSoap.GetBarcodeRuleItemsById(Line_Production.PVSReference.GetBarcodeRuleItemsByIdRequest request) {
+            return base.Channel.GetBarcodeRuleItemsById(request);
         }
         
-        public Line_Production.PVSReference.BARCODE_RULE_ITEMSEntity GetBarodeRuleItemsByRuleId(string id) {
-            Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdRequest inValue = new Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdRequest();
-            inValue.Body = new Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdRequestBody();
+        public Line_Production.PVSReference.BARCODE_RULE_ITEMSEntity GetBarcodeRuleItemsById(string id) {
+            Line_Production.PVSReference.GetBarcodeRuleItemsByIdRequest inValue = new Line_Production.PVSReference.GetBarcodeRuleItemsByIdRequest();
+            inValue.Body = new Line_Production.PVSReference.GetBarcodeRuleItemsByIdRequestBody();
             inValue.Body.id = id;
-            Line_Production.PVSReference.GetBarodeRuleItemsByRuleIdResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetBarodeRuleItemsByRuleId(inValue);
-            return retVal.Body.GetBarodeRuleItemsByRuleIdResult;
+            Line_Production.PVSReference.GetBarcodeRuleItemsByIdResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetBarcodeRuleItemsById(inValue);
+            return retVal.Body.GetBarcodeRuleItemsByIdResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

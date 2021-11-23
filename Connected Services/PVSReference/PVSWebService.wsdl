@@ -412,6 +412,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="Product_Id" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Pcb" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Customer" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Content_Index" nillable="true" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="Content_Length" nillable="true" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="Location" nillable="true" type="s:int" />
@@ -1046,17 +1047,17 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetBarodeRuleItemsByRuleId">
+      <s:element name="GetBarcodeRuleItemsById">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetBarodeRuleItemsByRuleIdResponse">
+      <s:element name="GetBarcodeRuleItemsByIdResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetBarodeRuleItemsByRuleIdResult" type="tns:BARCODE_RULE_ITEMSEntity" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetBarcodeRuleItemsByIdResult" type="tns:BARCODE_RULE_ITEMSEntity" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1828,11 +1829,11 @@
   <wsdl:message name="GetBarodeRuleItemsByRuleNoSoapOut">
     <wsdl:part name="parameters" element="tns:GetBarodeRuleItemsByRuleNoResponse" />
   </wsdl:message>
-  <wsdl:message name="GetBarodeRuleItemsByRuleIdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetBarodeRuleItemsByRuleId" />
+  <wsdl:message name="GetBarcodeRuleItemsByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBarcodeRuleItemsById" />
   </wsdl:message>
-  <wsdl:message name="GetBarodeRuleItemsByRuleIdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetBarodeRuleItemsByRuleIdResponse" />
+  <wsdl:message name="GetBarcodeRuleItemsByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBarcodeRuleItemsByIdResponse" />
   </wsdl:message>
   <wsdl:message name="GetRuleNoSoapIn">
     <wsdl:part name="parameters" element="tns:GetRuleNo" />
@@ -2137,9 +2138,9 @@
       <wsdl:input message="tns:GetBarodeRuleItemsByRuleNoSoapIn" />
       <wsdl:output message="tns:GetBarodeRuleItemsByRuleNoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetBarodeRuleItemsByRuleId">
-      <wsdl:input message="tns:GetBarodeRuleItemsByRuleIdSoapIn" />
-      <wsdl:output message="tns:GetBarodeRuleItemsByRuleIdSoapOut" />
+    <wsdl:operation name="GetBarcodeRuleItemsById">
+      <wsdl:input message="tns:GetBarcodeRuleItemsByIdSoapIn" />
+      <wsdl:output message="tns:GetBarcodeRuleItemsByIdSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetRuleNo">
       <wsdl:input message="tns:GetRuleNoSoapIn" />
@@ -2643,8 +2644,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetBarodeRuleItemsByRuleId">
-      <soap:operation soapAction="http://tempuri.org/GetBarodeRuleItemsByRuleId" style="document" />
+    <wsdl:operation name="GetBarcodeRuleItemsById">
+      <soap:operation soapAction="http://tempuri.org/GetBarcodeRuleItemsById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3249,8 +3250,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetBarodeRuleItemsByRuleId">
-      <soap12:operation soapAction="http://tempuri.org/GetBarodeRuleItemsByRuleId" style="document" />
+    <wsdl:operation name="GetBarcodeRuleItemsById">
+      <soap12:operation soapAction="http://tempuri.org/GetBarcodeRuleItemsById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
