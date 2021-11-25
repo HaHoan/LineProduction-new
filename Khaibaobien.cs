@@ -141,8 +141,9 @@ namespace Line_Production
         {
             try
             {
-
-                var list = DataProvider.Instance.ModelQuantities.SelectListBy(Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer));
+                var customer = Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer);
+              
+                var list = DataProvider.Instance.ModelQuantities.SelectListBy(customer);
                 if (list == null) return false;
                 foreach (var model in list)
                 {

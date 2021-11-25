@@ -119,7 +119,12 @@ namespace Line_Production.Database
             var list = new List<Model>();
             try
             {
-                string sql = "select * from " + TABLE + " where Customer like '%" + Customer + "%'"; ;
+                string sql = "select * from " + TABLE + " where Customer like '%" + Customer + "%'"; 
+                if (string.IsNullOrEmpty(Customer))
+                {
+                     sql = "select * from " + TABLE ; 
+                }
+                
                 SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
 
                 using (DbDataReader reader = command.ExecuteReader())
@@ -153,7 +158,7 @@ namespace Line_Production.Database
             catch (Exception e)
             {
                 Console.Write(e.Message.ToString());
-                return null;
+                return new List<Model>();
             }
             return list;
         }
