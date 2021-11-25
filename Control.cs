@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -123,7 +124,8 @@ namespace Line_Production
             });
 
 
-            cbbModel.Enabled = true;
+            cbbModel.Visible = true;
+            lblModel.Visible = false;
             cbbModel.Text = "";
             for (int index = 1; index <= 10; index++)
             {
@@ -211,7 +213,17 @@ namespace Line_Production
             }
 
         }
-
+        private void ComboModel_EnabledChanged(object sender, EventArgs e)
+        {
+            //if (cbbModel.Enabled == false)
+            //{
+            //    cbbModel.BackColor = Color.White; //or pick the color you want when not enabled
+            //}
+            //else
+            //{
+            //    cbbModel.BackColor = Color.White; //same here with the color
+            //}
+        }
         public void LoadProduction()
         {
             string line = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
@@ -329,7 +341,9 @@ namespace Line_Production
                 ModelCurrent = cbbModel.Text;
                 if (LoadModelCurrent(ModelCurrent) == true)
                 {
-                    cbbModel.Enabled = false;
+                    cbbModel.Visible = false;
+                    lblModel.Visible = true;
+                    lblModel.Text = cbbModel.Text;
                     TextCycleTimeModel.Text = CycleTimeModel.ToString();
                     TextCycleTimeCurrent.Text = "";
                     txtPeople.Text = NoPeople.ToString();
@@ -483,7 +497,6 @@ namespace Line_Production
 
         private void BtStart_Click(object sender, EventArgs e)
         {
-            cbbModel.Enabled = false;
             LabelShapeOnline.Visible = true;
             LabelShapeOffLine.Visible = false;
             LabelShapeError.Visible = false;
