@@ -75,19 +75,28 @@ namespace Line_Production
 
         public static string GetValueRegistryKey(string path, string keyName)
         {
-            var key = Registry.CurrentUser.CreateSubKey(path);
-            string value = null;
-            if (key is object)
+            try
             {
-                if (key.GetValue(keyName) is object)
+                var key = Registry.CurrentUser.CreateSubKey(path);
+                string value = null;
+                if (key is object)
                 {
-                    value = key.GetValue(keyName).ToString();
-                    key.Close();
-                    return value;
+                    if (key.GetValue(keyName) is object)
+                    {
+                        value = key.GetValue(keyName).ToString();
+                        key.Close();
+                        return value;
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            catch (Exception )
+            {
+
+                return null;
+            }
+          
         }
 
         public static bool Validate_qty(string qty)

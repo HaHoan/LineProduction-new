@@ -21,9 +21,29 @@ namespace Line_Production
     {
         private System.Timers.Timer t = new System.Timers.Timer();
         private System.Windows.Forms.Timer t2 = new System.Windows.Forms.Timer();
+        private List<string> ModelSpeacials = new List<string>();
         public Control()
         {
             InitializeComponent();
+            checkModelSpeacial();
+        }
+
+        private void checkModelSpeacial()
+        {
+            var modelSpecial = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.MODEL_SPEACIAL);
+            if (modelSpecial == null)
+            {
+                Common.WriteRegistry(Control.PathConfig, RegistryKeys.MODEL_SPEACIAL, "QM7-1890-000SS01");
+                ModelSpeacials.Add("QM7-1890-000SS01");
+            }
+            else
+            {
+                var list = modelSpecial.Split(',');
+                foreach (var item in list)
+                {
+                    ModelSpeacials.Add(item);
+                }
+            }
         }
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
@@ -945,7 +965,7 @@ namespace Line_Production
 
                 cbUserMacBox.Enabled = false;
                 LabelPCBA.Text = IDCount.ToString();
-                if (ModelCurrent == Constants.MODEL_SPECIAL)
+                if (ModelSpeacials.Contains(ModelCurrent))
                 {
                     if (IDCount == 0)
                     {
@@ -1201,7 +1221,7 @@ namespace Line_Production
                                             var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text);
                                             var proceduces = pvsservice.GetWorkOrderProcedureByOrderId(orderItem.ORDER_ID.ToString());
                                             var requireStation = proceduces.Where(m => m.STATION_NAME == Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)).FirstOrDefault();
-                                            if(orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
+                                            if (orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
                                             {
                                                 var currentStation = proceduces.Where(m => m.INDEX == (orderItem.PROCEDURE_INDEX + 1)).FirstOrDefault();
                                                 txtSerial.Enabled = true;
@@ -1263,6 +1283,10 @@ namespace Line_Production
                                     }
 
 
+                                }
+                                else
+                                {
+                                    increaseInDb(listBarcode);
                                 }
 
 
@@ -1486,6 +1510,37 @@ namespace Line_Production
                 NG_FORM.ShowDialog();
                 return;
             }
+        }
+
+        private void cbDongThungLe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbDongThungLe.Checked)
+            {
+                IDCount = 0;
+                IDCount_box += 1;
+                Box_curent = "";
+                LabelSoThung.Text = IDCount_box.ToString();
+                if (NumberInModel == 0)
+                {
+                    TextMacBox.Enabled = true;
+                    TextMacBox.Focus();
+                    txtSerial.Enabled = false;
+                    TextMacBox.Clear();
+                }
+                else
+                {
+                    txtSerial.Enabled = true;
+                    txtSerial.Clear();
+                    txtSerial.Focus();
+
+                }
+                cbDongThungLe.Checked = false;
+            }
+        }
+
+        private void txtSerial_EnabledChanged(object sender, EventArgs e)
+        {
+            cbDongThungLe.Enabled = txtSerial.Enabled;
         }
     }
 }
