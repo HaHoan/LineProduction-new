@@ -35,6 +35,7 @@ namespace Line_Production
         public static string IsRepair = "IsRepair";
         public static string SleepTime = "SleepTime";
         public static string MODEL_SPEACIAL = "MODEL_SPEACIAL";
+        public static string LinkWip = "LinkWip";
     }
     public static class CaSX
     {

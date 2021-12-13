@@ -68,6 +68,7 @@ namespace Line_Production
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.Customer, txbCustomer.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkPathLog, cbLinkPathLog.Checked.ToString());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.SleepTime, txbSleepTime.Text.Trim());
+            Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkWip, cbLinkWip.Checked.ToString());
             var confirm = MessageBox.Show("Save success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (confirm == DialogResult.OK)
             {
@@ -83,6 +84,9 @@ namespace Line_Production
             {
                 bool chkWipValue = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.LinkPathLog));
                 cbLinkPathLog.Checked = chkWipValue;
+                bool linkWip = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.LinkWip));
+                cbLinkWip.Checked = linkWip;
+
             }
             catch { }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Windows.Forms;
 using Line_Production.Database;
 using Line_Production.Entities;
@@ -141,16 +142,20 @@ namespace Line_Production
         {
             try
             {
-                var customer = Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer);
               
-                var list = DataProvider.Instance.ModelQuantities.SelectListBy(customer);
-                if (list == null) return false;
-                foreach (var model in list)
+                using(var db = new barcode_dbEntities())
                 {
-                    cbbModel.Items.Add(model.ModelID);
-                }
+                    var customer = Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer);
+                    var list = db.LINE_MODEL.Where(m => m.Customer == customer).ToList();
+                    if (list == null) return false;
+                    foreach (var model in list)
+                    {
+                        cbbModel.Items.Add(model.Model);
+                    }
 
-                return true;
+                    return true;
+                }
+             
 
             }
             catch (Exception e)

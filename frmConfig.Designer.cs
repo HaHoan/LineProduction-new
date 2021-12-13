@@ -55,6 +55,7 @@ namespace Line_Production
             this.label6 = new System.Windows.Forms.Label();
             this.txbSleepTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.cbLinkWip = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbLinkPathLog
@@ -64,9 +65,9 @@ namespace Line_Production
             this.cbLinkPathLog.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.cbLinkPathLog.Location = new System.Drawing.Point(183, 272);
             this.cbLinkPathLog.Name = "cbLinkPathLog";
-            this.cbLinkPathLog.Size = new System.Drawing.Size(74, 17);
+            this.cbLinkPathLog.Size = new System.Drawing.Size(101, 17);
             this.cbLinkPathLog.TabIndex = 2;
-            this.cbLinkPathLog.Text = "LinkWIP";
+            this.cbLinkPathLog.Text = "Link PathLog";
             this.cbLinkPathLog.UseVisualStyleBackColor = true;
             // 
             // Label1
@@ -226,12 +227,25 @@ namespace Line_Production
             this.label7.TabIndex = 53;
             this.label7.Text = "Sleep Time";
             // 
+            // cbLinkWip
+            // 
+            this.cbLinkWip.AutoSize = true;
+            this.cbLinkWip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLinkWip.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.cbLinkWip.Location = new System.Drawing.Point(87, 272);
+            this.cbLinkWip.Name = "cbLinkWip";
+            this.cbLinkWip.Size = new System.Drawing.Size(74, 17);
+            this.cbLinkWip.TabIndex = 55;
+            this.cbLinkWip.Text = "LinkWIP";
+            this.cbLinkWip.UseVisualStyleBackColor = true;
+            // 
             // frmConfig
             // 
             this.AcceptButton = this.btnSaveChanged;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 382);
+            this.Controls.Add(this.cbLinkWip);
             this.Controls.Add(this.txbSleepTime);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txbCustomer);
@@ -280,5 +294,6 @@ namespace Line_Production
         internal Label label6;
         internal TextBox txbSleepTime;
         internal Label label7;
+        private CheckBox cbLinkWip;
     }
 }
