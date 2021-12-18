@@ -175,7 +175,7 @@
             // 
             // ModelID
             // 
-            this.ModelID.DataPropertyName = "ModelID";
+            this.ModelID.DataPropertyName = "Model";
             this.ModelID.HeaderText = "Model ID";
             this.ModelID.Name = "ModelID";
             // 
@@ -188,13 +188,13 @@
             // 
             // PersonInLine
             // 
-            this.PersonInLine.DataPropertyName = "PersonInLine";
+            this.PersonInLine.DataPropertyName = "PersonPerLine";
             this.PersonInLine.HeaderText = "Số người trên line";
             this.PersonInLine.Name = "PersonInLine";
             // 
             // CycleTime
             // 
-            this.CycleTime.DataPropertyName = "Cycle";
+            this.CycleTime.DataPropertyName = "CycleTime";
             this.CycleTime.HeaderText = "Cycle Time";
             this.CycleTime.Name = "CycleTime";
             // 
@@ -227,6 +227,7 @@
             this.UseMacbox.DataPropertyName = "UseMacbox";
             this.UseMacbox.HeaderText = "Sử dụng Mac box";
             this.UseMacbox.Name = "UseMacbox";
+            this.UseMacbox.Visible = false;
             // 
             // ListModel
             // 

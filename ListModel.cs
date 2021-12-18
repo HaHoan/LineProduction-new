@@ -14,7 +14,7 @@ namespace Line_Production
 {
     public partial class ListModel : Form
     {
-        private List<Model> list = new List<Model>();
+        private List<LINE_MODEL> list = new List<LINE_MODEL>();
     
         public ListModel()
         {
@@ -42,8 +42,12 @@ namespace Line_Production
 
         private void ListModel_Load(object sender, EventArgs e)
         {
-            list = DataProvider.Instance.ModelQuantities.Select();
-            SetDataForListModel();
+            using(var db = new barcode_dbEntities())
+            {
+                list = db.LINE_MODEL.ToList();
+                SetDataForListModel();
+            }
+          
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -51,8 +55,12 @@ namespace Line_Production
             var addModelForm = new AddModelForm();
             addModelForm.close = () =>
             {
-                list = DataProvider.Instance.ModelQuantities.Select();
-                SetDataForListModel();
+                using (var db = new barcode_dbEntities())
+                {
+                    list = db.LINE_MODEL.ToList();
+                    SetDataForListModel();
+                }
+              
             };
             addModelForm.ShowDialog();
         }
@@ -70,8 +78,11 @@ namespace Line_Production
                         MessageBox.Show("Có lỗi xảy ra!");
                         return;
                     }
-                    list = DataProvider.Instance.ModelQuantities.Select();
-                    SetDataForListModel();
+                    using (var db = new barcode_dbEntities())
+                    {
+                        list = db.LINE_MODEL.ToList();
+                        SetDataForListModel();
+                    }
                 }
             }
             catch (Exception ex)
@@ -93,8 +104,11 @@ namespace Line_Production
                     var addModelForm = new AddModelForm(ID);
                     addModelForm.close = () =>
                     {
-                        list = DataProvider.Instance.ModelQuantities.Select();
-                        SetDataForListModel();
+                        using (var db = new barcode_dbEntities())
+                        {
+                            list = db.LINE_MODEL.ToList();
+                            SetDataForListModel();
+                        }
                     };
                     addModelForm.ShowDialog();
                 }
@@ -117,7 +131,7 @@ namespace Line_Production
                 string txtSearch = txbSearchModel.Text.Trim();
                 if (!string.IsNullOrEmpty(txtSearch))
                 {
-                    var listFilter = list.Where(m => m.ModelID.ToUpper().Contains(txtSearch.ToUpper())).ToList();
+                    var listFilter = list.Where(m => m.Model.ToUpper().Contains(txtSearch.ToUpper())).ToList();
                     if (listFilter != null)
                     {
                         dgrvListModel.DataSource = listFilter;

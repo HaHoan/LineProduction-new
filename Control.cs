@@ -49,7 +49,7 @@ namespace Line_Production
 
                     }
                 }
-                
+
             }
 
         }
@@ -611,7 +611,7 @@ namespace Line_Production
             {
                 using (var db = new barcode_dbEntities())
                 {
-                    IDCount = db.HondaLocks.Where(m =>  m.ProductionID == ModelCurrent && string.IsNullOrEmpty(m.BoxID)).Count() - IDCount_box * NumberInModel;
+                    IDCount = db.HondaLocks.Where(m => m.ProductionID == ModelCurrent && string.IsNullOrEmpty(m.BoxID)).Count() - IDCount_box * NumberInModel;
                 }
 
                 PCBBOX = NumberInModel;
@@ -985,6 +985,7 @@ namespace Line_Production
                 else
                 {
                     txtSerial.Enabled = true;
+                    txtSerial.SelectAll();
                     txtSerial.Focus();
                 }
 
@@ -1071,6 +1072,7 @@ namespace Line_Production
                 chkOK.Checked = false;
                 TextMacBox.Enabled = false;
                 txtSerial.Enabled = true;
+                txtSerial.SelectAll();
                 txtSerial.Focus();
             }
         }
@@ -1133,6 +1135,7 @@ namespace Line_Production
                 if (txtConfirm.Text == cbbModel.Text)
                 {
                     txtSerial.Enabled = true;
+                    txtSerial.SelectAll();
                     txtSerial.Focus();
                     txtConfirm.Enabled = false;
                 }
@@ -1156,6 +1159,7 @@ namespace Line_Production
                 chkNG.Checked = false;
                 TextMacBox.Enabled = false;
                 txtSerial.Enabled = true;
+                txtSerial.SelectAll();
                 txtSerial.Focus();
             }
         }
@@ -1188,7 +1192,7 @@ namespace Line_Production
                             txtSerial.Enabled = false;
                             var model = DataProvider.Instance.ModelQuantities.Select(ModelCurrent);
                             var listBarcode = Common.CreateBarcode(txtSerial.Text.Trim(), model.PCB, model.ContentIndex, model.ContentLength, model.CheckFirst);
-                            if(IDCount + listBarcode.Count > PCBBOX)
+                            if (IDCount + listBarcode.Count > PCBBOX)
                             {
                                 txtSerial.Enabled = true;
                                 txtSerial.Focus();
@@ -1251,42 +1255,42 @@ namespace Line_Production
                                 if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkPathLog)))
                                 {
                                     //Kiểm tra trạm trước đã ok chưa
-                                    if (listBarcode.Count == 1)
-                                    {
-                                        try
-                                        {
-                                            var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text);
-                                            var proceduces = pvsservice.GetWorkOrderProcedureByOrderId(orderItem.ORDER_ID.ToString());
-                                            var requireStation = proceduces.Where(m => m.STATION_NAME == Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)).FirstOrDefault();
-                                            if (orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
-                                            {
-                                                var currentStation = proceduces.Where(m => m.INDEX == (orderItem.PROCEDURE_INDEX + 1)).FirstOrDefault();
-                                                txtSerial.Enabled = true;
-                                                txtSerial.Focus();
-                                                txtSerial.SelectAll();
-                                                NG_FORM NG_FORM = new NG_FORM();
-                                                NG_FORM.Lb_inform_NG.Text = "Mạch đang ở trạm " + currentStation.STATION_NAME;
-                                                NG_FORM.GroupBox3.Visible = false;
-                                                NG_FORM.ShowDialog();
-                                                return;
-                                            }
-                                        }
-                                        catch
-                                        {
+                                    //if (listBarcode.Count == 1)
+                                    //{
+                                    //    try
+                                    //    {
+                                    //        var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text);
+                                    //        var proceduces = pvsservice.GetWorkOrderProcedureByOrderId(orderItem.ORDER_ID.ToString());
+                                    //        var requireStation = proceduces.Where(m => m.STATION_NAME == Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)).FirstOrDefault();
+                                    //        if (orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
+                                    //        {
+                                    //            var currentStation = proceduces.Where(m => m.INDEX == (orderItem.PROCEDURE_INDEX + 1)).FirstOrDefault();
+                                    //            txtSerial.Enabled = true;
+                                    //            txtSerial.Focus();
+                                    //            txtSerial.SelectAll();
+                                    //            NG_FORM NG_FORM = new NG_FORM();
+                                    //            NG_FORM.Lb_inform_NG.Text = "Mạch đang ở trạm " + currentStation.STATION_NAME;
+                                    //            NG_FORM.GroupBox3.Visible = false;
+                                    //            NG_FORM.ShowDialog();
+                                    //            return;
+                                    //        }
+                                    //    }
+                                    //    catch
+                                    //    {
 
-                                            txtSerial.Enabled = true;
-                                            txtSerial.Focus();
-                                            txtSerial.SelectAll();
-                                            NG_FORM NG_FORM = new NG_FORM();
-                                            NG_FORM.Lb_inform_NG.Text = "WIP NG!";
-                                            NG_FORM.GroupBox3.Visible = false;
-                                            NG_FORM.ShowDialog();
-                                            return;
-                                        }
+                                    //        txtSerial.Enabled = true;
+                                    //        txtSerial.Focus();
+                                    //        txtSerial.SelectAll();
+                                    //        NG_FORM NG_FORM = new NG_FORM();
+                                    //        NG_FORM.Lb_inform_NG.Text = "WIP NG!";
+                                    //        NG_FORM.GroupBox3.Visible = false;
+                                    //        NG_FORM.ShowDialog();
+                                    //        return;
+                                    //    }
 
 
 
-                                    }
+                                    //}
                                     // sinh ra log
                                     foreach (var barcode in listBarcode)
                                     {
@@ -1496,56 +1500,62 @@ namespace Line_Production
                     }
 
                 }
-            }
 
-            // wip ok thì thêm vào db
-            
-            IDCount += listBarcode.Count();
-            LabelPCBA.Text = IDCount.ToString();
 
-            foreach (var barcode in listBarcode)
-            {
-                IncreaseProduct();
-            }
-            if (IDCount >= PCBBOX)
-            {
-                IDCount = 0;
-                IDCount_box += 1;
-                Box_curent = "";
-                LabelSoThung.Text = IDCount_box.ToString();
-                if (NumberInModel == 0)
+                // wip ok thì thêm vào db
+                if (string.IsNullOrEmpty(ModelCurrent))
                 {
-                    TextMacBox.Enabled = true;
-                    TextMacBox.Focus();
-                    txtSerial.Enabled = false;
-                    TextMacBox.Clear();
+                    IDCount += listBarcode.Count();
+                }
+                else
+                {
+                    IDCount = db.HondaLocks.Where(m => m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent).Count();
+                }
+
+
+                LabelPCBA.Text = IDCount.ToString();
+
+                foreach (var barcode in listBarcode)
+                {
+                    IncreaseProduct();
+                }
+                if (IDCount >= PCBBOX)
+                {
+                    IDCount = 0;
+                    IDCount_box += 1;
+                    Box_curent = "";
+                    LabelSoThung.Text = IDCount_box.ToString();
+                    if (NumberInModel == 0)
+                    {
+                        TextMacBox.Enabled = true;
+                        TextMacBox.Focus();
+                        txtSerial.Enabled = false;
+                        TextMacBox.Clear();
+                    }
+                    else
+                    {
+                        txtSerial.Enabled = true;
+                        txtSerial.Clear();
+                        txtSerial.Focus();
+
+                    }
+
                 }
                 else
                 {
                     txtSerial.Enabled = true;
-                    txtSerial.Clear();
                     txtSerial.Focus();
-
+                    txtSerial.SelectAll();
                 }
 
+                if (ConfirmModel & IDCount != 0)
+                {
+                    txtConfirm.Enabled = true;
+                    txtConfirm.SelectAll();
+                    txtConfirm.Focus();
+                    txtSerial.Enabled = false;
+                }
             }
-            else
-            {
-                txtSerial.Enabled = true;
-                txtSerial.Focus();
-                txtSerial.SelectAll();
-            }
-
-
-
-            if (ConfirmModel & IDCount != 0)
-            {
-                txtConfirm.Enabled = true;
-                txtConfirm.SelectAll();
-                txtConfirm.Focus();
-                txtSerial.Enabled = false;
-            }
-
 
         }
         private void lblListModel_Click(object sender, EventArgs e)
@@ -1649,6 +1659,11 @@ namespace Line_Production
         private void txtSerial_EnabledChanged(object sender, EventArgs e)
         {
             cbDongThungLe.Enabled = txtSerial.Enabled;
+        }
+
+        private void TextMacBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+
         }
     }
 }
