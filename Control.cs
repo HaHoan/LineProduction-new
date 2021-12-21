@@ -1255,42 +1255,42 @@ namespace Line_Production
                                 if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkPathLog)))
                                 {
                                     //Kiểm tra trạm trước đã ok chưa
-                                    //if (listBarcode.Count == 1)
-                                    //{
-                                    //    try
-                                    //    {
-                                    //        var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text);
-                                    //        var proceduces = pvsservice.GetWorkOrderProcedureByOrderId(orderItem.ORDER_ID.ToString());
-                                    //        var requireStation = proceduces.Where(m => m.STATION_NAME == Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)).FirstOrDefault();
-                                    //        if (orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
-                                    //        {
-                                    //            var currentStation = proceduces.Where(m => m.INDEX == (orderItem.PROCEDURE_INDEX + 1)).FirstOrDefault();
-                                    //            txtSerial.Enabled = true;
-                                    //            txtSerial.Focus();
-                                    //            txtSerial.SelectAll();
-                                    //            NG_FORM NG_FORM = new NG_FORM();
-                                    //            NG_FORM.Lb_inform_NG.Text = "Mạch đang ở trạm " + currentStation.STATION_NAME;
-                                    //            NG_FORM.GroupBox3.Visible = false;
-                                    //            NG_FORM.ShowDialog();
-                                    //            return;
-                                    //        }
-                                    //    }
-                                    //    catch
-                                    //    {
+                                    if (listBarcode.Count == 1)
+                                    {
+                                        try
+                                        {
+                                            var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text);
+                                            var proceduces = pvsservice.GetWorkOrderProcedureByOrderId(orderItem.ORDER_ID.ToString());
+                                            var requireStation = proceduces.Where(m => m.STATION_NAME == Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)).FirstOrDefault();
+                                            if (orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
+                                            {
+                                                var currentStation = proceduces.Where(m => m.INDEX == (orderItem.PROCEDURE_INDEX + 1)).FirstOrDefault();
+                                                txtSerial.Enabled = true;
+                                                txtSerial.Focus();
+                                                txtSerial.SelectAll();
+                                                NG_FORM NG_FORM = new NG_FORM();
+                                                NG_FORM.Lb_inform_NG.Text = "Mạch đang ở trạm " + currentStation.STATION_NAME;
+                                                NG_FORM.GroupBox3.Visible = false;
+                                                NG_FORM.ShowDialog();
+                                                return;
+                                            }
+                                        }
+                                        catch
+                                        {
 
-                                    //        txtSerial.Enabled = true;
-                                    //        txtSerial.Focus();
-                                    //        txtSerial.SelectAll();
-                                    //        NG_FORM NG_FORM = new NG_FORM();
-                                    //        NG_FORM.Lb_inform_NG.Text = "WIP NG!";
-                                    //        NG_FORM.GroupBox3.Visible = false;
-                                    //        NG_FORM.ShowDialog();
-                                    //        return;
-                                    //    }
+                                            txtSerial.Enabled = true;
+                                            txtSerial.Focus();
+                                            txtSerial.SelectAll();
+                                            NG_FORM NG_FORM = new NG_FORM();
+                                            NG_FORM.Lb_inform_NG.Text = "WIP NG!";
+                                            NG_FORM.GroupBox3.Visible = false;
+                                            NG_FORM.ShowDialog();
+                                            return;
+                                        }
 
 
 
-                                    //}
+                                    }
                                     // sinh ra log
                                     foreach (var barcode in listBarcode)
                                     {
@@ -1503,13 +1503,13 @@ namespace Line_Production
 
 
                 // wip ok thì thêm vào db
-                if (string.IsNullOrEmpty(ModelCurrent))
+                if (NumberInModel == 0)
                 {
-                    IDCount += listBarcode.Count();
+                    IDCount = db.HondaLocks.Where(m => m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent).Count();
                 }
                 else
                 {
-                    IDCount = db.HondaLocks.Where(m => m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent).Count();
+                    IDCount += listBarcode.Count();
                 }
 
 
