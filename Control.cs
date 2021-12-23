@@ -669,9 +669,10 @@ namespace Line_Production
                 _lineproduct_service.UpdateRealtime(ett);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "UpdateRealtime error!", ex);
+                LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
             }
             // Repository.UpdatateData(entities)
             SetupDisplay();
@@ -873,7 +874,11 @@ namespace Line_Production
                     Common.SendToComport(ArraySend, result => { lblState.Text = result; });
 
                 }
-                catch { }
+                catch (Exception ex){
+                    LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "UpdateRealtime error!", ex);
+                    LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
+                    Console.Write(ex.ToString());
+                }
 
 
             }
@@ -1247,6 +1252,8 @@ namespace Line_Production
                                 }
                                 catch (Exception ex)
                                 {
+                                    LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Ghi log wip bị lỗi", ex);
+                                    LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Ghi log wip bị lỗi", ex);
                                     return;
                                 }
                             }
@@ -1275,9 +1282,10 @@ namespace Line_Production
                                                 return;
                                             }
                                         }
-                                        catch
+                                        catch (Exception ex)
                                         {
-
+                                            LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "lỗi kiểm tra trạm trước!", ex);
+                                            LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "lỗi kiểm tra trạm trước!", ex);
                                             txtSerial.Enabled = true;
                                             txtSerial.Focus();
                                             txtSerial.SelectAll();
@@ -1287,8 +1295,6 @@ namespace Line_Production
                                             NG_FORM.ShowDialog();
                                             return;
                                         }
-
-
 
                                     }
                                     // sinh ra log
@@ -1307,6 +1313,8 @@ namespace Line_Production
                                         }
                                         catch (Exception ex)
                                         {
+                                            LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Ghi log wip bị lỗi", ex);
+                                            LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Ghi log wip bị lỗi", ex);
                                             return;
                                         }
                                     }
@@ -1411,6 +1419,8 @@ namespace Line_Production
                             txtSerial.Focus();
                             txtSerial.SelectAll();
                             MessageBox.Show("txtSerial_PreviewKeyDown : " + e.ToString());
+                            LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Nhập serial bị lỗi", ex);
+                            LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Nhập serial bị lỗi", ex);
                             return;
                         }
 
@@ -1485,8 +1495,10 @@ namespace Line_Production
                         transaction.Commit();
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Thêm vào db bị lỗi", ex);
+                        LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Thêm vào db bị lỗi", ex);
                         transaction.Rollback();
                         txtSerial.Enabled = true;
                         txtSerial.Focus();
@@ -1496,6 +1508,7 @@ namespace Line_Production
                         NG_FORM.ControlBox = true;
                         NG_FORM.GroupBox3.Visible = false;
                         NG_FORM.ShowDialog();
+
                         return;
                     }
 

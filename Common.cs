@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 
 public enum State
 {
@@ -263,5 +267,185 @@ namespace Line_Production
                 return false;
             }
         }
+    }
+    public class CheckExist
+    {
+        public static bool CheckFileExist(string strFileName)
+        {
+            return File.Exists(strFileName);
+        }
+
+        public static bool CheckFolderExist(string strFolderName)
+        {
+            return Directory.Exists(strFolderName);
+        }
+    }
+    public class LogFileWritter
+    {
+        public static int WriteLog(string filePath, string message, object objData = null)
+        {
+            int result;
+            try
+            {
+                string FolderName = Path.GetDirectoryName(filePath);
+                bool flag = !File.Exists(filePath);
+                if (flag)
+                {
+                    bool flag2 = !Directory.Exists(FolderName);
+                    if (flag2)
+                    {
+                        Directory.CreateDirectory(FolderName);
+                    }
+                    File.Create(filePath).Close();
+                }
+                string writeContent = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss") + "\r\n Message: " + message + "\r\n";
+                bool flag3 = objData != null;
+                if (flag3)
+                {
+                    string objContent = JsonConvert.SerializeObject(objData, new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+                    writeContent = writeContent + " Data: " + objContent + "\r\n";
+                }
+                WriteFiles.WriteToFile(filePath, writeContent);
+                long folderSize = ReadFiles.GetFileSizeSumFromDirectory(FolderName);
+                bool flag4 = folderSize > 1000000L;
+                if (flag4)
+                {
+                    LogFileWritter.CleanOldLogging(FolderName);
+                }
+                result = 0;
+            }
+            catch (Exception ex)
+            {
+                string test = ex.Message;
+                result = -1;
+            }
+            return result;
+        }
+
+        public static void CleanOldLogging(string strFolderPath)
+        {
+            bool flag = !CheckExist.CheckFolderExist(strFolderPath);
+            if (!flag)
+            {
+                IEnumerable<string> files = Directory.EnumerateFiles(strFolderPath);
+                foreach (string file in files)
+                {
+                    try
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(file);
+                        string strDateCreate = fileName.Substring(0, 8);
+                        DateTime dateCreate = DateTime.ParseExact(strDateCreate, "ddMMyyyy", CultureInfo.InvariantCulture);
+                        bool flag2 = DateTime.Now - dateCreate > TimeSpan.FromDays(180.0);
+                        if (flag2)
+                        {
+                            File.Delete(file);
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+    }
+    public class WriteFiles
+    {
+        private static Mutex mut
+        {
+            get;
+            set;
+        }
+
+        public static void WriteToFile(string strFileFullName, string strContent)
+        {
+            try
+            {
+                if (!CheckExist.CheckFileExist(strFileFullName))
+                {
+                    if (!CheckExist.CheckFolderExist(Path.GetDirectoryName(strFileFullName)))
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(strFileFullName));
+                    }
+                    File.Create(strFileFullName).Close();
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            bool flag = false;
+            string str = "";
+            int tickCount = ApiFunc.GetTickCount();
+            while (!flag)
+            {
+                try
+                {
+                    WriteFiles.mut = new Mutex();
+                    WriteFiles.mut.WaitOne();
+                    StreamWriter streamWriter = File.AppendText(strFileFullName);
+                    streamWriter.WriteLine(strContent);
+                    streamWriter.Close();
+                    WriteFiles.mut.ReleaseMutex();
+                    flag = true;
+                }
+                catch (Exception ex)
+                {
+                    WriteFiles.mut.ReleaseMutex();
+                    str = ex.Message;
+                }
+                if (ApiFunc.GetTickCount() - tickCount > 5000)
+                {
+                    break;
+                }
+            }
+            if (!flag)
+            {
+                MessageBox.Show("Cannot Saving Data. Error Message:\r\n" + str, "AppendCsvFile()");
+            }
+        }
+    }
+    public class ReadFiles
+    {
+        public static long GetFileSizeSumFromDirectory(string searchDirectory)
+        {
+            long result = 0L;
+            if (!CheckExist.CheckFolderExist(searchDirectory))
+            {
+                result = -1L;
+            }
+            else
+            {
+                IEnumerable<string> enumerable = Directory.EnumerateFiles(searchDirectory);
+
+                foreach (var item in enumerable)
+                {
+                    result += new FileInfo(item).Length;
+                }
+            }
+            return result;
+        }
+    }
+    public class ApiFunc
+    {
+        public static int GetTickCount()
+        {
+            return ApiDeclaration.GetTickCount();
+        }
+    }
+
+
+    public class ApiDeclaration
+    {
+        [DllImport("kernel32.dll")]
+        public static extern int GetTickCount();
+
+        [DllImport("kernel32.dll")]
+        public static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
+
+        [DllImport("kernel32.dll")]
+        public static extern long WritePrivateProfileString(string lpApplicationName, string lpKeyName, string lpString, string lpFileName);
     }
 }
