@@ -15,16 +15,15 @@ namespace Line_Production
         public fmLogin()
         {
             InitializeComponent();
+            txtUsername.Focus();
         }
 
-        private PVSReference.PVSWebServiceSoapClient loginService = new PVSReference.PVSWebServiceSoapClient();
         private bool _move;
         private int move_x, move_y;
 
         private void Label2_Click(object sender, EventArgs e)
         {
-            // Me.Close()
-            Application.Exit();
+            Close();
         }
 
         private void fmLogin_Load(object sender, EventArgs e)
@@ -35,27 +34,31 @@ namespace Line_Production
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var username = txtUsername.Text.Trim();
-            var password = txtPassword.Text;
-            try
+            using (var db = new barcode_dbEntities())
             {
-                var user = loginService.CheckUserLogin(username, password);
-                if (user is object)
+                var username = txtUsername.Text.Trim();
+                var password = txtPassword.Text.Trim();
+                try
                 {
-                    this.Hide();
-                    Control control = new Control();
-                   
-                    control.Show();
+
+                    var user = db.USERs.Where(m => m.Code == username && m.Password == password).FirstOrDefault();
+                    if (user is object)
+                    {
+                        this.Hide();
+                        new ListModel().ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Kết nối đến server thất bại !", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+
             }
-            catch (Exception)
-            {
-                MessageBox.Show("Kết nối đến server thất bại !", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+
         }
 
         private void Panel1_MouseDown(object sender, MouseEventArgs e)
@@ -82,7 +85,17 @@ namespace Line_Production
             }
         }
 
-       
+        private void txtUsername_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                txtPassword.Focus();
+        }
+
+        private void txtPassword_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnLogin.Focus();
+        }
 
         private void Panel1_MouseMove(object sender, MouseEventArgs e)
         {

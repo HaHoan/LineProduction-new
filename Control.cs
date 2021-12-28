@@ -1489,6 +1489,11 @@ namespace Line_Production
                                 Repair = lblRepair.Visible,
                                 ShiftDate = Datecheck + "_" + Shiftcheck
                             };
+                            string hostname = Environment.MachineName;
+                            if (!string.IsNullOrEmpty(hostname))
+                            {
+                                item.NamePC = hostname;
+                            }
                             db.HondaLocks.Add(item);
                             db.SaveChanges();
                         }
@@ -1573,7 +1578,7 @@ namespace Line_Production
         }
         private void lblListModel_Click(object sender, EventArgs e)
         {
-            new ListModel().ShowDialog();
+            new fmLogin().ShowDialog();
         }
 
         private void lblSettingTime_Click(object sender, EventArgs e)

@@ -26,7 +26,7 @@ namespace Line_Production
         {
 
             List<string> lst = new List<string>();
-            if(pcb == 1)
+            if (pcb == 1)
             {
                 lst.Add(boardNo);
                 return lst;
@@ -95,12 +95,12 @@ namespace Line_Production
 
                 return null;
             }
-            catch (Exception )
+            catch (Exception)
             {
 
                 return null;
             }
-          
+
         }
 
         public static bool Validate_qty(string qty)
@@ -306,7 +306,8 @@ namespace Line_Production
                     {
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     });
-                    writeContent = writeContent + " Data: " + objContent + "\r\n";
+                    string hostname = Environment.MachineName;
+                    writeContent = writeContent + " Data: " + objContent +" PC:" + hostname +"\r\n";
                 }
                 WriteFiles.WriteToFile(filePath, writeContent);
                 long folderSize = ReadFiles.GetFileSizeSumFromDirectory(FolderName);
