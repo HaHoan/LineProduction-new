@@ -110,6 +110,12 @@
     <Compile Include="AddModelForm.Designer.cs">
       <DependentUpon>AddModelForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="Connected Services\LineProductWebServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -238,6 +244,9 @@
     </Compile>
     <EmbeddedResource Include="AddModelForm.resx">
       <DependentUpon>AddModelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control.resx">
       <DependentUpon>Control.cs</DependentUpon>

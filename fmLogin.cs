@@ -38,14 +38,33 @@ namespace Line_Production
             {
                 var username = txtUsername.Text.Trim();
                 var password = txtPassword.Text.Trim();
+                if (string.IsNullOrEmpty(username))
+                {
+                    txtUsername.Focus();
+                    return;
+                }
+                if (string.IsNullOrEmpty(password))
+                {
+                    txtPassword.Focus();
+                    return;
+                }
                 try
                 {
-
+                    
                     var user = db.USERs.Where(m => m.Code == username && m.Password == password).FirstOrDefault();
                     if (user is object)
                     {
                         this.Hide();
-                        new ListModel().ShowDialog();
+                        if (password == "umcvn")
+                        {
+                            new ChangePassword().ShowDialog();
+                        }
+                        else
+                        {
+                           
+                            new ListModel().ShowDialog();
+                        }
+                       
                     }
                     else
                     {
@@ -95,6 +114,12 @@ namespace Line_Production
         {
             if (e.KeyCode == Keys.Enter)
                 btnLogin.Focus();
+        }
+
+        private void btnChangePass_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new ChangePassword().ShowDialog();
         }
 
         private void Panel1_MouseMove(object sender, MouseEventArgs e)

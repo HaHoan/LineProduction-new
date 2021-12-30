@@ -46,6 +46,7 @@ namespace Line_Production
             this.Label4 = new System.Windows.Forms.Label();
             this.lblCapslock = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnChangePass = new System.Windows.Forms.Button();
             this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -236,6 +237,20 @@ namespace Line_Production
             this.label5.Text = "Chức năng này chỉ dành cho leader. Nếu chưa có tài khoản thì liên hệ IT -3145";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnChangePass
+            // 
+            this.btnChangePass.FlatAppearance.BorderSize = 0;
+            this.btnChangePass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangePass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangePass.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnChangePass.Location = new System.Drawing.Point(15, 464);
+            this.btnChangePass.Name = "btnChangePass";
+            this.btnChangePass.Size = new System.Drawing.Size(162, 23);
+            this.btnChangePass.TabIndex = 12;
+            this.btnChangePass.Text = "Đổi mật khẩu";
+            this.btnChangePass.UseVisualStyleBackColor = true;
+            this.btnChangePass.Click += new System.EventHandler(this.btnChangePass_Click);
+            // 
             // fmLogin
             // 
             this.AcceptButton = this.btnLogin;
@@ -244,6 +259,7 @@ namespace Line_Production
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(295, 510);
             this.ControlBox = false;
+            this.Controls.Add(this.btnChangePass);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblCapslock);
             this.Controls.Add(this.Label4);
@@ -284,5 +300,6 @@ namespace Line_Production
         private RectangleShape RectangleShape3;
         private OvalShape OvalShape1;
         private Label label5;
+        private Button btnChangePass;
     }
 }
