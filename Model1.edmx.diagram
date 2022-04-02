@@ -6,11 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="57a6679fd8a9462890b0cbac512f29a9" Name="Diagram1">
         <EntityTypeShape EntityType="barcode_dbModel.HondaLock" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="barcode_dbModel.LINE_MODEL" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="barcode_dbModel.LINE_PASSRATE" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="barcode_dbModel.LINE_TIME" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="barcode_dbModel.LINE_TIMELINE" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="barcode_dbModel.USER" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="barcode_dbModel.LINE_MODEL" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

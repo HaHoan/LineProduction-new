@@ -12,6 +12,7 @@ namespace Line_Production
 {
     public partial class fmLogin : Form
     {
+        public Action closeForm;
         public fmLogin()
         {
             InitializeComponent();
@@ -57,12 +58,22 @@ namespace Line_Production
                         this.Hide();
                         if (password == "umcvn")
                         {
-                            new ChangePassword().ShowDialog();
+                            var changePassForm = new ChangePassword();
+                            changePassForm.closeForm = () =>
+                            {
+                                closeForm();
+                            };
+                            changePassForm.ShowDialog();
                         }
                         else
                         {
-                           
-                            new ListModel().ShowDialog();
+                            Common.WriteRegistry(Control.PathConfig, RegistryKeys.CurrentUser, user.Code);
+                            var listForm = new ListModel();
+                            listForm.closeForm = () =>
+                            {
+                                closeForm();
+                            };
+                            listForm.ShowDialog();
                         }
                        
                     }
@@ -120,6 +131,11 @@ namespace Line_Production
         {
             this.Hide();
             new ChangePassword().ShowDialog();
+        }
+
+        private void fmLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            closeForm();
         }
 
         private void Panel1_MouseMove(object sender, MouseEventArgs e)

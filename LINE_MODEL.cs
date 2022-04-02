@@ -29,5 +29,7 @@ namespace Line_Production
         public Nullable<int> ContentIndex { get; set; }
         public Nullable<bool> CheckFirst { get; set; }
         public string HistoryNo { get; set; }
+        public string Modifier { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     }
 }

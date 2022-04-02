@@ -51,11 +51,12 @@ namespace Line_Production
             this.btnSaveChanged = new System.Windows.Forms.Button();
             this.cbbProcess = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txbCustomer = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txbSleepTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cbLinkWip = new System.Windows.Forms.CheckBox();
+            this.cbbCustomer = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbLinkPathLog
@@ -69,11 +70,12 @@ namespace Line_Production
             this.cbLinkPathLog.TabIndex = 2;
             this.cbLinkPathLog.Text = "Link PathLog";
             this.cbLinkPathLog.UseVisualStyleBackColor = true;
+            this.cbLinkPathLog.CheckedChanged += new System.EventHandler(this.cbLinkPathLog_CheckedChanged);
             // 
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(12, 119);
+            this.Label1.Location = new System.Drawing.Point(7, 55);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(50, 13);
             this.Label1.TabIndex = 25;
@@ -81,14 +83,14 @@ namespace Line_Production
             // 
             // txtLog
             // 
-            this.txtLog.Location = new System.Drawing.Point(87, 115);
+            this.txtLog.Location = new System.Drawing.Point(85, 51);
             this.txtLog.Name = "txtLog";
             this.txtLog.Size = new System.Drawing.Size(205, 20);
             this.txtLog.TabIndex = 26;
             // 
             // btnBrower
             // 
-            this.btnBrower.Location = new System.Drawing.Point(302, 115);
+            this.btnBrower.Location = new System.Drawing.Point(297, 51);
             this.btnBrower.Name = "btnBrower";
             this.btnBrower.Size = new System.Drawing.Size(31, 20);
             this.btnBrower.TabIndex = 27;
@@ -100,6 +102,7 @@ namespace Line_Production
             // 
             this.txtStation.Location = new System.Drawing.Point(87, 154);
             this.txtStation.Name = "txtStation";
+            this.txtStation.ReadOnly = true;
             this.txtStation.Size = new System.Drawing.Size(205, 20);
             this.txtStation.TabIndex = 32;
             this.txtStation.Text = "VI_YO";
@@ -115,15 +118,16 @@ namespace Line_Production
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(87, 52);
+            this.txtId.Location = new System.Drawing.Point(86, 86);
             this.txtId.Name = "txtId";
+            this.txtId.ReadOnly = true;
             this.txtId.Size = new System.Drawing.Size(205, 20);
             this.txtId.TabIndex = 36;
             // 
             // Label5
             // 
             this.Label5.AutoSize = true;
-            this.Label5.Location = new System.Drawing.Point(12, 59);
+            this.Label5.Location = new System.Drawing.Point(11, 93);
             this.Label5.Name = "Label5";
             this.Label5.Size = new System.Drawing.Size(27, 13);
             this.Label5.TabIndex = 35;
@@ -165,7 +169,7 @@ namespace Line_Production
             this.btnSaveChanged.ForeColor = System.Drawing.Color.White;
             this.btnSaveChanged.Image = global::Line_Production.Properties.Resources.Save;
             this.btnSaveChanged.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveChanged.Location = new System.Drawing.Point(174, 308);
+            this.btnSaveChanged.Location = new System.Drawing.Point(174, 315);
             this.btnSaveChanged.Name = "btnSaveChanged";
             this.btnSaveChanged.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnSaveChanged.Size = new System.Drawing.Size(118, 30);
@@ -179,7 +183,7 @@ namespace Line_Production
             // 
             this.cbbProcess.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbbProcess.FormattingEnabled = true;
-            this.cbbProcess.Location = new System.Drawing.Point(87, 12);
+            this.cbbProcess.Location = new System.Drawing.Point(87, 17);
             this.cbbProcess.Name = "cbbProcess";
             this.cbbProcess.Size = new System.Drawing.Size(205, 21);
             this.cbbProcess.TabIndex = 50;
@@ -193,17 +197,10 @@ namespace Line_Production
             this.label2.TabIndex = 49;
             this.label2.Text = "Process:";
             // 
-            // txbCustomer
-            // 
-            this.txbCustomer.Location = new System.Drawing.Point(88, 83);
-            this.txbCustomer.Name = "txbCustomer";
-            this.txbCustomer.Size = new System.Drawing.Size(205, 20);
-            this.txbCustomer.TabIndex = 52;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 90);
+            this.label6.Location = new System.Drawing.Point(12, 127);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(51, 13);
             this.label6.TabIndex = 51;
@@ -238,17 +235,51 @@ namespace Line_Production
             this.cbLinkWip.TabIndex = 55;
             this.cbLinkWip.Text = "LinkWIP";
             this.cbLinkWip.UseVisualStyleBackColor = true;
+            this.cbLinkWip.CheckedChanged += new System.EventHandler(this.cbLinkWip_CheckedChanged);
+            // 
+            // cbbCustomer
+            // 
+            this.cbbCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbCustomer.FormattingEnabled = true;
+            this.cbbCustomer.Items.AddRange(new object[] {
+            "VALEO",
+            "ICHIKOH",
+            "HONDALOCK",
+            "TOYODENSO",
+            "YOKOWO",
+            "YASKAWA",
+            "FORMLABS",
+            "NICHICON",
+            "KYOCERA",
+            "BROTHER",
+            "CANON",
+            "FUJIXEROX"});
+            this.cbbCustomer.Location = new System.Drawing.Point(87, 118);
+            this.cbbCustomer.Name = "cbbCustomer";
+            this.cbbCustomer.Size = new System.Drawing.Size(204, 21);
+            this.cbbCustomer.TabIndex = 56;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Maroon;
+            this.label8.Location = new System.Drawing.Point(85, 1);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(107, 13);
+            this.label8.TabIndex = 57;
+            this.label8.Text = "Tên chương trình wip";
             // 
             // frmConfig
             // 
             this.AcceptButton = this.btnSaveChanged;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 382);
+            this.ClientSize = new System.Drawing.Size(350, 371);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.cbbCustomer);
             this.Controls.Add(this.cbLinkWip);
             this.Controls.Add(this.txbSleepTime);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.txbCustomer);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbbProcess);
             this.Controls.Add(this.label2);
@@ -290,10 +321,11 @@ namespace Line_Production
         private Button btnTestCOM;
         private ComboBox cbbProcess;
         private Label label2;
-        internal TextBox txbCustomer;
         internal Label label6;
         internal TextBox txbSleepTime;
         internal Label label7;
         private CheckBox cbLinkWip;
+        private ComboBox cbbCustomer;
+        private Label label8;
     }
 }

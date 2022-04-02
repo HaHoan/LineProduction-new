@@ -45,7 +45,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txbPCB = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txbCustomer = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnSaveChanged = new System.Windows.Forms.Button();
@@ -58,6 +57,14 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txbHistoryNo = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.cbbCustomer = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,6 +188,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Maroon;
             this.label7.Location = new System.Drawing.Point(25, 329);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(314, 13);
@@ -203,13 +211,6 @@
             this.label8.Size = new System.Drawing.Size(28, 13);
             this.label8.TabIndex = 28;
             this.label8.Text = "PCB";
-            // 
-            // txbCustomer
-            // 
-            this.txbCustomer.Location = new System.Drawing.Point(154, 389);
-            this.txbCustomer.Name = "txbCustomer";
-            this.txbCustomer.Size = new System.Drawing.Size(172, 20);
-            this.txbCustomer.TabIndex = 31;
             // 
             // label9
             // 
@@ -313,6 +314,7 @@
             // 
             // txbHistoryNo
             // 
+            this.txbHistoryNo.Enabled = false;
             this.txbHistoryNo.Location = new System.Drawing.Point(154, 289);
             this.txbHistoryNo.Name = "txbHistoryNo";
             this.txbHistoryNo.Size = new System.Drawing.Size(172, 20);
@@ -327,11 +329,111 @@
             this.label14.TabIndex = 40;
             this.label14.Text = "History No";
             // 
+            // cbbCustomer
+            // 
+            this.cbbCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbCustomer.FormattingEnabled = true;
+            this.cbbCustomer.Items.AddRange(new object[] {
+            "VALEO",
+            "ICHIKOH",
+            "HONDALOCK",
+            "TOYODENSO",
+            "YOKOWO",
+            "YASKAWA",
+            "FORMLABS",
+            "NICHICON",
+            "KYOCERA",
+            "BROTHER",
+            "CANON",
+            "FUJIXEROX"});
+            this.cbbCustomer.Location = new System.Drawing.Point(154, 390);
+            this.cbbCustomer.Name = "cbbCustomer";
+            this.cbbCustomer.Size = new System.Drawing.Size(172, 21);
+            this.cbbCustomer.TabIndex = 42;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(332, 22);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 13);
+            this.label15.TabIndex = 43;
+            this.label15.Text = "(*)";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.ForeColor = System.Drawing.Color.Red;
+            this.label16.Location = new System.Drawing.Point(332, 68);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(17, 13);
+            this.label16.TabIndex = 44;
+            this.label16.Text = "(*)";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.Color.Red;
+            this.label17.Location = new System.Drawing.Point(332, 115);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(17, 13);
+            this.label17.TabIndex = 45;
+            this.label17.Text = "(*)";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.ForeColor = System.Drawing.Color.Red;
+            this.label18.Location = new System.Drawing.Point(332, 168);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(17, 13);
+            this.label18.TabIndex = 46;
+            this.label18.Text = "(*)";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.ForeColor = System.Drawing.Color.Red;
+            this.label19.Location = new System.Drawing.Point(333, 215);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(17, 13);
+            this.label19.TabIndex = 47;
+            this.label19.Text = "(*)";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.ForeColor = System.Drawing.Color.Red;
+            this.label20.Location = new System.Drawing.Point(336, 251);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(17, 13);
+            this.label20.TabIndex = 48;
+            this.label20.Text = "(*)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ForeColor = System.Drawing.Color.Red;
+            this.label21.Location = new System.Drawing.Point(336, 394);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(17, 13);
+            this.label21.TabIndex = 49;
+            this.label21.Text = "(*)";
+            // 
             // AddModelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 506);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.cbbCustomer);
             this.Controls.Add(this.txbHistoryNo);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -342,7 +444,6 @@
             this.Controls.Add(this.txbContentIndex);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.txbCustomer);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txbPCB);
             this.Controls.Add(this.label8);
@@ -392,7 +493,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txbPCB;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txbCustomer;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txbContentLength;
@@ -404,5 +504,13 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txbHistoryNo;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cbbCustomer;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
     }
 }

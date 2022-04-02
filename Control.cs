@@ -26,7 +26,16 @@ namespace Line_Production
         {
             InitializeComponent();
             checkModelSpeacial();
-            //checkThungThuaSoLuong();
+
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.ShowAlways = true;
+            toolTip1.SetToolTip(lblConfig, "Config"); 
+            ToolTip toolTip2 = new ToolTip();
+            toolTip2.ShowAlways = true;
+            toolTip2.SetToolTip(lblListModel, "List Model");
+            ToolTip toolTip3 = new ToolTip();
+            toolTip3.ShowAlways = true;
+            toolTip3.SetToolTip(lblSettingTime, "Setting time");
         }
         private void checkThungThuaSoLuong()
         {
@@ -72,7 +81,7 @@ namespace Line_Production
         }
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
-        private PVSReference.PVSWebServiceSoapClient pvsservice;
+        private PVSReference.PVSWebServiceSoapClient pvsservice = new PVSReference.PVSWebServiceSoapClient();
         private USAPReference.USAPWebServiceSoapClient usapservice = new USAPReference.USAPWebServiceSoapClient();
         private LineProductWebServiceReference.LineProductRealtimeWebServiceSoapClient _lineproduct_service = new LineProductWebServiceReference.LineProductRealtimeWebServiceSoapClient();
         private LineProductWebServiceReference.tbl_Product_RealtimeEntity _entity = new LineProductWebServiceReference.tbl_Product_RealtimeEntity();
@@ -170,7 +179,6 @@ namespace Line_Production
 
 
             cbbModel.Visible = true;
-            lblModel.Visible = false;
             cbbModel.Text = "";
             for (int index = 1; index <= 10; index++)
             {
@@ -386,9 +394,6 @@ namespace Line_Production
                 ModelCurrent = cbbModel.Text;
                 if (LoadModelCurrent(ModelCurrent) == true)
                 {
-                    cbbModel.Visible = false;
-                    lblModel.Visible = true;
-                    lblModel.Text = cbbModel.Text;
                     TextCycleTimeModel.Text = CycleTimeModel.ToString();
                     TextCycleTimeCurrent.Text = "";
                     txtPeople.Text = NoPeople.ToString();
@@ -542,12 +547,16 @@ namespace Line_Production
 
         private void BtStart_Click(object sender, EventArgs e)
         {
+
             LabelShapeOnline.Visible = true;
             LabelShapeOffLine.Visible = false;
             LabelShapeError.Visible = false;
             Shape1.Visible = false;
             Shape2.Visible = false;
             Shape3.Visible = false;
+            cbbModel.Visible = false;
+            lblModel.Visible = true;
+            lblModel.Text = cbbModel.Text;
             // quyetpham add 16/9
             cbUserMacBox.Enabled = true;
             chkNG.Enabled = true;
@@ -649,6 +658,9 @@ namespace Line_Production
 
         private void BtStop_Click(object sender, EventArgs e)
         {
+
+            cbbModel.Visible = true;
+            lblModel.Visible = false;
             var ett = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
             {
                 CUSTOMER = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer),
@@ -752,106 +764,115 @@ namespace Line_Production
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            LabelTimeDate.Text = DateAndTime.Now.ToString("HH:mm:ss  dd/MM/yyyy");
-            _counter++;
-            if (BtStart.Text != "Bắt đầu")
+            try
             {
-                int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
-                int indexCurrent = 0;
-                for (int index = 1; index <= 20; index++)
+
+                LabelTimeDate.Text = DateAndTime.Now.ToString("HH:mm:ss  dd/MM/yyyy");
+                _counter++;
+                if (BtStart.Text != "Bắt đầu")
                 {
-                    if (index % 2 != 0)
+
+                    int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
+                    int indexCurrent = 0;
+                    for (int index = 1; index <= 20; index++)
                     {
-                        if (sumtime >= TimeLine[index].Hour * 100 + TimeLine[index].Minute & sumtime <= TimeLine[index + 1].Hour * 100 + TimeLine[index + 1].Minute)
+                        if (index % 2 != 0)
                         {
-                            bien_dem = bien_dem + 1;
-                            indexCurrent = index / 2 + 1;
-                            PauseProduct = false;
-                            break;
+                            if (sumtime >= TimeLine[index].Hour * 100 + TimeLine[index].Minute & sumtime <= TimeLine[index + 1].Hour * 100 + TimeLine[index + 1].Minute)
+                            {
+                                bien_dem = bien_dem + 1;
+                                indexCurrent = index / 2 + 1;
+                                PauseProduct = false;
+                                break;
+                            }
+                            else
+                            {
+                                bien_dem = 0;
+                            }
                         }
-                        else
+                        else if (index == 20)
                         {
-                            bien_dem = 0;
+                            PauseProduct = true;
                         }
                     }
-                    else if (index == 20)
+
+                    if (bien_dem == 0)
                     {
-                        PauseProduct = true;
+                        time_scanBarcode = DateAndTime.Now;
+
                     }
-                }
-
-                if (bien_dem == 0)
-                {
-                    time_scanBarcode = DateAndTime.Now;
-
-                }
 
 
-                BalanceProduction = CountProduct - ProductPlan;
+                    BalanceProduction = CountProduct - ProductPlan;
 
-                var perBalanceProduction = ProductPlan == 0 ? 0 : BalanceProduction * 100 / ProductPlan;
-                if (perBalanceProduction < BalanceErrorSetup)
-                {
-                    StatusLine = 3;
-                    ShowStatus(StatusLine, true);
-                }
-                else if (perBalanceProduction < BalanceAlarmSetup)
-                {
-                    StatusLine = 2;
-                    ShowStatus(StatusLine, true);
-                }
-                else
-                {
-                    StatusLine = 1;
-                    ShowStatus(StatusLine, true);
-                }
-
-                if (PauseProduct == true)
-                {
-                    Timer2.Enabled = true;
-                }
-                else
-                {
-                    Timer2.Enabled = false;
-                }
-
-                txtPlan.Text = ProductPlan.ToString();
-                txtActual.Text = CountProduct.ToString();
-                TextBalance.Text = BalanceProduction.ToString();
-                int total = 0;
-                try
-                {
-                    total = int.Parse(lblTotal.Text);
-                }
-                catch { }
-                if (BalanceProduction < 0)
-                {
-                    if (Math.Abs(BalanceProduction) >= 1000)
+                    var perBalanceProduction = ProductPlan == 0 ? 0 : BalanceProduction * 100 / ProductPlan;
+                    if (perBalanceProduction < BalanceErrorSetup)
                     {
-                        ArraySend = "S-" + Strings.Format(999, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
+                        StatusLine = 3;
+                        ShowStatus(StatusLine, true);
+                    }
+                    else if (perBalanceProduction < BalanceAlarmSetup)
+                    {
+                        StatusLine = 2;
+                        ShowStatus(StatusLine, true);
                     }
                     else
                     {
-                        ArraySend = "S" + Strings.Format(BalanceProduction, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
+                        StatusLine = 1;
+                        ShowStatus(StatusLine, true);
                     }
-                }
-                else
-                {
-                    ArraySend = "S+" + Strings.Format(BalanceProduction, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
-                }
-                var entity = new Online()
-                {
-                    LineID = IdLine,
-                    ModelID = cbbModel.Text,
-                    Plan = ProductPlan,
-                    Actual = CountProduct,
-                    _Date = DateTime.Now.Date
-                };
-                try
-                {
+
+                    if (PauseProduct == true)
+                    {
+                        Timer2.Enabled = true;
+                    }
+                    else
+                    {
+                        Timer2.Enabled = false;
+                    }
+
+                    txtPlan.Text = ProductPlan.ToString();
+                    txtActual.Text = CountProduct.ToString();
+                    TextBalance.Text = BalanceProduction.ToString();
+                    int total = 0;
+                    try
+                    {
+                        total = int.Parse(lblTotal.Text);
+                    }
+                    catch { }
+                    if (BalanceProduction < 0)
+                    {
+                        if (Math.Abs(BalanceProduction) >= 1000)
+                        {
+                            ArraySend = "S-" + Strings.Format(999, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
+                        }
+                        else
+                        {
+                            ArraySend = "S" + Strings.Format(BalanceProduction, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
+                        }
+                    }
+                    else
+                    {
+                        ArraySend = "S+" + Strings.Format(BalanceProduction, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
+                    }
+                    var entity = new Online()
+                    {
+                        LineID = IdLine,
+                        ModelID = cbbModel.Text,
+                        Plan = ProductPlan,
+                        Actual = CountProduct,
+                        _Date = DateTime.Now.Date
+                    };
+                    string note = "";
+                    if (Table1.Controls.Find("TextComment" + indexCurrent, true).Length > 0)
+                    {
+                        note = Table1.Controls.Find("TextComment" + indexCurrent, true)[0].Text;
+                    }
+
+
                     var entities = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
                     {
-                        CUSTOMER = "",
+                        CUSTOMER = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer),
                         LINE_NO = IdLine,
                         MODEL = cbbModel.Text,
                         QTY_PLAN = ProductPlan,
@@ -863,7 +884,7 @@ namespace Line_Production
                         DIFF = BalanceProduction,
                         ALARM = StatusLine,
                         STATUS = "RUNNING",
-                        NOTE = Table1.Controls.Find("TextComment" + indexCurrent, true)[0].Text
+                        NOTE = note
                     };
                     // Repository.UpdatateData(entities)
                     if (_counter >= 60)
@@ -874,13 +895,14 @@ namespace Line_Production
                     Common.SendToComport(ArraySend, result => { lblState.Text = result; });
 
                 }
-                catch (Exception ex){
-                    LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "UpdateRealtime error!", ex);
-                    LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
-                    Console.Write(ex.ToString());
-                }
 
+            }
+            catch (Exception ex)
+            {
 
+                LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "UpdateRealtime error!", ex);
+                LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
+                Console.Write(ex.ToString());
             }
         }
 
@@ -1066,6 +1088,7 @@ namespace Line_Production
             frmConfig.updateAfterSetting = () => { lblComcontrol.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.COM); };
             frmConfig.ShowDialog();
             pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
+
             txtLine.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
             Init();
         }
@@ -1181,10 +1204,11 @@ namespace Line_Production
             }
             return true;
         }
+
         private void txtSerial_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             // Repository = New Repository
-            pvsservice = new PVSReference.PVSWebServiceSoapClient();
+
             string barode = txtSerial.Text.Trim();
             if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtSerial.Text))
             {
@@ -1463,6 +1487,7 @@ namespace Line_Production
                     {
                         foreach (var barcode in listBarcode)
                         {
+
                             var existItem = db.HondaLocks.Where(m => m.BoardNo == barcode).FirstOrDefault();
                             if (existItem != null)
                             {
@@ -1578,7 +1603,13 @@ namespace Line_Production
         }
         private void lblListModel_Click(object sender, EventArgs e)
         {
-            new fmLogin().ShowDialog();
+            var login = new fmLogin();
+            login.closeForm = () =>
+            {
+                CheckModelList();
+
+            };
+            login.ShowDialog();
         }
 
         private void lblSettingTime_Click(object sender, EventArgs e)
@@ -1648,35 +1679,9 @@ namespace Line_Production
             }
         }
 
-        private void cbDongThungLe_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbDongThungLe.Checked)
-            {
-                IDCount = 0;
-                IDCount_box += 1;
-                Box_curent = "";
-                LabelSoThung.Text = IDCount_box.ToString();
-                if (NumberInModel == 0)
-                {
-                    TextMacBox.Enabled = true;
-                    TextMacBox.Focus();
-                    txtSerial.Enabled = false;
-                    TextMacBox.Clear();
-                }
-                else
-                {
-                    txtSerial.Enabled = true;
-                    txtSerial.Clear();
-                    txtSerial.Focus();
-
-                }
-                cbDongThungLe.Checked = false;
-            }
-        }
 
         private void txtSerial_EnabledChanged(object sender, EventArgs e)
         {
-            cbDongThungLe.Enabled = txtSerial.Enabled;
         }
 
         private void TextMacBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)

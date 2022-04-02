@@ -16,11 +16,16 @@ namespace Line_Production
     public partial class frmConfig : Form
     {
         public Action updateAfterSetting;
+        private PVSReference.PVSWebServiceSoapClient pvsservice;
+
         public frmConfig()
         {
             InitializeComponent();
             cbbCOM.DataSource = SerialPort.GetPortNames();
             GetTaskWindows();
+            pvsservice = new PVSReference.PVSWebServiceSoapClient();
+           
+           
         }
         private void GetTaskWindows()
         {
@@ -60,12 +65,16 @@ namespace Line_Production
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.id, txtId.Text);
             if (!string.IsNullOrEmpty(txtId.Text))
                 DataProvider.Instance.TimeLines.InsertLine(txtId.Text);
-
+            else
+            {
+                MessageBox.Show("Cần nhập tên Line");
+                return;
+            }
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.pathWip, txtLog.Text);
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, txtStation.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.COM, cbbCOM.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.Process, cbbProcess.Text.Trim());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.Customer, txbCustomer.Text.Trim());
+            Common.WriteRegistry(Control.PathConfig, RegistryKeys.Customer, cbbCustomer.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkPathLog, cbLinkPathLog.Checked.ToString());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.SleepTime, txbSleepTime.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkWip, cbLinkWip.Checked.ToString());
@@ -79,9 +88,21 @@ namespace Line_Production
 
         private void frmConfig_Load(object sender, EventArgs e)
         {
-            txtId.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id);
+           
             try
             {
+                var mac = NetworkHelper.GetMacAddress("http://172.28.10.8:8084");
+                var item = pvsservice.GetStationByHostName(mac);
+                if (item != null)
+                {
+                    txtId.Text = item.LINE_ID;
+                    txtStation.Text = item.STATION_NO;
+                }
+                else
+                {
+                    MessageBox.Show("Máy chưa được tạo trạm WIP!");
+                    return;
+                }
                 bool chkWipValue = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.LinkPathLog));
                 cbLinkPathLog.Checked = chkWipValue;
                 bool linkWip = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.LinkWip));
@@ -91,10 +112,9 @@ namespace Line_Production
             catch { }
 
             txtLog.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.pathWip);
-            txtStation.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.station);
             cbbCOM.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM);
             cbbProcess.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process);
-            txbCustomer.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer);
+            cbbCustomer.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer);
             txbSleepTime.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
         }
 
@@ -126,6 +146,23 @@ namespace Line_Production
             {
                 e.Handled = true;
             }
+        }
+
+        private void cbLinkWip_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbLinkWip.Checked)
+            {
+                cbLinkPathLog.Checked = false;
+            }
+        }
+
+        private void cbLinkPathLog_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbLinkPathLog.Checked)
+            {
+                cbLinkWip.Checked = false;
+            }
+          
         }
     }
 }

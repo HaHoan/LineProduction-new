@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="jBdu1HTVR6VfPtvKdDfQUdnmbwc=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="uURMHa1OMFqK477WuE1u5GAg7M0SxdIx9nTe18SIR64=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="PVSWebServiceSoap">
       <properties>

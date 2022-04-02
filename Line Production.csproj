@@ -25,7 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>43</ApplicationRevision>
+    <ApplicationRevision>54</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -90,6 +90,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -310,10 +311,13 @@
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.Base_ModelsEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.BOARDSEntity.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.BOARD_BIND_STATUSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.INSPECTION_OPTIONSEntity.datasource">
+    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.InspectionOptionEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.INSPECTION_PROCESSESEntity.datasource">
@@ -331,9 +335,6 @@
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.MasterEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.MATERIAL_DOCUMENTSEntity.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.ModelsEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -343,19 +344,10 @@
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.NichiconEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.OPERATION_LOGSEntity.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.REPLACING_LOGSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.ROLE_MEMBERSEntity.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.SCANNING_LOGSEntity.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\PVSReference\Line_Production.PVSReference.STEEL_MESH_STATUSEntity.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\PVSReference\Line_Production.PVSReference.USERSEntity.datasource">

@@ -41,6 +41,8 @@
           <Property Name="ContentIndex" Type="int" />
           <Property Name="CheckFirst" Type="bit" />
           <Property Name="HistoryNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Modifier" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="LINE_PASSRATE">
           <Key>
@@ -113,26 +115,6 @@
           <Property Name="ShiftDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Repair" Type="Boolean" />
         </EntityType>
-        <EntityType Name="LINE_MODEL">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PersonPerLine" Type="Int32" Nullable="false" />
-          <Property Name="CycleTime" Type="Double" Nullable="false" />
-          <Property Name="WarnQuantity" Type="Double" Nullable="false" />
-          <Property Name="MinQuantity" Type="Double" Nullable="false" />
-          <Property Name="CharModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UseBarcode" Type="Int32" />
-          <Property Name="NumberInModel" Type="Int32" />
-          <Property Name="PCB" Type="Int32" />
-          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContentLength" Type="Int32" />
-          <Property Name="ContentIndex" Type="Int32" />
-          <Property Name="CheckFirst" Type="Boolean" />
-          <Property Name="HistoryNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="LINE_PASSRATE">
           <Key>
             <PropertyRef Name="Id" />
@@ -170,11 +152,11 @@
         </EntityType>
         <EntityContainer Name="barcode_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="HondaLocks" EntityType="Self.HondaLock" />
-          <EntitySet Name="LINE_MODEL" EntityType="Self.LINE_MODEL" />
           <EntitySet Name="LINE_PASSRATE" EntityType="Self.LINE_PASSRATE" />
           <EntitySet Name="LINE_TIME" EntityType="Self.LINE_TIME" />
           <EntitySet Name="LINE_TIMELINE" EntityType="Self.LINE_TIMELINE" />
           <EntitySet Name="USERs" EntityType="barcode_dbModel.USER" />
+          <EntitySet Name="LINE_MODEL" EntityType="barcode_dbModel.LINE_MODEL" />
         </EntityContainer>
         <EntityType Name="USER">
           <Key>
@@ -182,6 +164,28 @@
           </Key>
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LINE_MODEL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonPerLine" Type="Int32" Nullable="false" />
+          <Property Name="CycleTime" Type="Double" Nullable="false" />
+          <Property Name="WarnQuantity" Type="Double" Nullable="false" />
+          <Property Name="MinQuantity" Type="Double" Nullable="false" />
+          <Property Name="CharModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UseBarcode" Type="Int32" />
+          <Property Name="NumberInModel" Type="Int32" />
+          <Property Name="PCB" Type="Int32" />
+          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContentLength" Type="Int32" />
+          <Property Name="ContentIndex" Type="Int32" />
+          <Property Name="CheckFirst" Type="Boolean" />
+          <Property Name="HistoryNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Modifier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -204,27 +208,6 @@
                 <ScalarProperty Name="NamePC" ColumnName="NamePC" />
                 <ScalarProperty Name="ShiftDate" ColumnName="ShiftDate" />
                 <ScalarProperty Name="Repair" ColumnName="Repair" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LINE_MODEL">
-            <EntityTypeMapping TypeName="barcode_dbModel.LINE_MODEL">
-              <MappingFragment StoreEntitySet="LINE_MODEL">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="PersonPerLine" ColumnName="PersonPerLine" />
-                <ScalarProperty Name="CycleTime" ColumnName="CycleTime" />
-                <ScalarProperty Name="WarnQuantity" ColumnName="WarnQuantity" />
-                <ScalarProperty Name="MinQuantity" ColumnName="MinQuantity" />
-                <ScalarProperty Name="CharModel" ColumnName="CharModel" />
-                <ScalarProperty Name="UseBarcode" ColumnName="UseBarcode" />
-                <ScalarProperty Name="NumberInModel" ColumnName="NumberInModel" />
-                <ScalarProperty Name="PCB" ColumnName="PCB" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
-                <ScalarProperty Name="ContentIndex" ColumnName="ContentIndex" />
-                <ScalarProperty Name="CheckFirst" ColumnName="CheckFirst" />
-                <ScalarProperty Name="HistoryNo" ColumnName="HistoryNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -271,6 +254,29 @@
               <MappingFragment StoreEntitySet="USER">
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LINE_MODEL">
+            <EntityTypeMapping TypeName="barcode_dbModel.LINE_MODEL">
+              <MappingFragment StoreEntitySet="LINE_MODEL">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="Modifier" ColumnName="Modifier" />
+                <ScalarProperty Name="HistoryNo" ColumnName="HistoryNo" />
+                <ScalarProperty Name="CheckFirst" ColumnName="CheckFirst" />
+                <ScalarProperty Name="ContentIndex" ColumnName="ContentIndex" />
+                <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="PCB" ColumnName="PCB" />
+                <ScalarProperty Name="NumberInModel" ColumnName="NumberInModel" />
+                <ScalarProperty Name="UseBarcode" ColumnName="UseBarcode" />
+                <ScalarProperty Name="CharModel" ColumnName="CharModel" />
+                <ScalarProperty Name="MinQuantity" ColumnName="MinQuantity" />
+                <ScalarProperty Name="WarnQuantity" ColumnName="WarnQuantity" />
+                <ScalarProperty Name="CycleTime" ColumnName="CycleTime" />
+                <ScalarProperty Name="PersonPerLine" ColumnName="PersonPerLine" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

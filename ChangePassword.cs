@@ -12,6 +12,7 @@ namespace Line_Production
 {
     public partial class ChangePassword : Form
     {
+        public Action closeForm;
         public ChangePassword()
         {
             InitializeComponent();
@@ -22,15 +23,15 @@ namespace Line_Production
             var code = txbCode.Text.Trim();
             var oldPass = txbOldPass.Text.Trim();
             var newPass = txbNewPass.Text.Trim();
-            if(newPass == "umcvn")
+            if (newPass == "umcvn")
             {
                 MessageBox.Show("Không được phép đặt password mặc định umcvn.");
                 return;
             }
-            using(var db = new barcode_dbEntities())
+            using (var db = new barcode_dbEntities())
             {
                 var user = db.USERs.Where(m => m.Code == code && m.Password == oldPass).FirstOrDefault();
-                if(user == null)
+                if (user == null)
                 {
                     MessageBox.Show("Không tồn tại user " + code + " hoặc bị sai mật khẩu");
                     return;
@@ -38,13 +39,18 @@ namespace Line_Production
                 user.Password = newPass;
                 db.SaveChanges();
                 this.Hide();
-                new ListModel().ShowDialog();
+                var listForm = new ListModel();
+                listForm.closeForm = () =>
+               {
+                   closeForm();
+               };
+                listForm.ShowDialog();
             }
         }
 
         private void txbCode_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 txbOldPass.Focus();
             }

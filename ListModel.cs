@@ -15,7 +15,7 @@ namespace Line_Production
     public partial class ListModel : Form
     {
         private List<LINE_MODEL> list = new List<LINE_MODEL>();
-    
+        public Action closeForm;
         public ListModel()
         {
             InitializeComponent();
@@ -151,6 +151,11 @@ namespace Line_Production
                
                              
             }
+        }
+
+        private void ListModel_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            closeForm();
         }
     }
 }

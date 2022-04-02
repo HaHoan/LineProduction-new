@@ -95,6 +95,18 @@ namespace Line_Production
         {
             try
             {
+                var mac = NetworkHelper.GetMacAddress("http://172.28.10.8:8084");
+                var item = pvsservice.GetStationByHostName(mac);
+                if (item != null)
+                {
+                    Common.WriteRegistry(Control.PathConfig, RegistryKeys.id, item.LINE_ID);
+                    DataProvider.Instance.TimeLines.InsertLine(item.LINE_ID);
+                    Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, item.STATION_NO);
+                }
+                else
+                {
+                    MessageBox.Show("Máy chưa được tạo trạm WIP!");
+                }
                 IdLine = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
                 pathBackup = Path.Combine(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip), "backup", DateTime.Now.ToString("yyyyMMdd"));
@@ -121,6 +133,7 @@ namespace Line_Production
 
         public static bool SaveInit()
         {
+
             if (Common.GetValueRegistryKey(PathConfig, RegistryKeys.id) is null)
             {
                 Common.WriteRegistry(PathConfig, RegistryKeys.id, "CA-Default");
@@ -173,26 +186,33 @@ namespace Line_Production
             PathModelCurrent = "";
             if (Strcheck.Length != 0)
             {
-                Model model = DataProvider.Instance.ModelQuantities.Select(Strcheck);
-                try
+                using(var db = new barcode_dbEntities())
                 {
-                    NoPeople = model.PersonInLine;
-                    CycleTimeModel = model.Cycle;
-                    BarcodeEnable = model.UseBarcode;
-                    BalanceAlarmSetup = (int)model.WarnQuantity;
-                    BalanceErrorSetup = (int)model.MinQuantity;
-                    ModelRev = model.CharModel;
-                    NumberInModel = model.NumberInModel;
-                    ConfirmModel = false;
-                    HistoryNo = model.HistoryNo;
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message.ToString());
-                    return false;
-                }
+                    var model = db.LINE_MODEL.Where(m => m.Model.ToLower() == Strcheck.ToLower()).FirstOrDefault();
+                    try
+                    {
+                        NoPeople = model.PersonPerLine;
+                        CycleTimeModel = model.CycleTime;
+                        BarcodeEnable = model.UseBarcode is int useBarcode;
+                        BalanceAlarmSetup = (int)model.WarnQuantity;
+                        BalanceErrorSetup = (int)model.MinQuantity;
+                        ModelRev = model.CharModel;
+                        if(model.NumberInModel is int numberInModel)
+                        {
+                            NumberInModel = numberInModel;
+                        }
+                        ConfirmModel = false;
+                        HistoryNo = model.HistoryNo;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message.ToString());
+                        return false;
+                    }
 
-                return true;
+                    return true;
+                }
+                
 
             }
             else
