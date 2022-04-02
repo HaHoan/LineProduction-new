@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="UpdateRealtime">
+      <s:element name="ProductionSave">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="entity" type="tns:tbl_Product_RealtimeEntity" />
@@ -17,21 +17,49 @@
               <s:element minOccurs="0" maxOccurs="1" name="LINE_NO" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="CUSTOMER" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="MODEL" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="QTY_TOTAL" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="QTY_PLAN" nillable="true" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="QTY_ACTUAL" nillable="true" type="s:int" />
-              <s:element minOccurs="1" maxOccurs="1" name="PEOPLE" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PEOPLE" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="CYRCLETIME_PLAN" nillable="true" type="s:decimal" />
               <s:element minOccurs="1" maxOccurs="1" name="CYRCLETIME_ACTUAL" nillable="true" type="s:decimal" />
-              <s:element minOccurs="1" maxOccurs="1" name="UPDATE_TIME" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="UPDATE_TIME" type="s:dateTime" />
               <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="DIFF" nillable="true" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="ALARM" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="NOTE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="VERSION" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
       </s:complexType>
       <s:complexType name="BaseEntity" />
+      <s:element name="ProductionSaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductionSaveResult" type="tns:ResultEntity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Test">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateRealtime">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="entity" type="tns:tbl_Product_RealtimeEntity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="UpdateRealtimeResponse">
         <s:complexType />
       </s:element>
@@ -66,6 +94,18 @@
       </s:complexType>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ProductionSaveSoapIn">
+    <wsdl:part name="parameters" element="tns:ProductionSave" />
+  </wsdl:message>
+  <wsdl:message name="ProductionSaveSoapOut">
+    <wsdl:part name="parameters" element="tns:ProductionSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapIn">
+    <wsdl:part name="parameters" element="tns:Test" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapOut">
+    <wsdl:part name="parameters" element="tns:TestResponse" />
+  </wsdl:message>
   <wsdl:message name="UpdateRealtimeSoapIn">
     <wsdl:part name="parameters" element="tns:UpdateRealtime" />
   </wsdl:message>
@@ -85,6 +125,14 @@
     <wsdl:part name="parameters" element="tns:GetModelsResponse" />
   </wsdl:message>
   <wsdl:portType name="LineProductRealtimeWebServiceSoap">
+    <wsdl:operation name="ProductionSave">
+      <wsdl:input message="tns:ProductionSaveSoapIn" />
+      <wsdl:output message="tns:ProductionSaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <wsdl:input message="tns:TestSoapIn" />
+      <wsdl:output message="tns:TestSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateRealtime">
       <wsdl:input message="tns:UpdateRealtimeSoapIn" />
       <wsdl:output message="tns:UpdateRealtimeSoapOut" />
@@ -100,6 +148,24 @@
   </wsdl:portType>
   <wsdl:binding name="LineProductRealtimeWebServiceSoap" type="tns:LineProductRealtimeWebServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ProductionSave">
+      <soap:operation soapAction="http://tempuri.org/ProductionSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap:operation soapAction="http://tempuri.org/Test" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateRealtime">
       <soap:operation soapAction="http://tempuri.org/UpdateRealtime" style="document" />
       <wsdl:input>
@@ -130,6 +196,24 @@
   </wsdl:binding>
   <wsdl:binding name="LineProductRealtimeWebServiceSoap12" type="tns:LineProductRealtimeWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ProductionSave">
+      <soap12:operation soapAction="http://tempuri.org/ProductionSave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap12:operation soapAction="http://tempuri.org/Test" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateRealtime">
       <soap12:operation soapAction="http://tempuri.org/UpdateRealtime" style="document" />
       <wsdl:input>

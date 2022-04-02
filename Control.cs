@@ -658,27 +658,28 @@ namespace Line_Production
 
         private void BtStop_Click(object sender, EventArgs e)
         {
-
-            cbbModel.Visible = true;
-            lblModel.Visible = false;
-            var ett = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
-            {
-                CUSTOMER = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer),
-                LINE_NO = IdLine,
-                MODEL = cbbModel.Text,
-                QTY_PLAN = ProductPlan,
-                QTY_ACTUAL = CountProduct,
-                UPDATE_TIME = DateTime.Now.Date,
-                PEOPLE = NoPeople,
-                CYRCLETIME_PLAN = (decimal)CycleTimeModel,
-                CYRCLETIME_ACTUAL = (decimal)CycleTimeActual,
-                DIFF = BalanceProduction,
-                ALARM = StatusLine,
-                STATUS = "STOP"
-            };
             try
             {
-                _lineproduct_service.UpdateRealtime(ett);
+                cbbModel.Visible = true;
+                lblModel.Visible = false;
+                var ett = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
+                {
+                    CUSTOMER = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer),
+                    LINE_NO = IdLine,
+                    MODEL = cbbModel.Text,
+                    QTY_PLAN = ProductPlan,
+                    QTY_ACTUAL = CountProduct,
+                    UPDATE_TIME = DateTime.Now.Date,
+                    PEOPLE = NoPeople,
+                    CYRCLETIME_PLAN = (decimal)CycleTimeModel,
+                    CYRCLETIME_ACTUAL = (decimal)CycleTimeActual,
+                    DIFF = BalanceProduction,
+                    ALARM = StatusLine,
+                    STATUS = "STOP",
+                    QTY_TOTAL = int.Parse(lblTotal.Text),
+                    VERSION = GetRunningVersion()
+                };
+                _lineproduct_service.ProductionSave(ett);
 
             }
             catch (Exception ex)
@@ -884,12 +885,13 @@ namespace Line_Production
                         DIFF = BalanceProduction,
                         ALARM = StatusLine,
                         STATUS = "RUNNING",
-                        NOTE = note
+                        NOTE = note,
+                        QTY_TOTAL = int.Parse(lblTotal.Text),
+                        VERSION = GetRunningVersion()
                     };
-                    // Repository.UpdatateData(entities)
                     if (_counter >= 60)
                     {
-                        _lineproduct_service.UpdateRealtime(entities);
+                        _lineproduct_service.ProductionSave(entities);
                         _counter = 0;
                     }
                     Common.SendToComport(ArraySend, result => { lblState.Text = result; });
@@ -923,24 +925,7 @@ namespace Line_Production
             Application.Exit();
         }
 
-        private bool KiemTraTrenHondaLock(string barcode)
-        {
-            // Check trên HondaLock
-            if (DataProvider.Instance.HondaLocks.KiemTraBanMachDaBan(TextMacBox.Text.ToString(), barcode))
-            {
-
-                NG_FORM NG_FORM = new NG_FORM();
-                NG_FORM.Lb_inform_NG.Text = "Đã tồn tại bản mạch " + barcode;
-                NG_FORM.GroupBox3.Visible = false;
-                NG_FORM.ShowDialog();
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
+       
         /*
         * db : 172.28.10.9 / UMC3000 / BCLBFLM 
         */

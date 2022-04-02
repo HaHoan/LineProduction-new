@@ -191,6 +191,7 @@ namespace Line_Production
                     var model = db.LINE_MODEL.Where(m => m.Model.ToLower() == Strcheck.ToLower()).FirstOrDefault();
                     try
                     {
+                        
                         NoPeople = model.PersonPerLine;
                         CycleTimeModel = model.CycleTime;
                         BarcodeEnable = model.UseBarcode is int useBarcode;
