@@ -61,17 +61,19 @@ namespace Line_Production.LineProductWebServiceReference {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MODELField;
         
+        private int QTY_TOTALField;
+        
         private System.Nullable<int> QTY_PLANField;
         
         private System.Nullable<int> QTY_ACTUALField;
         
-        private System.Nullable<int> PEOPLEField;
+        private int PEOPLEField;
         
         private System.Nullable<decimal> CYRCLETIME_PLANField;
         
         private System.Nullable<decimal> CYRCLETIME_ACTUALField;
         
-        private System.Nullable<System.DateTime> UPDATE_TIMEField;
+        private System.DateTime UPDATE_TIMEField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string STATUSField;
@@ -82,6 +84,9 @@ namespace Line_Production.LineProductWebServiceReference {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NOTEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VERSIONField;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
         public string ID {
@@ -136,6 +141,19 @@ namespace Line_Production.LineProductWebServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
+        public int QTY_TOTAL {
+            get {
+                return this.QTY_TOTALField;
+            }
+            set {
+                if ((this.QTY_TOTALField.Equals(value) != true)) {
+                    this.QTY_TOTALField = value;
+                    this.RaisePropertyChanged("QTY_TOTAL");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
         public System.Nullable<int> QTY_PLAN {
             get {
                 return this.QTY_PLANField;
@@ -148,7 +166,7 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
         public System.Nullable<int> QTY_ACTUAL {
             get {
                 return this.QTY_ACTUALField;
@@ -161,8 +179,8 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
-        public System.Nullable<int> PEOPLE {
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=7)]
+        public int PEOPLE {
             get {
                 return this.PEOPLEField;
             }
@@ -174,7 +192,7 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=7)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=8)]
         public System.Nullable<decimal> CYRCLETIME_PLAN {
             get {
                 return this.CYRCLETIME_PLANField;
@@ -187,7 +205,7 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=8)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
         public System.Nullable<decimal> CYRCLETIME_ACTUAL {
             get {
                 return this.CYRCLETIME_ACTUALField;
@@ -200,8 +218,8 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
-        public System.Nullable<System.DateTime> UPDATE_TIME {
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
+        public System.DateTime UPDATE_TIME {
             get {
                 return this.UPDATE_TIMEField;
             }
@@ -213,7 +231,7 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=10)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
         public string STATUS {
             get {
                 return this.STATUSField;
@@ -226,7 +244,7 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=11)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=12)]
         public System.Nullable<int> DIFF {
             get {
                 return this.DIFFField;
@@ -239,7 +257,7 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=12)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=13)]
         public System.Nullable<int> ALARM {
             get {
                 return this.ALARMField;
@@ -252,7 +270,7 @@ namespace Line_Production.LineProductWebServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
         public string NOTE {
             get {
                 return this.NOTEField;
@@ -262,6 +280,80 @@ namespace Line_Production.LineProductWebServiceReference {
                     this.NOTEField = value;
                     this.RaisePropertyChanged("NOTE");
                 }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
+        public string VERSION {
+            get {
+                return this.VERSIONField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VERSIONField, value) != true)) {
+                    this.VERSIONField = value;
+                    this.RaisePropertyChanged("VERSION");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResultEntity", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class ResultEntity : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string statusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string messageField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string status {
+            get {
+                return this.statusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.statusField, value) != true)) {
+                    this.statusField = value;
+                    this.RaisePropertyChanged("status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string message {
+            get {
+                return this.messageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.messageField, value) != true)) {
+                    this.messageField = value;
+                    this.RaisePropertyChanged("message");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -276,6 +368,19 @@ namespace Line_Production.LineProductWebServiceReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LineProductWebServiceReference.LineProductRealtimeWebServiceSoap")]
     public interface LineProductRealtimeWebServiceSoap {
+        
+        // CODEGEN: Generating message contract since element name entity from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ProductionSave", ReplyAction="*")]
+        Line_Production.LineProductWebServiceReference.ProductionSaveResponse ProductionSave(Line_Production.LineProductWebServiceReference.ProductionSaveRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ProductionSave", ReplyAction="*")]
+        System.Threading.Tasks.Task<Line_Production.LineProductWebServiceReference.ProductionSaveResponse> ProductionSaveAsync(Line_Production.LineProductWebServiceReference.ProductionSaveRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Test", ReplyAction="*")]
+        void Test();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Test", ReplyAction="*")]
+        System.Threading.Tasks.Task TestAsync();
         
         // CODEGEN: Generating message contract since element name entity from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateRealtime", ReplyAction="*")]
@@ -297,6 +402,74 @@ namespace Line_Production.LineProductWebServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetModels", ReplyAction="*")]
         System.Threading.Tasks.Task<Line_Production.LineProductWebServiceReference.GetModelsResponse> GetModelsAsync(Line_Production.LineProductWebServiceReference.GetModelsRequest request);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ProductionSaveRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ProductionSave", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.LineProductWebServiceReference.ProductionSaveRequestBody Body;
+        
+        public ProductionSaveRequest() {
+        }
+        
+        public ProductionSaveRequest(Line_Production.LineProductWebServiceReference.ProductionSaveRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ProductionSaveRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.LineProductWebServiceReference.tbl_Product_RealtimeEntity entity;
+        
+        public ProductionSaveRequestBody() {
+        }
+        
+        public ProductionSaveRequestBody(Line_Production.LineProductWebServiceReference.tbl_Product_RealtimeEntity entity) {
+            this.entity = entity;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ProductionSaveResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ProductionSaveResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Line_Production.LineProductWebServiceReference.ProductionSaveResponseBody Body;
+        
+        public ProductionSaveResponse() {
+        }
+        
+        public ProductionSaveResponse(Line_Production.LineProductWebServiceReference.ProductionSaveResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ProductionSaveResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Line_Production.LineProductWebServiceReference.ResultEntity ProductionSaveResult;
+        
+        public ProductionSaveResponseBody() {
+        }
+        
+        public ProductionSaveResponseBody(Line_Production.LineProductWebServiceReference.ResultEntity ProductionSaveResult) {
+            this.ProductionSaveResult = ProductionSaveResult;
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -514,6 +687,39 @@ namespace Line_Production.LineProductWebServiceReference {
         
         public LineProductRealtimeWebServiceSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Line_Production.LineProductWebServiceReference.ProductionSaveResponse Line_Production.LineProductWebServiceReference.LineProductRealtimeWebServiceSoap.ProductionSave(Line_Production.LineProductWebServiceReference.ProductionSaveRequest request) {
+            return base.Channel.ProductionSave(request);
+        }
+        
+        public Line_Production.LineProductWebServiceReference.ResultEntity ProductionSave(Line_Production.LineProductWebServiceReference.tbl_Product_RealtimeEntity entity) {
+            Line_Production.LineProductWebServiceReference.ProductionSaveRequest inValue = new Line_Production.LineProductWebServiceReference.ProductionSaveRequest();
+            inValue.Body = new Line_Production.LineProductWebServiceReference.ProductionSaveRequestBody();
+            inValue.Body.entity = entity;
+            Line_Production.LineProductWebServiceReference.ProductionSaveResponse retVal = ((Line_Production.LineProductWebServiceReference.LineProductRealtimeWebServiceSoap)(this)).ProductionSave(inValue);
+            return retVal.Body.ProductionSaveResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Line_Production.LineProductWebServiceReference.ProductionSaveResponse> Line_Production.LineProductWebServiceReference.LineProductRealtimeWebServiceSoap.ProductionSaveAsync(Line_Production.LineProductWebServiceReference.ProductionSaveRequest request) {
+            return base.Channel.ProductionSaveAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Line_Production.LineProductWebServiceReference.ProductionSaveResponse> ProductionSaveAsync(Line_Production.LineProductWebServiceReference.tbl_Product_RealtimeEntity entity) {
+            Line_Production.LineProductWebServiceReference.ProductionSaveRequest inValue = new Line_Production.LineProductWebServiceReference.ProductionSaveRequest();
+            inValue.Body = new Line_Production.LineProductWebServiceReference.ProductionSaveRequestBody();
+            inValue.Body.entity = entity;
+            return ((Line_Production.LineProductWebServiceReference.LineProductRealtimeWebServiceSoap)(this)).ProductionSaveAsync(inValue);
+        }
+        
+        public void Test() {
+            base.Channel.Test();
+        }
+        
+        public System.Threading.Tasks.Task TestAsync() {
+            return base.Channel.TestAsync();
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

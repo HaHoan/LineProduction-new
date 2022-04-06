@@ -31,9 +31,11 @@ namespace Line_Production
         private void InitializeComponent()
         {
             this.Panel1 = new System.Windows.Forms.Panel();
+            this.PictureBox1 = new System.Windows.Forms.PictureBox();
             this.Label2 = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
             this.ShapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.OvalShape1 = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.RectangleShape3 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.RectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.RectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
@@ -43,8 +45,8 @@ namespace Line_Production
             this.Label3 = new System.Windows.Forms.Label();
             this.Label4 = new System.Windows.Forms.Label();
             this.lblCapslock = new System.Windows.Forms.Label();
-            this.PictureBox1 = new System.Windows.Forms.PictureBox();
-            this.OvalShape1 = new Microsoft.VisualBasic.PowerPacks.OvalShape();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnChangePass = new System.Windows.Forms.Button();
             this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +63,15 @@ namespace Line_Production
             this.Panel1.Size = new System.Drawing.Size(295, 50);
             this.Panel1.TabIndex = 0;
             this.Panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel1_MouseDown);
+            // 
+            // PictureBox1
+            // 
+            this.PictureBox1.Image = global::Line_Production.Properties.Resources.secrecy_icon1;
+            this.PictureBox1.Location = new System.Drawing.Point(3, 8);
+            this.PictureBox1.Name = "PictureBox1";
+            this.PictureBox1.Size = new System.Drawing.Size(34, 37);
+            this.PictureBox1.TabIndex = 10;
+            this.PictureBox1.TabStop = false;
             // 
             // Label2
             // 
@@ -97,9 +108,17 @@ namespace Line_Production
             this.RectangleShape3,
             this.RectangleShape2,
             this.RectangleShape1});
-            this.ShapeContainer1.Size = new System.Drawing.Size(295, 435);
+            this.ShapeContainer1.Size = new System.Drawing.Size(295, 510);
             this.ShapeContainer1.TabIndex = 1;
             this.ShapeContainer1.TabStop = false;
+            // 
+            // OvalShape1
+            // 
+            this.OvalShape1.BackgroundImage = global::Line_Production.Properties.Resources.umcvn;
+            this.OvalShape1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.OvalShape1.Location = new System.Drawing.Point(101, 58);
+            this.OvalShape1.Name = "OvalShape1";
+            this.OvalShape1.Size = new System.Drawing.Size(75, 75);
             // 
             // RectangleShape3
             // 
@@ -107,7 +126,7 @@ namespace Line_Production
             this.RectangleShape3.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.RectangleShape3.BorderColor = System.Drawing.Color.Gold;
             this.RectangleShape3.CornerRadius = 3;
-            this.RectangleShape3.Location = new System.Drawing.Point(12, 357);
+            this.RectangleShape3.Location = new System.Drawing.Point(12, 411);
             this.RectangleShape3.Name = "RectangleShape3";
             this.RectangleShape3.Size = new System.Drawing.Size(271, 38);
             // 
@@ -142,6 +161,7 @@ namespace Line_Production
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(260, 19);
             this.txtPassword.TabIndex = 3;
+            this.txtPassword.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtPassword_PreviewKeyDown);
             // 
             // btnLogin
             // 
@@ -151,7 +171,7 @@ namespace Line_Production
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(14, 359);
+            this.btnLogin.Location = new System.Drawing.Point(15, 413);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(0);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(268, 36);
@@ -170,6 +190,7 @@ namespace Line_Production
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(260, 19);
             this.txtUsername.TabIndex = 6;
+            this.txtUsername.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtUsername_PreviewKeyDown);
             // 
             // Label3
             // 
@@ -204,22 +225,31 @@ namespace Line_Production
             this.lblCapslock.TabIndex = 10;
             this.lblCapslock.Text = ".";
             // 
-            // PictureBox1
+            // label5
             // 
-            this.PictureBox1.Image = global::Line_Production.Properties.Resources.secrecy_icon1;
-            this.PictureBox1.Location = new System.Drawing.Point(3, 8);
-            this.PictureBox1.Name = "PictureBox1";
-            this.PictureBox1.Size = new System.Drawing.Size(34, 37);
-            this.PictureBox1.TabIndex = 10;
-            this.PictureBox1.TabStop = false;
+            this.label5.BackColor = System.Drawing.Color.Red;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label5.Location = new System.Drawing.Point(15, 309);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(264, 88);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Chức năng này chỉ dành cho leader. Nếu chưa có tài khoản thì liên hệ IT -3145";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // OvalShape1
+            // btnChangePass
             // 
-            this.OvalShape1.BackgroundImage = global::Line_Production.Properties.Resources.umcvn;
-            this.OvalShape1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.OvalShape1.Location = new System.Drawing.Point(101, 58);
-            this.OvalShape1.Name = "OvalShape1";
-            this.OvalShape1.Size = new System.Drawing.Size(75, 75);
+            this.btnChangePass.FlatAppearance.BorderSize = 0;
+            this.btnChangePass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangePass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangePass.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnChangePass.Location = new System.Drawing.Point(15, 464);
+            this.btnChangePass.Name = "btnChangePass";
+            this.btnChangePass.Size = new System.Drawing.Size(162, 23);
+            this.btnChangePass.TabIndex = 12;
+            this.btnChangePass.Text = "Đổi mật khẩu";
+            this.btnChangePass.UseVisualStyleBackColor = true;
+            this.btnChangePass.Click += new System.EventHandler(this.btnChangePass_Click);
             // 
             // fmLogin
             // 
@@ -227,8 +257,10 @@ namespace Line_Production
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(295, 435);
+            this.ClientSize = new System.Drawing.Size(295, 510);
             this.ControlBox = false;
+            this.Controls.Add(this.btnChangePass);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblCapslock);
             this.Controls.Add(this.Label4);
             this.Controls.Add(this.Label3);
@@ -267,5 +299,7 @@ namespace Line_Production
         private RectangleShape RectangleShape1;
         private RectangleShape RectangleShape3;
         private OvalShape OvalShape1;
+        private Label label5;
+        private Button btnChangePass;
     }
 }

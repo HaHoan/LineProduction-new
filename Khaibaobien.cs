@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Windows.Forms;
 using Line_Production.Database;
 using Line_Production.Entities;
@@ -52,6 +53,7 @@ namespace Line_Production
         public static int IDCount = 0;
         public static int IDCount_box = 0;
         public static bool ConfirmModel = false;
+        public static string HistoryNo = "";
         // Public MacLe As Boolean = False
         // QuyetPham add 26.11
         public static string pathConfirm = PathApplication + @"\Confirm";
@@ -93,10 +95,23 @@ namespace Line_Production
         {
             try
             {
+                var mac = NetworkHelper.GetMacAddress("http://172.28.10.8:8084");
+                var item = pvsservice.GetStationByHostName(mac);
+                if (item != null)
+                {
+                    Common.WriteRegistry(Control.PathConfig, RegistryKeys.id, item.LINE_ID);
+                    DataProvider.Instance.TimeLines.InsertLine(item.LINE_ID);
+                    Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, item.STATION_NO);
+                }
+                else
+                {
+                    MessageBox.Show("Máy chưa được tạo trạm WIP!");
+                }
                 IdLine = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
                 pathBackup = Path.Combine(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip), "backup", DateTime.Now.ToString("yyyyMMdd"));
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
+                
 
                 if (!Directory.Exists(pathBackup))
                     Directory.CreateDirectory(pathBackup);
@@ -118,13 +133,13 @@ namespace Line_Production
 
         public static bool SaveInit()
         {
+
             if (Common.GetValueRegistryKey(PathConfig, RegistryKeys.id) is null)
             {
                 Common.WriteRegistry(PathConfig, RegistryKeys.id, "CA-Default");
                 Common.WriteRegistry(PathConfig, RegistryKeys.pathWip, @"C:\LOGPROCESS");
                 Common.WriteRegistry(PathConfig, RegistryKeys.station, "VI2_CAN");
-                Common.WriteRegistry(PathConfig, RegistryKeys.useWip, true.ToString());
-                Common.WriteRegistry(PathConfig, RegistryKeys.LinkWip, true.ToString());
+                Common.WriteRegistry(PathConfig, RegistryKeys.LinkPathLog, true.ToString());
                 string[] listCOM = SerialPort.GetPortNames();
                 if (listCOM != null && listCOM.Length > 0)
                 {
@@ -138,14 +153,30 @@ namespace Line_Production
 
         public bool CheckModelList()
         {
-            var list = DataProvider.Instance.ModelQuantities.Select();
-            if (list == null) return false;
-            foreach (var model in list)
+            try
             {
-                cbbModel.Items.Add(model.ModelID);
-            }
+              
+                using(var db = new barcode_dbEntities())
+                {
+                    var customer = Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer);
+                    var list = db.LINE_MODEL.Where(m => m.Customer == customer).ToList();
+                    if (list == null) return false;
+                    foreach (var model in list)
+                    {
+                        cbbModel.Items.Add(model.Model);
+                    }
 
-            return true;
+                    return true;
+                }
+             
+
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+           
 
         }
 
@@ -155,25 +186,34 @@ namespace Line_Production
             PathModelCurrent = "";
             if (Strcheck.Length != 0)
             {
-                Model model = DataProvider.Instance.ModelQuantities.Select(Strcheck);
-                try
+                using(var db = new barcode_dbEntities())
                 {
-                    NoPeople = model.PersonInLine;
-                    CycleTimeModel = model.Cycle;
-                    BarcodeEnable = model.UseBarcode;
-                    BalanceAlarmSetup = (int)model.WarnQuantity;
-                    BalanceErrorSetup = (int)model.MinQuantity;
-                    ModelRev = model.CharModel;
-                    NumberInModel = model.NumberInModel;
-                    ConfirmModel = false;
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message.ToString());
-                    return false;
-                }
+                    var model = db.LINE_MODEL.Where(m => m.Model.ToLower() == Strcheck.ToLower()).FirstOrDefault();
+                    try
+                    {
+                        
+                        NoPeople = model.PersonPerLine;
+                        CycleTimeModel = model.CycleTime;
+                        BarcodeEnable = model.UseBarcode is int useBarcode;
+                        BalanceAlarmSetup = (int)model.WarnQuantity;
+                        BalanceErrorSetup = (int)model.MinQuantity;
+                        ModelRev = model.CharModel;
+                        if(model.NumberInModel is int numberInModel)
+                        {
+                            NumberInModel = numberInModel;
+                        }
+                        ConfirmModel = false;
+                        HistoryNo = model.HistoryNo;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message.ToString());
+                        return false;
+                    }
 
-                return true;
+                    return true;
+                }
+                
 
             }
             else
@@ -203,8 +243,9 @@ namespace Line_Production
             }
             foreach (var time in list)
             {
-                TimeLine[2 * time.TimeIndex - 1] = Convert.ToDateTime(time.TimeFrom);
-                TimeLine[2 * time.TimeIndex] = Convert.ToDateTime(time.TimeTo);
+                var timeIndex = time.TimeIndex is int index ? index : 0;
+                TimeLine[2 * timeIndex - 1] = Convert.ToDateTime(time.TimeFrom);
+                TimeLine[2 * timeIndex] = Convert.ToDateTime(time.TimeTo);
             }
             return Shiftcheck;
         }

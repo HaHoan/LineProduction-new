@@ -21,41 +21,92 @@ namespace Line_Production
             InitializeComponent();
             this.ID = ID;
 
-        }
 
+        }
+        private bool isValidate()
+        {
+            if (string.IsNullOrEmpty(txbModelID.Text) || string.IsNullOrEmpty(txbPersonInLine.Text)
+                || string.IsNullOrEmpty(txbCycle.Text) || string.IsNullOrEmpty(txbWarmQuatity.Text)
+                || string.IsNullOrEmpty(txbMnQuantity.Text) || string.IsNullOrEmpty(txbRegex.Text)
+                || string.IsNullOrEmpty(cbbCustomer.Text))
+
+            {
+                MessageBox.Show("Chưa điền đầy đủ thông tin!");
+                return false;
+            }
+            return true;
+        }
         private void btnSaveChanged_Click(object sender, EventArgs e)
         {
+            if (!isValidate()) return;
             try
             {
-                var model = new Model()
+                using (var db = new barcode_dbEntities())
                 {
-                    Id = ID,
-                    ModelID = txbModelID.Text.ToString().Trim(),
-                    PersonInLine = int.Parse(txbPersonInLine.Text.ToString()),
-                    Cycle = float.Parse(txbCycle.Text.ToString()),
-                    WarnQuantity = float.Parse(txbWarmQuatity.Text.ToString()),
-                    MinQuantity = float.Parse(txbMnQuantity.Text.ToString()),
-                    CharModel = txbRegex.Text.ToString().Trim(),
-                    UseBarcode = ckbUseBarcode.Checked,
-                    NumberInModel = int.Parse(txbNumberInModel.Text.Trim())
-
-                };
-                if (model.Id == 0)
-                {
-                    var modelInDb = DataProvider.Instance.ModelQuantities.Select(model.ModelID);
-                    if (modelInDb != null)
+                    var modelInDb = db.LINE_MODEL.Where(m => m.Model == txbModelID.Text.ToString().Trim()).FirstOrDefault();
+                    if (ID == 0)
                     {
-                        DataProvider.Instance.ModelQuantities.Update(model);
+                        if (modelInDb != null)
+                        {
+                            MessageBox.Show("Đã tồn tại model này rồi!");
+                        }
+                        else
+                        {
+                            var model = new LINE_MODEL()
+                            {
+                                Id = ID,
+                                Model = txbModelID.Text.ToString().Trim(),
+                                PersonPerLine = int.Parse(txbPersonInLine.Text.ToString()),
+                                CycleTime = float.Parse(txbCycle.Text.ToString()),
+                                WarnQuantity = float.Parse(txbWarmQuatity.Text.ToString()),
+                                MinQuantity = float.Parse(txbMnQuantity.Text.ToString()),
+                                CharModel = txbRegex.Text.ToString().Trim(),
+                                UseBarcode = ckbUseBarcode.Checked ? 1 : 0,
+                                NumberInModel = int.Parse(txbNumberInModel.Text.Trim()),
+                                PCB = int.Parse(txbPCB.Text.Trim()),
+                                Customer = cbbCustomer.Text.Trim(),
+                                ContentIndex = int.Parse(txbContentIndex.Text.Trim()),
+                                ContentLength = int.Parse(txbContentLength.Text.Trim()),
+                                CheckFirst = cbCheckFirst.Checked,
+                                HistoryNo = txbHistoryNo.Text.Trim(),
+                                Modifier = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.CurrentUser),
+                                ModifyDate = DateTime.Now
+                            };
+                            db.LINE_MODEL.Add(model);
+                            db.SaveChanges();
+                            close();
+                            Close();
+                        }
+
                     }
                     else
-                        DataProvider.Instance.ModelQuantities.Insert(model);
+                    {
+
+
+                        modelInDb.Id = ID;
+                        modelInDb.Model = txbModelID.Text.ToString().Trim();
+                        modelInDb.PersonPerLine = int.Parse(txbPersonInLine.Text.ToString());
+                        modelInDb.CycleTime = float.Parse(txbCycle.Text.ToString());
+                        modelInDb.WarnQuantity = float.Parse(txbWarmQuatity.Text.ToString());
+                        modelInDb.MinQuantity = float.Parse(txbMnQuantity.Text.ToString());
+                        modelInDb.CharModel = txbRegex.Text.ToString().Trim();
+                        modelInDb.UseBarcode = ckbUseBarcode.Checked ? 1 : 0;
+                        modelInDb.NumberInModel = int.Parse(txbNumberInModel.Text.Trim());
+                        modelInDb.PCB = int.Parse(txbPCB.Text.Trim());
+                        modelInDb.Customer = cbbCustomer.Text.Trim();
+                        modelInDb.ContentIndex = int.Parse(txbContentIndex.Text.Trim());
+                        modelInDb.ContentLength = int.Parse(txbContentLength.Text.Trim());
+                        modelInDb.CheckFirst = cbCheckFirst.Checked;
+                        modelInDb.HistoryNo = txbHistoryNo.Text.Trim();
+                        modelInDb.Modifier = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.CurrentUser);
+                        modelInDb.ModifyDate = DateTime.Now;
+                        db.SaveChanges();
+                        close();
+                        Close();
+                    }
+
                 }
-                else
-                {
-                    DataProvider.Instance.ModelQuantities.Update(model);
-                }
-                close();
-                Close();
+
             }
             catch (Exception ex)
             {
@@ -67,28 +118,41 @@ namespace Line_Production
 
         private void AddModelForm_Shown(object sender, EventArgs e)
         {
-            if (ID == 0)
+            try
             {
-                return;
+                if (ID == 0)
+                {
+                    return;
+                }
+                Model model = DataProvider.Instance.ModelQuantities.Select(ID);
+                if (model != null)
+                {
+                    ID = model.Id;
+                    txbModelID.Text = model.ModelID;
+                    txbPersonInLine.Text = model.PersonInLine.ToString();
+                    txbCycle.Text = model.Cycle.ToString();
+                    txbWarmQuatity.Text = model.WarnQuantity.ToString();
+                    txbMnQuantity.Text = model.MinQuantity.ToString();
+                    txbRegex.Text = model.CharModel;
+                    ckbUseBarcode.Checked = model.UseBarcode;
+                    txbNumberInModel.Text = model.NumberInModel.ToString();
+                    txbPCB.Text = model.PCB.ToString();
+                    cbbCustomer.Text = model.Customer.ToString();
+                    txbContentIndex.Text = model.ContentIndex.ToString();
+                    txbContentLength.Text = model.ContentLength.ToString();
+                    cbCheckFirst.Checked = model.CheckFirst;
+                    txbHistoryNo.Text = model.HistoryNo;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy model này");
+                }
             }
-            Model model = DataProvider.Instance.ModelQuantities.Select(ID);
-            if (model != null)
+            catch (Exception ex)
             {
-                ID = model.Id;
-                txbModelID.Text = model.ModelID;
-                txbPersonInLine.Text = model.PersonInLine.ToString();
-                txbCycle.Text = model.Cycle.ToString();
-                txbWarmQuatity.Text = model.WarnQuantity.ToString();
-                txbMnQuantity.Text = model.MinQuantity.ToString();
-                txbRegex.Text = model.CharModel;
-                ckbUseBarcode.Checked = model.UseBarcode;
-                txbNumberInModel.Text = model.NumberInModel.ToString();
-            }
-            else
-            {
-                MessageBox.Show("Không tìm thấy model này");
-            }
+                MessageBox.Show(ex.ToString());
 
+            }
 
         }
 
@@ -111,6 +175,9 @@ namespace Line_Production
                         txbRegex.Text = model.CharModel;
                         ckbUseBarcode.Checked = model.UseBarcode;
                         txbNumberInModel.Text = model.NumberInModel.ToString();
+                        txbPCB.Text = model.PCB.ToString();
+                        cbbCustomer.Text = model.Customer.ToString();
+                        txbHistoryNo.Text = model.HistoryNo;
                     }
                 }
             }

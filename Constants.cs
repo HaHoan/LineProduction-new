@@ -12,6 +12,11 @@ namespace Line_Production
         public static string DataBits = "8";
         public static string Parity = "None";
         public static string StopBits = "1";
+        public static string SERIAL = "SERIAL";
+        public static string BOXID = "BOXID";
+        //public static string MODEL_SPECIAL = "QM7-1890-000SS01";
+        public static string LINE_NO_WIP = "STATION-DEFAULT";
+        
 
     }
     public static class ConstantsText
@@ -22,13 +27,17 @@ namespace Line_Production
     public static class RegistryKeys
     {
         public static string id = "id";
-        public static string useWip = "useWip";
         public static string pathWip = "pathWip";
         public static string station = "station";
         public static string COM = "COM";
-        public static string LinkWip = "LinkWip";
         public static string Customer = "Customer";
         public static string Process = "Process";
+        public static string LinkPathLog = "LinkPathLog";
+        public static string IsRepair = "IsRepair";
+        public static string SleepTime = "SleepTime";
+        public static string MODEL_SPEACIAL = "MODEL_SPEACIAL";
+        public static string LinkWip = "LinkWip";
+        public static string CurrentUser = "CurrentUser";
     }
     public static class CaSX
     {

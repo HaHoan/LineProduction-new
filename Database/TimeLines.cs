@@ -14,39 +14,37 @@ namespace Line_Production.Database
         public const string TIME = "LINE_TIME";
         public const string TIMELINE = "LINE_TIMELINE";
 
-        public TimeLine Insert(TimeLine o)
+        public bool Insert(TimeLine o)
         {
             try
             {
-                if (IsExist(o.IdTimeLine, o.TimeIndex) > 0)
+                using (var db = new barcode_dbEntities())
                 {
-                    using (SqlCommand cmd = new SqlCommand("update " + TIMELINE + " set IdTimeLine = @IdTimeLine,TimeIndex = @TimeIndex,TimeFrom = @TimeFrom,TimeTo = @TimeTo where IdTimeLine = " + o.IdTimeLine + " and TimeIndex = " + o.TimeIndex, DataProvider.Instance.DB))
+                    var timeLine = db.LINE_TIMELINE.Where(m => m.IdTimeLine == o.IdTimeLine && m.TimeIndex == o.TimeIndex).FirstOrDefault();
+                    if (timeLine != null)
                     {
-                        cmd.Parameters.AddWithValue("@IdTimeLine", (o as TimeLine).IdTimeLine);
-                        cmd.Parameters.AddWithValue("@TimeIndex", (o as TimeLine).TimeIndex);
-                        cmd.Parameters.AddWithValue("@TimeFrom", (o as TimeLine).TimeFrom);
-                        cmd.Parameters.AddWithValue("@TimeTo", (o as TimeLine).TimeTo);
-                        (o as TimeLine).Id = (int)cmd.ExecuteScalar();
-                        return o;
+                        timeLine.TimeFrom = o.TimeFrom;
+                        timeLine.TimeTo = o.TimeTo;
                     }
-                }
-                else
-                {
-                    using (SqlCommand cmd = new SqlCommand("insert into " + TIMELINE + "(IdTimeLine,TimeIndex,TimeFrom,TimeTo) values(@IdTimeLine,@TimeIndex,@TimeFrom,@TimeTo);SELECT CAST(scope_identity() AS int)", DataProvider.Instance.DB))
+                    else
                     {
-                        cmd.Parameters.AddWithValue("@IdTimeLine", (o as TimeLine).IdTimeLine);
-                        cmd.Parameters.AddWithValue("@TimeIndex", (o as TimeLine).TimeIndex);
-                        cmd.Parameters.AddWithValue("@TimeFrom", (o as TimeLine).TimeFrom);
-                        cmd.Parameters.AddWithValue("@TimeTo", (o as TimeLine).TimeTo);
-                        (o as TimeLine).Id = (int)cmd.ExecuteScalar();
-                        return o;
+                        timeLine = new LINE_TIMELINE()
+                        {
+                            IdTimeLine = o.IdTimeLine,
+                            TimeIndex = o.TimeIndex,
+                            TimeFrom = o.TimeFrom,
+                            TimeTo = o.TimeTo
+                        };
+                        db.LINE_TIMELINE.Add(timeLine);
                     }
+                    db.SaveChanges();
+                    return true;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message.ToString());
-                return null;
+                return false;
             }
         }
         public bool InsertLine(string line)
@@ -86,23 +84,12 @@ namespace Line_Production.Database
         {
             try
             {
-                string sql = "select * from " + TIME + " where Type = '" + caSX + "' and Line = '" + line + "'";
-                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
-
-                using (DbDataReader reader = command.ExecuteReader())
+                using(var db = new barcode_dbEntities())
                 {
-                    if (reader.HasRows)
-                    {
-
-                        while (reader.Read())
-                        {
-                            int IdLine = reader.GetInt32(reader.GetOrdinal(TimeLineString.Id));
-                            return IdLine;
-                        }
-
-                    }
-
+                    var lineDB = db.LINE_TIME.Where(m => m.Line.ToLower() == line.ToLower() && m.Type == caSX).FirstOrDefault();
+                    return lineDB != null ? lineDB.Id : 0;
                 }
+                
             }
             catch (Exception e)
             {
@@ -154,7 +141,7 @@ namespace Line_Production.Database
                         while (reader.Read())
                         {
                             string line = reader[reader.GetOrdinal(TimeLineString.Line)] as string;
-                            list.Add(line);
+                            list.Add(line.ToUpper());
                         }
 
                     }
@@ -168,40 +155,28 @@ namespace Line_Production.Database
             }
             return list;
         }
-        public List<TimeLine> Select(string line, int type)
+        public List<LINE_TIMELINE> Select(string line, int type)
         {
             var list = new List<TimeLine>();
             try
             {
-                string sql = "select * from " + TIMELINE + "  where IdTimeLine  in (select Id from " + TIME + " where Line = '" + line + "' and Type = " + type + ")";
-                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
-
-                using (DbDataReader reader = command.ExecuteReader())
+                using(var db = new barcode_dbEntities())
                 {
-                    if (reader.HasRows)
+                    var idTimeLine = db.LINE_TIME.Where(m => m.Line.ToLower() == line.ToLower() && m.Type == type).FirstOrDefault();
+                    if(idTimeLine != null)
                     {
-
-                        while (reader.Read())
-                        {
-                            TimeLine timeLine = new TimeLine();
-                            timeLine.Id = reader.GetInt32(reader.GetOrdinal(TimeLineString.Id));
-                            timeLine.IdTimeLine = reader.GetInt32(reader.GetOrdinal(TimeLineString.IdTimeLine));
-                            timeLine.TimeIndex = reader.GetInt32(reader.GetOrdinal(TimeLineString.TimeIndex));
-                            timeLine.TimeFrom = reader[reader.GetOrdinal(TimeLineString.TimeFrom)] as string;
-                            timeLine.TimeTo = reader[reader.GetOrdinal(TimeLineString.TimeTo)] as string;
-                            list.Add(timeLine);
-                        }
-
+                        var listTimeLine = db.LINE_TIMELINE.Where(m => m.IdTimeLine == idTimeLine.Id).ToList();
+                        return listTimeLine;
                     }
-
+                   
                 }
+                return null;
             }
             catch (Exception e)
             {
                 Console.Write(e.Message.ToString());
                 return null;
             }
-            return list;
         }
     }
 }
