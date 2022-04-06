@@ -243,8 +243,9 @@ namespace Line_Production
             }
             foreach (var time in list)
             {
-                TimeLine[2 * time.TimeIndex - 1] = Convert.ToDateTime(time.TimeFrom);
-                TimeLine[2 * time.TimeIndex] = Convert.ToDateTime(time.TimeTo);
+                var timeIndex = time.TimeIndex is int index ? index : 0;
+                TimeLine[2 * timeIndex - 1] = Convert.ToDateTime(time.TimeFrom);
+                TimeLine[2 * timeIndex] = Convert.ToDateTime(time.TimeTo);
             }
             return Shiftcheck;
         }

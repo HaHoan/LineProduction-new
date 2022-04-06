@@ -205,6 +205,20 @@ namespace Line_Production
             macAddress = macAddress.Replace(":", "");
             return macAddress;
         }
+
+        public static bool IsValidTimeFormat(string input)
+        {
+            try
+            {
+                return TimeSpan.Parse(input) != null;
+            }
+            catch 
+            {
+
+                return false;
+            }
+           
+        }
     }
 
     public static class FileShare

@@ -37,31 +37,7 @@ namespace Line_Production
             toolTip3.ShowAlways = true;
             toolTip3.SetToolTip(lblSettingTime, "Setting time");
         }
-        private void checkThungThuaSoLuong()
-        {
-            using (var db = new barcode_dbEntities())
-            {
-                var listOver = new List<string>();
-                var list = db.HondaLocks.Where(m => m.Line.Contains("CA")).GroupBy(m => m.BoxID).Select(m => new
-                {
-                    Key = m.Key,
-                    SUM = m.Count()
-                }).ToList();
-                foreach (var item in list)
-                {
-                    var soThung = LaySoThung(item.Key);
-                    if (item.SUM > soThung)
-                    {
-                        listOver.Add(item.Key);
-                        Console.Write(item.Key);
-                        Console.WriteLine();
-
-                    }
-                }
-
-            }
-
-        }
+      
         private void checkModelSpeacial()
         {
             var modelSpecial = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.MODEL_SPEACIAL);
@@ -280,6 +256,7 @@ namespace Line_Production
         public void LoadProduction()
         {
             string line = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
+            string currentStation = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
             PassRate passRate = DataProvider.Instance.PassRates.GetPassRate(line, cbbModel.Text, Datecheck + "_" + Shiftcheck);
             if (passRate != null)
             {
@@ -291,12 +268,12 @@ namespace Line_Production
                 {
                     if (NumberInModel > 0)
                     {
-                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck && mbox.ProductionID == ModelCurrent).Count();
+                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck && mbox.ProductionID == ModelCurrent && mbox.Station == currentStation).Count();
                         IDCount_box = IDCount_box / NumberInModel;
                     }
                     else
                     {
-                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck && mbox.ProductionID == ModelCurrent).GroupBy(m => m.BoxID).Count();
+                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck && mbox.ProductionID == ModelCurrent && mbox.Station == currentStation).GroupBy(m => m.BoxID).Count();
                     }
                 }
 
@@ -610,46 +587,53 @@ namespace Line_Production
                 time_scanBarcode = DateAndTime.Now;
                 ProductPlan = (int)Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                 txtPlan.Text = ProductPlan.ToString();
-            }
-            if (NumberInModel == 0)
-            {
-                TextMacBox.Enabled = true;
-                TextMacBox.Focus();
-            }
-            else
-            {
-                using (var db = new barcode_dbEntities())
-                {
-                    IDCount = db.HondaLocks.Where(m => m.ProductionID == ModelCurrent && string.IsNullOrEmpty(m.BoxID)).Count() - IDCount_box * NumberInModel;
-                }
 
-                PCBBOX = NumberInModel;
-                if (PCBBOX < 0)
+                if (NumberInModel == 0)
                 {
-                    NG_FORM NG_FORM = new NG_FORM();
-                    NG_FORM.Show();
-                    NG_FORM.Lb_inform_NG.Text = "Mã thùng không tồn tại";
-                    NG_FORM.GroupBox3.Visible = false;
-                    NG_FORM.GroupBox3.Enabled = false;
-                    NG_FORM.ControlBox = true;
-                    TextMacBox.SelectAll();
-                    return;
-                }
-                LabelPCS1BOX.Text = PCBBOX.ToString();
-                TextMacBox.Enabled = false;
-                txtSerial.Enabled = true;
-                txtSerial.SelectAll();
-                txtSerial.Focus();
-                if (IDCount >= PCBBOX)
-                {
-                    LabelPCBA.Text = "0";
-                    IDCount = 0;
+                    TextMacBox.Enabled = true;
+                    TextMacBox.Focus();
                 }
                 else
                 {
-                    LabelPCBA.Text = IDCount.ToString();
-                }
+                    // Trường hợp ở ichikoh có model không dùng mac thùng => tính toán số lượng thùng đã bắn
+                    using (var db = new barcode_dbEntities())
+                    {
+                        var currentStation = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
+                        IDCount = db.HondaLocks.Where(m => m.ProductionID == ModelCurrent &&
+                        string.IsNullOrEmpty(m.BoxID) &&
+                        m.Station == currentStation).Count()
+                        - IDCount_box * NumberInModel;
+                    }
 
+                    PCBBOX = NumberInModel;
+                    if (PCBBOX < 0)
+                    {
+                        NG_FORM NG_FORM = new NG_FORM();
+                        NG_FORM.Show();
+                        NG_FORM.Lb_inform_NG.Text = "Số lượng thùng đang bị âm";
+                        NG_FORM.GroupBox3.Visible = false;
+                        NG_FORM.GroupBox3.Enabled = false;
+                        NG_FORM.ControlBox = true;
+                        TextMacBox.SelectAll();
+                        return;
+                    }
+                    LabelPCS1BOX.Text = PCBBOX.ToString();
+                    TextMacBox.Enabled = false;
+                    txtSerial.Enabled = true;
+                    txtSerial.SelectAll();
+                    txtSerial.Focus();
+                    if (IDCount >= PCBBOX)
+                    {
+                        LabelPCBA.Text = "0";
+                        IDCount = 0;
+                    }
+                    else
+                    {
+                        LabelPCBA.Text = IDCount.ToString();
+                    }
+
+
+                }
 
             }
 
@@ -956,7 +940,8 @@ namespace Line_Production
                 MacCurrent = TextMacBox.Text.Trim().TrimEnd().TrimStart();
                 using (var db = new barcode_dbEntities())
                 {
-                    IDCount = db.HondaLocks.Where(m => m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent).Count();
+                    var currentStation = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
+                    IDCount = db.HondaLocks.Where(m => m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent && m.Station == currentStation).Count();
                 }
 
                 PCBBOX = LaySoThung(TextMacBox.Text);
@@ -1466,6 +1451,8 @@ namespace Line_Production
         {
             using (var db = new barcode_dbEntities())
             {
+
+                var currentStation = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.station);
                 using (DbContextTransaction transaction = db.Database.BeginTransaction())
                 {
                     try
@@ -1473,7 +1460,7 @@ namespace Line_Production
                         foreach (var barcode in listBarcode)
                         {
 
-                            var existItem = db.HondaLocks.Where(m => m.BoardNo == barcode).FirstOrDefault();
+                            var existItem = db.HondaLocks.Where(m => m.BoardNo == barcode && m.Station == currentStation).FirstOrDefault();
                             if (existItem != null)
                             {
                                 transaction.Rollback();
@@ -1497,8 +1484,9 @@ namespace Line_Production
                                 Updator_Name = "",
                                 Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
                                 Repair = lblRepair.Visible,
-                                ShiftDate = Datecheck + "_" + Shiftcheck
-                            };
+                                ShiftDate = Datecheck + "_" + Shiftcheck,
+                                Station = currentStation
+                        };
                             string hostname = Environment.MachineName;
                             if (!string.IsNullOrEmpty(hostname))
                             {
@@ -1533,7 +1521,7 @@ namespace Line_Production
                 // wip ok thì thêm vào db
                 if (NumberInModel == 0)
                 {
-                    IDCount = db.HondaLocks.Where(m => m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent).Count();
+                    IDCount = db.HondaLocks.Where(m => m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent && m.Station == currentStation).Count();
                 }
                 else
                 {

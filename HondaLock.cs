@@ -26,5 +26,6 @@ namespace Line_Production
         public string NamePC { get; set; }
         public string ShiftDate { get; set; }
         public Nullable<bool> Repair { get; set; }
+        public string Station { get; set; }
     }
 }

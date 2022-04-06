@@ -46,7 +46,7 @@ namespace Line_Production
                 }
                 else
                 {
-                    foreach (TimeLine time in list)
+                    foreach (var time in list)
                     {
                         TextBox textBoxFrom = Controls["txbTimeFrom" + time.TimeIndex.ToString()] as TextBox;
                         textBoxFrom.Text = time.TimeFrom;
@@ -84,20 +84,26 @@ namespace Line_Production
             for (int i = 1; i <= 10; i++)
             {
                 TextBox textBoxFrom = Controls["txbTimeFrom" + i.ToString()] as TextBox;
-                if (string.IsNullOrEmpty(textBoxFrom.Text))
+                if (string.IsNullOrEmpty(textBoxFrom.Text) || !Common.IsValidTimeFormat(textBoxFrom.Text))
                 {
                     isCompleteTextBox = false;
+                    MessageBox.Show("Timeline " + textBoxFrom.Text + " sai định dạng!");
                     break;
                 }
                 TextBox textBoxTo = Controls["txbTimeTo" + i.ToString()] as TextBox;
 
-                if (string.IsNullOrEmpty(textBoxTo.Text))
+                if (string.IsNullOrEmpty(textBoxTo.Text) || !Common.IsValidTimeFormat(textBoxFrom.Text))
                 {
                     isCompleteTextBox = false;
+                    MessageBox.Show("Timeline " + textBoxTo.Text + " sai định dạng!");
                     break;
                 }
             }
-            if (string.IsNullOrEmpty(line) || CaSX < 0 || !isCompleteTextBox) return;
+            if (string.IsNullOrEmpty(line) || CaSX < 0 || !isCompleteTextBox)
+            {
+
+                return;
+            }
             for (int i = 1; i <= 10; i++)
             {
                 TextBox textBoxFrom = Controls["txbTimeFrom" + i.ToString()] as TextBox;

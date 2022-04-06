@@ -100,8 +100,9 @@ namespace Line_Production
                 }
                 else
                 {
-                    MessageBox.Show("Máy chưa được tạo trạm WIP!");
-                    return;
+                    txtStation.Text = Constants.LINE_NO_WIP;
+                    cbLinkPathLog.Checked = false;
+                    cbLinkWip.Checked = false;
                 }
                 bool chkWipValue = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.LinkPathLog));
                 cbLinkPathLog.Checked = chkWipValue;

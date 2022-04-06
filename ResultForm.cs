@@ -23,14 +23,15 @@ namespace Line_Production
         {
             using(var db = new barcode_dbEntities())
             {
+                var currentStation = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.station);
                 var list = new List<HondaLock>();
                 if (filter == Constants.SERIAL)
                 {
-                    list = db.HondaLocks.Where(m => m.BoardNo == text).ToList();
+                    list = db.HondaLocks.Where(m => m.BoardNo == text && m.Station == currentStation).ToList();
                 }
                 else if (filter == Constants.BOXID)
                 {
-                    list = db.HondaLocks.Where(m => m.BoxID == text).ToList();
+                    list = db.HondaLocks.Where(m => m.BoxID == text && m.Station == currentStation).ToList();
                 }
 
                 dgrvSearch.DataSource = list;
