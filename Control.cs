@@ -25,11 +25,12 @@ namespace Line_Production
         public Control()
         {
             InitializeComponent();
+            ComPressPort.PortName = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS);
             checkModelSpeacial();
 
             ToolTip toolTip1 = new ToolTip();
             toolTip1.ShowAlways = true;
-            toolTip1.SetToolTip(lblConfig, "Config"); 
+            toolTip1.SetToolTip(lblConfig, "Config");
             ToolTip toolTip2 = new ToolTip();
             toolTip2.ShowAlways = true;
             toolTip2.SetToolTip(lblListModel, "List Model");
@@ -37,7 +38,7 @@ namespace Line_Production
             toolTip3.ShowAlways = true;
             toolTip3.SetToolTip(lblSettingTime, "Setting time");
         }
-      
+
         private void checkModelSpeacial()
         {
             var modelSpecial = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.MODEL_SPEACIAL);
@@ -909,7 +910,7 @@ namespace Line_Production
             Application.Exit();
         }
 
-       
+
         /*
         * db : 172.28.10.9 / UMC3000 / BCLBFLM 
         */
@@ -1486,7 +1487,7 @@ namespace Line_Production
                                 Repair = lblRepair.Visible,
                                 ShiftDate = Datecheck + "_" + Shiftcheck,
                                 Station = currentStation
-                        };
+                            };
                             string hostname = Environment.MachineName;
                             if (!string.IsNullOrEmpty(hostname))
                             {
@@ -1660,6 +1661,30 @@ namespace Line_Production
         private void TextMacBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
 
+        }
+
+        private void Control_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                // IncreaseProduct();
+            }
+        }
+
+        private void timerComPress_Tick(object sender, EventArgs e)
+        {
+
+            if (BtStart.Text != "Bắt đầu")
+            {
+                ComPressPort.Write("B");
+                if (ComPressPort.ReadExisting() == "B")
+                    BitPress = true;
+                else if (ComPressPort.ReadExisting() != "B" & BitPress == true)
+                {
+                    BitPress = false;
+                    IncreaseProduct();
+                }
+            }
         }
     }
 }

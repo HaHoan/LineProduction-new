@@ -22,6 +22,7 @@ namespace Line_Production
         {
             InitializeComponent();
             cbbCOM.DataSource = SerialPort.GetPortNames();
+            cbbComPress.DataSource = SerialPort.GetPortNames();
             GetTaskWindows();
             pvsservice = new PVSReference.PVSWebServiceSoapClient();
            
@@ -73,6 +74,7 @@ namespace Line_Production
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.pathWip, txtLog.Text);
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, txtStation.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.COM, cbbCOM.Text.Trim());
+            Common.WriteRegistry(Control.PathConfig, RegistryKeys.COM_PRESS, cbbComPress.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.Process, cbbProcess.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.Customer, cbbCustomer.Text.Trim());
             Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkPathLog, cbLinkPathLog.Checked.ToString());
@@ -114,6 +116,7 @@ namespace Line_Production
 
             txtLog.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.pathWip);
             cbbCOM.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM);
+            cbbComPress.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS);
             cbbProcess.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process);
             cbbCustomer.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer);
             txbSleepTime.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
@@ -164,6 +167,11 @@ namespace Line_Production
                 cbLinkWip.Checked = false;
             }
           
+        }
+
+        private void btnTestComPress_Click(object sender, EventArgs e)
+        {
+            Common.SendToComport("test", result => { MessageBox.Show("Test COM connection : " + result); },Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.COM_PRESS));
         }
     }
 }

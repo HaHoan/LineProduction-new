@@ -30,6 +30,7 @@ namespace Line_Production
         public static string pathWip = "pathWip";
         public static string station = "station";
         public static string COM = "COM";
+        public static string COM_PRESS = "COM_PRESS";
         public static string Customer = "Customer";
         public static string Process = "Process";
         public static string LinkPathLog = "LinkPathLog";

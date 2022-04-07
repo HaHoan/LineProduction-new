@@ -162,10 +162,14 @@ namespace Line_Production
                 writer.Write(content.ToString());
             }
         }
-        public static bool SendToComport(string data, Action<string> result)
+        public static bool SendToComport(string data, Action<string> result,string COM = null)
         {
             try
             {
+                if(COM == null)
+                {
+                    COM = GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM);
+                }
                 SerialPort com = new SerialPort() { PortName = GetValueRegistryKey(Control.PathConfig, "COM") };
                 if (!com.IsOpen) com.Open();
                 if (com.IsOpen == true)

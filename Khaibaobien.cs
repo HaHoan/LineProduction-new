@@ -111,7 +111,7 @@ namespace Line_Production
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
                 pathBackup = Path.Combine(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip), "backup", DateTime.Now.ToString("yyyyMMdd"));
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
-                
+
 
                 if (!Directory.Exists(pathBackup))
                     Directory.CreateDirectory(pathBackup);
@@ -121,6 +121,7 @@ namespace Line_Production
                     Directory.CreateDirectory(Path.Combine(pathBackup, "NG"));
 
                 txtLine.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
+                CheckComPressPort();
             }
             catch (Exception e)
             {
@@ -128,6 +129,26 @@ namespace Line_Production
                 return false;
             }
 
+            return true;
+        }
+        public bool CheckComPressPort()
+        {
+
+
+            try
+            {
+                
+                if (!ComPressPort.IsOpen)
+                {
+                    ComPressPort.Open();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("COM Press: " + Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS) + " not connect. Please check connect the device !", "Error device", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             return true;
         }
 
@@ -155,8 +176,8 @@ namespace Line_Production
         {
             try
             {
-              
-                using(var db = new barcode_dbEntities())
+
+                using (var db = new barcode_dbEntities())
                 {
                     var customer = Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer);
                     var list = db.LINE_MODEL.Where(m => m.Customer == customer).ToList();
@@ -168,7 +189,7 @@ namespace Line_Production
 
                     return true;
                 }
-             
+
 
             }
             catch (Exception e)
@@ -176,7 +197,7 @@ namespace Line_Production
 
                 return false;
             }
-           
+
 
         }
 
@@ -186,19 +207,19 @@ namespace Line_Production
             PathModelCurrent = "";
             if (Strcheck.Length != 0)
             {
-                using(var db = new barcode_dbEntities())
+                using (var db = new barcode_dbEntities())
                 {
                     var model = db.LINE_MODEL.Where(m => m.Model.ToLower() == Strcheck.ToLower()).FirstOrDefault();
                     try
                     {
-                        
+
                         NoPeople = model.PersonPerLine;
                         CycleTimeModel = model.CycleTime;
                         BarcodeEnable = model.UseBarcode is int useBarcode;
                         BalanceAlarmSetup = (int)model.WarnQuantity;
                         BalanceErrorSetup = (int)model.MinQuantity;
                         ModelRev = model.CharModel;
-                        if(model.NumberInModel is int numberInModel)
+                        if (model.NumberInModel is int numberInModel)
                         {
                             NumberInModel = numberInModel;
                         }
@@ -213,7 +234,7 @@ namespace Line_Production
 
                     return true;
                 }
-                
+
 
             }
             else

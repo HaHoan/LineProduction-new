@@ -57,6 +57,9 @@ namespace Line_Production
             this.cbLinkWip = new System.Windows.Forms.CheckBox();
             this.cbbCustomer = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnTestComPress = new System.Windows.Forms.Button();
+            this.cbbComPress = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbLinkPathLog
@@ -64,7 +67,7 @@ namespace Line_Production
             this.cbLinkPathLog.AutoSize = true;
             this.cbLinkPathLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbLinkPathLog.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.cbLinkPathLog.Location = new System.Drawing.Point(183, 272);
+            this.cbLinkPathLog.Location = new System.Drawing.Point(183, 294);
             this.cbLinkPathLog.Name = "cbLinkPathLog";
             this.cbLinkPathLog.Size = new System.Drawing.Size(101, 17);
             this.cbLinkPathLog.TabIndex = 2;
@@ -169,7 +172,7 @@ namespace Line_Production
             this.btnSaveChanged.ForeColor = System.Drawing.Color.White;
             this.btnSaveChanged.Image = global::Line_Production.Properties.Resources.Save;
             this.btnSaveChanged.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveChanged.Location = new System.Drawing.Point(174, 315);
+            this.btnSaveChanged.Location = new System.Drawing.Point(174, 328);
             this.btnSaveChanged.Name = "btnSaveChanged";
             this.btnSaveChanged.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnSaveChanged.Size = new System.Drawing.Size(118, 30);
@@ -208,7 +211,7 @@ namespace Line_Production
             // 
             // txbSleepTime
             // 
-            this.txbSleepTime.Location = new System.Drawing.Point(88, 227);
+            this.txbSleepTime.Location = new System.Drawing.Point(88, 260);
             this.txbSleepTime.Name = "txbSleepTime";
             this.txbSleepTime.Size = new System.Drawing.Size(205, 20);
             this.txbSleepTime.TabIndex = 54;
@@ -218,7 +221,7 @@ namespace Line_Production
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 230);
+            this.label7.Location = new System.Drawing.Point(13, 263);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 13);
             this.label7.TabIndex = 53;
@@ -229,7 +232,7 @@ namespace Line_Production
             this.cbLinkWip.AutoSize = true;
             this.cbLinkWip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbLinkWip.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.cbLinkWip.Location = new System.Drawing.Point(87, 272);
+            this.cbLinkWip.Location = new System.Drawing.Point(87, 294);
             this.cbLinkWip.Name = "cbLinkWip";
             this.cbLinkWip.Size = new System.Drawing.Size(74, 17);
             this.cbLinkWip.TabIndex = 55;
@@ -269,12 +272,43 @@ namespace Line_Production
             this.label8.TabIndex = 57;
             this.label8.Text = "Tên chương trình wip";
             // 
+            // btnTestComPress
+            // 
+            this.btnTestComPress.Location = new System.Drawing.Point(217, 225);
+            this.btnTestComPress.Name = "btnTestComPress";
+            this.btnTestComPress.Size = new System.Drawing.Size(75, 23);
+            this.btnTestComPress.TabIndex = 60;
+            this.btnTestComPress.Text = "Test COM";
+            this.btnTestComPress.UseVisualStyleBackColor = true;
+            this.btnTestComPress.Click += new System.EventHandler(this.btnTestComPress_Click);
+            // 
+            // cbbComPress
+            // 
+            this.cbbComPress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbComPress.FormattingEnabled = true;
+            this.cbbComPress.Location = new System.Drawing.Point(87, 227);
+            this.cbbComPress.Name = "cbbComPress";
+            this.cbbComPress.Size = new System.Drawing.Size(121, 21);
+            this.cbbComPress.TabIndex = 59;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 232);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(70, 13);
+            this.label9.TabIndex = 58;
+            this.label9.Text = "COM PRESS";
+            // 
             // frmConfig
             // 
             this.AcceptButton = this.btnSaveChanged;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 371);
+            this.Controls.Add(this.btnTestComPress);
+            this.Controls.Add(this.cbbComPress);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cbbCustomer);
             this.Controls.Add(this.cbLinkWip);
@@ -327,5 +361,8 @@ namespace Line_Production
         private CheckBox cbLinkWip;
         private ComboBox cbbCustomer;
         private Label label8;
+        private Button btnTestComPress;
+        private ComboBox cbbComPress;
+        private Label label9;
     }
 }
