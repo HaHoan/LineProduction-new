@@ -134,7 +134,20 @@ namespace Line_Production
 
         private void btnTestCOM_Click(object sender, EventArgs e)
         {
-            Common.SendToComport("test", result => { MessageBox.Show("Test COM connection : " + result); });
+            try
+            {
+                SerialPort com = new SerialPort() { PortName = cbbCOM.Text };
+                if (!com.IsOpen) com.Open();
+                if (com.IsOpen == true)
+                {
+                    com.Write("S+0000000012001*");
+                }
+                com.Close();
+            }
+            catch (Exception ex)
+            {
+               
+            }
         }
 
         private void txbSleepTime_KeyPress(object sender, KeyPressEventArgs e)

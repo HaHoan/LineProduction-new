@@ -19,28 +19,32 @@ namespace Line_Production
 {
     public partial class Control : Form
     {
-        private System.Timers.Timer t = new System.Timers.Timer();
-        private System.Windows.Forms.Timer t2 = new System.Windows.Forms.Timer();
         private List<string> ModelSpeacials = new List<string>();
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+        private PVSReference.PVSWebServiceSoapClient pvsservice = new PVSReference.PVSWebServiceSoapClient();
+        private USAPReference.USAPWebServiceSoapClient usapservice = new USAPReference.USAPWebServiceSoapClient();
+        private LineProductWebServiceReference.LineProductRealtimeWebServiceSoapClient _lineproduct_service = new LineProductWebServiceReference.LineProductRealtimeWebServiceSoapClient();
+        private LineProductWebServiceReference.tbl_Product_RealtimeEntity _entity = new LineProductWebServiceReference.tbl_Product_RealtimeEntity();
+        private DateTime time_scanBarcode;
+        private int bien_dem = 0;
+        private bool useWip = true;
+        private int _index = 0;
+        private int _counter = 0;
         public Control()
         {
             InitializeComponent();
-            ComPressPort.PortName = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS);
             checkModelSpeacial();
+            if (Common.GetValueRegistryKey(PathConfig, RegistryKeys.id) is null)
+            {
+                MessageBox.Show("Vào Config để điền đây đủ các mục setting!");
+            }
 
-            ToolTip toolTip1 = new ToolTip();
-            toolTip1.ShowAlways = true;
-            toolTip1.SetToolTip(lblConfig, "Config");
-            ToolTip toolTip2 = new ToolTip();
-            toolTip2.ShowAlways = true;
-            toolTip2.SetToolTip(lblListModel, "List Model");
-            ToolTip toolTip3 = new ToolTip();
-            toolTip3.ShowAlways = true;
-            toolTip3.SetToolTip(lblSettingTime, "Setting time");
         }
 
         private void checkModelSpeacial()
         {
+            // Model nay thuoc khach hang CANON thang long. khi check mac co hoi lua chon mac thung repair hay khong
             var modelSpecial = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.MODEL_SPEACIAL);
             if (modelSpecial == null)
             {
@@ -56,17 +60,7 @@ namespace Line_Production
                 }
             }
         }
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
-        private PVSReference.PVSWebServiceSoapClient pvsservice = new PVSReference.PVSWebServiceSoapClient();
-        private USAPReference.USAPWebServiceSoapClient usapservice = new USAPReference.USAPWebServiceSoapClient();
-        private LineProductWebServiceReference.LineProductRealtimeWebServiceSoapClient _lineproduct_service = new LineProductWebServiceReference.LineProductRealtimeWebServiceSoapClient();
-        private LineProductWebServiceReference.tbl_Product_RealtimeEntity _entity = new LineProductWebServiceReference.tbl_Product_RealtimeEntity();
-        private DateTime time_scanBarcode;
-        private int bien_dem = 0;
-        private bool useWip = true;
-        private int _index = 0;
-        private int _counter = 0;
+
 
         public void FormatNgayCasx()
         {
@@ -138,9 +132,17 @@ namespace Line_Production
         private void Form1_Load(object sender, EventArgs e)
         {
             FileShare.Connect(FileShare.PATH, new System.Net.NetworkCredential(FileShare.USER, FileShare.PASSWORD));
-            Loadsetting();
-            // Me.Height = 885
 
+            if (CheckModelList() == true)
+            {
+                Init();
+                SetupDisplay();
+            }
+            else
+            {
+                MessageBox.Show("Setup List Model Not Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);
+            }
         }
 
         public void SetupDisplay()
@@ -227,33 +229,6 @@ namespace Line_Production
             chkOK.Checked = true;
         }
 
-        private void Loadsetting()
-        {
-
-            if (CheckModelList() == true)
-            {
-                SaveInit();
-                Init();
-                SetupDisplay();
-            }
-            else
-            {
-                MessageBox.Show("Setup List Model Not Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
-            }
-
-        }
-        private void ComboModel_EnabledChanged(object sender, EventArgs e)
-        {
-            //if (cbbModel.Enabled == false)
-            //{
-            //    cbbModel.BackColor = Color.White; //or pick the color you want when not enabled
-            //}
-            //else
-            //{
-            //    cbbModel.BackColor = Color.White; //same here with the color
-            //}
-        }
         public void LoadProduction()
         {
             string line = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
@@ -669,10 +644,8 @@ namespace Line_Production
             }
             catch (Exception ex)
             {
-                LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "UpdateRealtime error!", ex);
                 LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
             }
-            // Repository.UpdatateData(entities)
             SetupDisplay();
         }
 
@@ -887,7 +860,7 @@ namespace Line_Production
             catch (Exception ex)
             {
 
-                LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "UpdateRealtime error!", ex);
+                //LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "UpdateRealtime error!", ex);
                 LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
                 Console.Write(ex.ToString());
             }
@@ -1032,36 +1005,15 @@ namespace Line_Production
             }
         }
 
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            //if (cbUserMacBox.Checked == false)
-            //{
-            //    TextMacBox.Enabled = false;
-            //    txtSerial.Enabled = true;
-            //    txtSerial.Focus();
-            //    cbUserMacBox.Enabled = false;
-            //}
-            //else
-            //{
-            //    // TextMacBox.Enabled = True
-            //}
-        }
-
-        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
 
         private void lblConfig_Click(object sender, EventArgs e)
         {
             frmConfig frmConfig = new frmConfig();
-            frmConfig.updateAfterSetting = () => { lblComcontrol.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.COM); };
+            frmConfig.updateAfterSetting = () => {
+                Init();
+            };
             frmConfig.ShowDialog();
-            pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
-
-            txtLine.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
-            Init();
+           
         }
 
         private void chkNG_CheckedChanged(object sender, EventArgs e)
@@ -1074,17 +1026,6 @@ namespace Line_Production
                 txtSerial.SelectAll();
                 txtSerial.Focus();
             }
-        }
-
-        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            this.Hide();
-            BtStop_Click(null, null);
-            fmLogin frmLogin = new fmLogin();
-            frmLogin.txtUsername.Clear();
-            frmLogin.txtPassword.Clear();
-            frmLogin.txtUsername.Select();
-            frmLogin.Show();
         }
 
         private void Timer3_Tick(object sender, EventArgs e)
@@ -1178,7 +1119,6 @@ namespace Line_Production
 
         private void txtSerial_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            // Repository = New Repository
 
             string barode = txtSerial.Text.Trim();
             if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtSerial.Text))
@@ -1247,7 +1187,7 @@ namespace Line_Production
                                 }
                                 catch (Exception ex)
                                 {
-                                    LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Ghi log wip bị lỗi", ex);
+                                    //LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Ghi log wip bị lỗi", ex);
                                     LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Ghi log wip bị lỗi", ex);
                                     return;
                                 }
@@ -1279,7 +1219,7 @@ namespace Line_Production
                                         }
                                         catch (Exception ex)
                                         {
-                                            LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "lỗi kiểm tra trạm trước!", ex);
+                                            //LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "lỗi kiểm tra trạm trước!", ex);
                                             LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "lỗi kiểm tra trạm trước!", ex);
                                             txtSerial.Enabled = true;
                                             txtSerial.Focus();
@@ -1308,7 +1248,7 @@ namespace Line_Production
                                         }
                                         catch (Exception ex)
                                         {
-                                            LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Ghi log wip bị lỗi", ex);
+                                            //LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Ghi log wip bị lỗi", ex);
                                             LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Ghi log wip bị lỗi", ex);
                                             return;
                                         }
@@ -1347,10 +1287,57 @@ namespace Line_Production
                                             NG_FORM.ShowDialog();
                                             return;
                                         }
+
+
+                                        // Link wip
+                                        string nameSoft = Common.FindApplication(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process));
+                                        int wipHandle = 0;
+                                        wipHandle = NativeWin32.FindWindow(null, nameSoft);
+                                        bool temp = Common.IsRunning(nameSoft);
+                                        if (!temp)
+                                        {
+                                            MessageBox.Show("Chương trình Wip chưa bật", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            Common.ActiveProcess(nameSoft);
+                                            Console.Write(nameSoft);
+                                            Clipboard.SetText(txtSerial.Text.Trim());
+                                            SendKeys.Send("^V");
+                                            Thread.Sleep(170);
+                                            SendKeys.Send("{ENTER}");
+                                            Thread.Sleep(170);
+                                            Common.ActiveProcess(this.Text);
+                                            Thread.Sleep(220);
+
+                                            bool IsWipSuccess = false;
+
+                                            for (int i = 0; i < 10; i++)
+                                            {
+                                                if (pvsservice.GetWorkOrderItem(txtSerial.Text, Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)) != null)
+                                                {
+                                                    IsWipSuccess = true;
+                                                    break;
+                                                }
+                                                Thread.Sleep(int.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.SleepTime)));
+                                            }
+                                            if (!IsWipSuccess)
+                                            {
+                                                txtSerial.Enabled = true;
+                                                txtSerial.Focus();
+                                                txtSerial.SelectAll();
+                                                NG_FORM NG_FORM = new NG_FORM();
+                                                NG_FORM.Lb_inform_NG.Text = "WIP NG!";
+                                                NG_FORM.GroupBox3.Visible = false;
+                                                NG_FORM.ShowDialog();
+                                                return;
+                                            }
+                                            increaseInDb(listBarcode);
+                                        }
                                     }
                                     catch
                                     {
-
                                         txtSerial.Enabled = true;
                                         txtSerial.Focus();
                                         txtSerial.SelectAll();
@@ -1360,43 +1347,6 @@ namespace Line_Production
                                         NG_FORM.ShowDialog();
                                         return;
                                     }
-
-                                    // Link wip
-                                    string nameSoft = Common.FindApplication(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process));
-                                    int wipHandle = 0;
-                                    wipHandle = NativeWin32.FindWindow(null, nameSoft);
-                                    bool temp = Common.IsRunning(nameSoft);
-                                    if (!temp)
-                                    {
-                                        MessageBox.Show("Chương trình Wip chưa bật", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                        return;
-                                    }
-                                    else
-                                    {
-                                        Common.ActiveProcess(nameSoft);
-                                        Console.Write(nameSoft);
-                                        Clipboard.SetText(txtSerial.Text.Trim());
-                                        SendKeys.Send("^V");
-                                        Thread.Sleep(170);
-                                        SendKeys.Send("{ENTER}");
-                                        Thread.Sleep(170);
-                                        Common.ActiveProcess(this.Text);
-                                        Thread.Sleep(220);
-
-                                        if (pvsservice.GetWorkOrderItem(txtSerial.Text.Trim(), STATION) == null)
-                                        {
-                                            txtSerial.Enabled = true;
-                                            txtSerial.Focus();
-                                            txtSerial.SelectAll();
-                                            NG_FORM NG_FORM = new NG_FORM();
-                                            NG_FORM.Lb_inform_NG.Text = "Link Wip NG! Vui lòng chạy lại!";
-                                            NG_FORM.ControlBox = true;
-                                            NG_FORM.GroupBox3.Visible = false;
-                                            NG_FORM.ShowDialog();
-                                            return;
-                                        }
-                                    }
-                                    increaseInDb(listBarcode);
                                 }
                                 else
                                 {
@@ -1414,7 +1364,7 @@ namespace Line_Production
                             txtSerial.Focus();
                             txtSerial.SelectAll();
                             MessageBox.Show("txtSerial_PreviewKeyDown : " + e.ToString());
-                            LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Nhập serial bị lỗi", ex);
+                            //LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Nhập serial bị lỗi", ex);
                             LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Nhập serial bị lỗi", ex);
                             return;
                         }
@@ -1501,7 +1451,7 @@ namespace Line_Production
                     }
                     catch (Exception ex)
                     {
-                        LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Thêm vào db bị lỗi", ex);
+                        //LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Thêm vào db bị lỗi", ex);
                         LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Thêm vào db bị lỗi", ex);
                         transaction.Rollback();
                         txtSerial.Enabled = true;
@@ -1606,11 +1556,6 @@ namespace Line_Production
 
         }
 
-        private void cbbFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void bgwLinkWip_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             List<string> listBarcode = (List<string>)e.Argument;
@@ -1653,39 +1598,7 @@ namespace Line_Production
             }
         }
 
-
-        private void txtSerial_EnabledChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void TextMacBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-
-        }
-
-        private void Control_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Space)
-            {
-                // IncreaseProduct();
-            }
-        }
-
-        private void timerComPress_Tick(object sender, EventArgs e)
-        {
-
-            if (BtStart.Text != "Bắt đầu")
-            {
-                ComPressPort.Write("B");
-                if (ComPressPort.ReadExisting() == "B")
-                    BitPress = true;
-                else if (ComPressPort.ReadExisting() != "B" & BitPress == true)
-                {
-                    BitPress = false;
-                    IncreaseProduct();
-                }
-            }
-        }
+        
     }
 }
 

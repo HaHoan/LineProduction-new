@@ -107,12 +107,12 @@ namespace Line_Production
                 {
                     MessageBox.Show("Máy chưa được tạo trạm WIP!");
                 }
+                pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
                 IdLine = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
                 pathBackup = Path.Combine(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip), "backup", DateTime.Now.ToString("yyyyMMdd"));
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
-
-
+                lblComcontrol.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.COM);
                 if (!Directory.Exists(pathBackup))
                     Directory.CreateDirectory(pathBackup);
                 if (!Directory.Exists(Path.Combine(pathBackup, "OK")))
@@ -121,7 +121,6 @@ namespace Line_Production
                     Directory.CreateDirectory(Path.Combine(pathBackup, "NG"));
 
                 txtLine.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
-                CheckComPressPort();
             }
             catch (Exception e)
             {
@@ -131,46 +130,7 @@ namespace Line_Production
 
             return true;
         }
-        public bool CheckComPressPort()
-        {
-
-
-            try
-            {
-                
-                if (!ComPressPort.IsOpen)
-                {
-                    ComPressPort.Open();
-                }
-               
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("COM Press: " + Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS) + " not connect. Please check connect the device !", "Error device", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            return true;
-        }
-
-        public static bool SaveInit()
-        {
-
-            if (Common.GetValueRegistryKey(PathConfig, RegistryKeys.id) is null)
-            {
-                Common.WriteRegistry(PathConfig, RegistryKeys.id, "CA-Default");
-                Common.WriteRegistry(PathConfig, RegistryKeys.pathWip, @"C:\LOGPROCESS");
-                Common.WriteRegistry(PathConfig, RegistryKeys.station, "VI2_CAN");
-                Common.WriteRegistry(PathConfig, RegistryKeys.LinkPathLog, true.ToString());
-                string[] listCOM = SerialPort.GetPortNames();
-                if (listCOM != null && listCOM.Length > 0)
-                {
-                    Common.WriteRegistry(PathConfig, RegistryKeys.COM, listCOM[0]);
-                }
-                return true;
-            }
-
-            return false;
-        }
+      
 
         public bool CheckModelList()
         {

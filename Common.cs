@@ -166,11 +166,7 @@ namespace Line_Production
         {
             try
             {
-                if(COM == null)
-                {
-                    COM = GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM);
-                }
-                SerialPort com = new SerialPort() { PortName = GetValueRegistryKey(Control.PathConfig, "COM") };
+                SerialPort com = new SerialPort() { PortName = GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM) };
                 if (!com.IsOpen) com.Open();
                 if (com.IsOpen == true)
                 {
@@ -180,9 +176,9 @@ namespace Line_Production
                 result(ConstantsText.OK);
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
-                result(ConstantsText.NG);
+                result(ConstantsText.NG + ex.Message.ToString());
                 return false;
             }
 
