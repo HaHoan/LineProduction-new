@@ -240,20 +240,7 @@ namespace Line_Production
                 ProductPlan = passRate.ProductPlan;
                 CountProduct = passRate.Actual;
                 IDCount = 0;
-                using (var db = new barcode_dbEntities())
-                {
-                    if (NumberInModel > 0)
-                    {
-                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck && mbox.ProductionID == ModelCurrent && mbox.Station == currentStation).Count();
-                        IDCount_box = IDCount_box / NumberInModel;
-                    }
-                    else
-                    {
-                        IDCount_box = db.HondaLocks.Where(mbox => mbox.ShiftDate == Datecheck + "_" + Shiftcheck && mbox.ProductionID == ModelCurrent && mbox.Station == currentStation).GroupBy(m => m.BoxID).Count();
-                    }
-                }
-
-
+                IDCount_box = passRate.IDCountBox;
                 Box_curent = "";
                 TimeCycleActual = (int)passRate.TimeCycleActual;
                 for (int index = 0; index < 10; index++)
