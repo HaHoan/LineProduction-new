@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="barcode_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IS_FILE_LOG" Type="bit" Nullable="false" />
+          <Property Name="CUS" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="HondaLock">
           <Key>
             <PropertyRef Name="ID" />
@@ -88,6 +97,7 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="barcode_dbModelStoreContainer">
+          <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HondaLock" EntityType="Self.HondaLock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINE_MODEL" EntityType="Self.LINE_MODEL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINE_PASSRATE" EntityType="Self.LINE_PASSRATE" Schema="dbo" store:Type="Tables" />
@@ -141,6 +151,7 @@
           <EntitySet Name="USERs" EntityType="barcode_dbModel.USER" />
           <EntitySet Name="LINE_MODEL" EntityType="barcode_dbModel.LINE_MODEL" />
           <EntitySet Name="HondaLocks" EntityType="barcode_dbModel.HondaLock" />
+          <EntitySet Name="CUSTOMERs" EntityType="barcode_dbModel.CUSTOMER" />
         </EntityContainer>
         <EntityType Name="USER">
           <Key>
@@ -188,6 +199,15 @@
           <Property Name="ShiftDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Repair" Type="Boolean" />
           <Property Name="Station" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IS_FILE_LOG" Type="Boolean" Nullable="false" />
+          <Property Name="CUS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -280,6 +300,16 @@
                 <ScalarProperty Name="BoxID" ColumnName="BoxID" />
                 <ScalarProperty Name="ProductionID" ColumnName="ProductionID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOMERs">
+            <EntityTypeMapping TypeName="barcode_dbModel.CUSTOMER">
+              <MappingFragment StoreEntitySet="CUSTOMER">
+                <ScalarProperty Name="CUS" ColumnName="CUS" />
+                <ScalarProperty Name="IS_FILE_LOG" ColumnName="IS_FILE_LOG" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

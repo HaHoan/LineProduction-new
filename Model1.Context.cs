@@ -31,5 +31,6 @@ namespace Line_Production
         public virtual DbSet<USER> USERs { get; set; }
         public virtual DbSet<LINE_MODEL> LINE_MODEL { get; set; }
         public virtual DbSet<HondaLock> HondaLocks { get; set; }
+        public virtual DbSet<CUSTOMER> CUSTOMERs { get; set; }
     }
 }

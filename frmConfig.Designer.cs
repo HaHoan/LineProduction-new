@@ -123,7 +123,6 @@ namespace Line_Production
             // 
             this.txtId.Location = new System.Drawing.Point(86, 86);
             this.txtId.Name = "txtId";
-            this.txtId.ReadOnly = true;
             this.txtId.Size = new System.Drawing.Size(205, 20);
             this.txtId.TabIndex = 36;
             // 
@@ -242,6 +241,7 @@ namespace Line_Production
             // 
             // cbbCustomer
             // 
+            this.cbbCustomer.DisplayMember = "NAME";
             this.cbbCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbCustomer.FormattingEnabled = true;
             this.cbbCustomer.Items.AddRange(new object[] {
@@ -261,6 +261,7 @@ namespace Line_Production
             this.cbbCustomer.Name = "cbbCustomer";
             this.cbbCustomer.Size = new System.Drawing.Size(204, 21);
             this.cbbCustomer.TabIndex = 56;
+            this.cbbCustomer.ValueMember = "NAME";
             // 
             // label8
             // 

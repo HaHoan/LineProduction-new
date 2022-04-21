@@ -31,6 +31,7 @@ namespace Line_Production
         private bool useWip = true;
         private int _index = 0;
         private int _counter = 0;
+        private bool IS_USING_FILE_LOG = false;
         public Control()
         {
             InitializeComponent();
@@ -39,7 +40,136 @@ namespace Line_Production
             {
                 MessageBox.Show("Vào Config để điền đây đủ các mục setting!");
             }
+            CheckCustomer();
+            ShiftDirectory(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip));
+        }
 
+        private void CheckCustomer()
+        {
+            var customer = Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer);
+            using (var db = new barcode_dbEntities())
+            {
+                var customerDb = db.CUSTOMERs.Where(m => m.NAME == customer).FirstOrDefault();
+                if (customerDb.IS_FILE_LOG)
+                {
+                    IS_USING_FILE_LOG = true;
+                }
+            }
+
+        }
+        int CountFileBeginDay = 0;
+        int CountFileBeginNight = 0;
+        int CountFileCurrentDay = 0;
+        int CountFileCurrentNight = 0;
+        public void ShiftDirectory(string targetDirectory)
+        {
+            if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd")) == false)
+            {
+                Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd"));
+            }
+
+            if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent) == false)
+            {
+                Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent);
+            }
+
+            if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay") == false)
+            {
+                Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay");
+            }
+
+            if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaDem") == false)
+            {
+                Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaDem");
+            }
+
+            var fileEntries = Directory.GetFiles(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd"));
+            // Process the list of files found in the directory.
+            string fileName;
+            foreach (var currentFileName in fileEntries)
+            {
+                fileName = currentFileName;
+                if (fileName.Contains(".txt") == true & fileName.Contains(ModelCurrent) == true)
+                {
+                    string filecut = Strings.Mid(fileName, Strings.InStrRev(fileName, @"\", -1, CompareMethod.Text) + 1, fileName.Length);
+                    if (File.GetLastWriteTime(fileName).Hour >= 8 & File.GetLastWriteTime(fileName).Hour <= 19)
+                    {
+                        File.Move(fileName, targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay\" + filecut);
+                    }
+                    else
+                    {
+                        File.Move(fileName, targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaDem" + filecut);
+                    }
+                }
+            }
+
+            var fileEntries2 = Directory.GetFiles(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay");
+            foreach (var currentFileName1 in fileEntries2)
+            {
+                fileName = currentFileName1;
+                if (fileName.Contains(".txt") == true)
+                    CountFileBeginDay += 1;
+            }
+
+            var fileEntries3 = Directory.GetFiles(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaDem");
+            foreach (var currentFileName2 in fileEntries2)
+            {
+                fileName = currentFileName2;
+                if (fileName.Contains(".txt") == true)
+                    CountFileBeginNight += 1;
+            }
+        }
+
+        public void ProcessDirectory(string targetDirectory)
+        {
+            try
+            {
+                var fileEntries = Directory.GetFiles(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd"));
+                if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd")) == false)
+                {
+                    Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd"));
+                }
+
+                if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent) == false)
+                {
+                    Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent);
+                }
+
+                if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay") == false)
+                {
+                    Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay");
+                }
+
+                if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaDem") == false)
+                {
+                    Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaDem");
+                    // Process the list of files found in the directory.
+                }
+
+                foreach (var fileName in fileEntries)
+                {
+                    if (fileName.Contains(".txt") == true & fileName.Contains(ModelCurrent) == true)
+                    {
+                        string filecut = Strings.Mid(fileName, Strings.InStrRev(fileName, @"\", -1, CompareMethod.Text) + 1, fileName.Length);
+                        if (File.GetLastWriteTime(fileName).Hour >= 8 & File.GetLastWriteTime(fileName).Hour <= 19)
+                        {
+                            File.Move(fileName, targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay\" + filecut);
+                            CountFileCurrentDay = CountFileBeginDay + 1;
+                            IncreaseProduct();
+                        }
+                        else
+                        {
+                            File.Move(fileName, targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaDem\" + filecut);
+                            CountFileCurrentNight = CountFileBeginNight + 1;
+                            IncreaseProduct();
+                        }
+                    }
+                }
+            }catch(Exception ex)
+            {
+                LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
+            }
+           
         }
 
         private void checkModelSpeacial()
@@ -60,7 +190,6 @@ namespace Line_Production
                 }
             }
         }
-
 
         public void FormatNgayCasx()
         {
@@ -550,7 +679,10 @@ namespace Line_Production
                 time_scanBarcode = DateAndTime.Now;
                 ProductPlan = (int)Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                 txtPlan.Text = ProductPlan.ToString();
-
+                if (IS_USING_FILE_LOG)
+                {
+                    return;
+                }
                 if (NumberInModel == 0)
                 {
                     TextMacBox.Enabled = true;
@@ -717,7 +849,7 @@ namespace Line_Production
                 _counter++;
                 if (BtStart.Text != "Bắt đầu")
                 {
-
+                    ProcessDirectory(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip));
                     int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
                     int indexCurrent = 0;
                     for (int index = 1; index <= 20; index++)
@@ -996,11 +1128,12 @@ namespace Line_Production
         private void lblConfig_Click(object sender, EventArgs e)
         {
             frmConfig frmConfig = new frmConfig();
-            frmConfig.updateAfterSetting = () => {
+            frmConfig.updateAfterSetting = () =>
+            {
                 Init();
             };
             frmConfig.ShowDialog();
-           
+
         }
 
         private void chkNG_CheckedChanged(object sender, EventArgs e)
@@ -1585,7 +1718,7 @@ namespace Line_Production
             }
         }
 
-        
+
     }
 }
 

@@ -23,11 +23,16 @@ namespace Line_Production
             InitializeComponent();
             cbbCOM.DataSource = SerialPort.GetPortNames();
             cbbComPress.DataSource = SerialPort.GetPortNames();
+            using(var db = new barcode_dbEntities())
+            {
+                cbbCustomer.DataSource = db.CUSTOMERs.ToList();
+            }
+            
             GetTaskWindows();
             pvsservice = new PVSReference.PVSWebServiceSoapClient();
            
-           
         }
+        
         private void GetTaskWindows()
         {
             // Get the desktopwindow handle

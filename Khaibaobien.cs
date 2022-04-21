@@ -103,10 +103,7 @@ namespace Line_Production
                     DataProvider.Instance.TimeLines.InsertLine(item.LINE_ID);
                     Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, item.STATION_NO);
                 }
-                else
-                {
-                    MessageBox.Show("Máy chưa được tạo trạm WIP!");
-                }
+               
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
                 IdLine = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
