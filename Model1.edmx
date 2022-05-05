@@ -31,6 +31,8 @@
           <Property Name="ShiftDate" Type="nvarchar" MaxLength="50" />
           <Property Name="Repair" Type="bit" />
           <Property Name="Station" Type="nvarchar" MaxLength="50" />
+          <Property Name="Wo_Sap" Type="nvarchar" MaxLength="50" />
+          <Property Name="Wo_Mes" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="LINE_MODEL">
           <Key>
@@ -150,8 +152,8 @@
           <EntitySet Name="LINE_TIMELINE" EntityType="Self.LINE_TIMELINE" />
           <EntitySet Name="USERs" EntityType="barcode_dbModel.USER" />
           <EntitySet Name="LINE_MODEL" EntityType="barcode_dbModel.LINE_MODEL" />
-          <EntitySet Name="HondaLocks" EntityType="barcode_dbModel.HondaLock" />
           <EntitySet Name="CUSTOMERs" EntityType="barcode_dbModel.CUSTOMER" />
+          <EntitySet Name="HondaLocks" EntityType="barcode_dbModel.HondaLock" />
         </EntityContainer>
         <EntityType Name="USER">
           <Key>
@@ -182,6 +184,15 @@
           <Property Name="Modifier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IS_FILE_LOG" Type="Boolean" Nullable="false" />
+          <Property Name="CUS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="HondaLock">
           <Key>
             <PropertyRef Name="ID" />
@@ -199,15 +210,8 @@
           <Property Name="ShiftDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Repair" Type="Boolean" />
           <Property Name="Station" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="CUSTOMER">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IS_FILE_LOG" Type="Boolean" Nullable="false" />
-          <Property Name="CUS" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Wo_Sap" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Wo_Mes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -284,9 +288,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOMERs">
+            <EntityTypeMapping TypeName="barcode_dbModel.CUSTOMER">
+              <MappingFragment StoreEntitySet="CUSTOMER">
+                <ScalarProperty Name="CUS" ColumnName="CUS" />
+                <ScalarProperty Name="IS_FILE_LOG" ColumnName="IS_FILE_LOG" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HondaLocks">
             <EntityTypeMapping TypeName="barcode_dbModel.HondaLock">
               <MappingFragment StoreEntitySet="HondaLock">
+                <ScalarProperty Name="Wo_Mes" ColumnName="Wo_Mes" />
+                <ScalarProperty Name="Wo_Sap" ColumnName="Wo_Sap" />
                 <ScalarProperty Name="Station" ColumnName="Station" />
                 <ScalarProperty Name="Repair" ColumnName="Repair" />
                 <ScalarProperty Name="ShiftDate" ColumnName="ShiftDate" />
@@ -300,16 +316,6 @@
                 <ScalarProperty Name="BoxID" ColumnName="BoxID" />
                 <ScalarProperty Name="ProductionID" ColumnName="ProductionID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CUSTOMERs">
-            <EntityTypeMapping TypeName="barcode_dbModel.CUSTOMER">
-              <MappingFragment StoreEntitySet="CUSTOMER">
-                <ScalarProperty Name="CUS" ColumnName="CUS" />
-                <ScalarProperty Name="IS_FILE_LOG" ColumnName="IS_FILE_LOG" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

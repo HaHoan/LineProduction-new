@@ -50,6 +50,8 @@ namespace Line_Production
         public static bool CheckServer = false;
         public static int PCBBOX = 10;
         public static string MacCurrent = "";
+        public static string WO_SAP = "";
+        public static string WO_MES = "";
         public static int IDCount = 0;
         public static int IDCount_box = 0;
         public static bool ConfirmModel = false;

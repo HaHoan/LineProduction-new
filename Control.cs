@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1011,10 +1012,17 @@ namespace Line_Production
         private int LaySoThung(string mathung)
         {
             var bc = usapservice.GetByBcNo(mathung);
+         
             if (bc != null)
             {
                 try
                 {
+                    if(bc.TN_NO != null)
+                    {
+                        var tnNo = int.Parse(bc.TN_NO);
+                        WO_SAP = tnNo.ToString();
+                    }
+                  
                     return (int)bc.OS_QTY;
                 }
                 catch
@@ -1031,7 +1039,6 @@ namespace Line_Production
         {
             if (e.KeyChar == '\r')
             {
-                Console.WriteLine("alallalala");
                 MacCurrent = TextMacBox.Text.Trim().TrimEnd().TrimStart();
                 using (var db = new barcode_dbEntities())
                 {
@@ -1353,6 +1360,7 @@ namespace Line_Production
                                         try
                                         {
                                             var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text);
+                                            WO_MES = orderItem.ORDER_NO;
                                             var proceduces = pvsservice.GetWorkOrderProcedureByOrderId(orderItem.ORDER_ID.ToString());
                                             var requireStation = proceduces.Where(m => m.STATION_NAME == Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)).FirstOrDefault();
                                             if (orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
@@ -1424,6 +1432,7 @@ namespace Line_Production
                                     try
                                     {
                                         var orderItem = pvsservice.GetWorkOrderItemByBoardNo(txtSerial.Text);
+                                        WO_MES = orderItem.ORDER_NO;
                                         var proceduces = pvsservice.GetWorkOrderProcedureByOrderId(orderItem.ORDER_ID.ToString());
                                         var requireStation = proceduces.Where(m => m.STATION_NAME == Common.GetValueRegistryKey(PathConfig, RegistryKeys.station)).FirstOrDefault();
                                         if (orderItem.PROCEDURE_INDEX < (requireStation.INDEX - 1))
@@ -1587,7 +1596,9 @@ namespace Line_Production
                                 Line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
                                 Repair = lblRepair.Visible,
                                 ShiftDate = Datecheck + "_" + Shiftcheck,
-                                Station = currentStation
+                                Station = currentStation,
+                                Wo_Sap = WO_SAP,
+                                Wo_Mes = WO_MES
                             };
                             string hostname = Environment.MachineName;
                             if (!string.IsNullOrEmpty(hostname))
