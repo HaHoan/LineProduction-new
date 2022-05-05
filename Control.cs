@@ -1260,7 +1260,7 @@ namespace Line_Production
                 }
 
                 if (rule.LOCATION is int location && rule.CONTENT_LENGTH is int content_length &&
-                    Strings.Mid(serial, location, content_length) == rule.CONTENT)
+                    Strings.Mid(serial, location, content_length) == rule.CONTENT && serial.Length == rule.LENGTH)
                 {
                     return "OK";
                 }
