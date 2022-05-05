@@ -1240,15 +1240,30 @@ namespace Line_Production
         }
         private string ValidateSerial(string model, string serial)
         {
-            var rule = pvsservice.GetBarodeRuleItemsByRuleNo(ModelCurrent);
-            if (rule == null) return "Liên hệ với IT để thiết lập rule cho model này";
-
-            if (rule.LOCATION is int location && rule.CONTENT_LENGTH is int content_length &&
-                Strings.Mid(serial, location, content_length) == rule.CONTENT)
+            try
             {
-                return "OK";
+                var rule = pvsservice.GetBarodeRuleItemsByRuleNo(ModelCurrent);
+                if (rule == null)
+                {
+                    var strArr = ModelCurrent.Split('-');
+                    var replaceModel = strArr[0] + "-" + strArr[1];
+                    rule = pvsservice.GetBarodeRuleItemsByRuleNo(replaceModel);
+                    if (rule == null)
+                        return "Liên hệ với IT để thiết lập rule cho model này";
+                }
+
+                if (rule.LOCATION is int location && rule.CONTENT_LENGTH is int content_length &&
+                    Strings.Mid(serial, location, content_length) == rule.CONTENT)
+                {
+                    return "OK";
+                }
+                return serial + " có mã quy định là " + rule.CONTENT;
             }
-            return serial +  " có mã quy định là " + rule.CONTENT;
+            catch (Exception e)
+            {
+                throw;
+            }
+           
         }
         private void txtSerial_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
