@@ -165,11 +165,12 @@ namespace Line_Production
                         }
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
             }
-           
+
         }
 
         private void checkModelSpeacial()
@@ -511,6 +512,7 @@ namespace Line_Production
                             }
                         }
                     }
+
                 }
             }
         }
@@ -1236,14 +1238,27 @@ namespace Line_Production
             }
             return true;
         }
+        private string ValidateSerial(string model, string serial)
+        {
+            var rule = pvsservice.GetBarodeRuleItemsByRuleNo(ModelCurrent);
+            if (rule == null) return "Liên hệ với IT để thiết lập rule cho model này";
 
+            if (rule.LOCATION is int location && rule.CONTENT_LENGTH is int content_length &&
+                Strings.Mid(serial, location, content_length) == rule.CONTENT)
+            {
+                return "OK";
+            }
+            return serial +  " có mã quy định là " + rule.CONTENT;
+        }
         private void txtSerial_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
 
-            string barode = txtSerial.Text.Trim();
-            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtSerial.Text))
+            string serial = txtSerial.Text.Trim();
+
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(serial))
             {
-                if (Strings.Mid(txtSerial.Text, ModelRevPosition, ModelRev.Length) == ModelRev)
+                string checkRule = ValidateSerial(ModelCurrent, serial);
+                if (checkRule == "OK")
                 {
                     if (PauseProduct == false)
                     {
@@ -1251,6 +1266,7 @@ namespace Line_Production
                         {
                             txtSerial.Enabled = false;
                             var model = DataProvider.Instance.ModelQuantities.Select(ModelCurrent);
+
                             var listBarcode = Common.CreateBarcode(txtSerial.Text.Trim(), model.PCB, model.ContentIndex, model.ContentLength, model.CheckFirst);
                             if (IDCount + listBarcode.Count > PCBBOX)
                             {
@@ -1509,7 +1525,7 @@ namespace Line_Production
                     txtSerial.Focus();
                     txtSerial.SelectAll();
                     NG_FORM NG_FORM = new NG_FORM();
-                    NG_FORM.Lb_inform_NG.Text = txtSerial.Text + " sai ma quy dinh model: " + ModelRev;
+                    NG_FORM.Lb_inform_NG.Text = checkRule;
                     NG_FORM.GroupBox3.Visible = false;
                     // NG_FORM.ControlBox = False
                     // NG_FORM.ShowInTaskbar = False

@@ -27,7 +27,7 @@ namespace Line_Production
         {
             if (string.IsNullOrEmpty(txbModelID.Text) || string.IsNullOrEmpty(txbPersonInLine.Text)
                 || string.IsNullOrEmpty(txbCycle.Text) || string.IsNullOrEmpty(txbWarmQuatity.Text)
-                || string.IsNullOrEmpty(txbMnQuantity.Text) || string.IsNullOrEmpty(txbRegex.Text)
+                || string.IsNullOrEmpty(txbMnQuantity.Text)
                 || string.IsNullOrEmpty(cbbCustomer.Text))
 
             {
@@ -60,7 +60,7 @@ namespace Line_Production
                                 CycleTime = float.Parse(txbCycle.Text.ToString()),
                                 WarnQuantity = float.Parse(txbWarmQuatity.Text.ToString()),
                                 MinQuantity = float.Parse(txbMnQuantity.Text.ToString()),
-                                CharModel = txbRegex.Text.ToString().Trim(),
+                                CharModel = "",
                                 UseBarcode = ckbUseBarcode.Checked ? 1 : 0,
                                 NumberInModel = int.Parse(txbNumberInModel.Text.Trim()),
                                 PCB = int.Parse(txbPCB.Text.Trim()),
@@ -89,7 +89,7 @@ namespace Line_Production
                         modelInDb.CycleTime = float.Parse(txbCycle.Text.ToString());
                         modelInDb.WarnQuantity = float.Parse(txbWarmQuatity.Text.ToString());
                         modelInDb.MinQuantity = float.Parse(txbMnQuantity.Text.ToString());
-                        modelInDb.CharModel = txbRegex.Text.ToString().Trim();
+                        modelInDb.CharModel = "";
                         modelInDb.UseBarcode = ckbUseBarcode.Checked ? 1 : 0;
                         modelInDb.NumberInModel = int.Parse(txbNumberInModel.Text.Trim());
                         modelInDb.PCB = int.Parse(txbPCB.Text.Trim());
@@ -133,7 +133,6 @@ namespace Line_Production
                     txbCycle.Text = model.Cycle.ToString();
                     txbWarmQuatity.Text = model.WarnQuantity.ToString();
                     txbMnQuantity.Text = model.MinQuantity.ToString();
-                    txbRegex.Text = model.CharModel;
                     ckbUseBarcode.Checked = model.UseBarcode;
                     txbNumberInModel.Text = model.NumberInModel.ToString();
                     txbPCB.Text = model.PCB.ToString();
@@ -172,7 +171,6 @@ namespace Line_Production
                         txbCycle.Text = model.Cycle.ToString();
                         txbWarmQuatity.Text = model.WarnQuantity.ToString();
                         txbMnQuantity.Text = model.MinQuantity.ToString();
-                        txbRegex.Text = model.CharModel;
                         ckbUseBarcode.Checked = model.UseBarcode;
                         txbNumberInModel.Text = model.NumberInModel.ToString();
                         txbPCB.Text = model.PCB.ToString();

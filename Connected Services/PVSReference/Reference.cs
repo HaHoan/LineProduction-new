@@ -996,6 +996,8 @@ namespace Line_Production.PVSReference {
         
         private System.Nullable<int> PcbField;
         
+        private System.Nullable<int> Pcb_LabelField;
+        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CustomerField;
         
@@ -1051,7 +1053,20 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
+        public System.Nullable<int> Pcb_Label {
+            get {
+                return this.Pcb_LabelField;
+            }
+            set {
+                if ((this.Pcb_LabelField.Equals(value) != true)) {
+                    this.Pcb_LabelField = value;
+                    this.RaisePropertyChanged("Pcb_Label");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
         public string Customer {
             get {
                 return this.CustomerField;
@@ -1064,7 +1079,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
         public string Content {
             get {
                 return this.ContentField;
@@ -1077,7 +1092,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
         public System.Nullable<int> Content_Index {
             get {
                 return this.Content_IndexField;
@@ -1090,7 +1105,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
         public System.Nullable<int> Content_Length {
             get {
                 return this.Content_LengthField;
@@ -1103,7 +1118,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=7)]
         public System.Nullable<int> Location {
             get {
                 return this.LocationField;
@@ -1116,7 +1131,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=7)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=8)]
         public System.Nullable<bool> Is_Hexa {
             get {
                 return this.Is_HexaField;
@@ -1129,7 +1144,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=8)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=9)]
         public string Des {
             get {
                 return this.DesField;
@@ -1142,7 +1157,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=9)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
         public bool Check_First {
             get {
                 return this.Check_FirstField;
@@ -1155,7 +1170,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=10)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=11)]
         public bool Is_Wip {
             get {
                 return this.Is_WipField;
@@ -1168,7 +1183,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=11)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=12)]
         public string Component_Id {
             get {
                 return this.Component_IdField;
@@ -1181,7 +1196,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=12)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=13)]
         public bool Is_SubBoard {
             get {
                 return this.Is_SubBoardField;
@@ -1194,7 +1209,7 @@ namespace Line_Production.PVSReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=13)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
         public string Group_Id {
             get {
                 return this.Group_IdField;
@@ -4669,6 +4684,9 @@ namespace Line_Production.PVSReference {
         // CODEGEN: Generating message contract since element name memberID from namespace http://tempuri.org/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetRoleMember", ReplyAction="*")]
         Line_Production.PVSReference.GetRoleMemberResponse GetRoleMember(Line_Production.PVSReference.GetRoleMemberRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Test", ReplyAction="*")]
+        void Test();
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -9456,6 +9474,10 @@ namespace Line_Production.PVSReference {
             inValue.Body.memberID = memberID;
             Line_Production.PVSReference.GetRoleMemberResponse retVal = ((Line_Production.PVSReference.PVSWebServiceSoap)(this)).GetRoleMember(inValue);
             return retVal.Body.GetRoleMemberResult;
+        }
+        
+        public void Test() {
+            base.Channel.Test();
         }
     }
 }

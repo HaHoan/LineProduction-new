@@ -71,7 +71,6 @@ namespace Line_Production
                                                     // Public SetProcess As String = "ICT_MUR" ' cong doan tren WIP
                                                     // Public setfilenamereport As String ' cai dat ten lien quan den file name của file report may chuc nang
         public static int CountLabel;
-        public static string ModelRev = "";
         public static int ModelRevPosition = 1;
         public static string ModelCurrent = "";
         public static string Idcode = "";
@@ -175,7 +174,6 @@ namespace Line_Production
                         BarcodeEnable = model.UseBarcode is int useBarcode;
                         BalanceAlarmSetup = (int)model.WarnQuantity;
                         BalanceErrorSetup = (int)model.MinQuantity;
-                        ModelRev = model.CharModel;
                         if (model.NumberInModel is int numberInModel)
                         {
                             NumberInModel = numberInModel;

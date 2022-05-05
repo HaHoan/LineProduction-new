@@ -37,8 +37,6 @@
             this.txbWarmQuatity = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txbMnQuantity = new System.Windows.Forms.TextBox();
-            this.txbRegex = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.ckbUseBarcode = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txbNumberInModel = new System.Windows.Forms.TextBox();
@@ -63,8 +61,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,28 +138,12 @@
             this.txbMnQuantity.Size = new System.Drawing.Size(172, 20);
             this.txbMnQuantity.TabIndex = 9;
             // 
-            // txbRegex
-            // 
-            this.txbRegex.Location = new System.Drawing.Point(154, 248);
-            this.txbRegex.Name = "txbRegex";
-            this.txbRegex.Size = new System.Drawing.Size(172, 20);
-            this.txbRegex.TabIndex = 11;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(25, 251);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Kí tự Model";
-            // 
             // ckbUseBarcode
             // 
             this.ckbUseBarcode.AutoSize = true;
             this.ckbUseBarcode.Checked = true;
             this.ckbUseBarcode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbUseBarcode.Location = new System.Drawing.Point(217, 425);
+            this.ckbUseBarcode.Location = new System.Drawing.Point(217, 389);
             this.ckbUseBarcode.Name = "ckbUseBarcode";
             this.ckbUseBarcode.Size = new System.Drawing.Size(109, 17);
             this.ckbUseBarcode.TabIndex = 13;
@@ -179,7 +161,7 @@
             // 
             // txbNumberInModel
             // 
-            this.txbNumberInModel.Location = new System.Drawing.Point(154, 350);
+            this.txbNumberInModel.Location = new System.Drawing.Point(154, 311);
             this.txbNumberInModel.Name = "txbNumberInModel";
             this.txbNumberInModel.Size = new System.Drawing.Size(172, 20);
             this.txbNumberInModel.TabIndex = 27;
@@ -189,7 +171,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.Maroon;
-            this.label7.Location = new System.Drawing.Point(25, 329);
+            this.label7.Location = new System.Drawing.Point(25, 286);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(314, 13);
             this.label7.TabIndex = 26;
@@ -215,7 +197,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 392);
+            this.label9.Location = new System.Drawing.Point(25, 353);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 13);
             this.label9.TabIndex = 30;
@@ -315,7 +297,7 @@
             // txbHistoryNo
             // 
             this.txbHistoryNo.Enabled = false;
-            this.txbHistoryNo.Location = new System.Drawing.Point(154, 289);
+            this.txbHistoryNo.Location = new System.Drawing.Point(154, 248);
             this.txbHistoryNo.Name = "txbHistoryNo";
             this.txbHistoryNo.Size = new System.Drawing.Size(172, 20);
             this.txbHistoryNo.TabIndex = 41;
@@ -323,7 +305,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(25, 292);
+            this.label14.Location = new System.Drawing.Point(25, 251);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(56, 13);
             this.label14.TabIndex = 40;
@@ -346,7 +328,7 @@
             "BROTHER",
             "CANON",
             "FUJIXEROX"});
-            this.cbbCustomer.Location = new System.Drawing.Point(154, 390);
+            this.cbbCustomer.Location = new System.Drawing.Point(154, 351);
             this.cbbCustomer.Name = "cbbCustomer";
             this.cbbCustomer.Size = new System.Drawing.Size(172, 21);
             this.cbbCustomer.TabIndex = 42;
@@ -401,6 +383,16 @@
             this.label19.TabIndex = 47;
             this.label19.Text = "(*)";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ForeColor = System.Drawing.Color.Red;
+            this.label21.Location = new System.Drawing.Point(336, 355);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(17, 13);
+            this.label21.TabIndex = 49;
+            this.label21.Text = "(*)";
+            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -410,16 +402,6 @@
             this.label20.Size = new System.Drawing.Size(17, 13);
             this.label20.TabIndex = 48;
             this.label20.Text = "(*)";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.ForeColor = System.Drawing.Color.Red;
-            this.label21.Location = new System.Drawing.Point(336, 394);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(17, 13);
-            this.label21.TabIndex = 49;
-            this.label21.Text = "(*)";
             // 
             // AddModelForm
             // 
@@ -451,8 +433,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnSaveChanged);
             this.Controls.Add(this.ckbUseBarcode);
-            this.Controls.Add(this.txbRegex);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.txbMnQuantity);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txbWarmQuatity);
@@ -484,8 +464,6 @@
         private System.Windows.Forms.TextBox txbWarmQuatity;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txbMnQuantity;
-        private System.Windows.Forms.TextBox txbRegex;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox ckbUseBarcode;
         private System.Windows.Forms.Button btnSaveChanged;
         private System.Windows.Forms.Label label5;
@@ -510,7 +488,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
     }
 }

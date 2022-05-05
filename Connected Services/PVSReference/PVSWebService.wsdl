@@ -407,6 +407,7 @@
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="Product_Id" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Pcb" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pcb_Label" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Customer" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Content_Index" nillable="true" type="s:int" />
@@ -1332,6 +1333,12 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="Test">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestResponse">
+        <s:complexType />
+      </s:element>
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
       <s:simpleType name="guid">
@@ -1707,6 +1714,12 @@
   <wsdl:message name="GetRoleMemberSoapOut">
     <wsdl:part name="parameters" element="tns:GetRoleMemberResponse" />
   </wsdl:message>
+  <wsdl:message name="TestSoapIn">
+    <wsdl:part name="parameters" element="tns:Test" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapOut">
+    <wsdl:part name="parameters" element="tns:TestResponse" />
+  </wsdl:message>
   <wsdl:portType name="PVSWebServiceSoap">
     <wsdl:operation name="GetBoards">
       <wsdl:input message="tns:GetBoardsSoapIn" />
@@ -1951,6 +1964,10 @@
     <wsdl:operation name="GetRoleMember">
       <wsdl:input message="tns:GetRoleMemberSoapIn" />
       <wsdl:output message="tns:GetRoleMemberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <wsdl:input message="tns:TestSoapIn" />
+      <wsdl:output message="tns:TestSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PVSWebServiceSoap" type="tns:PVSWebServiceSoap">
@@ -2504,6 +2521,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap:operation soapAction="http://tempuri.org/Test" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="PVSWebServiceSoap12" type="tns:PVSWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -3049,6 +3075,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetRoleMember">
       <soap12:operation soapAction="http://tempuri.org/GetRoleMember" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap12:operation soapAction="http://tempuri.org/Test" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
