@@ -119,6 +119,7 @@ namespace Line_Production
             }
             catch { }
 
+            txtId.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id);
             txtLog.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.pathWip);
             cbbCOM.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM);
             cbbComPress.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS);

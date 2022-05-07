@@ -48,6 +48,7 @@ namespace Line_Production
         private void CheckCustomer()
         {
             var customer = Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer);
+            if (customer == null) return;
             using (var db = new barcode_dbEntities())
             {
                 var customerDb = db.CUSTOMERs.Where(m => m.NAME == customer).FirstOrDefault();
