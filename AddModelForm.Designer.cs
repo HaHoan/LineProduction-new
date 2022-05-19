@@ -313,6 +313,7 @@
             // 
             // cbbCustomer
             // 
+            this.cbbCustomer.DisplayMember = "NAME";
             this.cbbCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbCustomer.FormattingEnabled = true;
             this.cbbCustomer.Items.AddRange(new object[] {

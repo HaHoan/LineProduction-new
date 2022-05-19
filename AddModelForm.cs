@@ -20,7 +20,10 @@ namespace Line_Production
         {
             InitializeComponent();
             this.ID = ID;
-
+            using (var db = new barcode_dbEntities())
+            {
+                cbbCustomer.DataSource = db.CUSTOMERs.ToList();
+            }
 
         }
         private bool isValidate()

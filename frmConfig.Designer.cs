@@ -256,7 +256,8 @@ namespace Line_Production
             "KYOCERA",
             "BROTHER",
             "CANON",
-            "FUJIXEROX"});
+            "FUJIXEROX",
+            "ICHIKOH_2LABEL"});
             this.cbbCustomer.Location = new System.Drawing.Point(87, 118);
             this.cbbCustomer.Name = "cbbCustomer";
             this.cbbCustomer.Size = new System.Drawing.Size(204, 21);
