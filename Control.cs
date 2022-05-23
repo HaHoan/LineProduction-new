@@ -150,7 +150,7 @@ namespace Line_Production
 
                 foreach (var fileName in fileEntries)
                 {
-                    if (fileName.Contains(".txt") == true & fileName.Contains(ModelCurrent) == true)
+                    if (fileName.Contains(".txt") == true & fileName.Contains(ModelCurrent.ToUpper()) == true)
                     {
                         string filecut = Strings.Mid(fileName, Strings.InStrRev(fileName, @"\", -1, CompareMethod.Text) + 1, fileName.Length);
                         if (File.GetLastWriteTime(fileName).Hour >= 8 & File.GetLastWriteTime(fileName).Hour <= 19)
