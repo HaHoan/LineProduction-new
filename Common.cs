@@ -25,6 +25,22 @@ namespace Line_Production
 {
     public partial class Common
     {
+        public static void UpdateState(string state)
+        {
+            using (var db = new barcode_dbEntities())
+            {
+                var stateModel = new STATE_HISTORY()
+                {
+                    Line = GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
+                    Model = GetValueRegistryKey(Control.PathConfig, RegistryKeys.ModelCurrent),
+                    State = state,
+                    HostName = Environment.MachineName,
+                    UpdateTime = DateTime.Now
+                };
+                db.STATE_HISTORY.Add(stateModel);
+                db.SaveChanges();
+            }
+        }
         public static List<string> CreateBarcode(string boardNo, int pcb, int contentIndex, int contentLength, bool checkFirst = false)
         {
 

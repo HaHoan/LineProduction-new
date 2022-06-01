@@ -165,6 +165,7 @@ namespace Line_Production
                             CountFileCurrentNight = CountFileBeginNight + 1;
                             IncreaseProduct();
                         }
+
                     }
                 }
             }
@@ -464,6 +465,7 @@ namespace Line_Production
 
                 LabelPCBA.Text = "0";
                 ModelCurrent = cbbModel.Text;
+                Common.WriteRegistry(PathConfig, RegistryKeys.ModelCurrent, ModelCurrent);
                 if (LoadModelCurrent(ModelCurrent) == true)
                 {
                     TextCycleTimeModel.Text = CycleTimeModel.ToString();
@@ -617,7 +619,7 @@ namespace Line_Production
                     }
             }
         }
-
+      
         private void BtStart_Click(object sender, EventArgs e)
         {
 
@@ -635,6 +637,7 @@ namespace Line_Production
             chkNG.Enabled = true;
             if (BtStart.Text == "Bắt đầu")
             {
+                Common.UpdateState(STATE.RUNNING);
                 PauseProduct = false;
                 StartProduct = true;
                 // GroupBox3.Controls("Shape" & StatusLine).Visible = True
@@ -646,14 +649,16 @@ namespace Line_Production
                     StatusLine = 1;
                     // LabelStatus.Text = "Tình trạng Line: Online"
                     ShowStatus(StatusLine, true);
+                    CheckIsConfirm();
                     for (int index = 1; index <= 20; index++)
                     {
+
                         if (index % 2 != 0 & sumtime >= TimeLine[index].Hour * 100 + TimeLine[index].Minute & sumtime <= TimeLine[index + 1].Hour * 100 + TimeLine[index + 1].Minute)
                         {
                             time_scanBarcode = DateAndTime.Now;
-                            TimeLine[index] = new DateTime(DateAndTime.Now.Year, DateAndTime.Now.Month, DateAndTime.Now.Day, DateAndTime.Now.Hour, DateAndTime.Now.Minute, DateAndTime.Now.Second);
-                            Table1.Controls.Find("TextTime" + (index / 2 + 1), true)[0].Text = TimeLine[index].Hour + ":" + TimeLine[index].Minute + ":" + TimeLine[index].Second + ">" + TimeLine[index + 1].Hour + ":" + TimeLine[index + 1].Minute + ":" + TimeLine[index + 1].Second;
-                            Table1.Controls.Find("TextPlan" + (index / 2 + 1), true)[0].Text = Strings.Format(((TimeLine[index + 1].Hour - TimeLine[index].Hour) * 3600 + (TimeLine[index + 1].Minute - TimeLine[index].Minute) * 60 + (TimeLine[index + 1].Second - TimeLine[index].Second)) / CycleTimeModel + CountProductPerHour[index / 2 + 1], "0");
+                            //TimeLine[index] = new DateTime(DateAndTime.Now.Year, DateAndTime.Now.Month, DateAndTime.Now.Day, DateAndTime.Now.Hour, DateAndTime.Now.Minute, DateAndTime.Now.Second);
+                            //Table1.Controls.Find("TextTime" + (index / 2 + 1), true)[0].Text = TimeLine[index].Hour + ":" + TimeLine[index].Minute + ":" + TimeLine[index].Second + ">" + TimeLine[index + 1].Hour + ":" + TimeLine[index + 1].Minute + ":" + TimeLine[index + 1].Second;
+                            //Table1.Controls.Find("TextPlan" + (index / 2 + 1), true)[0].Text = Strings.Format(((TimeLine[index + 1].Hour - TimeLine[index].Hour) * 3600 + (TimeLine[index + 1].Minute - TimeLine[index].Minute) * 60 + (TimeLine[index + 1].Second - TimeLine[index].Second)) / CycleTimeModel + CountProductPerHour[index / 2 + 1], "0");
                             // TextPlan.Text = Table1.Controls("TextPlan" & (index \ 2) + 1).Text
                             // TextPlan.Text = ProductPlanBegin.ToString()
                             txtActual.Text = CountProduct.ToString();
@@ -739,10 +744,37 @@ namespace Line_Production
 
         }
 
+        private void CheckIsConfirm()
+        {
+            for (int index = 1; index <= 20; index++)
+            {
+                using (var db = new barcode_dbEntities())
+                {
+                    var line = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
+                    var i = index / 2 + 1;
+                    if (i > 10) break;
+                    var currentDate = DateTime.Now.Date;
+                    var timeLine = Table1.Controls.Find("TextTime" + i, true)[0].Text;
+                    var confirm = db.CONFIRM_FAULT_REASON.Where(m => m.Line == line
+                    && m.Model == ModelCurrent && m.TimeLine == timeLine
+                    && m.UpdateTime.CompareTo(currentDate) >= 0).FirstOrDefault();
+                    if (confirm == null)
+                    {
+                        Table1.Controls.Find("btnConfirm" + i, true)[0].Visible = true;
+                    }
+                    else
+                    {
+                        Table1.Controls.Find("btnConfirm" + i, true)[0].Visible = false;
+                    }
+                }
+            }
+
+        }
         private void BtStop_Click(object sender, EventArgs e)
         {
             try
             {
+                Common.UpdateState(STATE.STOP);
                 cbbModel.Visible = true;
                 lblModel.Visible = false;
                 var ett = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
@@ -1013,17 +1045,17 @@ namespace Line_Production
         private int LaySoThung(string mathung)
         {
             var bc = usapservice.GetByBcNo(mathung);
-         
+
             if (bc != null)
             {
                 try
                 {
-                    if(bc.TN_NO != null)
+                    if (bc.TN_NO != null)
                     {
                         var tnNo = int.Parse(bc.TN_NO);
                         WO_SAP = tnNo.ToString();
                     }
-                  
+
                     return (int)bc.OS_QTY;
                 }
                 catch
@@ -1271,7 +1303,7 @@ namespace Line_Production
             {
                 throw;
             }
-           
+
         }
         private void txtSerial_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -1761,7 +1793,42 @@ namespace Line_Production
             }
         }
 
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button btn = (Button)sender;
+                var index = int.Parse(btn.Name.Substring(10, btn.Name.Length - 10));
 
+                var confirmModel = new CONFIRM_FAULT_REASON()
+                {
+                    Line = IdLine,
+                    Model = cbbModel.Text,
+                    TimeLine = Table1.Controls.Find("TextTime" + index, true)[0].Text,
+                    Expect = Table1.Controls.Find("TextPlan" + index, true)[0].Text,
+                    Actual = Table1.Controls.Find("TextActual" + index, true)[0].Text,
+                    Balance = Table1.Controls.Find("TextBalance" + index, true)[0].Text,
+                };
+                string hostname = Environment.MachineName;
+                if (!string.IsNullOrEmpty(hostname))
+                {
+                    confirmModel.HostName = hostname;
+                }
+                else confirmModel.HostName = "";
+
+                var fmConfirm = new fmConfirm(confirmModel, TimeLine[1 + 2 * (index - 1)], TimeLine[2 + 2 * (index - 1)]);
+                fmConfirm.closeForm = () =>
+                {
+                    CheckIsConfirm();
+                };
+                fmConfirm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
     }
 }
 

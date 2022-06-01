@@ -16,7 +16,19 @@ namespace Line_Production
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
+            Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
             Application.Run(new Control());
+        }
+
+        private static void Application_ApplicationExit(object sender, EventArgs e)
+        {
+            Common.UpdateState(STATE.STOP);
+        }
+
+        private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            Common.UpdateState(STATE.STOP);
         }
     }
 }

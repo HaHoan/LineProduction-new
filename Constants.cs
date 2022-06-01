@@ -39,6 +39,7 @@ namespace Line_Production
         public static string MODEL_SPEACIAL = "MODEL_SPEACIAL";
         public static string LinkWip = "LinkWip";
         public static string CurrentUser = "CurrentUser";
+        public static string ModelCurrent = "ModelCurrent";
     }
     public static class CaSX
     {
@@ -46,4 +47,9 @@ namespace Line_Production
         public static int NIGHT = 1;
     }
    
+    public static class STATE
+    {
+        public static string STOP = "STOP";
+        public static string RUNNING = "RUNNING";
+    }
 }

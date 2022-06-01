@@ -118,6 +118,9 @@
       <DependentUpon>ChangePassword.cs</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="CONFIRM_FAULT_REASON.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\LineProductWebServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -155,6 +158,12 @@
     <Compile Include="Entities\Online.cs" />
     <Compile Include="Entities\PassRate.cs" />
     <Compile Include="Entities\TimeLine.cs" />
+    <Compile Include="fmConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmConfirm.Designer.cs">
+      <DependentUpon>fmConfirm.cs</DependentUpon>
+    </Compile>
     <Compile Include="fmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +187,9 @@
     </Compile>
     <Compile Include="Khaibaobien.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LINE_FAULT_REASON.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="LINE_MODEL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -237,6 +249,9 @@
     <Compile Include="Schedule.Designer.cs">
       <DependentUpon>Schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="STATE_HISTORY.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="TimeDetailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control.resx">
       <DependentUpon>Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmConfirm.resx">
+      <DependentUpon>fmConfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fmLogin.resx">
       <DependentUpon>fmLogin.cs</DependentUpon>

@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="barcode_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONFIRM_FAULT_REASON">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Line" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HostName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeLine" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmId" Type="int" Nullable="false" />
+          <Property Name="Expect" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Actual" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Balance" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="TimeFrom" Type="datetime" />
+          <Property Name="TimeTo" Type="datetime" />
+        </EntityType>
         <EntityType Name="CUSTOMER">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,6 +51,14 @@
           <Property Name="Station" Type="nvarchar" MaxLength="50" />
           <Property Name="Wo_Sap" Type="nvarchar" MaxLength="50" />
           <Property Name="Wo_Mes" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LINE_FAULT_REASON">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="LINE_MODEL">
           <Key>
@@ -91,6 +117,17 @@
           <Property Name="TimeFrom" Type="nvarchar" MaxLength="50" />
           <Property Name="TimeTo" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="STATE_HISTORY">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Line" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HostName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="USER">
           <Key>
             <PropertyRef Name="Code" />
@@ -99,12 +136,15 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="barcode_dbModelStoreContainer">
+          <EntitySet Name="CONFIRM_FAULT_REASON" EntityType="Self.CONFIRM_FAULT_REASON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HondaLock" EntityType="Self.HondaLock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LINE_FAULT_REASON" EntityType="Self.LINE_FAULT_REASON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINE_MODEL" EntityType="Self.LINE_MODEL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINE_PASSRATE" EntityType="Self.LINE_PASSRATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINE_TIME" EntityType="Self.LINE_TIME" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINE_TIMELINE" EntityType="Self.LINE_TIMELINE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STATE_HISTORY" EntityType="Self.STATE_HISTORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -154,6 +194,9 @@
           <EntitySet Name="LINE_MODEL" EntityType="barcode_dbModel.LINE_MODEL" />
           <EntitySet Name="CUSTOMERs" EntityType="barcode_dbModel.CUSTOMER" />
           <EntitySet Name="HondaLocks" EntityType="barcode_dbModel.HondaLock" />
+          <EntitySet Name="LINE_FAULT_REASON" EntityType="barcode_dbModel.LINE_FAULT_REASON" />
+          <EntitySet Name="STATE_HISTORY" EntityType="barcode_dbModel.STATE_HISTORY" />
+          <EntitySet Name="CONFIRM_FAULT_REASON" EntityType="barcode_dbModel.CONFIRM_FAULT_REASON" />
         </EntityContainer>
         <EntityType Name="USER">
           <Key>
@@ -212,6 +255,43 @@
           <Property Name="Station" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Wo_Sap" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Wo_Mes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LINE_FAULT_REASON">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="STATE_HISTORY">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Line" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HostName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CONFIRM_FAULT_REASON">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Line" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HostName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeLine" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmId" Type="Int32" Nullable="false" />
+          <Property Name="Expect" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Actual" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeFrom" Type="DateTime" Precision="3" />
+          <Property Name="TimeTo" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -316,6 +396,46 @@
                 <ScalarProperty Name="BoxID" ColumnName="BoxID" />
                 <ScalarProperty Name="ProductionID" ColumnName="ProductionID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LINE_FAULT_REASON">
+            <EntityTypeMapping TypeName="barcode_dbModel.LINE_FAULT_REASON">
+              <MappingFragment StoreEntitySet="LINE_FAULT_REASON">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATE_HISTORY">
+            <EntityTypeMapping TypeName="barcode_dbModel.STATE_HISTORY">
+              <MappingFragment StoreEntitySet="STATE_HISTORY">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONFIRM_FAULT_REASON">
+            <EntityTypeMapping TypeName="barcode_dbModel.CONFIRM_FAULT_REASON">
+              <MappingFragment StoreEntitySet="CONFIRM_FAULT_REASON">
+                <ScalarProperty Name="TimeTo" ColumnName="TimeTo" />
+                <ScalarProperty Name="TimeFrom" ColumnName="TimeFrom" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Actual" ColumnName="Actual" />
+                <ScalarProperty Name="Expect" ColumnName="Expect" />
+                <ScalarProperty Name="ConfirmId" ColumnName="ConfirmId" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="TimeLine" ColumnName="TimeLine" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

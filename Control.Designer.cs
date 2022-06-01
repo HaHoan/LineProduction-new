@@ -74,6 +74,15 @@ namespace Line_Production
             this.BtStop = new System.Windows.Forms.Button();
             this.BtStart = new System.Windows.Forms.Button();
             this.Table1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnConfirm10 = new System.Windows.Forms.Button();
+            this.btnConfirm9 = new System.Windows.Forms.Button();
+            this.btnConfirm8 = new System.Windows.Forms.Button();
+            this.btnConfirm7 = new System.Windows.Forms.Button();
+            this.btnConfirm6 = new System.Windows.Forms.Button();
+            this.btnConfirm5 = new System.Windows.Forms.Button();
+            this.btnConfirm4 = new System.Windows.Forms.Button();
+            this.btnConfirm3 = new System.Windows.Forms.Button();
+            this.btnConfirm2 = new System.Windows.Forms.Button();
             this.TextTime10 = new System.Windows.Forms.TextBox();
             this.TextTime9 = new System.Windows.Forms.TextBox();
             this.TextTime8 = new System.Windows.Forms.TextBox();
@@ -129,6 +138,7 @@ namespace Line_Production
             this.TextActual10 = new System.Windows.Forms.TextBox();
             this.TextPlan10 = new System.Windows.Forms.TextBox();
             this.Label13 = new System.Windows.Forms.Label();
+            this.btnConfirm1 = new System.Windows.Forms.Button();
             this.Shape2 = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.GroupBox2 = new System.Windows.Forms.GroupBox();
             this.BtReduce = new System.Windows.Forms.Button();
@@ -164,14 +174,14 @@ namespace Line_Production
             this.ToolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer3 = new System.Windows.Forms.Timer(this.components);
-            this.lblSettingTime = new System.Windows.Forms.LinkLabel();
-            this.lblListModel = new System.Windows.Forms.LinkLabel();
-            this.lblConfig = new System.Windows.Forms.LinkLabel();
             this.LabelTimeDate = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
             this.lblHistoryNo = new System.Windows.Forms.Label();
             this.bgwLinkWip = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblSettingTime = new System.Windows.Forms.LinkLabel();
+            this.lblListModel = new System.Windows.Forms.LinkLabel();
+            this.lblConfig = new System.Windows.Forms.LinkLabel();
             this.GroupBox1.SuspendLayout();
             this.GroupBox5.SuspendLayout();
             this.GroupBox6.SuspendLayout();
@@ -697,12 +707,22 @@ namespace Line_Production
             // 
             this.Table1.BackColor = System.Drawing.Color.LightGray;
             this.Table1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.Table1.ColumnCount = 5;
-            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.77056F));
-            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.22944F));
-            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
-            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 159F));
-            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 526F));
+            this.Table1.ColumnCount = 6;
+            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.43211F));
+            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.4321F));
+            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.4321F));
+            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.4321F));
+            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.77777F));
+            this.Table1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.49383F));
+            this.Table1.Controls.Add(this.btnConfirm10, 5, 10);
+            this.Table1.Controls.Add(this.btnConfirm9, 5, 9);
+            this.Table1.Controls.Add(this.btnConfirm8, 5, 8);
+            this.Table1.Controls.Add(this.btnConfirm7, 5, 7);
+            this.Table1.Controls.Add(this.btnConfirm6, 5, 6);
+            this.Table1.Controls.Add(this.btnConfirm5, 5, 5);
+            this.Table1.Controls.Add(this.btnConfirm4, 5, 4);
+            this.Table1.Controls.Add(this.btnConfirm3, 5, 3);
+            this.Table1.Controls.Add(this.btnConfirm2, 5, 2);
             this.Table1.Controls.Add(this.TextTime10, 0, 10);
             this.Table1.Controls.Add(this.TextTime9, 0, 9);
             this.Table1.Controls.Add(this.TextTime8, 0, 8);
@@ -758,6 +778,7 @@ namespace Line_Production
             this.Table1.Controls.Add(this.TextActual10, 2, 10);
             this.Table1.Controls.Add(this.TextPlan10, 1, 10);
             this.Table1.Controls.Add(this.Label13, 1, 0);
+            this.Table1.Controls.Add(this.btnConfirm1, 5, 1);
             this.Table1.Location = new System.Drawing.Point(12, 304);
             this.Table1.Name = "Table1";
             this.Table1.RowCount = 11;
@@ -775,6 +796,141 @@ namespace Line_Production
             this.Table1.Size = new System.Drawing.Size(1036, 549);
             this.Table1.TabIndex = 3;
             // 
+            // btnConfirm10
+            // 
+            this.btnConfirm10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm10.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm10.Location = new System.Drawing.Point(926, 506);
+            this.btnConfirm10.Name = "btnConfirm10";
+            this.btnConfirm10.Size = new System.Drawing.Size(106, 39);
+            this.btnConfirm10.TabIndex = 72;
+            this.btnConfirm10.Text = "Confirm";
+            this.btnConfirm10.UseVisualStyleBackColor = true;
+            this.btnConfirm10.Visible = false;
+            this.btnConfirm10.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnConfirm9
+            // 
+            this.btnConfirm9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm9.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm9.Location = new System.Drawing.Point(926, 460);
+            this.btnConfirm9.Name = "btnConfirm9";
+            this.btnConfirm9.Size = new System.Drawing.Size(106, 39);
+            this.btnConfirm9.TabIndex = 71;
+            this.btnConfirm9.Text = "Confirm";
+            this.btnConfirm9.UseVisualStyleBackColor = true;
+            this.btnConfirm9.Visible = false;
+            this.btnConfirm9.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnConfirm8
+            // 
+            this.btnConfirm8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm8.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm8.Location = new System.Drawing.Point(926, 414);
+            this.btnConfirm8.Name = "btnConfirm8";
+            this.btnConfirm8.Size = new System.Drawing.Size(106, 39);
+            this.btnConfirm8.TabIndex = 70;
+            this.btnConfirm8.Text = "Confirm";
+            this.btnConfirm8.UseVisualStyleBackColor = true;
+            this.btnConfirm8.Visible = false;
+            this.btnConfirm8.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnConfirm7
+            // 
+            this.btnConfirm7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm7.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm7.Location = new System.Drawing.Point(926, 368);
+            this.btnConfirm7.Name = "btnConfirm7";
+            this.btnConfirm7.Size = new System.Drawing.Size(106, 39);
+            this.btnConfirm7.TabIndex = 69;
+            this.btnConfirm7.Text = "Confirm";
+            this.btnConfirm7.UseVisualStyleBackColor = true;
+            this.btnConfirm7.Visible = false;
+            this.btnConfirm7.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnConfirm6
+            // 
+            this.btnConfirm6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm6.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm6.Location = new System.Drawing.Point(926, 322);
+            this.btnConfirm6.Name = "btnConfirm6";
+            this.btnConfirm6.Size = new System.Drawing.Size(106, 39);
+            this.btnConfirm6.TabIndex = 68;
+            this.btnConfirm6.Text = "Confirm";
+            this.btnConfirm6.UseVisualStyleBackColor = true;
+            this.btnConfirm6.Visible = false;
+            this.btnConfirm6.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnConfirm5
+            // 
+            this.btnConfirm5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm5.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm5.Location = new System.Drawing.Point(926, 276);
+            this.btnConfirm5.Name = "btnConfirm5";
+            this.btnConfirm5.Size = new System.Drawing.Size(106, 39);
+            this.btnConfirm5.TabIndex = 67;
+            this.btnConfirm5.Text = "Confirm";
+            this.btnConfirm5.UseVisualStyleBackColor = true;
+            this.btnConfirm5.Visible = false;
+            this.btnConfirm5.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnConfirm4
+            // 
+            this.btnConfirm4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm4.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm4.Location = new System.Drawing.Point(926, 230);
+            this.btnConfirm4.Name = "btnConfirm4";
+            this.btnConfirm4.Size = new System.Drawing.Size(106, 39);
+            this.btnConfirm4.TabIndex = 66;
+            this.btnConfirm4.Text = "Confirm";
+            this.btnConfirm4.UseVisualStyleBackColor = true;
+            this.btnConfirm4.Visible = false;
+            this.btnConfirm4.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnConfirm3
+            // 
+            this.btnConfirm3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm3.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm3.Location = new System.Drawing.Point(926, 179);
+            this.btnConfirm3.Name = "btnConfirm3";
+            this.btnConfirm3.Size = new System.Drawing.Size(106, 44);
+            this.btnConfirm3.TabIndex = 65;
+            this.btnConfirm3.Text = "Confirm";
+            this.btnConfirm3.UseVisualStyleBackColor = true;
+            this.btnConfirm3.Visible = false;
+            this.btnConfirm3.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // btnConfirm2
+            // 
+            this.btnConfirm2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm2.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm2.Location = new System.Drawing.Point(926, 131);
+            this.btnConfirm2.Name = "btnConfirm2";
+            this.btnConfirm2.Size = new System.Drawing.Size(106, 41);
+            this.btnConfirm2.TabIndex = 64;
+            this.btnConfirm2.Text = "Confirm";
+            this.btnConfirm2.UseVisualStyleBackColor = true;
+            this.btnConfirm2.Visible = false;
+            this.btnConfirm2.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
             // TextTime10
             // 
             this.TextTime10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -784,7 +940,7 @@ namespace Line_Production
             this.TextTime10.Multiline = true;
             this.TextTime10.Name = "TextTime10";
             this.TextTime10.ReadOnly = true;
-            this.TextTime10.Size = new System.Drawing.Size(136, 38);
+            this.TextTime10.Size = new System.Drawing.Size(152, 38);
             this.TextTime10.TabIndex = 61;
             // 
             // TextTime9
@@ -796,7 +952,7 @@ namespace Line_Production
             this.TextTime9.Multiline = true;
             this.TextTime9.Name = "TextTime9";
             this.TextTime9.ReadOnly = true;
-            this.TextTime9.Size = new System.Drawing.Size(136, 38);
+            this.TextTime9.Size = new System.Drawing.Size(152, 38);
             this.TextTime9.TabIndex = 58;
             // 
             // TextTime8
@@ -808,7 +964,7 @@ namespace Line_Production
             this.TextTime8.Multiline = true;
             this.TextTime8.Name = "TextTime8";
             this.TextTime8.ReadOnly = true;
-            this.TextTime8.Size = new System.Drawing.Size(136, 38);
+            this.TextTime8.Size = new System.Drawing.Size(152, 38);
             this.TextTime8.TabIndex = 57;
             // 
             // TextTime7
@@ -820,7 +976,7 @@ namespace Line_Production
             this.TextTime7.Multiline = true;
             this.TextTime7.Name = "TextTime7";
             this.TextTime7.ReadOnly = true;
-            this.TextTime7.Size = new System.Drawing.Size(136, 38);
+            this.TextTime7.Size = new System.Drawing.Size(152, 38);
             this.TextTime7.TabIndex = 56;
             // 
             // TextTime6
@@ -832,7 +988,7 @@ namespace Line_Production
             this.TextTime6.Multiline = true;
             this.TextTime6.Name = "TextTime6";
             this.TextTime6.ReadOnly = true;
-            this.TextTime6.Size = new System.Drawing.Size(136, 38);
+            this.TextTime6.Size = new System.Drawing.Size(152, 38);
             this.TextTime6.TabIndex = 55;
             // 
             // TextTime5
@@ -844,7 +1000,7 @@ namespace Line_Production
             this.TextTime5.Multiline = true;
             this.TextTime5.Name = "TextTime5";
             this.TextTime5.ReadOnly = true;
-            this.TextTime5.Size = new System.Drawing.Size(136, 37);
+            this.TextTime5.Size = new System.Drawing.Size(152, 37);
             this.TextTime5.TabIndex = 54;
             // 
             // TextTime4
@@ -856,7 +1012,7 @@ namespace Line_Production
             this.TextTime4.Multiline = true;
             this.TextTime4.Name = "TextTime4";
             this.TextTime4.ReadOnly = true;
-            this.TextTime4.Size = new System.Drawing.Size(136, 38);
+            this.TextTime4.Size = new System.Drawing.Size(152, 38);
             this.TextTime4.TabIndex = 53;
             // 
             // TextTime3
@@ -868,7 +1024,7 @@ namespace Line_Production
             this.TextTime3.Multiline = true;
             this.TextTime3.Name = "TextTime3";
             this.TextTime3.ReadOnly = true;
-            this.TextTime3.Size = new System.Drawing.Size(136, 38);
+            this.TextTime3.Size = new System.Drawing.Size(152, 38);
             this.TextTime3.TabIndex = 52;
             // 
             // TextTime2
@@ -880,7 +1036,7 @@ namespace Line_Production
             this.TextTime2.Multiline = true;
             this.TextTime2.Name = "TextTime2";
             this.TextTime2.ReadOnly = true;
-            this.TextTime2.Size = new System.Drawing.Size(136, 38);
+            this.TextTime2.Size = new System.Drawing.Size(152, 38);
             this.TextTime2.TabIndex = 51;
             // 
             // TextComment9
@@ -889,9 +1045,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment9.Location = new System.Drawing.Point(511, 460);
+            this.TextComment9.Location = new System.Drawing.Point(640, 460);
             this.TextComment9.Name = "TextComment9";
-            this.TextComment9.Size = new System.Drawing.Size(521, 38);
+            this.TextComment9.Size = new System.Drawing.Size(279, 38);
             this.TextComment9.TabIndex = 49;
             this.TextComment9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -901,9 +1057,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance9.Location = new System.Drawing.Point(351, 460);
+            this.TextBalance9.Location = new System.Drawing.Point(481, 460);
             this.TextBalance9.Name = "TextBalance9";
-            this.TextBalance9.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance9.Size = new System.Drawing.Size(152, 38);
             this.TextBalance9.TabIndex = 48;
             this.TextBalance9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -913,9 +1069,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment8.Location = new System.Drawing.Point(511, 414);
+            this.TextComment8.Location = new System.Drawing.Point(640, 414);
             this.TextComment8.Name = "TextComment8";
-            this.TextComment8.Size = new System.Drawing.Size(521, 38);
+            this.TextComment8.Size = new System.Drawing.Size(279, 38);
             this.TextComment8.TabIndex = 46;
             this.TextComment8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -925,9 +1081,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance8.Location = new System.Drawing.Point(351, 414);
+            this.TextBalance8.Location = new System.Drawing.Point(481, 414);
             this.TextBalance8.Name = "TextBalance8";
-            this.TextBalance8.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance8.Size = new System.Drawing.Size(152, 38);
             this.TextBalance8.TabIndex = 45;
             this.TextBalance8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -937,9 +1093,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment7.Location = new System.Drawing.Point(511, 368);
+            this.TextComment7.Location = new System.Drawing.Point(640, 368);
             this.TextComment7.Name = "TextComment7";
-            this.TextComment7.Size = new System.Drawing.Size(521, 38);
+            this.TextComment7.Size = new System.Drawing.Size(279, 38);
             this.TextComment7.TabIndex = 44;
             this.TextComment7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -949,9 +1105,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance7.Location = new System.Drawing.Point(351, 368);
+            this.TextBalance7.Location = new System.Drawing.Point(481, 368);
             this.TextBalance7.Name = "TextBalance7";
-            this.TextBalance7.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance7.Size = new System.Drawing.Size(152, 38);
             this.TextBalance7.TabIndex = 43;
             this.TextBalance7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -961,9 +1117,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment6.Location = new System.Drawing.Point(511, 322);
+            this.TextComment6.Location = new System.Drawing.Point(640, 322);
             this.TextComment6.Name = "TextComment6";
-            this.TextComment6.Size = new System.Drawing.Size(521, 38);
+            this.TextComment6.Size = new System.Drawing.Size(279, 38);
             this.TextComment6.TabIndex = 42;
             this.TextComment6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -973,9 +1129,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance6.Location = new System.Drawing.Point(351, 322);
+            this.TextBalance6.Location = new System.Drawing.Point(481, 322);
             this.TextBalance6.Name = "TextBalance6";
-            this.TextBalance6.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance6.Size = new System.Drawing.Size(152, 38);
             this.TextBalance6.TabIndex = 41;
             this.TextBalance6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -985,9 +1141,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment5.Location = new System.Drawing.Point(511, 276);
+            this.TextComment5.Location = new System.Drawing.Point(640, 276);
             this.TextComment5.Name = "TextComment5";
-            this.TextComment5.Size = new System.Drawing.Size(521, 38);
+            this.TextComment5.Size = new System.Drawing.Size(279, 38);
             this.TextComment5.TabIndex = 40;
             this.TextComment5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -997,9 +1153,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment4.Location = new System.Drawing.Point(511, 230);
+            this.TextComment4.Location = new System.Drawing.Point(640, 230);
             this.TextComment4.Name = "TextComment4";
-            this.TextComment4.Size = new System.Drawing.Size(521, 38);
+            this.TextComment4.Size = new System.Drawing.Size(279, 38);
             this.TextComment4.TabIndex = 39;
             this.TextComment4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1009,9 +1165,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance4.Location = new System.Drawing.Point(351, 230);
+            this.TextBalance4.Location = new System.Drawing.Point(481, 230);
             this.TextBalance4.Name = "TextBalance4";
-            this.TextBalance4.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance4.Size = new System.Drawing.Size(152, 38);
             this.TextBalance4.TabIndex = 38;
             this.TextBalance4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1021,9 +1177,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment3.Location = new System.Drawing.Point(511, 179);
+            this.TextComment3.Location = new System.Drawing.Point(640, 179);
             this.TextComment3.Name = "TextComment3";
-            this.TextComment3.Size = new System.Drawing.Size(521, 38);
+            this.TextComment3.Size = new System.Drawing.Size(279, 38);
             this.TextComment3.TabIndex = 37;
             this.TextComment3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1033,9 +1189,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment2.Location = new System.Drawing.Point(511, 131);
+            this.TextComment2.Location = new System.Drawing.Point(640, 131);
             this.TextComment2.Name = "TextComment2";
-            this.TextComment2.Size = new System.Drawing.Size(521, 38);
+            this.TextComment2.Size = new System.Drawing.Size(279, 38);
             this.TextComment2.TabIndex = 36;
             this.TextComment2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1045,9 +1201,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment1.Location = new System.Drawing.Point(511, 84);
+            this.TextComment1.Location = new System.Drawing.Point(640, 84);
             this.TextComment1.Name = "TextComment1";
-            this.TextComment1.Size = new System.Drawing.Size(521, 38);
+            this.TextComment1.Size = new System.Drawing.Size(279, 38);
             this.TextComment1.TabIndex = 35;
             this.TextComment1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1057,9 +1213,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual9.Location = new System.Drawing.Point(232, 460);
+            this.TextActual9.Location = new System.Drawing.Point(322, 460);
             this.TextActual9.Name = "TextActual9";
-            this.TextActual9.Size = new System.Drawing.Size(112, 38);
+            this.TextActual9.Size = new System.Drawing.Size(152, 38);
             this.TextActual9.TabIndex = 34;
             this.TextActual9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1070,9 +1226,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Label16.AutoSize = true;
             this.Label16.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label16.Location = new System.Drawing.Point(511, 1);
+            this.Label16.Location = new System.Drawing.Point(640, 1);
             this.Label16.Name = "Label16";
-            this.Label16.Size = new System.Drawing.Size(521, 79);
+            this.Label16.Size = new System.Drawing.Size(279, 79);
             this.Label16.TabIndex = 4;
             this.Label16.Text = "Ghi chú";
             this.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1084,9 +1240,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Label15.AutoSize = true;
             this.Label15.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label15.Location = new System.Drawing.Point(351, 1);
+            this.Label15.Location = new System.Drawing.Point(481, 1);
             this.Label15.Name = "Label15";
-            this.Label15.Size = new System.Drawing.Size(153, 79);
+            this.Label15.Size = new System.Drawing.Size(152, 79);
             this.Label15.TabIndex = 3;
             this.Label15.Text = "Chênh lệch";
             this.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1098,9 +1254,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Label14.AutoSize = true;
             this.Label14.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label14.Location = new System.Drawing.Point(232, 1);
+            this.Label14.Location = new System.Drawing.Point(322, 1);
             this.Label14.Name = "Label14";
-            this.Label14.Size = new System.Drawing.Size(112, 79);
+            this.Label14.Size = new System.Drawing.Size(152, 79);
             this.Label14.TabIndex = 2;
             this.Label14.Text = "Thực tế";
             this.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1114,7 +1270,7 @@ namespace Line_Production
             this.Label12.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label12.Location = new System.Drawing.Point(4, 1);
             this.Label12.Name = "Label12";
-            this.Label12.Size = new System.Drawing.Size(136, 79);
+            this.Label12.Size = new System.Drawing.Size(152, 79);
             this.Label12.TabIndex = 0;
             this.Label12.Text = "Thời gian";
             this.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1125,9 +1281,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual1.Location = new System.Drawing.Point(232, 84);
+            this.TextActual1.Location = new System.Drawing.Point(322, 84);
             this.TextActual1.Name = "TextActual1";
-            this.TextActual1.Size = new System.Drawing.Size(112, 38);
+            this.TextActual1.Size = new System.Drawing.Size(152, 38);
             this.TextActual1.TabIndex = 5;
             this.TextActual1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1137,9 +1293,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan1.Location = new System.Drawing.Point(147, 84);
+            this.TextPlan1.Location = new System.Drawing.Point(163, 84);
             this.TextPlan1.Name = "TextPlan1";
-            this.TextPlan1.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan1.Size = new System.Drawing.Size(152, 38);
             this.TextPlan1.TabIndex = 7;
             this.TextPlan1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1149,9 +1305,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance1.Location = new System.Drawing.Point(351, 84);
+            this.TextBalance1.Location = new System.Drawing.Point(481, 84);
             this.TextBalance1.Name = "TextBalance1";
-            this.TextBalance1.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance1.Size = new System.Drawing.Size(152, 38);
             this.TextBalance1.TabIndex = 16;
             this.TextBalance1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1161,9 +1317,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan2.Location = new System.Drawing.Point(147, 131);
+            this.TextPlan2.Location = new System.Drawing.Point(163, 131);
             this.TextPlan2.Name = "TextPlan2";
-            this.TextPlan2.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan2.Size = new System.Drawing.Size(152, 38);
             this.TextPlan2.TabIndex = 17;
             this.TextPlan2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1173,9 +1329,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan3.Location = new System.Drawing.Point(147, 179);
+            this.TextPlan3.Location = new System.Drawing.Point(163, 179);
             this.TextPlan3.Name = "TextPlan3";
-            this.TextPlan3.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan3.Size = new System.Drawing.Size(152, 38);
             this.TextPlan3.TabIndex = 18;
             this.TextPlan3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1185,9 +1341,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan4.Location = new System.Drawing.Point(147, 230);
+            this.TextPlan4.Location = new System.Drawing.Point(163, 230);
             this.TextPlan4.Name = "TextPlan4";
-            this.TextPlan4.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan4.Size = new System.Drawing.Size(152, 38);
             this.TextPlan4.TabIndex = 19;
             this.TextPlan4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1197,9 +1353,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan6.Location = new System.Drawing.Point(147, 322);
+            this.TextPlan6.Location = new System.Drawing.Point(163, 322);
             this.TextPlan6.Name = "TextPlan6";
-            this.TextPlan6.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan6.Size = new System.Drawing.Size(152, 38);
             this.TextPlan6.TabIndex = 20;
             this.TextPlan6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1209,9 +1365,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan5.Location = new System.Drawing.Point(147, 276);
+            this.TextPlan5.Location = new System.Drawing.Point(163, 276);
             this.TextPlan5.Name = "TextPlan5";
-            this.TextPlan5.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan5.Size = new System.Drawing.Size(152, 38);
             this.TextPlan5.TabIndex = 21;
             this.TextPlan5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1221,9 +1377,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan7.Location = new System.Drawing.Point(147, 368);
+            this.TextPlan7.Location = new System.Drawing.Point(163, 368);
             this.TextPlan7.Name = "TextPlan7";
-            this.TextPlan7.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan7.Size = new System.Drawing.Size(152, 38);
             this.TextPlan7.TabIndex = 22;
             this.TextPlan7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1233,9 +1389,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan8.Location = new System.Drawing.Point(147, 414);
+            this.TextPlan8.Location = new System.Drawing.Point(163, 414);
             this.TextPlan8.Name = "TextPlan8";
-            this.TextPlan8.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan8.Size = new System.Drawing.Size(152, 38);
             this.TextPlan8.TabIndex = 23;
             this.TextPlan8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1245,9 +1401,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan9.Location = new System.Drawing.Point(147, 460);
+            this.TextPlan9.Location = new System.Drawing.Point(163, 460);
             this.TextPlan9.Name = "TextPlan9";
-            this.TextPlan9.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan9.Size = new System.Drawing.Size(152, 38);
             this.TextPlan9.TabIndex = 15;
             this.TextPlan9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1257,9 +1413,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual2.Location = new System.Drawing.Point(232, 131);
+            this.TextActual2.Location = new System.Drawing.Point(322, 131);
             this.TextActual2.Name = "TextActual2";
-            this.TextActual2.Size = new System.Drawing.Size(112, 38);
+            this.TextActual2.Size = new System.Drawing.Size(152, 38);
             this.TextActual2.TabIndex = 24;
             this.TextActual2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1269,9 +1425,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance2.Location = new System.Drawing.Point(351, 131);
+            this.TextBalance2.Location = new System.Drawing.Point(481, 131);
             this.TextBalance2.Name = "TextBalance2";
-            this.TextBalance2.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance2.Size = new System.Drawing.Size(152, 38);
             this.TextBalance2.TabIndex = 25;
             this.TextBalance2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1281,9 +1437,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual3.Location = new System.Drawing.Point(232, 179);
+            this.TextActual3.Location = new System.Drawing.Point(322, 179);
             this.TextActual3.Name = "TextActual3";
-            this.TextActual3.Size = new System.Drawing.Size(112, 38);
+            this.TextActual3.Size = new System.Drawing.Size(152, 38);
             this.TextActual3.TabIndex = 26;
             this.TextActual3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1293,9 +1449,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance3.Location = new System.Drawing.Point(351, 179);
+            this.TextBalance3.Location = new System.Drawing.Point(481, 179);
             this.TextBalance3.Name = "TextBalance3";
-            this.TextBalance3.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance3.Size = new System.Drawing.Size(152, 38);
             this.TextBalance3.TabIndex = 27;
             this.TextBalance3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1305,9 +1461,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual4.Location = new System.Drawing.Point(232, 230);
+            this.TextActual4.Location = new System.Drawing.Point(322, 230);
             this.TextActual4.Name = "TextActual4";
-            this.TextActual4.Size = new System.Drawing.Size(112, 38);
+            this.TextActual4.Size = new System.Drawing.Size(152, 38);
             this.TextActual4.TabIndex = 28;
             this.TextActual4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1317,9 +1473,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual5.Location = new System.Drawing.Point(232, 276);
+            this.TextActual5.Location = new System.Drawing.Point(322, 276);
             this.TextActual5.Name = "TextActual5";
-            this.TextActual5.Size = new System.Drawing.Size(112, 38);
+            this.TextActual5.Size = new System.Drawing.Size(152, 38);
             this.TextActual5.TabIndex = 29;
             this.TextActual5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1329,9 +1485,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance5.Location = new System.Drawing.Point(351, 276);
+            this.TextBalance5.Location = new System.Drawing.Point(481, 276);
             this.TextBalance5.Name = "TextBalance5";
-            this.TextBalance5.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance5.Size = new System.Drawing.Size(152, 38);
             this.TextBalance5.TabIndex = 30;
             this.TextBalance5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1341,9 +1497,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual6.Location = new System.Drawing.Point(232, 322);
+            this.TextActual6.Location = new System.Drawing.Point(322, 322);
             this.TextActual6.Name = "TextActual6";
-            this.TextActual6.Size = new System.Drawing.Size(112, 38);
+            this.TextActual6.Size = new System.Drawing.Size(152, 38);
             this.TextActual6.TabIndex = 31;
             this.TextActual6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1353,9 +1509,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual7.Location = new System.Drawing.Point(232, 368);
+            this.TextActual7.Location = new System.Drawing.Point(322, 368);
             this.TextActual7.Name = "TextActual7";
-            this.TextActual7.Size = new System.Drawing.Size(112, 38);
+            this.TextActual7.Size = new System.Drawing.Size(152, 38);
             this.TextActual7.TabIndex = 32;
             this.TextActual7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1365,9 +1521,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual8.Location = new System.Drawing.Point(232, 414);
+            this.TextActual8.Location = new System.Drawing.Point(322, 414);
             this.TextActual8.Name = "TextActual8";
-            this.TextActual8.Size = new System.Drawing.Size(112, 38);
+            this.TextActual8.Size = new System.Drawing.Size(152, 38);
             this.TextActual8.TabIndex = 33;
             this.TextActual8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1380,7 +1536,7 @@ namespace Line_Production
             this.TextTime1.Multiline = true;
             this.TextTime1.Name = "TextTime1";
             this.TextTime1.ReadOnly = true;
-            this.TextTime1.Size = new System.Drawing.Size(136, 38);
+            this.TextTime1.Size = new System.Drawing.Size(152, 38);
             this.TextTime1.TabIndex = 50;
             // 
             // TextComment10
@@ -1389,9 +1545,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComment10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextComment10.Location = new System.Drawing.Point(511, 506);
+            this.TextComment10.Location = new System.Drawing.Point(640, 506);
             this.TextComment10.Name = "TextComment10";
-            this.TextComment10.Size = new System.Drawing.Size(521, 38);
+            this.TextComment10.Size = new System.Drawing.Size(279, 38);
             this.TextComment10.TabIndex = 59;
             this.TextComment10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1401,9 +1557,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBalance10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextBalance10.Location = new System.Drawing.Point(351, 506);
+            this.TextBalance10.Location = new System.Drawing.Point(481, 506);
             this.TextBalance10.Name = "TextBalance10";
-            this.TextBalance10.Size = new System.Drawing.Size(153, 38);
+            this.TextBalance10.Size = new System.Drawing.Size(152, 38);
             this.TextBalance10.TabIndex = 60;
             this.TextBalance10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1413,9 +1569,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextActual10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextActual10.Location = new System.Drawing.Point(232, 506);
+            this.TextActual10.Location = new System.Drawing.Point(322, 506);
             this.TextActual10.Name = "TextActual10";
-            this.TextActual10.Size = new System.Drawing.Size(112, 38);
+            this.TextActual10.Size = new System.Drawing.Size(152, 38);
             this.TextActual10.TabIndex = 60;
             this.TextActual10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1425,9 +1581,9 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextPlan10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan10.Location = new System.Drawing.Point(147, 506);
+            this.TextPlan10.Location = new System.Drawing.Point(163, 506);
             this.TextPlan10.Name = "TextPlan10";
-            this.TextPlan10.Size = new System.Drawing.Size(78, 38);
+            this.TextPlan10.Size = new System.Drawing.Size(152, 38);
             this.TextPlan10.TabIndex = 60;
             this.TextPlan10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1438,12 +1594,27 @@ namespace Line_Production
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Label13.AutoSize = true;
             this.Label13.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label13.Location = new System.Drawing.Point(147, 1);
+            this.Label13.Location = new System.Drawing.Point(163, 1);
             this.Label13.Name = "Label13";
-            this.Label13.Size = new System.Drawing.Size(78, 79);
+            this.Label13.Size = new System.Drawing.Size(152, 79);
             this.Label13.TabIndex = 1;
             this.Label13.Text = "Kế hoạch";
             this.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnConfirm1
+            // 
+            this.btnConfirm1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirm1.ForeColor = System.Drawing.Color.Maroon;
+            this.btnConfirm1.Location = new System.Drawing.Point(926, 84);
+            this.btnConfirm1.Name = "btnConfirm1";
+            this.btnConfirm1.Size = new System.Drawing.Size(106, 40);
+            this.btnConfirm1.TabIndex = 62;
+            this.btnConfirm1.Text = "Confirm";
+            this.btnConfirm1.UseVisualStyleBackColor = true;
+            this.btnConfirm1.Visible = false;
+            this.btnConfirm1.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // Shape2
             // 
@@ -1760,45 +1931,6 @@ namespace Line_Production
             this.Timer3.Interval = 5000;
             this.Timer3.Tick += new System.EventHandler(this.Timer3_Tick);
             // 
-            // lblSettingTime
-            // 
-            this.lblSettingTime.AutoSize = true;
-            this.lblSettingTime.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblSettingTime.Image = global::Line_Production.Properties.Resources.icons8_time_30;
-            this.lblSettingTime.Location = new System.Drawing.Point(1160, 632);
-            this.lblSettingTime.MinimumSize = new System.Drawing.Size(25, 25);
-            this.lblSettingTime.Name = "lblSettingTime";
-            this.lblSettingTime.Size = new System.Drawing.Size(25, 25);
-            this.lblSettingTime.TabIndex = 22;
-            this.toolTip1.SetToolTip(this.lblSettingTime, "Time");
-            this.lblSettingTime.Click += new System.EventHandler(this.lblSettingTime_Click);
-            // 
-            // lblListModel
-            // 
-            this.lblListModel.AutoSize = true;
-            this.lblListModel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblListModel.Image = global::Line_Production.Properties.Resources.construction;
-            this.lblListModel.Location = new System.Drawing.Point(1106, 632);
-            this.lblListModel.MinimumSize = new System.Drawing.Size(25, 25);
-            this.lblListModel.Name = "lblListModel";
-            this.lblListModel.Size = new System.Drawing.Size(25, 25);
-            this.lblListModel.TabIndex = 21;
-            this.toolTip1.SetToolTip(this.lblListModel, "List Model");
-            this.lblListModel.Click += new System.EventHandler(this.lblListModel_Click);
-            // 
-            // lblConfig
-            // 
-            this.lblConfig.AutoSize = true;
-            this.lblConfig.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblConfig.Image = global::Line_Production.Properties.Resources.tools_16;
-            this.lblConfig.Location = new System.Drawing.Point(1060, 632);
-            this.lblConfig.MinimumSize = new System.Drawing.Size(25, 25);
-            this.lblConfig.Name = "lblConfig";
-            this.lblConfig.Size = new System.Drawing.Size(25, 25);
-            this.lblConfig.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.lblConfig, "Config");
-            this.lblConfig.Click += new System.EventHandler(this.lblConfig_Click);
-            // 
             // LabelTimeDate
             // 
             this.LabelTimeDate.BackColor = System.Drawing.Color.Black;
@@ -1838,6 +1970,45 @@ namespace Line_Production
             // 
             this.bgwLinkWip.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwLinkWip_DoWork);
             this.bgwLinkWip.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwLinkWip_RunWorkerCompleted);
+            // 
+            // lblSettingTime
+            // 
+            this.lblSettingTime.AutoSize = true;
+            this.lblSettingTime.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSettingTime.Image = global::Line_Production.Properties.Resources.icons8_time_30;
+            this.lblSettingTime.Location = new System.Drawing.Point(1160, 632);
+            this.lblSettingTime.MinimumSize = new System.Drawing.Size(25, 25);
+            this.lblSettingTime.Name = "lblSettingTime";
+            this.lblSettingTime.Size = new System.Drawing.Size(25, 25);
+            this.lblSettingTime.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.lblSettingTime, "Time");
+            this.lblSettingTime.Click += new System.EventHandler(this.lblSettingTime_Click);
+            // 
+            // lblListModel
+            // 
+            this.lblListModel.AutoSize = true;
+            this.lblListModel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblListModel.Image = global::Line_Production.Properties.Resources.construction;
+            this.lblListModel.Location = new System.Drawing.Point(1106, 632);
+            this.lblListModel.MinimumSize = new System.Drawing.Size(25, 25);
+            this.lblListModel.Name = "lblListModel";
+            this.lblListModel.Size = new System.Drawing.Size(25, 25);
+            this.lblListModel.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.lblListModel, "List Model");
+            this.lblListModel.Click += new System.EventHandler(this.lblListModel_Click);
+            // 
+            // lblConfig
+            // 
+            this.lblConfig.AutoSize = true;
+            this.lblConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblConfig.Image = global::Line_Production.Properties.Resources.tools_16;
+            this.lblConfig.Location = new System.Drawing.Point(1060, 632);
+            this.lblConfig.MinimumSize = new System.Drawing.Size(25, 25);
+            this.lblConfig.Name = "lblConfig";
+            this.lblConfig.Size = new System.Drawing.Size(25, 25);
+            this.lblConfig.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.lblConfig, "Config");
+            this.lblConfig.Click += new System.EventHandler(this.lblConfig_Click);
             // 
             // Control
             // 
@@ -2030,5 +2201,15 @@ namespace Line_Production
         private ComboBox cbbModel;
         public TextBox lblModel;
         private ToolTip toolTip1;
+        private Button btnConfirm10;
+        private Button btnConfirm9;
+        private Button btnConfirm8;
+        private Button btnConfirm7;
+        private Button btnConfirm6;
+        private Button btnConfirm5;
+        private Button btnConfirm4;
+        private Button btnConfirm3;
+        private Button btnConfirm2;
+        private Button btnConfirm1;
     }
 }
