@@ -70,7 +70,7 @@ namespace Line_Production
             this.dgrvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgrvSearch.Location = new System.Drawing.Point(0, 0);
             this.dgrvSearch.Name = "dgrvSearch";
-            this.dgrvSearch.Size = new System.Drawing.Size(841, 721);
+            this.dgrvSearch.Size = new System.Drawing.Size(841, 461);
             this.dgrvSearch.TabIndex = 0;
             // 
             // ProductionID
@@ -157,7 +157,7 @@ namespace Line_Production
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(841, 721);
+            this.ClientSize = new System.Drawing.Size(841, 461);
             this.Controls.Add(this.dgrvSearch);
             this.Name = "ResultForm";
             this.Text = "Result";

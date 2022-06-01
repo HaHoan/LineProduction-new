@@ -273,7 +273,7 @@ namespace Line_Production
             this.MinimizeBox = false;
             this.Name = "fmLogin";
             this.Opacity = 0.95D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Login";
             this.Load += new System.EventHandler(this.fmLogin_Load);
             this.Panel1.ResumeLayout(false);

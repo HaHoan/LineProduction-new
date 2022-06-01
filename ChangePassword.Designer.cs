@@ -115,7 +115,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txbCode);
             this.Name = "ChangePassword";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "THAY ĐỔI PASSWORD";
             this.ResumeLayout(false);
             this.PerformLayout();

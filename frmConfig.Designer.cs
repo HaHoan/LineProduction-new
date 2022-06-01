@@ -334,7 +334,7 @@ namespace Line_Production
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmConfig";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configs";
             this.Load += new System.EventHandler(this.frmConfig_Load);
             this.ResumeLayout(false);

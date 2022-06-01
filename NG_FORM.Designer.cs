@@ -48,11 +48,11 @@ namespace Line_Production
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Font = new System.Drawing.Font("Palatino Linotype", 150F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label1.Font = new System.Drawing.Font("Palatino Linotype", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label1.ForeColor = System.Drawing.Color.Red;
             this.Label1.Location = new System.Drawing.Point(276, 25);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(447, 270);
+            this.Label1.Size = new System.Drawing.Size(297, 180);
             this.Label1.TabIndex = 0;
             this.Label1.Text = "NG";
             this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -60,11 +60,11 @@ namespace Line_Production
             // Lb_inform_NG
             // 
             this.Lb_inform_NG.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Lb_inform_NG.Font = new System.Drawing.Font("Palatino Linotype", 56.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lb_inform_NG.Font = new System.Drawing.Font("Palatino Linotype", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lb_inform_NG.ForeColor = System.Drawing.Color.Red;
             this.Lb_inform_NG.Location = new System.Drawing.Point(3, 16);
             this.Lb_inform_NG.Name = "Lb_inform_NG";
-            this.Lb_inform_NG.Size = new System.Drawing.Size(1078, 323);
+            this.Lb_inform_NG.Size = new System.Drawing.Size(878, 323);
             this.Lb_inform_NG.TabIndex = 1;
             this.Lb_inform_NG.Text = "Label must be 10 digitals 222222222";
             this.Lb_inform_NG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -78,9 +78,9 @@ namespace Line_Production
             // 
             this.GroupBox2.Controls.Add(this.Lb_inform_NG);
             this.GroupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.GroupBox2.Location = new System.Drawing.Point(0, 372);
+            this.GroupBox2.Location = new System.Drawing.Point(0, 119);
             this.GroupBox2.Name = "GroupBox2";
-            this.GroupBox2.Size = new System.Drawing.Size(1084, 342);
+            this.GroupBox2.Size = new System.Drawing.Size(884, 342);
             this.GroupBox2.TabIndex = 3;
             this.GroupBox2.TabStop = false;
             // 
@@ -118,14 +118,14 @@ namespace Line_Production
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1084, 714);
+            this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.Label1);
             this.Controls.Add(this.GroupBox3);
             this.Controls.Add(this.GroupBox2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NG_FORM";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "NG_FORM";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NG_FORM_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NG_FORM_FormClosed);

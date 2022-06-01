@@ -54,7 +54,6 @@ namespace Line_Production
         public static string WO_MES = "";
         public static int IDCount = 0;
         public static int IDCount_box = 0;
-        public static bool ConfirmModel = false;
         public static string HistoryNo = "";
         // Public MacLe As Boolean = False
         // QuyetPham add 26.11
@@ -178,9 +177,16 @@ namespace Line_Production
                         BalanceErrorSetup = (int)model.MinQuantity;
                         if (model.NumberInModel is int numberInModel)
                         {
-                            NumberInModel = numberInModel;
+                            if(numberInModel < 0)
+                            {
+                                NumberInModel = int.MaxValue;
+                            }
+                            else
+                            {
+                                NumberInModel = numberInModel;
+                            }
+                           
                         }
-                        ConfirmModel = false;
                         HistoryNo = model.HistoryNo;
                     }
                     catch (Exception e)

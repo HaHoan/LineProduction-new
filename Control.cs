@@ -126,6 +126,11 @@ namespace Line_Production
         {
             try
             {
+                if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkPathLog))
+                   || bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkWip)))
+                {
+                    targetDirectory = targetDirectory + @"\backup";
+                }
                 var fileEntries = Directory.GetFiles(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd"));
                 if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd")) == false)
                 {
@@ -354,12 +359,6 @@ namespace Line_Production
                 useWip = bool.Parse(Common.GetValueRegistryKey(PathConfig, "useWip"));
             }
             catch { }
-
-            // quyetpham add 16/9
-            cbUserMacBox.Enabled = false;
-            txtConfirm.Text = "";
-            txtConfirm.Enabled = false;
-            chkOK.Checked = true;
         }
 
         public void LoadProduction()
@@ -475,10 +474,6 @@ namespace Line_Production
                     FormatNgayCasx();
                     BtStart.Enabled = true;
                     BtStop.Enabled = true;
-                    // quyetpham add 16/9
-
-                    cbUserMacBox.Enabled = false;
-                    cbUserMacBox.Checked = true;
                     LoadProduction();
                     txtPlan.Text = Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero).ToString(); // ProductPlanBegin.ToString()
                     txtActual.Text = CountProduct.ToString();
@@ -619,7 +614,7 @@ namespace Line_Production
                     }
             }
         }
-      
+
         private void BtStart_Click(object sender, EventArgs e)
         {
 
@@ -632,8 +627,6 @@ namespace Line_Production
             cbbModel.Visible = false;
             lblModel.Visible = true;
             lblModel.Text = cbbModel.Text;
-            // quyetpham add 16/9
-            cbUserMacBox.Enabled = true;
             chkNG.Enabled = true;
             if (BtStart.Text == "Bắt đầu")
             {
@@ -721,7 +714,14 @@ namespace Line_Production
                         TextMacBox.SelectAll();
                         return;
                     }
-                    LabelPCS1BOX.Text = PCBBOX.ToString();
+                    if (PCBBOX == int.MaxValue)
+                    {
+                        LabelPCS1BOX.Text = "0";
+                    }
+                    else
+                    {
+                        LabelPCS1BOX.Text = PCBBOX.ToString();
+                    }
                     TextMacBox.Enabled = false;
                     txtSerial.Enabled = true;
                     txtSerial.SelectAll();
@@ -1108,20 +1108,9 @@ namespace Line_Production
                 }
 
                 TextMacBox.Enabled = false;
-                if (ConfirmModel)
-                {
-                    txtConfirm.Enabled = true;
-                    txtConfirm.SelectAll();
-                    txtConfirm.Focus();
-                }
-                else
-                {
-                    txtSerial.Enabled = true;
-                    txtSerial.SelectAll();
-                    txtSerial.Focus();
-                }
-
-                cbUserMacBox.Enabled = false;
+                txtSerial.Enabled = true;
+                txtSerial.SelectAll();
+                txtSerial.Focus();
                 LabelPCBA.Text = IDCount.ToString();
                 if (ModelSpeacials.Contains(ModelCurrent))
                 {
@@ -1226,30 +1215,6 @@ namespace Line_Production
                     ProductPlan = (int)Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                     txtPlan.Text = ProductPlan.ToString();
                     RecordProduction();
-                }
-            }
-        }
-
-        private void txtConfirm_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                if (txtConfirm.Text == cbbModel.Text)
-                {
-                    txtSerial.Enabled = true;
-                    txtSerial.SelectAll();
-                    txtSerial.Focus();
-                    txtConfirm.Enabled = false;
-                }
-                else
-                {
-                    NG_FORM NG_FORM = new NG_FORM();
-                    NG_FORM.Show();
-                    NG_FORM.Lb_inform_NG.Text = "Sai Model";
-                    NG_FORM.GroupBox3.Visible = false;
-                    NG_FORM.GroupBox3.Enabled = false;
-                    NG_FORM.ControlBox = true;
-                    txtConfirm.SelectAll();
                 }
             }
         }
@@ -1708,14 +1673,6 @@ namespace Line_Production
                     txtSerial.Enabled = true;
                     txtSerial.Focus();
                     txtSerial.SelectAll();
-                }
-
-                if (ConfirmModel & IDCount != 0)
-                {
-                    txtConfirm.Enabled = true;
-                    txtConfirm.SelectAll();
-                    txtConfirm.Focus();
-                    txtSerial.Enabled = false;
                 }
             }
 
