@@ -69,7 +69,7 @@ namespace Line_Production
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "Schedule";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Balance";
             this.Load += new System.EventHandler(this.Schedule_Load);
             this.ResumeLayout(false);

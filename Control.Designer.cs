@@ -135,6 +135,7 @@ namespace Line_Production
             this.TextPlan10 = new System.Windows.Forms.TextBox();
             this.Label13 = new System.Windows.Forms.Label();
             this.btnConfirm1 = new System.Windows.Forms.Button();
+            this.TextPlan2 = new System.Windows.Forms.TextBox();
             this.Shape2 = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.GroupBox2 = new System.Windows.Forms.GroupBox();
             this.BtReduce = new System.Windows.Forms.Button();
@@ -150,7 +151,6 @@ namespace Line_Production
             this.Shape1 = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.ComPressPort = new System.IO.Ports.SerialPort(this.components);
             this.Timer1 = new System.Windows.Forms.Timer(this.components);
-            this.Timer2 = new System.Windows.Forms.Timer(this.components);
             this.GroupBox7 = new System.Windows.Forms.GroupBox();
             this.cbbFilter = new System.Windows.Forms.ComboBox();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -178,7 +178,6 @@ namespace Line_Production
             this.lblSettingTime = new System.Windows.Forms.LinkLabel();
             this.lblListModel = new System.Windows.Forms.LinkLabel();
             this.lblConfig = new System.Windows.Forms.LinkLabel();
-            this.TextPlan2 = new System.Windows.Forms.TextBox();
             this.GroupBox1.SuspendLayout();
             this.GroupBox5.SuspendLayout();
             this.GroupBox6.SuspendLayout();
@@ -1559,6 +1558,18 @@ namespace Line_Production
             this.btnConfirm1.Visible = false;
             this.btnConfirm1.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
+            // TextPlan2
+            // 
+            this.TextPlan2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextPlan2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextPlan2.Location = new System.Drawing.Point(131, 91);
+            this.TextPlan2.Name = "TextPlan2";
+            this.TextPlan2.Size = new System.Drawing.Size(120, 26);
+            this.TextPlan2.TabIndex = 17;
+            this.TextPlan2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Shape2
             // 
             this.Shape2.BackColor = System.Drawing.Color.Yellow;
@@ -1708,10 +1719,6 @@ namespace Line_Production
             // 
             this.Timer1.Interval = 1000;
             this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // Timer2
-            // 
-            this.Timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
             // GroupBox7
             // 
@@ -1954,18 +1961,6 @@ namespace Line_Production
             this.toolTip1.SetToolTip(this.lblConfig, "Config");
             this.lblConfig.Click += new System.EventHandler(this.lblConfig_Click);
             // 
-            // TextPlan2
-            // 
-            this.TextPlan2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextPlan2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextPlan2.Location = new System.Drawing.Point(131, 91);
-            this.TextPlan2.Name = "TextPlan2";
-            this.TextPlan2.Size = new System.Drawing.Size(120, 26);
-            this.TextPlan2.TabIndex = 17;
-            this.TextPlan2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2113,7 +2108,6 @@ namespace Line_Production
         internal GroupBox GroupBox4;
         internal Label LabelSoThung;
         internal GroupBox GroupBox6;
-        internal Timer Timer2;
         internal GroupBox GroupBox7;
         internal TextBox txtSearch;
         internal StatusStrip StatusStrip1;

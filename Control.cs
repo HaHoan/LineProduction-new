@@ -65,6 +65,7 @@ namespace Line_Production
         int CountFileCurrentNight = 0;
         public void ShiftDirectory(string targetDirectory)
         {
+            if (!IS_USING_FILE_LOG) return;
             if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd")) == false)
             {
                 Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd"));
@@ -126,12 +127,14 @@ namespace Line_Production
         {
             try
             {
+                if (!IS_USING_FILE_LOG) return;
                 if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkPathLog))
                    || bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkWip)))
                 {
-                    targetDirectory = targetDirectory + @"\backup";
+                    targetDirectory = targetDirectory + @"\backup\" + DateTime.Now.Date.ToString("yyyyMMdd");
                 }
-                var fileEntries = Directory.GetFiles(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd"));
+                
+                var fileEntries = Directory.GetFiles(targetDirectory);
                 if (Directory.Exists(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd")) == false)
                 {
                     Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd"));
@@ -875,7 +878,19 @@ namespace Line_Production
                 RecordProduction();
             }
         }
-
+        private void CheckLinePause()
+        {
+            TimePauseLine = TimePauseLine + 1;
+            if (TimePauseLine % 2 == 0)
+            {
+                ShowStatus(StatusLine, true);
+                TimePauseLine = 0;
+            }
+            else
+            {
+                ShowStatus(StatusLine, false);
+            }
+        }
         private void Timer1_Tick(object sender, EventArgs e)
         {
             try
@@ -885,6 +900,7 @@ namespace Line_Production
                 _counter++;
                 if (BtStart.Text != "Bắt đầu")
                 {
+                    CheckLinePause();
                     ProcessDirectory(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip));
                     int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
                     int indexCurrent = 0;
@@ -936,15 +952,6 @@ namespace Line_Production
                         ShowStatus(StatusLine, true);
                     }
 
-                    if (PauseProduct == true)
-                    {
-                        Timer2.Enabled = true;
-                    }
-                    else
-                    {
-                        Timer2.Enabled = false;
-                    }
-
                     txtPlan.Text = ProductPlan.ToString();
                     txtActual.Text = CountProduct.ToString();
                     TextBalance.Text = BalanceProduction.ToString();
@@ -983,27 +990,26 @@ namespace Line_Production
                         note = Table1.Controls.Find("TextComment" + indexCurrent, true)[0].Text;
                     }
 
-
-                    var entities = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
-                    {
-                        CUSTOMER = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer),
-                        LINE_NO = IdLine,
-                        MODEL = cbbModel.Text,
-                        QTY_PLAN = ProductPlan,
-                        QTY_ACTUAL = CountProduct,
-                        UPDATE_TIME = DateTime.Now.Date,
-                        PEOPLE = NoPeople,
-                        CYRCLETIME_PLAN = (decimal)CycleTimeModel,
-                        CYRCLETIME_ACTUAL = (decimal)CycleTimeActual,
-                        DIFF = BalanceProduction,
-                        ALARM = StatusLine,
-                        STATUS = "RUNNING",
-                        NOTE = note,
-                        QTY_TOTAL = int.Parse(lblTotal.Text),
-                        VERSION = GetRunningVersion()
-                    };
                     if (_counter >= 60)
                     {
+                        var entities = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
+                        {
+                            CUSTOMER = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer),
+                            LINE_NO = IdLine,
+                            MODEL = cbbModel.Text,
+                            QTY_PLAN = ProductPlan,
+                            QTY_ACTUAL = CountProduct,
+                            UPDATE_TIME = DateTime.Now.Date,
+                            PEOPLE = NoPeople,
+                            CYRCLETIME_PLAN = (decimal)CycleTimeModel,
+                            CYRCLETIME_ACTUAL = (decimal)CycleTimeActual,
+                            DIFF = BalanceProduction,
+                            ALARM = StatusLine,
+                            STATUS = "RUNNING",
+                            NOTE = note,
+                            QTY_TOTAL = int.Parse(lblTotal.Text),
+                            VERSION = GetRunningVersion()
+                        };
                         _lineproduct_service.ProductionSave(entities);
                         _counter = 0;
                     }
@@ -1179,7 +1185,7 @@ namespace Line_Production
             }
         }
 
-        private void Timer3_Tick(object sender, EventArgs e)
+        private void SaveToPasssrate()
         {
             if (BtStart.Text != "Bắt đầu")
             {
@@ -1214,9 +1220,13 @@ namespace Line_Production
                     time_scanBarcode = DateAndTime.Now;
                     ProductPlan = (int)Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                     txtPlan.Text = ProductPlan.ToString();
-                    RecordProduction();
+                    //RecordProduction();
                 }
             }
+        }
+        private void Timer3_Tick(object sender, EventArgs e)
+        {
+            SaveToPasssrate();
         }
 
         private void chkOK_CheckedChanged(object sender, EventArgs e)
