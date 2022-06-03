@@ -12,6 +12,7 @@ namespace Line_Production
 {
     public partial class fmLogin : Form
     {
+        private PVSReference.PVSWebServiceSoapClient pvsservice = new PVSReference.PVSWebServiceSoapClient();
         public Action closeForm;
         public fmLogin()
         {
@@ -51,40 +52,31 @@ namespace Line_Production
                 }
                 try
                 {
-                    
-                    var user = db.USERs.Where(m => m.Code == username && m.Password == password).FirstOrDefault();
-                    if (user is object)
+                    var UserEntity = pvsservice.CheckUserLogin(username, password);
+                    if (UserEntity == null)
                     {
-                        this.Hide();
-                        if (password == "umcvn")
+                        MessageBox.Show("Account does not exist");
+                        return;
+                    }
+                    var user = db.USERs.Where(m => m.Code == username).FirstOrDefault();
+                    if (user != null)
+                    {
+                        Common.WriteRegistry(Control.PathConfig, RegistryKeys.CurrentUser, user.Code);
+                        var listForm = new ListModel();
+                        listForm.closeForm = () =>
                         {
-                            var changePassForm = new ChangePassword();
-                            changePassForm.closeForm = () =>
-                            {
-                                closeForm();
-                            };
-                            changePassForm.ShowDialog();
-                        }
-                        else
-                        {
-                            Common.WriteRegistry(Control.PathConfig, RegistryKeys.CurrentUser, user.Code);
-                            var listForm = new ListModel();
-                            listForm.closeForm = () =>
-                            {
-                                closeForm();
-                            };
-                            listForm.ShowDialog();
-                        }
-                       
+                            closeForm();
+                        };
+                        listForm.ShowDialog();
                     }
                     else
                     {
-                        MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Bạn không có quyền sửa model!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Kết nối đến server thất bại !", "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(ex.Message.ToString(), "Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
 
             }
