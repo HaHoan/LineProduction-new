@@ -143,7 +143,7 @@
             this.ckbUseBarcode.AutoSize = true;
             this.ckbUseBarcode.Checked = true;
             this.ckbUseBarcode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbUseBarcode.Location = new System.Drawing.Point(217, 389);
+            this.ckbUseBarcode.Location = new System.Drawing.Point(217, 417);
             this.ckbUseBarcode.Name = "ckbUseBarcode";
             this.ckbUseBarcode.Size = new System.Drawing.Size(109, 17);
             this.ckbUseBarcode.TabIndex = 13;
@@ -161,7 +161,7 @@
             // 
             // txbNumberInModel
             // 
-            this.txbNumberInModel.Location = new System.Drawing.Point(154, 311);
+            this.txbNumberInModel.Location = new System.Drawing.Point(154, 358);
             this.txbNumberInModel.Name = "txbNumberInModel";
             this.txbNumberInModel.Size = new System.Drawing.Size(172, 20);
             this.txbNumberInModel.TabIndex = 27;
@@ -169,13 +169,14 @@
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Maroon;
-            this.label7.Location = new System.Drawing.Point(25, 286);
+            this.label7.Location = new System.Drawing.Point(49, 287);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(314, 13);
+            this.label7.Size = new System.Drawing.Size(275, 64);
             this.label7.TabIndex = 26;
-            this.label7.Text = "Nếu không có mac thùng thì nhập số lượng mạch / thùng tại đây";
+            this.label7.Text = "Nếu không có mac thùng thì nhập số lượng mạch / thùng tại đây. Nếu không có số lư" +
+    "ợng mạch/ thùng thì để là -1.Nếu có mac thùng thì để là 0";
             // 
             // txbPCB
             // 
@@ -197,7 +198,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 353);
+            this.label9.Location = new System.Drawing.Point(25, 394);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 13);
             this.label9.TabIndex = 30;
@@ -329,7 +330,7 @@
             "BROTHER",
             "CANON",
             "FUJIXEROX"});
-            this.cbbCustomer.Location = new System.Drawing.Point(154, 351);
+            this.cbbCustomer.Location = new System.Drawing.Point(154, 392);
             this.cbbCustomer.Name = "cbbCustomer";
             this.cbbCustomer.Size = new System.Drawing.Size(172, 21);
             this.cbbCustomer.TabIndex = 42;
@@ -388,7 +389,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.ForeColor = System.Drawing.Color.Red;
-            this.label21.Location = new System.Drawing.Point(336, 355);
+            this.label21.Location = new System.Drawing.Point(336, 396);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(17, 13);
             this.label21.TabIndex = 49;

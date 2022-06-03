@@ -177,15 +177,7 @@ namespace Line_Production
                         BalanceErrorSetup = (int)model.MinQuantity;
                         if (model.NumberInModel is int numberInModel)
                         {
-                            if(numberInModel < 0)
-                            {
-                                NumberInModel = int.MaxValue;
-                            }
-                            else
-                            {
-                                NumberInModel = numberInModel;
-                            }
-                           
+                            NumberInModel = numberInModel;
                         }
                         HistoryNo = model.HistoryNo;
                     }

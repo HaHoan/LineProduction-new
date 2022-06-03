@@ -693,7 +693,7 @@ namespace Line_Production
                     TextMacBox.Enabled = true;
                     TextMacBox.Focus();
                 }
-                else
+                else if (NumberInModel > 0)
                 {
                     // Trường hợp ở ichikoh có model không dùng mac thùng => tính toán số lượng thùng đã bắn
                     using (var db = new barcode_dbEntities())
@@ -717,14 +717,8 @@ namespace Line_Production
                         TextMacBox.SelectAll();
                         return;
                     }
-                    if (PCBBOX == int.MaxValue)
-                    {
-                        LabelPCS1BOX.Text = "0";
-                    }
-                    else
-                    {
-                        LabelPCS1BOX.Text = PCBBOX.ToString();
-                    }
+
+                    LabelPCS1BOX.Text = PCBBOX.ToString();
                     TextMacBox.Enabled = false;
                     txtSerial.Enabled = true;
                     txtSerial.SelectAll();
@@ -741,7 +735,18 @@ namespace Line_Production
 
 
                 }
-
+                else
+                {
+                    // Trường hợp ở YASKAWA không sử dụng mac
+                    PCBBOX = int.MaxValue;
+                    LabelPCBA.Text = "0";
+                    lblExplain.Text = "PCS/WO";
+                    groupSoThung.Visible = false;
+                    TextMacBox.Enabled = false;
+                    txtSerial.Enabled = true;
+                    txtSerial.SelectAll();
+                    txtSerial.Focus();
+                }
             }
 
 
@@ -875,7 +880,7 @@ namespace Line_Production
                     }
                 }
 
-                RecordProduction();
+                // RecordProduction();
             }
         }
         private void CheckLinePause()
@@ -1261,7 +1266,7 @@ namespace Line_Production
                 if (rule == null)
                 {
                     var strArr = ModelCurrent.Split('-');
-                    if(strArr.Length == 1) return "Liên hệ với IT để thiết lập rule cho model này";
+                    if (strArr.Length == 1) return "Liên hệ với IT để thiết lập rule cho model này";
                     var replaceModel = strArr[0] + "-" + strArr[1];
                     rule = pvsservice.GetBarodeRuleItemsByRuleNo(replaceModel);
                     if (rule == null)
@@ -1311,8 +1316,6 @@ namespace Line_Production
 
                 if (PauseProduct == false)
                 {
-                    //try
-                    //{
                     txtSerial.Enabled = false;
                     var model = DataProvider.Instance.ModelQuantities.Select(ModelCurrent);
                     var listBarcode = Common.CreateBarcode(txtSerial.Text.Trim(), model.PCB, model.ContentIndex, model.ContentLength, model.CheckFirst);
@@ -1434,8 +1437,6 @@ namespace Line_Production
                         }
                         else if (bool.Parse(Common.GetValueRegistryKey(PathConfig, RegistryKeys.LinkWip)))
                         {
-                            //try
-                            //{
                             var checkValidateSerial = ValidateSerial(txtSerial.Text);
                             if (checkValidateSerial != "OK")
                             {
@@ -1495,41 +1496,14 @@ namespace Line_Production
                                 }
                                 increaseInDb(listBarcode);
                             }
-                            //}
-                            //catch
-                            //{
-                            //    txtSerial.Enabled = true;
-                            //    txtSerial.Focus();
-                            //    txtSerial.SelectAll();
-                            //    NG_FORM NG_FORM = new NG_FORM();
-                            //    NG_FORM.Lb_inform_NG.Text = "WIP NG!";
-                            //    NG_FORM.GroupBox3.Visible = false;
-                            //    NG_FORM.ShowDialog();
-                            //    return;
-                            //}
+
                         }
                         else
                         {
                             increaseInDb(listBarcode);
                         }
 
-
-
                     }
-
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    txtSerial.Enabled = true;
-                    //    txtSerial.Focus();
-                    //    txtSerial.SelectAll();
-                    //    MessageBox.Show("txtSerial_PreviewKeyDown : " + e.ToString());
-                    //    //LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "Nhập serial bị lỗi", ex);
-                    //    LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Nhập serial bị lỗi", ex);
-                    //    return;
-                    //}
-
-
                 }
                 else
                 {
@@ -1542,9 +1516,6 @@ namespace Line_Production
                     NG_FORM.GroupBox3.Visible = false;
                     NG_FORM.ShowDialog();
                 }
-
-
-
             }
         }
         private void increaseInDb(List<string> listBarcode)
@@ -1625,9 +1596,17 @@ namespace Line_Production
                 {
                     IDCount = db.HondaLocks.Where(m => m.BoxID == TextMacBox.Text && m.ProductionID == ModelCurrent && m.Station == currentStation).Count();
                 }
-                else
+                else if (NumberInModel > 0)
                 {
                     IDCount += listBarcode.Count();
+                }
+                else
+                {
+                    // Trường hợp ở YAS muốn đếm theo số WO theo line
+                    IDCount = db.HondaLocks.Where(m => m.Wo_Mes == WO_MES 
+                    && m.ProductionID == ModelCurrent 
+                    && m.Station == currentStation
+                    && m.Line == Common.GetValueRegistryKey(PathConfig,RegistryKeys.id)).Count();
                 }
 
 

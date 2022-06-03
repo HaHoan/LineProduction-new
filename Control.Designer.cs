@@ -37,14 +37,14 @@ namespace Line_Production
             this.lblRepair = new System.Windows.Forms.Label();
             this.chkOK = new System.Windows.Forms.CheckBox();
             this.chkNG = new System.Windows.Forms.CheckBox();
-            this.GroupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupSoThung = new System.Windows.Forms.GroupBox();
             this.LabelSoThung = new System.Windows.Forms.Label();
             this.LabelPCS1BOX = new System.Windows.Forms.Label();
             this.Label23 = new System.Windows.Forms.Label();
             this.txtSerial = new System.Windows.Forms.TextBox();
             this.LabelPCBA = new System.Windows.Forms.Label();
             this.Label17 = new System.Windows.Forms.Label();
-            this.Label22 = new System.Windows.Forms.Label();
+            this.lblExplain = new System.Windows.Forms.Label();
             this.TextMacBox = new System.Windows.Forms.TextBox();
             this.Label24 = new System.Windows.Forms.Label();
             this.GroupBox4 = new System.Windows.Forms.GroupBox();
@@ -180,7 +180,7 @@ namespace Line_Production
             this.lblConfig = new System.Windows.Forms.LinkLabel();
             this.GroupBox1.SuspendLayout();
             this.GroupBox5.SuspendLayout();
-            this.GroupBox6.SuspendLayout();
+            this.groupSoThung.SuspendLayout();
             this.GroupBox4.SuspendLayout();
             this.Table1.SuspendLayout();
             this.GroupBox2.SuspendLayout();
@@ -252,13 +252,13 @@ namespace Line_Production
             this.GroupBox5.Controls.Add(this.lblRepair);
             this.GroupBox5.Controls.Add(this.chkOK);
             this.GroupBox5.Controls.Add(this.chkNG);
-            this.GroupBox5.Controls.Add(this.GroupBox6);
+            this.GroupBox5.Controls.Add(this.groupSoThung);
             this.GroupBox5.Controls.Add(this.LabelPCS1BOX);
             this.GroupBox5.Controls.Add(this.Label23);
             this.GroupBox5.Controls.Add(this.txtSerial);
             this.GroupBox5.Controls.Add(this.LabelPCBA);
             this.GroupBox5.Controls.Add(this.Label17);
-            this.GroupBox5.Controls.Add(this.Label22);
+            this.GroupBox5.Controls.Add(this.lblExplain);
             this.GroupBox5.Controls.Add(this.TextMacBox);
             this.GroupBox5.Controls.Add(this.Label24);
             this.GroupBox5.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -317,15 +317,15 @@ namespace Line_Production
             this.chkNG.UseVisualStyleBackColor = true;
             this.chkNG.CheckedChanged += new System.EventHandler(this.chkNG_CheckedChanged);
             // 
-            // GroupBox6
+            // groupSoThung
             // 
-            this.GroupBox6.Controls.Add(this.LabelSoThung);
-            this.GroupBox6.Location = new System.Drawing.Point(200, 58);
-            this.GroupBox6.Name = "GroupBox6";
-            this.GroupBox6.Size = new System.Drawing.Size(145, 50);
-            this.GroupBox6.TabIndex = 15;
-            this.GroupBox6.TabStop = false;
-            this.GroupBox6.Text = "Số thùng";
+            this.groupSoThung.Controls.Add(this.LabelSoThung);
+            this.groupSoThung.Location = new System.Drawing.Point(200, 58);
+            this.groupSoThung.Name = "groupSoThung";
+            this.groupSoThung.Size = new System.Drawing.Size(145, 50);
+            this.groupSoThung.TabIndex = 15;
+            this.groupSoThung.TabStop = false;
+            this.groupSoThung.Text = "Số thùng";
             // 
             // LabelSoThung
             // 
@@ -394,15 +394,15 @@ namespace Line_Production
             this.Label17.TabIndex = 5;
             this.Label17.Text = "Mã Barcode mạch:";
             // 
-            // Label22
+            // lblExplain
             // 
-            this.Label22.AutoSize = true;
-            this.Label22.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label22.Location = new System.Drawing.Point(204, 41);
-            this.Label22.Name = "Label22";
-            this.Label22.Size = new System.Drawing.Size(69, 15);
-            this.Label22.TabIndex = 10;
-            this.Label22.Text = "PCS/Thùng";
+            this.lblExplain.AutoSize = true;
+            this.lblExplain.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExplain.Location = new System.Drawing.Point(204, 41);
+            this.lblExplain.Name = "lblExplain";
+            this.lblExplain.Size = new System.Drawing.Size(69, 15);
+            this.lblExplain.TabIndex = 10;
+            this.lblExplain.Text = "PCS/Thùng";
             // 
             // TextMacBox
             // 
@@ -1914,7 +1914,7 @@ namespace Line_Production
             this.lblHistoryNo.Name = "lblHistoryNo";
             this.lblHistoryNo.Size = new System.Drawing.Size(271, 65);
             this.lblHistoryNo.TabIndex = 23;
-            this.lblHistoryNo.Text = "his:01";
+            this.lblHistoryNo.Text = "HIS: 01";
             this.lblHistoryNo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // bgwLinkWip
@@ -1989,7 +1989,7 @@ namespace Line_Production
             this.GroupBox1.PerformLayout();
             this.GroupBox5.ResumeLayout(false);
             this.GroupBox5.PerformLayout();
-            this.GroupBox6.ResumeLayout(false);
+            this.groupSoThung.ResumeLayout(false);
             this.GroupBox4.ResumeLayout(false);
             this.Table1.ResumeLayout(false);
             this.Table1.PerformLayout();
@@ -2101,13 +2101,13 @@ namespace Line_Production
         internal Label LabelPCS1BOX;
         internal Label Label23;
         internal Label LabelPCBA;
-        internal Label Label22;
+        internal Label lblExplain;
         internal TextBox TextMacBox;
         internal Label Label24;
         internal GroupBox GroupBox5;
         internal GroupBox GroupBox4;
         internal Label LabelSoThung;
-        internal GroupBox GroupBox6;
+        internal GroupBox groupSoThung;
         internal GroupBox GroupBox7;
         internal TextBox txtSearch;
         internal StatusStrip StatusStrip1;
