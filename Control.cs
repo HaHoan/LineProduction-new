@@ -1603,10 +1603,11 @@ namespace Line_Production
                 else
                 {
                     // Trường hợp ở YAS muốn đếm theo số WO theo line
+                    var line = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
                     IDCount = db.HondaLocks.Where(m => m.Wo_Mes == WO_MES 
                     && m.ProductionID == ModelCurrent 
                     && m.Station == currentStation
-                    && m.Line == Common.GetValueRegistryKey(PathConfig,RegistryKeys.id)).Count();
+                    && m.Line == line).Count();
                 }
 
 
