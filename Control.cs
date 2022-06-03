@@ -1238,14 +1238,25 @@ namespace Line_Production
         }
         private void CompressEvent()
         {
-            ComPressPort.Write("B");
-            if (ComPressPort.ReadExisting() == "B")
-                BitPress = true;
-            else if (ComPressPort.ReadExisting() != "B" & BitPress == true)
+            try
             {
-                BitPress = false;
-                IncreaseProduct();
+                if (ComPressPort.IsOpen)
+                {
+                    ComPressPort.Write("B");
+                    if (ComPressPort.ReadExisting() == "B")
+                        BitPress = true;
+                    else if (ComPressPort.ReadExisting() != "B" & BitPress == true)
+                    {
+                        BitPress = false;
+                        IncreaseProduct();
+                    }
+                }
+              
             }
+            catch (Exception)
+            {
+            }
+            
         }
         private void chkOK_CheckedChanged(object sender, EventArgs e)
         {
