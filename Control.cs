@@ -1045,6 +1045,10 @@ namespace Line_Production
         private void Control_FormClosed(object sender, FormClosedEventArgs e)
         {
             RecordProduction();
+            if (ComPressPort.IsOpen)
+            {
+                ComPressPort.Close();
+            }
             SetupDisplay();
             Application.Exit();
         }
@@ -1190,7 +1194,7 @@ namespace Line_Production
             }
         }
 
-        private void SaveToPasssrate()
+        private void CaculatorPlan()
         {
             if (BtStart.Text != "Bắt đầu")
             {
@@ -1225,15 +1229,24 @@ namespace Line_Production
                     time_scanBarcode = DateAndTime.Now;
                     ProductPlan = (int)Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                     txtPlan.Text = ProductPlan.ToString();
-                    //RecordProduction();
                 }
             }
         }
         private void Timer3_Tick(object sender, EventArgs e)
         {
-            SaveToPasssrate();
+            CaculatorPlan();
         }
-
+        private void CompressEvent()
+        {
+            ComPressPort.Write("B");
+            if (ComPressPort.ReadExisting() == "B")
+                BitPress = true;
+            else if (ComPressPort.ReadExisting() != "B" & BitPress == true)
+            {
+                BitPress = false;
+                IncreaseProduct();
+            }
+        }
         private void chkOK_CheckedChanged(object sender, EventArgs e)
         {
             if (chkOK.Checked)
@@ -1604,8 +1617,8 @@ namespace Line_Production
                 {
                     // Trường hợp ở YAS muốn đếm theo số WO theo line
                     var line = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
-                    IDCount = db.HondaLocks.Where(m => m.Wo_Mes == WO_MES 
-                    && m.ProductionID == ModelCurrent 
+                    IDCount = db.HondaLocks.Where(m => m.Wo_Mes == WO_MES
+                    && m.ProductionID == ModelCurrent
                     && m.Station == currentStation
                     && m.Line == line).Count();
                 }
@@ -1756,6 +1769,14 @@ namespace Line_Production
                 throw;
             }
 
+        }
+
+        private void timerCompress_Tick(object sender, EventArgs e)
+        {
+            if (BtStart.Text != "Bắt đầu")
+            {
+                CompressEvent();
+            }
         }
     }
 }

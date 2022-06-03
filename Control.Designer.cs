@@ -178,6 +178,7 @@ namespace Line_Production
             this.lblSettingTime = new System.Windows.Forms.LinkLabel();
             this.lblListModel = new System.Windows.Forms.LinkLabel();
             this.lblConfig = new System.Windows.Forms.LinkLabel();
+            this.timerCompress = new System.Windows.Forms.Timer(this.components);
             this.GroupBox1.SuspendLayout();
             this.GroupBox5.SuspendLayout();
             this.groupSoThung.SuspendLayout();
@@ -1961,6 +1962,12 @@ namespace Line_Production
             this.toolTip1.SetToolTip(this.lblConfig, "Config");
             this.lblConfig.Click += new System.EventHandler(this.lblConfig_Click);
             // 
+            // timerCompress
+            // 
+            this.timerCompress.Enabled = true;
+            this.timerCompress.Interval = 300;
+            this.timerCompress.Tick += new System.EventHandler(this.timerCompress_Tick);
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2157,5 +2164,6 @@ namespace Line_Production
         private Button btnConfirm2;
         private Button btnConfirm1;
         internal TextBox TextPlan2;
+        private Timer timerCompress;
     }
 }

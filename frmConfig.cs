@@ -190,7 +190,7 @@ namespace Line_Production
 
         private void btnTestComPress_Click(object sender, EventArgs e)
         {
-            Common.SendToComport("test", result => { MessageBox.Show("Test COM connection : " + result); },Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.COM_PRESS));
+            Common.SendToComport("B", result => { MessageBox.Show("Test COM connection : " + result); },Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.COM_PRESS));
         }
     }
 }

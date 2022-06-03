@@ -118,16 +118,33 @@ namespace Line_Production
                     Directory.CreateDirectory(Path.Combine(pathBackup, "NG"));
 
                 txtLine.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
+                CheckComPressPort();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message.ToString());
                 return false;
             }
-
             return true;
         }
-      
+
+        public bool CheckComPressPort()
+        {
+            try
+            {
+                ComPressPort.PortName = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS);
+                if (!ComPressPort.IsOpen)
+                {
+                    ComPressPort.Open();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
 
         public bool CheckModelList()
         {
