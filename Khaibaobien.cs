@@ -104,7 +104,17 @@ namespace Line_Production
                     DataProvider.Instance.TimeLines.InsertLine(item.LINE_ID);
                     Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, item.STATION_NO);
                 }
-               
+                var path = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
+                if (!string.IsNullOrEmpty(path))
+                {
+                    pathBackup = Path.Combine(path, "backup", DateTime.Now.ToString("yyyyMMdd"));
+                    if (!Directory.Exists(pathBackup))
+                        Directory.CreateDirectory(pathBackup);
+                    if (!Directory.Exists(Path.Combine(pathBackup, "OK")))
+                        Directory.CreateDirectory(Path.Combine(pathBackup, "OK"));
+                    if (!Directory.Exists(Path.Combine(pathBackup, "NG")))
+                        Directory.CreateDirectory(Path.Combine(pathBackup, "NG"));
+                }
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
                 IdLine = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);

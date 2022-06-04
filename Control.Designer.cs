@@ -1965,6 +1965,7 @@ namespace Line_Production
             // timerCompress
             // 
             this.timerCompress.Enabled = true;
+            this.timerCompress.Interval = 8;
             this.timerCompress.Tick += new System.EventHandler(this.timerCompress_Tick);
             // 
             // Control
