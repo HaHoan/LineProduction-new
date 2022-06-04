@@ -55,6 +55,7 @@ namespace Line_Production
         public static int IDCount = 0;
         public static int IDCount_box = 0;
         public static string HistoryNo = "";
+        public static bool IsUseBarcode = true;
         // Public MacLe As Boolean = False
         // QuyetPham add 26.11
         public static string pathConfirm = PathApplication + @"\Confirm";
@@ -107,22 +108,13 @@ namespace Line_Production
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
                 IdLine = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
                 STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
-                pathBackup = Path.Combine(Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip), "backup", DateTime.Now.ToString("yyyyMMdd"));
                 pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
                 lblComcontrol.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.COM);
-                if (!Directory.Exists(pathBackup))
-                    Directory.CreateDirectory(pathBackup);
-                if (!Directory.Exists(Path.Combine(pathBackup, "OK")))
-                    Directory.CreateDirectory(Path.Combine(pathBackup, "OK"));
-                if (!Directory.Exists(Path.Combine(pathBackup, "NG")))
-                    Directory.CreateDirectory(Path.Combine(pathBackup, "NG"));
-
                 txtLine.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
                 CheckComPressPort();
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message.ToString());
                 return false;
             }
             return true;
@@ -197,10 +189,19 @@ namespace Line_Production
                             NumberInModel = numberInModel;
                         }
                         HistoryNo = model.HistoryNo;
+                        if (model.UseBarcode == null || (model.UseBarcode is int usebarcode && usebarcode == 0))
+                        {
+                            IsUseBarcode = false;
+                            timerCompress.Enabled = true;
+                        }
+                        else
+                        {
+                            IsUseBarcode = true;
+                            timerCompress.Enabled = false;
+                        }
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show(e.Message.ToString());
                         return false;
                     }
 

@@ -27,19 +27,25 @@ namespace Line_Production
     {
         public static void UpdateState(string state)
         {
-            using (var db = new barcode_dbEntities())
+            try
             {
-                var stateModel = new STATE_HISTORY()
+                using (var db = new barcode_dbEntities())
                 {
-                    Line = GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
-                    Model = GetValueRegistryKey(Control.PathConfig, RegistryKeys.ModelCurrent),
-                    State = state,
-                    HostName = Environment.MachineName,
-                    UpdateTime = DateTime.Now
-                };
-                db.STATE_HISTORY.Add(stateModel);
-                db.SaveChanges();
+                    var stateModel = new STATE_HISTORY()
+                    {
+                        Line = GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
+                        Model = GetValueRegistryKey(Control.PathConfig, RegistryKeys.ModelCurrent),
+                        State = state,
+                        HostName = Environment.MachineName,
+                        UpdateTime = DateTime.Now
+                    };
+                    db.STATE_HISTORY.Add(stateModel);
+                    db.SaveChanges();
+                }
+
             }
+            catch { }
+           
         }
         public static List<string> CreateBarcode(string boardNo, int pcb, int contentIndex, int contentLength, bool checkFirst = false)
         {

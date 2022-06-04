@@ -132,6 +132,7 @@ namespace Line_Production
                 {
                     ID = model.Id;
                     txbModelID.Text = model.ModelID;
+                    txbModelID.Enabled = false;
                     txbPersonInLine.Text = model.PersonInLine.ToString();
                     txbCycle.Text = model.Cycle.ToString();
                     txbWarmQuatity.Text = model.WarnQuantity.ToString();

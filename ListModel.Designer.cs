@@ -155,6 +155,8 @@
             // 
             // dgrvListModel
             // 
+            this.dgrvListModel.AllowUserToAddRows = false;
+            this.dgrvListModel.AllowUserToDeleteRows = false;
             this.dgrvListModel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgrvListModel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgrvListModel.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -170,6 +172,7 @@
             this.dgrvListModel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgrvListModel.Location = new System.Drawing.Point(0, 0);
             this.dgrvListModel.Name = "dgrvListModel";
+            this.dgrvListModel.ReadOnly = true;
             this.dgrvListModel.Size = new System.Drawing.Size(800, 302);
             this.dgrvListModel.TabIndex = 0;
             // 
@@ -178,12 +181,14 @@
             this.ModelID.DataPropertyName = "Model";
             this.ModelID.HeaderText = "Model ID";
             this.ModelID.Name = "ModelID";
+            this.ModelID.ReadOnly = true;
             // 
             // Id
             // 
             this.Id.DataPropertyName = "Id";
             this.Id.HeaderText = "Id";
             this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
             this.Id.Visible = false;
             // 
             // PersonInLine
@@ -191,42 +196,49 @@
             this.PersonInLine.DataPropertyName = "PersonPerLine";
             this.PersonInLine.HeaderText = "Số người trên line";
             this.PersonInLine.Name = "PersonInLine";
+            this.PersonInLine.ReadOnly = true;
             // 
             // CycleTime
             // 
             this.CycleTime.DataPropertyName = "CycleTime";
             this.CycleTime.HeaderText = "Cycle Time";
             this.CycleTime.Name = "CycleTime";
+            this.CycleTime.ReadOnly = true;
             // 
             // WarmQuantity
             // 
             this.WarmQuantity.DataPropertyName = "WarnQuantity";
             this.WarmQuantity.HeaderText = "Cảnh báo số lượng";
             this.WarmQuantity.Name = "WarmQuantity";
+            this.WarmQuantity.ReadOnly = true;
             // 
             // MinQuantity
             // 
             this.MinQuantity.DataPropertyName = "MinQuantity";
             this.MinQuantity.HeaderText = "Cảnh báo số lượng bất thường";
             this.MinQuantity.Name = "MinQuantity";
+            this.MinQuantity.ReadOnly = true;
             // 
             // CharModel
             // 
             this.CharModel.DataPropertyName = "CharModel";
             this.CharModel.HeaderText = "Kí tự Model";
             this.CharModel.Name = "CharModel";
+            this.CharModel.ReadOnly = true;
             // 
             // UseBarcode
             // 
             this.UseBarcode.DataPropertyName = "UseBarcode";
             this.UseBarcode.HeaderText = "Sủ dụng barcode";
             this.UseBarcode.Name = "UseBarcode";
+            this.UseBarcode.ReadOnly = true;
             // 
             // UseMacbox
             // 
             this.UseMacbox.DataPropertyName = "UseMacbox";
             this.UseMacbox.HeaderText = "Sử dụng Mac box";
             this.UseMacbox.Name = "UseMacbox";
+            this.UseMacbox.ReadOnly = true;
             this.UseMacbox.Visible = false;
             // 
             // ListModel

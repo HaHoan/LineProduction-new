@@ -684,7 +684,7 @@ namespace Line_Production
                 time_scanBarcode = DateAndTime.Now;
                 ProductPlan = (int)Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                 txtPlan.Text = ProductPlan.ToString();
-                if (IS_USING_FILE_LOG)
+                if (IS_USING_FILE_LOG || !IsUseBarcode)
                 {
                     return;
                 }
@@ -778,13 +778,10 @@ namespace Line_Production
             }
 
         }
-        private void BtStop_Click(object sender, EventArgs e)
+        private void ProductionSave(string status)
         {
             try
             {
-                Common.UpdateState(STATE.STOP);
-                cbbModel.Visible = true;
-                lblModel.Visible = false;
                 var ett = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
                 {
                     CUSTOMER = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer),
@@ -798,12 +795,26 @@ namespace Line_Production
                     CYRCLETIME_ACTUAL = (decimal)CycleTimeActual,
                     DIFF = BalanceProduction,
                     ALARM = StatusLine,
-                    STATUS = "STOP",
+                    STATUS = status,
                     QTY_TOTAL = int.Parse(lblTotal.Text),
                     VERSION = GetRunningVersion()
                 };
                 _lineproduct_service.ProductionSave(ett);
+            }
+            catch (Exception)
+            {
 
+            }
+
+        }
+        private void BtStop_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Common.UpdateState(STATE.STOP);
+                cbbModel.Visible = true;
+                lblModel.Visible = false;
+                ProductionSave("STOP");
             }
             catch (Exception ex)
             {
@@ -981,41 +992,15 @@ namespace Line_Production
                     {
                         ArraySend = "S+" + Strings.Format(BalanceProduction, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
                     }
-                    var entity = new Online()
-                    {
-                        LineID = IdLine,
-                        ModelID = cbbModel.Text,
-                        Plan = ProductPlan,
-                        Actual = CountProduct,
-                        _Date = DateTime.Now.Date
-                    };
-                    string note = "";
-                    if (Table1.Controls.Find("TextComment" + indexCurrent, true).Length > 0)
-                    {
-                        note = Table1.Controls.Find("TextComment" + indexCurrent, true)[0].Text;
-                    }
 
                     if (_counter >= 60)
                     {
-                        var entities = new LineProductWebServiceReference.tbl_Product_RealtimeEntity()
+                        string note = "";
+                        if (Table1.Controls.Find("TextComment" + indexCurrent, true).Length > 0)
                         {
-                            CUSTOMER = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer),
-                            LINE_NO = IdLine,
-                            MODEL = cbbModel.Text,
-                            QTY_PLAN = ProductPlan,
-                            QTY_ACTUAL = CountProduct,
-                            UPDATE_TIME = DateTime.Now.Date,
-                            PEOPLE = NoPeople,
-                            CYRCLETIME_PLAN = (decimal)CycleTimeModel,
-                            CYRCLETIME_ACTUAL = (decimal)CycleTimeActual,
-                            DIFF = BalanceProduction,
-                            ALARM = StatusLine,
-                            STATUS = "RUNNING",
-                            NOTE = note,
-                            QTY_TOTAL = int.Parse(lblTotal.Text),
-                            VERSION = GetRunningVersion()
-                        };
-                        _lineproduct_service.ProductionSave(entities);
+                            note = Table1.Controls.Find("TextComment" + indexCurrent, true)[0].Text;
+                        }
+                        ProductionSave("RUNNING");
                         _counter = 0;
                     }
                     Common.SendToComport(ArraySend, result => { lblState.Text = result; });
@@ -1031,7 +1016,10 @@ namespace Line_Production
                 Console.Write(ex.ToString());
             }
         }
+        public void UpdateToProductionServer()
+        {
 
+        }
         private void BtIncrease_Click(object sender, EventArgs e)
         {
             IncreaseProduct();
@@ -1045,6 +1033,7 @@ namespace Line_Production
         private void Control_FormClosed(object sender, FormClosedEventArgs e)
         {
             RecordProduction();
+            ProductionSave("STOP");
             if (ComPressPort.IsOpen)
             {
                 ComPressPort.Close();
@@ -1251,12 +1240,12 @@ namespace Line_Production
                         IncreaseProduct();
                     }
                 }
-              
+
             }
             catch (Exception)
             {
             }
-            
+
         }
         private void chkOK_CheckedChanged(object sender, EventArgs e)
         {
