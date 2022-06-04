@@ -639,6 +639,7 @@ namespace Line_Production
                 // GroupBox3.Controls("Shape" & StatusLine).Visible = True
                 BtStart.Text = "Online";
                 BtStart.Image = Properties.Resources.pause;
+                BtStart.Enabled = false;
                 int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
                 if (StatusLine == 0)
                 {
@@ -814,13 +815,17 @@ namespace Line_Production
                 Common.UpdateState(STATE.STOP);
                 cbbModel.Visible = true;
                 lblModel.Visible = false;
+                BtStart.Text = "Bắt đầu";
+                BtStart.Enabled = true;
+                BtStart.Image = Properties.Resources.play;
+                
                 ProductionSave("STOP");
             }
             catch (Exception ex)
             {
                 LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
             }
-            SetupDisplay();
+            //SetupDisplay();
         }
 
 
