@@ -23,7 +23,7 @@ namespace Line_Production
         {
             using(var db = new barcode_dbEntities())
             {
-                var currentStation = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.station);
+                var currentStation = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.station);
                 var list = new List<HondaLock>();
                 if (filter == Constants.SERIAL)
                 {

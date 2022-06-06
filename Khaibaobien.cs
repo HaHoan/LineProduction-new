@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Line_Production.Database;
 using Line_Production.Entities;
+using Line_Production.USAPReference;
 using Microsoft.VisualBasic; // Install-Package Microsoft.VisualBasic
 
 namespace Line_Production
@@ -12,23 +13,22 @@ namespace Line_Production
     public partial class Control
     {
         // bien quy dinh duong dan file
-        public static string PathApplication = Application.StartupPath;
         public static bool waitWipConfirm = true;
-        public static string PathPassrate = PathApplication + @"\Passrate";
-        public static string PathConfig = @"SOFTWARE\LINEPRODUCTION\Configs";
         public static string pathBackup = string.Empty;
         public static string pathWip = string.Empty;
         public static bool unlock = false;
         // cac bien cai dat den line san xuat---------------------------------------------------------------
+        public static LINE_MODEL Model;
         public static string IdLine = "";
-        public static int NoPeople = 0; // bien lua gia tri so nguoi can cua 1 model
         public static int NumberInModel = 0; // bien lua gia tri model có sử dụng macbox hay không 
+        public static int NoPeople = 0; // bien lua gia tri model có sử dụng macbox hay không 
         public static bool BarcodeEnable = false; // bien cho phep model co su dung chuc nang barcode hay khong
         public static double CycleTimeModel = 30.6d;
         public static double CycleTimeActual = 0.0d;
         public static bool Shiftcheck = true; // true la ca dem, False la ca dem
         public static string Datecheck = "";
-        public static bool StartProduct = false; // bien quy dinh ve line chay hay dung
+        public static string StateProduct = StateLine.STOP;
+        public static bool IsPauseByTime = false;
         public static DateTime[] TimeLine = new DateTime[22]; // bien quy dinh khung gio 
         public static int TimePauseLine; // bien ghi gio tam dung line
         public static int CountProduct = 0; // dem san luong cua line model
@@ -40,7 +40,6 @@ namespace Line_Production
         public static int BalanceAlarmSetup; // gia tri dat bat dau canh bao san luong
         public static int BalanceErrorSetup; // gia tri dat bat dau canh bao san luong
         public static bool BitPress = false; // bien xac nhan chong nhieu cho nut an tang qu cong com
-        public static bool PauseProduct = false; // bien xac nhan trang thai line dang tam dung
         public static int TimeCountPlan = 0; // bien dem thoi gian cua cycle time theo line
         public static int TimeCycleActual = 0; // bien dem thoi gian cycle time thuc te ma line dang chay
         public static bool[] TimeUse = new bool[10]; // moc thoi gian ma line da chay va su dung
@@ -52,13 +51,13 @@ namespace Line_Production
         public static string MacCurrent = "";
         public static string WO_SAP = "";
         public static string WO_MES = "";
+        public static BCLBFLMEntity BOX_INFO = null;
         public static int IDCount = 0;
         public static int IDCount_box = 0;
         public static string HistoryNo = "";
         public static bool IsUseBarcode = true;
         // Public MacLe As Boolean = False
         // QuyetPham add 26.11
-        public static string pathConfirm = PathApplication + @"\Confirm";
         public static string STATION = "";
         public static string STATION_BEFORE = "";
         // ///////////////////////////////////////////////////////////////////////
@@ -100,11 +99,11 @@ namespace Line_Production
                 var item = pvsservice.GetStationByHostName(mac);
                 if (item != null)
                 {
-                    Common.WriteRegistry(Control.PathConfig, RegistryKeys.id, item.LINE_ID);
+                    Common.WriteRegistry(Constants.PathConfig, RegistryKeys.id, item.LINE_ID);
                     DataProvider.Instance.TimeLines.InsertLine(item.LINE_ID);
-                    Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, item.STATION_NO);
+                    Common.WriteRegistry(Constants.PathConfig, RegistryKeys.station, item.STATION_NO);
                 }
-                var path = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
+                var path = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip);
                 if (!string.IsNullOrEmpty(path))
                 {
                     pathBackup = Path.Combine(path, "backup", DateTime.Now.ToString("yyyyMMdd"));
@@ -115,12 +114,12 @@ namespace Line_Production
                     if (!Directory.Exists(Path.Combine(pathBackup, "NG")))
                         Directory.CreateDirectory(Path.Combine(pathBackup, "NG"));
                 }
-                pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
-                IdLine = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
-                STATION = Common.GetValueRegistryKey(PathConfig, RegistryKeys.station);
-                pathWip = Common.GetValueRegistryKey(PathConfig, RegistryKeys.pathWip);
-                lblComcontrol.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.COM);
-                txtLine.Text = Common.GetValueRegistryKey(PathConfig, RegistryKeys.id);
+                pathWip = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip);
+                IdLine = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id);
+                STATION = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.station);
+                pathWip = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip);
+                lblComcontrol.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM);
+                txtLine.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id);
                 CheckComPressPort();
             }
             catch (Exception e)
@@ -134,7 +133,7 @@ namespace Line_Production
         {
             try
             {
-                ComPressPort.PortName = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS);
+                ComPressPort.PortName = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM_PRESS);
                 if (!ComPressPort.IsOpen)
                 {
                     ComPressPort.Open();
@@ -155,7 +154,7 @@ namespace Line_Production
 
                 using (var db = new barcode_dbEntities())
                 {
-                    var customer = Common.GetValueRegistryKey(PathConfig, RegistryKeys.Customer);
+                    var customer = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Customer);
                     var list = db.LINE_MODEL.Where(m => m.Customer == customer).ToList();
                     if (list == null) return false;
                     foreach (var model in list)
@@ -185,21 +184,20 @@ namespace Line_Production
             {
                 using (var db = new barcode_dbEntities())
                 {
-                    var model = db.LINE_MODEL.Where(m => m.Model.ToLower() == Strcheck.ToLower()).FirstOrDefault();
                     try
                     {
-
-                        NoPeople = model.PersonPerLine;
-                        CycleTimeModel = model.CycleTime;
-                        BarcodeEnable = model.UseBarcode is int useBarcode;
-                        BalanceAlarmSetup = (int)model.WarnQuantity;
-                        BalanceErrorSetup = (int)model.MinQuantity;
-                        if (model.NumberInModel is int numberInModel)
+                        Model = db.LINE_MODEL.Where(m => m.Model.ToLower() == Strcheck.ToLower()).FirstOrDefault();
+                        NoPeople = Model.PersonPerLine;
+                        CycleTimeModel = Model.CycleTime;
+                        BarcodeEnable = Model.UseBarcode is int useBarcode;
+                        BalanceAlarmSetup = (int)Model.WarnQuantity;
+                        BalanceErrorSetup = (int)Model.MinQuantity;
+                        if (Model.NumberInModel is int numberInModel)
                         {
                             NumberInModel = numberInModel;
                         }
-                        HistoryNo = model.HistoryNo;
-                        if (model.UseBarcode == null || (model.UseBarcode is int usebarcode && usebarcode == 0))
+                        HistoryNo = Model.HistoryNo;
+                        if (Model.UseBarcode == null || (Model.UseBarcode is int usebarcode && usebarcode == 0))
                         {
                             IsUseBarcode = false;
                             timerCompress.Enabled = true;
@@ -239,7 +237,7 @@ namespace Line_Production
                 Shiftcheck = false;
                 caSX = CaSX.NIGHT;
             }
-            var list = DataProvider.Instance.TimeLines.Select(Common.GetValueRegistryKey(PathConfig, RegistryKeys.id), caSX);
+            var list = DataProvider.Instance.TimeLines.Select(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id), caSX);
             if (list == null || list.Count == 0)
             {
                 MessageBox.Show("Không lấy được timeLine! Vui lòng kiểm tra lại!");

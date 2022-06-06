@@ -69,7 +69,7 @@ namespace Line_Production.Database
         {
             try
             {
-                string sql = "select count(BoxID) from " + TABLE + " where ProductionID = '" + Model +"' and Line = '" + Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id) + "'" ;
+                string sql = "select count(BoxID) from " + TABLE + " where ProductionID = '" + Model +"' and Line = '" + Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id) + "'" ;
                 SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
                 int count = Convert.ToInt32(command.ExecuteScalar());
                 return count;

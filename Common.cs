@@ -33,8 +33,8 @@ namespace Line_Production
                 {
                     var stateModel = new STATE_HISTORY()
                     {
-                        Line = GetValueRegistryKey(Control.PathConfig, RegistryKeys.id),
-                        Model = GetValueRegistryKey(Control.PathConfig, RegistryKeys.ModelCurrent),
+                        Line = GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id),
+                        Model = GetValueRegistryKey(Constants.PathConfig, RegistryKeys.ModelCurrent),
                         State = state,
                         HostName = Environment.MachineName,
                         UpdateTime = DateTime.Now
@@ -45,17 +45,43 @@ namespace Line_Production
 
             }
             catch { }
-           
+
         }
-        public static List<string> CreateBarcode(string boardNo, int pcb, int contentIndex, int contentLength, bool checkFirst = false)
+        public static List<string> CreateBarcode(string boardNo, int? pcb1, int? contentIndex1, int? contentLength1, bool? checkFirst1 = false)
         {
 
             List<string> lst = new List<string>();
+            var pcb = 0;
+            if (pcb1 is int pcb2)
+            {
+                pcb = pcb2;
+            }
+            else return lst;
             if (pcb == 1)
             {
                 lst.Add(boardNo);
                 return lst;
             }
+            var contentIndex = 0;
+            if (contentIndex1 is int contentIndex2)
+            {
+                contentIndex = contentIndex2;
+            }
+            else return lst;
+
+            var contentLength = 0;
+            if (contentLength is int contentLenght2)
+            {
+                contentLength = contentLenght2;
+            }
+            else return lst;
+            var checkFirst = false;
+            if (checkFirst is bool checkFirst2)
+            {
+                checkFirst = checkFirst2;
+            }
+            else return lst;
+
             var boardHeader = boardNo.Substring(0, contentIndex);
             var start = Convert.ToInt32(boardNo.Substring(contentIndex, contentLength));
             if (checkFirst)
@@ -184,11 +210,11 @@ namespace Line_Production
                 writer.Write(content.ToString());
             }
         }
-        public static bool SendToComport(string data, Action<string> result,string COM = null)
+        public static bool SendToComport(string data, Action<string> result, string COM = null)
         {
             try
             {
-                SerialPort com = new SerialPort() { PortName = GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM) };
+                SerialPort com = new SerialPort() { PortName = GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM) };
                 if (!com.IsOpen) com.Open();
                 if (com.IsOpen == true)
                 {
@@ -198,7 +224,7 @@ namespace Line_Production
                 result(ConstantsText.OK);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result(ConstantsText.NG + ex.Message.ToString());
                 return false;
@@ -234,12 +260,12 @@ namespace Line_Production
             {
                 return TimeSpan.Parse(input) != null;
             }
-            catch 
+            catch
             {
 
                 return false;
             }
-           
+
         }
     }
 
@@ -368,7 +394,7 @@ namespace Line_Production
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     });
                     string hostname = Environment.MachineName;
-                    writeContent = writeContent + " Data: " + objContent +" PC:" + hostname +"\r\n";
+                    writeContent = writeContent + " Data: " + objContent + " PC:" + hostname + "\r\n";
                 }
                 WriteFiles.WriteToFile(filePath, writeContent);
                 long folderSize = ReadFiles.GetFileSizeSumFromDirectory(FolderName);

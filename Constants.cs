@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Line_Production
 {
@@ -16,13 +17,23 @@ namespace Line_Production
         public static string BOXID = "BOXID";
         //public static string MODEL_SPECIAL = "QM7-1890-000SS01";
         public static string LINE_NO_WIP = "STATION-DEFAULT";
-        
+        public static string PathApplication = Application.StartupPath;
+        public static string PathPassrate = PathApplication + @"\Passrate";
+        public static string PathConfig = @"SOFTWARE\LINEPRODUCTION\Configs";
+        public static string pathConfirm = PathApplication + @"\Confirm";
 
     }
     public static class ConstantsText
     {
         public static string NG = "NG";
         public static string OK = "OK";
+    }
+
+    public static class StateLine
+    {
+        public static string RUNNING = "RUNNING";
+        public static string PAUSE = "PAUSE";
+        public static string STOP = "STOP";
     }
     public static class RegistryKeys
     {
@@ -47,9 +58,4 @@ namespace Line_Production
         public static int NIGHT = 1;
     }
    
-    public static class STATE
-    {
-        public static string STOP = "STOP";
-        public static string RUNNING = "RUNNING";
-    }
 }

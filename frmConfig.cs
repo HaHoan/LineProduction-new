@@ -68,7 +68,7 @@ namespace Line_Production
         }
         private void btnSaveChanged_Click(object sender, EventArgs e)
         {
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.id, txtId.Text);
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.id, txtId.Text);
             if (!string.IsNullOrEmpty(txtId.Text))
                 DataProvider.Instance.TimeLines.InsertLine(txtId.Text);
             else
@@ -76,15 +76,15 @@ namespace Line_Production
                 MessageBox.Show("Cần nhập tên Line");
                 return;
             }
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.pathWip, txtLog.Text);
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.station, txtStation.Text.Trim());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.COM, cbbCOM.Text.Trim());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.COM_PRESS, cbbComPress.Text.Trim());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.Process, cbbProcess.Text.Trim());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.Customer, cbbCustomer.Text.Trim());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkPathLog, cbLinkPathLog.Checked.ToString());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.SleepTime, txbSleepTime.Text.Trim());
-            Common.WriteRegistry(Control.PathConfig, RegistryKeys.LinkWip, cbLinkWip.Checked.ToString());
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.pathWip, txtLog.Text);
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.station, txtStation.Text.Trim());
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.COM, cbbCOM.Text.Trim());
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.COM_PRESS, cbbComPress.Text.Trim());
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.Process, cbbProcess.Text.Trim());
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.Customer, cbbCustomer.Text.Trim());
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.LinkPathLog, cbLinkPathLog.Checked.ToString());
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.SleepTime, txbSleepTime.Text.Trim());
+            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.LinkWip, cbLinkWip.Checked.ToString());
             var confirm = MessageBox.Show("Save success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (confirm == DialogResult.OK)
             {
@@ -111,21 +111,21 @@ namespace Line_Production
                     cbLinkPathLog.Checked = false;
                     cbLinkWip.Checked = false;
                 }
-                bool chkWipValue = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.LinkPathLog));
+                bool chkWipValue = bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkPathLog));
                 cbLinkPathLog.Checked = chkWipValue;
-                bool linkWip = bool.Parse(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.LinkWip));
+                bool linkWip = bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkWip));
                 cbLinkWip.Checked = linkWip;
 
             }
             catch { }
 
-            txtId.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id);
-            txtLog.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.pathWip);
-            cbbCOM.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM);
-            cbbComPress.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.COM_PRESS);
-            cbbProcess.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Process);
-            cbbCustomer.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.Customer);
-            txbSleepTime.Text = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.SleepTime);
+            txtId.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id);
+            txtLog.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip);
+            cbbCOM.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM);
+            cbbComPress.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM_PRESS);
+            cbbProcess.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Process);
+            cbbCustomer.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Customer);
+            txbSleepTime.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.SleepTime);
         }
 
         private void btnBrower_Click(object sender, EventArgs e)
@@ -190,7 +190,7 @@ namespace Line_Production
 
         private void btnTestComPress_Click(object sender, EventArgs e)
         {
-            Common.SendToComport("B", result => { MessageBox.Show("Test COM connection : " + result); },Common.GetValueRegistryKey(Control.PathConfig,RegistryKeys.COM_PRESS));
+            Common.SendToComport("B", result => { MessageBox.Show("Test COM connection : " + result); },Common.GetValueRegistryKey(Constants.PathConfig,RegistryKeys.COM_PRESS));
         }
     }
 }

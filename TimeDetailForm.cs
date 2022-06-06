@@ -25,7 +25,7 @@ namespace Line_Production
         {
             var list = DataProvider.Instance.TimeLines.SelectLine(cbbCaSX.SelectedIndex);
             cbbTimeLine.DataSource = list;
-            cbbTimeLine.SelectedIndex = list.IndexOf(Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id));
+            cbbTimeLine.SelectedIndex = list.IndexOf(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id));
         }
 
         private void SettingTimeLines()
@@ -78,7 +78,7 @@ namespace Line_Production
 
         private void btnSaveChanged_Click(object sender, EventArgs e)
         {
-            string line = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.id);
+            string line = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id);
             int CaSX = cbbCaSX.SelectedIndex;
             bool isCompleteTextBox = true;
             for (int i = 1; i <= 10; i++)

@@ -63,6 +63,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.cbReadLog = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,7 +144,7 @@
             this.ckbUseBarcode.AutoSize = true;
             this.ckbUseBarcode.Checked = true;
             this.ckbUseBarcode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbUseBarcode.Location = new System.Drawing.Point(217, 417);
+            this.ckbUseBarcode.Location = new System.Drawing.Point(154, 417);
             this.ckbUseBarcode.Name = "ckbUseBarcode";
             this.ckbUseBarcode.Size = new System.Drawing.Size(109, 17);
             this.ckbUseBarcode.TabIndex = 13;
@@ -405,11 +406,22 @@
             this.label20.TabIndex = 48;
             this.label20.Text = "(*)";
             // 
+            // cbReadLog
+            // 
+            this.cbReadLog.AutoSize = true;
+            this.cbReadLog.Location = new System.Drawing.Point(154, 440);
+            this.cbReadLog.Name = "cbReadLog";
+            this.cbReadLog.Size = new System.Drawing.Size(154, 17);
+            this.cbReadLog.TabIndex = 50;
+            this.cbReadLog.Text = "Đọc log từ phần mềm khác";
+            this.cbReadLog.UseVisualStyleBackColor = true;
+            // 
             // AddModelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 506);
+            this.Controls.Add(this.cbReadLog);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
@@ -492,5 +504,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.CheckBox cbReadLog;
     }
 }

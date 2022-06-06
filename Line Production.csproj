@@ -111,6 +111,9 @@
     <Compile Include="AddModelForm.Designer.cs">
       <DependentUpon>AddModelForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Business\USAPHelper.cs" />
+    <Compile Include="Business\Validate.cs" />
+    <Compile Include="Business\WIPHelper.cs" />
     <Compile Include="ChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>

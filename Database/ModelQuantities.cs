@@ -162,67 +162,14 @@ namespace Line_Production.Database
             }
             return list;
         }
-        public Model Select(string ModelID)
+        public LINE_MODEL Select(string ModelID)
         {
             try
             {
-                string sql = "select * from " + TABLE + " where Model like '%" + ModelID + "%'";
-                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
-
-                using (DbDataReader reader = command.ExecuteReader())
+                using(var db = new barcode_dbEntities())
                 {
-                    if (reader.HasRows)
-                    {
-
-                        while (reader.Read())
-                        {
-                            Model model = new Model();
-                            model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
-                            model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
-                            model.HistoryNo = reader[reader.GetOrdinal(ModelString.HistoryNo)] as string;
-                            model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
-                            model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
-                            model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
-                            model.WarnQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.WarnQuantity));
-                            model.MinQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.MinQuantity));
-                            model.CharModel = reader[reader.GetOrdinal(ModelString.CharModel)] as string;
-                            model.Customer = reader[reader.GetOrdinal(ModelString.Customer)] as string;
-                            model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
-                            model.PCB = reader.GetInt32(reader.GetOrdinal(ModelString.PCB));
-
-                            if (!checkNull(reader, ModelString.ContentIndex))
-                            {
-                                model.ContentIndex = reader.GetInt32(reader.GetOrdinal(ModelString.ContentIndex));
-
-                            }
-                            else
-                            {
-                                model.ContentIndex = 0;
-                            }
-
-                            if (!checkNull(reader, ModelString.ContentLength))
-                            {
-                                model.ContentLength = reader.GetInt32(reader.GetOrdinal(ModelString.ContentLength));
-                            }
-                            else
-                            {
-                                model.ContentLength = 0;
-                            }
-                            if (!checkNull(reader, ModelString.CheckFirst))
-                            {
-                                model.CheckFirst = reader.GetBoolean(reader.GetOrdinal(ModelString.CheckFirst));
-                            }
-                            else
-                            {
-                                model.CheckFirst = false;
-                            }
-                            return model;
-                        }
-
-                    }
-
+                    return db.LINE_MODEL.Where(m => m.Model == ModelID).FirstOrDefault();
                 }
-                return null;
             }
             catch (Exception e)
             {
@@ -244,113 +191,7 @@ namespace Line_Production.Database
             }
        
         }
-        public Model Select(int ID)
-        {
-            try
-            {
-                string sql = "select * from " + TABLE + " where ID = '" + ID + "'";
-                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
-
-                using (DbDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-
-                        while (reader.Read())
-                        {
-                            Model model = new Model();
-                            model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
-                            model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
-                            model.HistoryNo = reader[reader.GetOrdinal(ModelString.HistoryNo)] as string;
-                            model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
-                            model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
-                            model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
-                            model.WarnQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.WarnQuantity));
-                            model.MinQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.MinQuantity));
-                            model.CharModel = reader[reader.GetOrdinal(ModelString.CharModel)] as string;
-                            model.Customer = reader[reader.GetOrdinal(ModelString.Customer)] as string;
-                            model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
-                            model.PCB = reader.GetInt32(reader.GetOrdinal(ModelString.PCB));
-
-                            if(!checkNull(reader, ModelString.ContentIndex))
-                            {
-                                model.ContentIndex = reader.GetInt32(reader.GetOrdinal(ModelString.ContentIndex));
-
-                            }
-                            else
-                            {
-                                model.ContentIndex = 0;
-                            }
-
-                            if(!checkNull(reader, ModelString.ContentLength))
-                            {
-                                model.ContentLength = reader.GetInt32(reader.GetOrdinal(ModelString.ContentLength));
-                            }else
-                            {
-                                model.ContentLength = 0;
-                            }
-                            if(!checkNull(reader, ModelString.CheckFirst))
-                            {
-                                model.CheckFirst = reader.GetBoolean(reader.GetOrdinal(ModelString.CheckFirst));
-                            }
-                            else
-                            {
-                                model.CheckFirst = false;
-                            }
-                          
-                            return model;
-                        }
-
-                    }
-
-                }
-                return null;
-            }
-            catch (Exception e)
-            {
-                Console.Write(e.Message.ToString());
-                return null;
-            }
-        }
-        public List<Model> SelectBy(string Customer)
-        {
-            var list = new List<Model>();
-            try
-            {
-                string sql = "select * from " + TABLE + " where Customer like '%" + Customer + "%'"; ;
-                SqlCommand command = new SqlCommand(sql, DataProvider.Instance.DB);
-
-                using (DbDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-
-                        while (reader.Read())
-                        {
-                            Model model = new Model();
-                            model.Id = reader.GetInt32(reader.GetOrdinal(ModelString.Id));
-                            model.ModelID = reader[reader.GetOrdinal(ModelString.ModelID)] as string;
-                            model.Cycle = reader.GetDouble(reader.GetOrdinal(ModelString.CycleTime));
-                            model.UseBarcode = reader.GetInt32(reader.GetOrdinal(ModelString.UseBarcode)) == 1 ? true : false;
-                            model.NumberInModel = reader.GetInt32(reader.GetOrdinal(ModelString.NumberInModel));
-                            model.WarnQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.WarnQuantity));
-                            model.MinQuantity = reader.GetDouble(reader.GetOrdinal(ModelString.MinQuantity));
-                            model.CharModel = reader[reader.GetOrdinal(ModelString.CharModel)] as string;
-                            model.PersonInLine = reader.GetInt32(reader.GetOrdinal(ModelString.PersonPerLine));
-                            list.Add(model);
-                        }
-
-                    }
-
-                }
-            }
-            catch (Exception e)
-            {
-                Console.Write(e.Message.ToString());
-                return null;
-            }
-            return list;
-        }
+       
         public int Delete(string Model)
         {
             try

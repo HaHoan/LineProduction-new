@@ -9,12 +9,12 @@
         <EntityTypeShape EntityType="barcode_dbModel.LINE_TIME" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="barcode_dbModel.LINE_TIMELINE" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="barcode_dbModel.USER" Width="1.5" PointX="5.375" PointY="5.75" />
-        <EntityTypeShape EntityType="barcode_dbModel.LINE_MODEL" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="barcode_dbModel.CUSTOMER" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="barcode_dbModel.HondaLock" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="barcode_dbModel.LINE_FAULT_REASON" Width="1.5" PointX="2.75" PointY="8.75" />
         <EntityTypeShape EntityType="barcode_dbModel.STATE_HISTORY" Width="1.5" PointX="4.75" PointY="8.75" />
         <EntityTypeShape EntityType="barcode_dbModel.CONFIRM_FAULT_REASON" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="barcode_dbModel.LINE_MODEL" Width="1.5" PointX="7.375" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

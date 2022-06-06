@@ -72,7 +72,7 @@ namespace Line_Production
                                 ContentLength = int.Parse(txbContentLength.Text.Trim()),
                                 CheckFirst = cbCheckFirst.Checked,
                                 HistoryNo = txbHistoryNo.Text.Trim(),
-                                Modifier = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.CurrentUser),
+                                Modifier = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.CurrentUser),
                                 ModifyDate = DateTime.Now
                             };
                             db.LINE_MODEL.Add(model);
@@ -101,7 +101,7 @@ namespace Line_Production
                         modelInDb.ContentLength = int.Parse(txbContentLength.Text.Trim());
                         modelInDb.CheckFirst = cbCheckFirst.Checked;
                         modelInDb.HistoryNo = txbHistoryNo.Text.Trim();
-                        modelInDb.Modifier = Common.GetValueRegistryKey(Control.PathConfig, RegistryKeys.CurrentUser);
+                        modelInDb.Modifier = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.CurrentUser);
                         modelInDb.ModifyDate = DateTime.Now;
                         db.SaveChanges();
                         close();
@@ -123,33 +123,44 @@ namespace Line_Production
         {
             try
             {
-                if (ID == 0)
+                using (var db = new barcode_dbEntities())
                 {
-                    return;
+                    if (ID == 0)
+                    {
+                        return;
+                    }
+                    var model = db.LINE_MODEL.Where(m => m.Id == ID).FirstOrDefault();
+                    if (model != null)
+                    {
+                        ID = model.Id;
+                        txbModelID.Text = model.Model;
+                        txbModelID.Enabled = false;
+                        txbPersonInLine.Text = model.PersonPerLine.ToString();
+                        txbCycle.Text = model.CycleTime.ToString();
+                        txbWarmQuatity.Text = model.WarnQuantity.ToString();
+                        txbMnQuantity.Text = model.MinQuantity.ToString();
+                        ckbUseBarcode.Checked = model.UseBarcode == 1 ? true : false;
+                        txbNumberInModel.Text = model.NumberInModel.ToString();
+                        txbPCB.Text = model.PCB.ToString();
+                        cbbCustomer.Text = model.Customer.ToString();
+                        txbContentIndex.Text = model.ContentIndex.ToString();
+                        txbContentLength.Text = model.ContentLength.ToString();
+                        if (model.CheckFirst is bool checkFirst)
+                        {
+                            cbCheckFirst.Checked = checkFirst;
+                        }
+                        txbHistoryNo.Text = model.HistoryNo;
+                        if (model.ReadFileLog is bool readFileLog)
+                        {
+                            cbReadLog.Checked = readFileLog;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy model này");
+                    }
                 }
-                Model model = DataProvider.Instance.ModelQuantities.Select(ID);
-                if (model != null)
-                {
-                    ID = model.Id;
-                    txbModelID.Text = model.ModelID;
-                    txbModelID.Enabled = false;
-                    txbPersonInLine.Text = model.PersonInLine.ToString();
-                    txbCycle.Text = model.Cycle.ToString();
-                    txbWarmQuatity.Text = model.WarnQuantity.ToString();
-                    txbMnQuantity.Text = model.MinQuantity.ToString();
-                    ckbUseBarcode.Checked = model.UseBarcode;
-                    txbNumberInModel.Text = model.NumberInModel.ToString();
-                    txbPCB.Text = model.PCB.ToString();
-                    cbbCustomer.Text = model.Customer.ToString();
-                    txbContentIndex.Text = model.ContentIndex.ToString();
-                    txbContentLength.Text = model.ContentLength.ToString();
-                    cbCheckFirst.Checked = model.CheckFirst;
-                    txbHistoryNo.Text = model.HistoryNo;
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy model này");
-                }
+
             }
             catch (Exception ex)
             {
@@ -163,25 +174,31 @@ namespace Line_Production
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string modelID = txbModelID.Text.Trim();
-                if (ID == 0)
+                using (var db = new barcode_dbEntities())
                 {
-                    var model = DataProvider.Instance.ModelQuantities.Select(modelID);
-                    if (model != null)
+                    string modelID = txbModelID.Text.Trim();
+                    if (ID == 0)
                     {
-                        ID = model.Id;
-                        txbModelID.Text = model.ModelID;
-                        txbPersonInLine.Text = model.PersonInLine.ToString();
-                        txbCycle.Text = model.Cycle.ToString();
-                        txbWarmQuatity.Text = model.WarnQuantity.ToString();
-                        txbMnQuantity.Text = model.MinQuantity.ToString();
-                        ckbUseBarcode.Checked = model.UseBarcode;
-                        txbNumberInModel.Text = model.NumberInModel.ToString();
-                        txbPCB.Text = model.PCB.ToString();
-                        cbbCustomer.Text = model.Customer.ToString();
-                        txbHistoryNo.Text = model.HistoryNo;
+                        var model = db.LINE_MODEL.Where(m => m.Model == modelID).FirstOrDefault();
+                        if (model != null)
+                        {
+                            ID = model.Id;
+                            txbModelID.Text = model.Model;
+                            txbPersonInLine.Text = model.PersonPerLine.ToString();
+                            txbCycle.Text = model.CycleTime.ToString();
+                            txbWarmQuatity.Text = model.WarnQuantity.ToString();
+                            txbMnQuantity.Text = model.MinQuantity.ToString();
+                            ckbUseBarcode.Checked = model.UseBarcode == 1 ? true : false;
+                            txbNumberInModel.Text = model.NumberInModel.ToString();
+                            txbPCB.Text = model.PCB.ToString();
+                            cbbCustomer.Text = model.Customer.ToString();
+                            txbHistoryNo.Text = model.HistoryNo;
+                            cbCheckFirst.Checked = model.CheckFirst is bool checkFirst;
+                            cbReadLog.Checked = model.CheckFirst is bool readLog;
+                        }
                     }
                 }
+
             }
 
         }

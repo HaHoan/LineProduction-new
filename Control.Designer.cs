@@ -263,9 +263,9 @@ namespace Line_Production
             this.GroupBox5.Controls.Add(this.TextMacBox);
             this.GroupBox5.Controls.Add(this.Label24);
             this.GroupBox5.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox5.Location = new System.Drawing.Point(615, 11);
+            this.GroupBox5.Location = new System.Drawing.Point(619, 11);
             this.GroupBox5.Name = "GroupBox5";
-            this.GroupBox5.Size = new System.Drawing.Size(351, 148);
+            this.GroupBox5.Size = new System.Drawing.Size(347, 148);
             this.GroupBox5.TabIndex = 16;
             this.GroupBox5.TabStop = false;
             this.GroupBox5.Text = "Quản lý bản mạch";
@@ -413,7 +413,7 @@ namespace Line_Production
             this.TextMacBox.Name = "TextMacBox";
             this.TextMacBox.Size = new System.Drawing.Size(179, 22);
             this.TextMacBox.TabIndex = 12;
-            this.TextMacBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextMacBox_KeyPress);
+            this.TextMacBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextMacBox_PreviewKeyDown);
             // 
             // Label24
             // 
@@ -640,7 +640,7 @@ namespace Line_Production
             this.BtStop.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtStop.Image = global::Line_Production.Properties.Resources.stop;
             this.BtStop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtStop.Location = new System.Drawing.Point(508, 23);
+            this.BtStop.Location = new System.Drawing.Point(511, 23);
             this.BtStop.Name = "BtStop";
             this.BtStop.Size = new System.Drawing.Size(105, 40);
             this.BtStop.TabIndex = 0;
@@ -655,11 +655,11 @@ namespace Line_Production
             this.BtStart.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtStart.Image = global::Line_Production.Properties.Resources.play;
             this.BtStart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtStart.Location = new System.Drawing.Point(398, 23);
+            this.BtStart.Location = new System.Drawing.Point(397, 23);
             this.BtStart.Name = "BtStart";
-            this.BtStart.Size = new System.Drawing.Size(106, 40);
+            this.BtStart.Size = new System.Drawing.Size(108, 40);
             this.BtStart.TabIndex = 0;
-            this.BtStart.Text = "Bắt đầu";
+            this.BtStart.Text = "Bắt đầu";
             this.BtStart.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtStart.UseVisualStyleBackColor = true;
             this.BtStart.Click += new System.EventHandler(this.BtStart_Click);

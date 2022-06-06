@@ -61,7 +61,7 @@ namespace Line_Production
                     var user = db.USERs.Where(m => m.Code == username).FirstOrDefault();
                     if (user != null)
                     {
-                        Common.WriteRegistry(Control.PathConfig, RegistryKeys.CurrentUser, user.Code);
+                        Common.WriteRegistry(Constants.PathConfig, RegistryKeys.CurrentUser, user.Code);
                         var listForm = new ListModel();
                         listForm.closeForm = () =>
                         {

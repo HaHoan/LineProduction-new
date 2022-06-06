@@ -81,6 +81,7 @@
           <Property Name="HistoryNo" Type="nvarchar" MaxLength="50" />
           <Property Name="Modifier" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ReadFileLog" Type="bit" />
         </EntityType>
         <EntityType Name="LINE_PASSRATE">
           <Key>
@@ -191,12 +192,12 @@
           <EntitySet Name="LINE_TIME" EntityType="Self.LINE_TIME" />
           <EntitySet Name="LINE_TIMELINE" EntityType="Self.LINE_TIMELINE" />
           <EntitySet Name="USERs" EntityType="barcode_dbModel.USER" />
-          <EntitySet Name="LINE_MODEL" EntityType="barcode_dbModel.LINE_MODEL" />
           <EntitySet Name="CUSTOMERs" EntityType="barcode_dbModel.CUSTOMER" />
           <EntitySet Name="HondaLocks" EntityType="barcode_dbModel.HondaLock" />
           <EntitySet Name="LINE_FAULT_REASON" EntityType="barcode_dbModel.LINE_FAULT_REASON" />
           <EntitySet Name="STATE_HISTORY" EntityType="barcode_dbModel.STATE_HISTORY" />
           <EntitySet Name="CONFIRM_FAULT_REASON" EntityType="barcode_dbModel.CONFIRM_FAULT_REASON" />
+          <EntitySet Name="LINE_MODEL" EntityType="barcode_dbModel.LINE_MODEL" />
         </EntityContainer>
         <EntityType Name="USER">
           <Key>
@@ -204,28 +205,6 @@
           </Key>
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="LINE_MODEL">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PersonPerLine" Type="Int32" Nullable="false" />
-          <Property Name="CycleTime" Type="Double" Nullable="false" />
-          <Property Name="WarnQuantity" Type="Double" Nullable="false" />
-          <Property Name="MinQuantity" Type="Double" Nullable="false" />
-          <Property Name="CharModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UseBarcode" Type="Int32" />
-          <Property Name="NumberInModel" Type="Int32" />
-          <Property Name="PCB" Type="Int32" />
-          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContentLength" Type="Int32" />
-          <Property Name="ContentIndex" Type="Int32" />
-          <Property Name="CheckFirst" Type="Boolean" />
-          <Property Name="HistoryNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Modifier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="CUSTOMER">
           <Key>
@@ -293,6 +272,29 @@
           <Property Name="TimeFrom" Type="DateTime" Precision="3" />
           <Property Name="TimeTo" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="LINE_MODEL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonPerLine" Type="Int32" Nullable="false" />
+          <Property Name="CycleTime" Type="Double" Nullable="false" />
+          <Property Name="WarnQuantity" Type="Double" Nullable="false" />
+          <Property Name="MinQuantity" Type="Double" Nullable="false" />
+          <Property Name="CharModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UseBarcode" Type="Int32" />
+          <Property Name="NumberInModel" Type="Int32" />
+          <Property Name="PCB" Type="Int32" />
+          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContentLength" Type="Int32" />
+          <Property Name="ContentIndex" Type="Int32" />
+          <Property Name="CheckFirst" Type="Boolean" />
+          <Property Name="HistoryNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Modifier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ReadFileLog" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -342,29 +344,6 @@
               <MappingFragment StoreEntitySet="USER">
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LINE_MODEL">
-            <EntityTypeMapping TypeName="barcode_dbModel.LINE_MODEL">
-              <MappingFragment StoreEntitySet="LINE_MODEL">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="Modifier" ColumnName="Modifier" />
-                <ScalarProperty Name="HistoryNo" ColumnName="HistoryNo" />
-                <ScalarProperty Name="CheckFirst" ColumnName="CheckFirst" />
-                <ScalarProperty Name="ContentIndex" ColumnName="ContentIndex" />
-                <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="PCB" ColumnName="PCB" />
-                <ScalarProperty Name="NumberInModel" ColumnName="NumberInModel" />
-                <ScalarProperty Name="UseBarcode" ColumnName="UseBarcode" />
-                <ScalarProperty Name="CharModel" ColumnName="CharModel" />
-                <ScalarProperty Name="MinQuantity" ColumnName="MinQuantity" />
-                <ScalarProperty Name="WarnQuantity" ColumnName="WarnQuantity" />
-                <ScalarProperty Name="CycleTime" ColumnName="CycleTime" />
-                <ScalarProperty Name="PersonPerLine" ColumnName="PersonPerLine" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -435,6 +414,30 @@
                 <ScalarProperty Name="TimeLine" ColumnName="TimeLine" />
                 <ScalarProperty Name="HostName" ColumnName="HostName" />
                 <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LINE_MODEL">
+            <EntityTypeMapping TypeName="barcode_dbModel.LINE_MODEL">
+              <MappingFragment StoreEntitySet="LINE_MODEL">
+                <ScalarProperty Name="ReadFileLog" ColumnName="ReadFileLog" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="Modifier" ColumnName="Modifier" />
+                <ScalarProperty Name="HistoryNo" ColumnName="HistoryNo" />
+                <ScalarProperty Name="CheckFirst" ColumnName="CheckFirst" />
+                <ScalarProperty Name="ContentIndex" ColumnName="ContentIndex" />
+                <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="PCB" ColumnName="PCB" />
+                <ScalarProperty Name="NumberInModel" ColumnName="NumberInModel" />
+                <ScalarProperty Name="UseBarcode" ColumnName="UseBarcode" />
+                <ScalarProperty Name="CharModel" ColumnName="CharModel" />
+                <ScalarProperty Name="MinQuantity" ColumnName="MinQuantity" />
+                <ScalarProperty Name="WarnQuantity" ColumnName="WarnQuantity" />
+                <ScalarProperty Name="CycleTime" ColumnName="CycleTime" />
+                <ScalarProperty Name="PersonPerLine" ColumnName="PersonPerLine" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
