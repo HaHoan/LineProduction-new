@@ -202,5 +202,22 @@ namespace Line_Production
             }
 
         }
+
+        private void cbbCustomer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ID != 0) return;
+            using(var db = new barcode_dbEntities())
+            {
+                var customer = db.CUSTOMERs.Where(m => m.NAME == cbbCustomer.Text).FirstOrDefault();
+                if (customer.IS_FILE_LOG)
+                {
+                    cbReadLog.Checked = true;
+                }
+                else
+                {
+                    cbReadLog.Checked = false;
+                }
+            }
+        }
     }
 }

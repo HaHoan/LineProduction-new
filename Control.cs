@@ -36,28 +36,9 @@ namespace Line_Production
             {
                 MessageBox.Show("Vào Config để điền đây đủ các mục setting!");
             }
-            CheckCustomer();
-            ShiftDirectory(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip));
         }
 
-        private void CheckCustomer()
-        {
-            var customer = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Customer);
-            if (customer == null) return;
-            using (var db = new barcode_dbEntities())
-            {
-                var customerDb = db.CUSTOMERs.Where(m => m.NAME == customer).FirstOrDefault();
-                if (customerDb.IS_FILE_LOG)
-                {
-                    IS_USING_FILE_LOG = true;
-                }
-                else
-                {
-                    IS_USING_FILE_LOG = false;
-                }
-            }
-
-        }
+        
         int CountFileBeginDay = 0;
         int CountFileBeginNight = 0;
         int CountFileCurrentDay = 0;

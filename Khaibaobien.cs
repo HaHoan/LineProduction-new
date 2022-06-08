@@ -210,6 +210,7 @@ namespace Line_Production
                         if (Model.ReadFileLog is bool readFileLog && readFileLog == true)
                         {
                             IS_USING_FILE_LOG = true;
+                            ShiftDirectory(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip));
                         }
                         else
                         {

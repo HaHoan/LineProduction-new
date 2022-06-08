@@ -335,6 +335,7 @@
             this.cbbCustomer.Name = "cbbCustomer";
             this.cbbCustomer.Size = new System.Drawing.Size(172, 21);
             this.cbbCustomer.TabIndex = 42;
+            this.cbbCustomer.SelectedIndexChanged += new System.EventHandler(this.cbbCustomer_SelectedIndexChanged);
             // 
             // label15
             // 
