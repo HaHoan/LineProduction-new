@@ -207,6 +207,19 @@ namespace Line_Production
                             IsUseBarcode = true;
                             timerCompress.Enabled = false;
                         }
+                        if (Model.ReadFileLog is bool readFileLog && readFileLog == true)
+                        {
+                            IS_USING_FILE_LOG = true;
+                        }
+                        else
+                        {
+                            IS_USING_FILE_LOG = false;
+                        }
+                        var customer = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Customer); 
+                        if(customer != Model.Customer)
+                        {
+                            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.Customer, Model.Customer);
+                        }
                     }
                     catch (Exception ex)
                     {

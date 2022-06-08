@@ -51,6 +51,10 @@ namespace Line_Production
                 {
                     IS_USING_FILE_LOG = true;
                 }
+                else
+                {
+                    IS_USING_FILE_LOG = false;
+                }
             }
 
         }
@@ -1233,11 +1237,14 @@ namespace Line_Production
                         txtSerial.Focus();
                         txtSerial.SelectAll();
                         ShowNGForm(checkValidateSerial);
-                       
+
                         return;
                     }
                     var orderItem = pvsservice.GetWorkOrderItemByBoardNo(serial);
-                    WO_MES = orderItem.ORDER_NO;
+                    if (orderItem != null)
+                    {
+                        WO_MES = orderItem.ORDER_NO;
+                    }
                     if (bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkPathLog)))
                     {
                         // sinh ra log

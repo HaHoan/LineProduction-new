@@ -73,7 +73,8 @@ namespace Line_Production
                                 CheckFirst = cbCheckFirst.Checked,
                                 HistoryNo = txbHistoryNo.Text.Trim(),
                                 Modifier = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.CurrentUser),
-                                ModifyDate = DateTime.Now
+                                ModifyDate = DateTime.Now,
+                                ReadFileLog = cbReadLog.Checked
                             };
                             db.LINE_MODEL.Add(model);
                             db.SaveChanges();
@@ -84,8 +85,6 @@ namespace Line_Production
                     }
                     else
                     {
-
-
                         modelInDb.Id = ID;
                         modelInDb.Model = txbModelID.Text.ToString().Trim();
                         modelInDb.PersonPerLine = int.Parse(txbPersonInLine.Text.ToString());
@@ -103,6 +102,7 @@ namespace Line_Production
                         modelInDb.HistoryNo = txbHistoryNo.Text.Trim();
                         modelInDb.Modifier = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.CurrentUser);
                         modelInDb.ModifyDate = DateTime.Now;
+                        modelInDb.ReadFileLog = cbReadLog.Checked;
                         db.SaveChanges();
                         close();
                         Close();
