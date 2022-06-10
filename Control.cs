@@ -38,7 +38,7 @@ namespace Line_Production
             }
         }
 
-        
+
         int CountFileBeginDay = 0;
         int CountFileBeginNight = 0;
         int CountFileCurrentDay = 0;
@@ -346,19 +346,19 @@ namespace Line_Production
         {
             string line = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id);
             string currentStation = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.station);
-            PassRate passRate = DataProvider.Instance.PassRates.GetPassRate(line, cbbModel.Text, Datecheck + "_" + Shiftcheck);
+            var passRate = DataProvider.Instance.PassRates.GetPassRate(line, cbbModel.Text, Datecheck + "_" + Shiftcheck);
             if (passRate != null)
             {
-                ProductPlanBegin = passRate.ProductPlan;
-                ProductPlan = passRate.ProductPlan;
-                CountProduct = passRate.Actual;
+                ProductPlanBegin = passRate.ProductPlan is int productPlan ? productPlan : 0;
+                ProductPlan = passRate.ProductPlan is int productPlan1 ? productPlan1 : 0;
+                CountProduct = passRate.Actual is int actual ? actual : 0;
                 IDCount = 0;
-                IDCount_box = passRate.IDCountBox;
+                IDCount_box = passRate.IDCountBox is int countBox ? countBox : 0;
                 Box_curent = "";
                 TimeCycleActual = (int)passRate.TimeCycleActual;
                 for (int index = 0; index < 10; index++)
                 {
-                    CountProductPerHour[index + 1] = int.Parse(passRate.TimeValue[index]);
+                    CountProductPerHour[index + 1] = int.Parse(passRate.TimeValues[index]);
                     notePerHour[index + 1] = "";
                 }
             }
@@ -369,7 +369,7 @@ namespace Line_Production
                     CountProductPerHour[index] = 0;
                     notePerHour[index] = "";
                 }
-                PassRate p = new PassRate();
+                LINE_PASSRATE p = new LINE_PASSRATE();
                 p.ProductionID = cbbModel.Text;
                 p.Line = line;
                 p.Time = Datecheck + "_" + Shiftcheck;
@@ -379,12 +379,13 @@ namespace Line_Production
                 p.IDCountBox = IDCount_box;
                 p.BoxCurrent = Box_curent;
                 p.TimeCycleActual = TimeCycleActual;
-                p.TimeValue = new string[10];
+                p.TimeValues = new string[10];
                 for (int index = 0; index < 10; index++)
                 {
-                    p.TimeValue[index] = "0";
+                    p.TimeValues[index] = "0";
                 }
-                DataProvider.Instance.PassRates.Insert(p);
+                p.TimeValue = string.Join(",", p.TimeValues);
+                DataProvider.Instance.PassRates.Update(p);
             }
 
         }
@@ -394,40 +395,24 @@ namespace Line_Production
             if (ModelCurrent != "")
             {
                 string line = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id);
-                PassRate passRate = DataProvider.Instance.PassRates.GetPassRate(line, cbbModel.Text, Datecheck + "_" + Shiftcheck);
-                if (passRate != null)
+
+                LINE_PASSRATE p = new LINE_PASSRATE();
+                p.ProductionID = cbbModel.Text;
+                p.Line = line;
+                p.Time = Datecheck + "_" + Shiftcheck;
+                p.ProductPlan = ProductPlan;
+                p.Actual = CountProduct;
+                p.IDCount = IDCount;
+                p.IDCountBox = IDCount_box;
+                p.BoxCurrent = Box_curent;
+                p.TimeCycleActual = TimeCycleActual;
+                p.TimeValues = new string[10];
+                for (int index = 0; index < 10; index++)
                 {
-                    passRate.ProductPlan = ProductPlan;
-                    passRate.Actual = CountProduct;
-                    passRate.IDCount = IDCount;
-                    passRate.IDCountBox = IDCount_box;
-                    passRate.BoxCurrent = Box_curent;
-                    passRate.TimeCycleActual = TimeCycleActual;
-                    for (int index = 0; index < 10; index++)
-                    {
-                        passRate.TimeValue[index] = CountProductPerHour[index + 1].ToString();
-                    }
-                    DataProvider.Instance.PassRates.Update(passRate);
+                    p.TimeValues[index] = "0";
                 }
-                else
-                {
-                    PassRate p = new PassRate();
-                    p.ProductionID = cbbModel.Text;
-                    p.Line = line;
-                    p.Time = Datecheck + "_" + Shiftcheck;
-                    p.ProductPlan = ProductPlan;
-                    p.Actual = CountProduct;
-                    p.IDCount = IDCount;
-                    p.IDCountBox = IDCount_box;
-                    p.BoxCurrent = Box_curent;
-                    p.TimeCycleActual = TimeCycleActual;
-                    p.TimeValue = new string[10];
-                    for (int index = 0; index < 10; index++)
-                    {
-                        p.TimeValue[index] = "0";
-                    }
-                    DataProvider.Instance.PassRates.Insert(p);
-                }
+                p.TimeValue = string.Join(",", p.TimeValues);
+                DataProvider.Instance.PassRates.Update(p);
             }
         }
 
@@ -1224,7 +1209,17 @@ namespace Line_Production
                     var orderItem = pvsservice.GetWorkOrderItemByBoardNo(serial);
                     if (orderItem != null)
                     {
-                        WO_MES = orderItem.ORDER_NO;
+                        if(WO_MES != orderItem.ORDER_NO)
+                        {
+                            WO_MES = orderItem.ORDER_NO;
+
+                            if (NumberInModel == -1)
+                            {
+                                var workOrder = pvsservice.GetWorkOrdersByOrderNo(orderItem.ORDER_NO);
+                                LabelPCS1BOX.Text = workOrder.QUANTITY.ToString();
+                            }
+                        }
+                        
                     }
                     if (bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkPathLog)))
                     {

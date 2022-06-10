@@ -26,5 +26,7 @@ namespace Line_Production
         public int Id { get; set; }
         public string TimeValue { get; set; }
         public string NamePC { get; set; }
+
+        public string[] TimeValues { get; set; }
     }
 }
