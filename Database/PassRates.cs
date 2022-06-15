@@ -39,25 +39,34 @@ namespace Line_Production.Database
 
         internal void Update(LINE_PASSRATE pass)
         {
-            using (var db = new barcode_dbEntities())
+            try
             {
-                var passRate = db.LINE_PASSRATE.Where(m => m.ProductionID == pass.ProductionID && m.Line == pass.Line && m.Time == pass.Time).FirstOrDefault();
-                if (passRate != null)
+                using (var db = new barcode_dbEntities())
                 {
-                    passRate.ProductPlan = pass.ProductPlan;
-                    passRate.Actual = pass.Actual;
-                    passRate.IDCount = pass.IDCount;
-                    passRate.IDCountBox = pass.IDCountBox;
-                    passRate.BoxCurrent = pass.BoxCurrent;
-                    passRate.TimeCycleActual = pass.TimeCycleActual;
-                    passRate.TimeValue = pass.TimeValue;
+                    var passRate = db.LINE_PASSRATE.Where(m => m.ProductionID == pass.ProductionID && m.Line == pass.Line && m.Time == pass.Time).FirstOrDefault();
+                    if (passRate != null)
+                    {
+                        passRate.ProductPlan = pass.ProductPlan;
+                        passRate.Actual = pass.Actual;
+                        passRate.IDCount = pass.IDCount;
+                        passRate.IDCountBox = pass.IDCountBox;
+                        passRate.BoxCurrent = pass.BoxCurrent;
+                        passRate.TimeCycleActual = pass.TimeCycleActual;
+                        passRate.TimeValue = pass.TimeValue;
+
+                    }
+                    else
+                    {
+                        db.LINE_PASSRATE.Add(pass);
+                    }
+                    db.SaveChanges();
                 }
-                else
-                {
-                    db.LINE_PASSRATE.Add(pass);
-                }
-                db.SaveChanges();
             }
+            catch (Exception e)
+            {
+                throw;
+            }
+           
         }
     }
 

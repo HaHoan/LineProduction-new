@@ -11,6 +11,8 @@ using Line_Production.Database;
 using Line_Production.Entities;
 using Microsoft.VisualBasic;
 using Line_Production.Business;
+using System.Diagnostics;
+
 namespace Line_Production
 {
     public partial class Control : Form
@@ -36,6 +38,17 @@ namespace Line_Production
             {
                 MessageBox.Show("Vào Config để điền đây đủ các mục setting!");
             }
+
+            Stopwatch swObj = new Stopwatch();
+
+            //Thời gian bắt đầu
+            swObj.Start();
+            var dis = Common.CalcLevenshteinDistance("hoan", "hdndd");
+            Console.Write(dis);
+            swObj.Stop();
+
+            //Tổng thời gian thực hiện 
+            Console.WriteLine("Total:=" + swObj.ElapsedTicks);
         }
 
 
@@ -135,13 +148,15 @@ namespace Line_Production
                     Directory.CreateDirectory(targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaDem");
                     // Process the list of files found in the directory.
                 }
-
+                var dateTimeNow = DateTime.Now;
                 foreach (var fileName in fileEntries)
                 {
                     if (fileName.Contains(".txt") == true & fileName.Contains(ModelCurrent.ToUpper()) == true)
                     {
                         string filecut = Strings.Mid(fileName, Strings.InStrRev(fileName, @"\", -1, CompareMethod.Text) + 1, fileName.Length);
-                        if (File.GetLastWriteTime(fileName).Hour >= 8 & File.GetLastWriteTime(fileName).Hour <= 19)
+                        DateTime lastTimeWrite = File.GetLastWriteTime(fileName);
+                        if (lastTimeWrite.Date < dateTimeNow.Date) break;
+                        if (lastTimeWrite.Hour >= 8 & lastTimeWrite.Hour <= 19)
                         {
                             File.Move(fileName, targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay\" + filecut);
                             CountFileCurrentDay = CountFileBeginDay + 1;
@@ -409,7 +424,7 @@ namespace Line_Production
                 p.TimeValues = new string[10];
                 for (int index = 0; index < 10; index++)
                 {
-                    p.TimeValues[index] = "0";
+                    p.TimeValues[index] = CountProductPerHour[index + 1].ToString();
                 }
                 p.TimeValue = string.Join(",", p.TimeValues);
                 DataProvider.Instance.PassRates.Update(p);
@@ -844,9 +859,18 @@ namespace Line_Production
                     ProductPlan = (int)Math.Round((double)TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                     txtPlan.Text = ProductPlan.ToString();
                     time_scanBarcode = DateAndTime.Now;
+                    RecordProduction();
+                }
+                else
+                {
+                    ShowNGForm("Đang trong thời gian nghỉ!");
                 }
 
-                RecordProduction();
+                
+            }
+            else
+            {
+                ShowNGForm("Đang trong thời gian nghỉ!");
             }
         }
 
@@ -888,42 +912,42 @@ namespace Line_Production
         {
             try
             {
-
                 LabelTimeDate.Text = DateAndTime.Now.ToString("HH:mm:ss  dd/MM/yyyy");
-                _counter++;
                 if (StateProduct == StateLine.RUNNING)
                 {
                     CheckLinePause();
                     ProcessDirectory(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip));
-                    int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
-                    int indexCurrent = 0;
-                    for (int index = 1; index <= 20; index++)
-                    {
-                        if (index % 2 != 0)
-                        {
-                            if (sumtime >= TimeLine[index].Hour * 100 + TimeLine[index].Minute & sumtime <= TimeLine[index + 1].Hour * 100 + TimeLine[index + 1].Minute)
-                            {
-                                bien_dem = bien_dem + 1;
-                                indexCurrent = index / 2 + 1;
-                                IsPauseByTime = false;
-                                break;
-                            }
-                            else
-                            {
-                                bien_dem = 0;
-                            }
-                        }
-                        else if (index == 20)
-                        {
-                            IsPauseByTime = true;
-                        }
-                    }
+                    //CaculatorPlan();
+                    _counter++;
+                    //int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
+                    //int indexCurrent = 0;
+                    //for (int index = 1; index <= 20; index++)
+                    //{
+                    //    if (index % 2 != 0)
+                    //    {
+                    //        if (sumtime >= TimeLine[index].Hour * 100 + TimeLine[index].Minute & sumtime <= TimeLine[index + 1].Hour * 100 + TimeLine[index + 1].Minute)
+                    //        {
+                    //            bien_dem = bien_dem + 1;
+                    //            indexCurrent = index / 2 + 1;
+                    //            IsPauseByTime = false;
+                    //            break;
+                    //        }
+                    //        else
+                    //        {
+                    //            bien_dem = 0;
+                    //        }
+                    //    }
+                    //    else if (index == 20)
+                    //    {
+                    //        IsPauseByTime = true;
+                    //    }
+                    //}
 
-                    if (bien_dem == 0)
-                    {
-                        time_scanBarcode = DateAndTime.Now;
+                    //if (bien_dem == 0)
+                    //{
+                    //    time_scanBarcode = DateAndTime.Now;
 
-                    }
+                    //}
 
 
                     BalanceProduction = CountProduct - ProductPlan;
@@ -969,18 +993,13 @@ namespace Line_Production
                     {
                         ArraySend = "S+" + Strings.Format(BalanceProduction, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
                     }
+                    Common.SendToComport(ArraySend, result => { lblState.Text = result; });
 
-                    if (_counter >= 60)
+                    if (_counter > 60)
                     {
-                        string note = "";
-                        if (Table1.Controls.Find("TextComment" + indexCurrent, true).Length > 0)
-                        {
-                            note = Table1.Controls.Find("TextComment" + indexCurrent, true)[0].Text;
-                        }
                         ProductionSave("RUNNING");
                         _counter = 0;
                     }
-                    Common.SendToComport(ArraySend, result => { lblState.Text = result; });
 
                 }
 
@@ -1052,6 +1071,7 @@ namespace Line_Production
                         if (sumtime >= TimeLine[index].Hour * 100 + TimeLine[index].Minute & sumtime <= TimeLine[index + 1].Hour * 100 + TimeLine[index + 1].Minute)
                         {
                             bien_dem = bien_dem + 1;
+                            IsPauseByTime = false;
                             break;
                         }
                         else
@@ -1071,6 +1091,7 @@ namespace Line_Production
                 else
                 {
                     TimeCycleActual = (int)(TimeCycleActual + (DateAndTime.Now - time_scanBarcode).TotalSeconds);
+                    Console.WriteLine("TimeCycleActual:" + TimeCycleActual);
                     time_scanBarcode = DateAndTime.Now;
                     ProductPlan = (int)Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                     txtPlan.Text = ProductPlan.ToString();
@@ -1209,7 +1230,7 @@ namespace Line_Production
                     var orderItem = pvsservice.GetWorkOrderItemByBoardNo(serial);
                     if (orderItem != null)
                     {
-                        if(WO_MES != orderItem.ORDER_NO)
+                        if (WO_MES != orderItem.ORDER_NO)
                         {
                             WO_MES = orderItem.ORDER_NO;
 
@@ -1219,7 +1240,7 @@ namespace Line_Production
                                 LabelPCS1BOX.Text = workOrder.QUANTITY.ToString();
                             }
                         }
-                        
+
                     }
                     if (bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkPathLog)))
                     {
