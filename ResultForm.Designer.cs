@@ -38,6 +38,7 @@ namespace Line_Production
             this.ProductionID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BoxID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Station = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UpdateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Repair = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +48,8 @@ namespace Line_Production
             this.NamePC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShiftDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Wo_sap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UMes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgrvSearch)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,6 +61,7 @@ namespace Line_Production
             this.ProductionID,
             this.BoxID,
             this.Serial,
+            this.Station,
             this.UpdateTime,
             this.Repair,
             this.ID,
@@ -66,7 +70,9 @@ namespace Line_Production
             this.Line,
             this.NamePC,
             this.ShiftDate,
-            this.Status});
+            this.Status,
+            this.Wo_sap,
+            this.UMes});
             this.dgrvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgrvSearch.Location = new System.Drawing.Point(0, 0);
             this.dgrvSearch.Name = "dgrvSearch";
@@ -90,6 +96,12 @@ namespace Line_Production
             this.Serial.DataPropertyName = "BoardNo";
             this.Serial.HeaderText = "Serial";
             this.Serial.Name = "Serial";
+            // 
+            // Station
+            // 
+            this.Station.DataPropertyName = "Station";
+            this.Station.HeaderText = "Station";
+            this.Station.Name = "Station";
             // 
             // UpdateTime
             // 
@@ -153,6 +165,20 @@ namespace Line_Production
             this.Status.Name = "Status";
             this.Status.Visible = false;
             // 
+            // Wo_sap
+            // 
+            this.Wo_sap.DataPropertyName = "Wo_Sap";
+            this.Wo_sap.HeaderText = "Usap";
+            this.Wo_sap.Name = "Wo_sap";
+            this.Wo_sap.Visible = false;
+            // 
+            // UMes
+            // 
+            this.UMes.DataPropertyName = "Wo_Mes";
+            this.UMes.HeaderText = "UMes";
+            this.UMes.Name = "UMes";
+            this.UMes.Visible = false;
+            // 
             // ResultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,6 +196,7 @@ namespace Line_Production
         private DataGridViewTextBoxColumn ProductionID;
         private DataGridViewTextBoxColumn BoxID;
         private DataGridViewTextBoxColumn Serial;
+        private DataGridViewTextBoxColumn Station;
         private DataGridViewTextBoxColumn UpdateTime;
         private DataGridViewTextBoxColumn Repair;
         private DataGridViewTextBoxColumn ID;
@@ -179,5 +206,7 @@ namespace Line_Production
         private DataGridViewTextBoxColumn NamePC;
         private DataGridViewTextBoxColumn ShiftDate;
         private DataGridViewTextBoxColumn Status;
+        private DataGridViewTextBoxColumn Wo_sap;
+        private DataGridViewTextBoxColumn UMes;
     }
 }

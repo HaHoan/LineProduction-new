@@ -52,11 +52,13 @@ namespace Line_Production.Business
             }
         }
 
-        public static string ValidateSerial(List<string> serials, string ModelCurrent)
+        public static string ValidateSerial(List<string> serials, string ModelCurrent, bool IsUsingWip)
         {
             var checkRule = "";
+          
             foreach (var serial in serials)
             {
+                if (!IsUsingWip) return ValidateRule(ModelCurrent, serial);
                 // Check nhầm model
                 var boardInfo = WIPHelper.pvsservice.GetBoards(serial);
                 if (boardInfo == null)

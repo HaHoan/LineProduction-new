@@ -38,17 +38,6 @@ namespace Line_Production
             {
                 MessageBox.Show("Vào Config để điền đây đủ các mục setting!");
             }
-
-            Stopwatch swObj = new Stopwatch();
-
-            //Thời gian bắt đầu
-            swObj.Start();
-            var dis = Common.CalcLevenshteinDistance("hoan", "hdndd");
-            Console.Write(dis);
-            swObj.Stop();
-
-            //Tổng thời gian thực hiện 
-            Console.WriteLine("Total:=" + swObj.ElapsedTicks);
         }
 
 
@@ -866,7 +855,7 @@ namespace Line_Production
                     ShowNGForm("Đang trong thời gian nghỉ!");
                 }
 
-                
+
             }
             else
             {
@@ -1215,9 +1204,10 @@ namespace Line_Production
                         }
 
                     }
-
+                    var IsUsingWip = bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkPathLog)) ||
+                        bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkWip));
                     // validate
-                    var checkValidateSerial = ValidateCommon.ValidateSerial(listBarcode, ModelCurrent);
+                    var checkValidateSerial = ValidateCommon.ValidateSerial(listBarcode, ModelCurrent,IsUsingWip);
                     if (checkValidateSerial != "OK")
                     {
                         txtSerial.Enabled = true;
