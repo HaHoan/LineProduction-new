@@ -27,6 +27,7 @@ namespace Line_Production
         public static double CycleTimeActual = 0.0d;
         public static bool Shiftcheck = true; // true la ca dem, False la ca dem
         public static string Datecheck = "";
+        public static string UseWip = "";
         public static string StateProduct = StateLine.STOP;
         public static bool IsPauseByTime = false;
         public static DateTime[] TimeLine = new DateTime[22]; // bien quy dinh khung gio 
@@ -55,7 +56,6 @@ namespace Line_Production
         public static int IDCount = 0;
         public static int IDCount_box = 0;
         public static string HistoryNo = "";
-        public static bool IsUseBarcode = true;
         // Public MacLe As Boolean = False
         // QuyetPham add 26.11
         public static string STATION = "";
@@ -192,21 +192,13 @@ namespace Line_Production
                         BarcodeEnable = Model.UseBarcode is int useBarcode;
                         BalanceAlarmSetup = (int)Model.WarnQuantity;
                         BalanceErrorSetup = (int)Model.MinQuantity;
+                        UseWip = Model.UseWip;
                         if (Model.NumberInModel is int numberInModel)
                         {
                             NumberInModel = numberInModel;
                         }
                         HistoryNo = Model.HistoryNo;
-                        if (Model.UseBarcode == null || (Model.UseBarcode is int usebarcode && usebarcode == 0))
-                        {
-                            IsUseBarcode = false;
-                            timerCompress.Enabled = true;
-                        }
-                        else
-                        {
-                            IsUseBarcode = true;
-                            timerCompress.Enabled = false;
-                        }
+                        
                         if (Model.ReadFileLog is bool readFileLog && readFileLog == true)
                         {
                             IS_USING_FILE_LOG = true;

@@ -57,5 +57,11 @@ namespace Line_Production
         public static int DAY = 0;
         public static int NIGHT = 1;
     }
+    public static class USEWip
+    {
+        public static string UsePathLog = "UsePathLog";
+        public static string UseLinkWip = "UseLinkWip";
+        public static string NoWip = "NoWip";
+    }
    
 }

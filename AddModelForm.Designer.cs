@@ -37,14 +37,12 @@
             this.txbWarmQuatity = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txbMnQuantity = new System.Windows.Forms.TextBox();
-            this.ckbUseBarcode = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txbNumberInModel = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txbPCB = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnSaveChanged = new System.Windows.Forms.Button();
             this.txbContentLength = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -52,7 +50,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.cbCheckFirst = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.txbHistoryNo = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cbbCustomer = new System.Windows.Forms.ComboBox();
@@ -64,7 +61,9 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.cbReadLog = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.cbLinkWip = new System.Windows.Forms.CheckBox();
+            this.cbLinkPathLog = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -139,18 +138,6 @@
             this.txbMnQuantity.Size = new System.Drawing.Size(172, 20);
             this.txbMnQuantity.TabIndex = 9;
             // 
-            // ckbUseBarcode
-            // 
-            this.ckbUseBarcode.AutoSize = true;
-            this.ckbUseBarcode.Checked = true;
-            this.ckbUseBarcode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbUseBarcode.Location = new System.Drawing.Point(154, 417);
-            this.ckbUseBarcode.Name = "ckbUseBarcode";
-            this.ckbUseBarcode.Size = new System.Drawing.Size(109, 17);
-            this.ckbUseBarcode.TabIndex = 13;
-            this.ckbUseBarcode.Text = "Sử dụng Barcode";
-            this.ckbUseBarcode.UseVisualStyleBackColor = true;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -181,7 +168,7 @@
             // 
             // txbPCB
             // 
-            this.txbPCB.Location = new System.Drawing.Point(488, 252);
+            this.txbPCB.Location = new System.Drawing.Point(510, 27);
             this.txbPCB.Name = "txbPCB";
             this.txbPCB.Size = new System.Drawing.Size(172, 20);
             this.txbPCB.TabIndex = 29;
@@ -190,7 +177,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(359, 255);
+            this.label8.Location = new System.Drawing.Point(381, 30);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(28, 13);
             this.label8.TabIndex = 28;
@@ -205,15 +192,6 @@
             this.label9.TabIndex = 30;
             this.label9.Text = "Customer";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Line_Production.Properties.Resources.Capture;
-            this.pictureBox1.Location = new System.Drawing.Point(356, 28);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(710, 204);
-            this.pictureBox1.TabIndex = 32;
-            this.pictureBox1.TabStop = false;
-            // 
             // btnSaveChanged
             // 
             this.btnSaveChanged.BackColor = System.Drawing.Color.Green;
@@ -222,7 +200,7 @@
             this.btnSaveChanged.ForeColor = System.Drawing.Color.White;
             this.btnSaveChanged.Image = global::Line_Production.Properties.Resources.Save;
             this.btnSaveChanged.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveChanged.Location = new System.Drawing.Point(488, 450);
+            this.btnSaveChanged.Location = new System.Drawing.Point(153, 488);
             this.btnSaveChanged.Name = "btnSaveChanged";
             this.btnSaveChanged.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnSaveChanged.Size = new System.Drawing.Size(119, 44);
@@ -234,7 +212,7 @@
             // 
             // txbContentLength
             // 
-            this.txbContentLength.Location = new System.Drawing.Point(488, 352);
+            this.txbContentLength.Location = new System.Drawing.Point(510, 127);
             this.txbContentLength.Name = "txbContentLength";
             this.txbContentLength.Size = new System.Drawing.Size(172, 20);
             this.txbContentLength.TabIndex = 36;
@@ -243,15 +221,15 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(359, 355);
+            this.label10.Location = new System.Drawing.Point(381, 130);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 13);
+            this.label10.Size = new System.Drawing.Size(128, 13);
             this.label10.TabIndex = 35;
-            this.label10.Text = "ContentLength";
+            this.label10.Text = "Số lượng đuôi số thay đỏi";
             // 
             // txbContentIndex
             // 
-            this.txbContentIndex.Location = new System.Drawing.Point(488, 296);
+            this.txbContentIndex.Location = new System.Drawing.Point(510, 71);
             this.txbContentIndex.Name = "txbContentIndex";
             this.txbContentIndex.Size = new System.Drawing.Size(172, 20);
             this.txbContentIndex.TabIndex = 34;
@@ -260,16 +238,16 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(359, 299);
+            this.label11.Location = new System.Drawing.Point(381, 74);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(70, 13);
+            this.label11.Size = new System.Drawing.Size(124, 13);
             this.label11.TabIndex = 33;
-            this.label11.Text = "ContentIndex";
+            this.label11.Text = "Vị trí bắt đầu biến đổi số";
             // 
             // cbCheckFirst
             // 
             this.cbCheckFirst.AutoSize = true;
-            this.cbCheckFirst.Location = new System.Drawing.Point(488, 390);
+            this.cbCheckFirst.Location = new System.Drawing.Point(510, 165);
             this.cbCheckFirst.Name = "cbCheckFirst";
             this.cbCheckFirst.Size = new System.Drawing.Size(79, 17);
             this.cbCheckFirst.TabIndex = 37;
@@ -280,21 +258,11 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(576, 393);
+            this.label12.Location = new System.Drawing.Point(598, 168);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(148, 13);
             this.label12.TabIndex = 38;
             this.label12.Text = "Tự động tìm barcode đầu tiên";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(600, 4);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(103, 13);
-            this.label13.TabIndex = 39;
-            this.label13.Text = "Hình ảnh tham khảo";
             // 
             // txbHistoryNo
             // 
@@ -410,18 +378,56 @@
             // cbReadLog
             // 
             this.cbReadLog.AutoSize = true;
-            this.cbReadLog.Location = new System.Drawing.Point(154, 440);
+            this.cbReadLog.Location = new System.Drawing.Point(154, 428);
             this.cbReadLog.Name = "cbReadLog";
-            this.cbReadLog.Size = new System.Drawing.Size(154, 17);
+            this.cbReadLog.Size = new System.Drawing.Size(283, 17);
             this.cbReadLog.TabIndex = 50;
-            this.cbReadLog.Text = "Đọc log từ phần mềm khác";
+            this.cbReadLog.Text = "Đọc log từ phần mềm khác hoặc không dùng barcode";
             this.cbReadLog.UseVisualStyleBackColor = true;
+            // 
+            // cbLinkWip
+            // 
+            this.cbLinkWip.AutoSize = true;
+            this.cbLinkWip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLinkWip.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.cbLinkWip.Location = new System.Drawing.Point(153, 465);
+            this.cbLinkWip.Name = "cbLinkWip";
+            this.cbLinkWip.Size = new System.Drawing.Size(74, 17);
+            this.cbLinkWip.TabIndex = 57;
+            this.cbLinkWip.Text = "LinkWIP";
+            this.cbLinkWip.UseVisualStyleBackColor = true;
+            this.cbLinkWip.CheckedChanged += new System.EventHandler(this.cbLinkWip_CheckedChanged);
+            // 
+            // cbLinkPathLog
+            // 
+            this.cbLinkPathLog.AutoSize = true;
+            this.cbLinkPathLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLinkPathLog.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.cbLinkPathLog.Location = new System.Drawing.Point(249, 465);
+            this.cbLinkPathLog.Name = "cbLinkPathLog";
+            this.cbLinkPathLog.Size = new System.Drawing.Size(101, 17);
+            this.cbLinkPathLog.TabIndex = 56;
+            this.cbLinkPathLog.Text = "Link PathLog";
+            this.cbLinkPathLog.UseVisualStyleBackColor = true;
+            this.cbLinkPathLog.CheckedChanged += new System.EventHandler(this.cbLinkPathLog_CheckedChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(389, 9);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(200, 13);
+            this.label13.TabIndex = 39;
+            this.label13.Text = "CHỈ DÀNH CHO CANON THĂNG LONG";
             // 
             // AddModelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1074, 506);
+            this.ClientSize = new System.Drawing.Size(759, 533);
+            this.Controls.Add(this.cbLinkWip);
+            this.Controls.Add(this.cbLinkPathLog);
             this.Controls.Add(this.cbReadLog);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
@@ -440,14 +446,12 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txbContentIndex);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txbPCB);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txbNumberInModel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnSaveChanged);
-            this.Controls.Add(this.ckbUseBarcode);
             this.Controls.Add(this.txbMnQuantity);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txbWarmQuatity);
@@ -462,7 +466,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddModelForm";
             this.Shown += new System.EventHandler(this.AddModelForm_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,7 +482,6 @@
         private System.Windows.Forms.TextBox txbWarmQuatity;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txbMnQuantity;
-        private System.Windows.Forms.CheckBox ckbUseBarcode;
         private System.Windows.Forms.Button btnSaveChanged;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txbNumberInModel;
@@ -487,14 +489,12 @@
         private System.Windows.Forms.TextBox txbPCB;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txbContentLength;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txbContentIndex;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox cbCheckFirst;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txbHistoryNo;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cbbCustomer;
@@ -506,5 +506,8 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.CheckBox cbReadLog;
+        private System.Windows.Forms.CheckBox cbLinkWip;
+        private System.Windows.Forms.CheckBox cbLinkPathLog;
+        private System.Windows.Forms.Label label13;
     }
 }

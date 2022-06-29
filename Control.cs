@@ -110,8 +110,7 @@ namespace Line_Production
             try
             {
                 if (!IS_USING_FILE_LOG) return;
-                if (bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkPathLog))
-                   || bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkWip)))
+                if (UseWip != USEWip.NoWip)
                 {
                     targetDirectory = targetDirectory + @"\backup\" + DateTime.Now.Date.ToString("yyyyMMdd");
                 }
@@ -586,12 +585,16 @@ namespace Line_Production
         }
         private void ShowNGForm(string message)
         {
-            NG_FORM NG_FORM = new NG_FORM();
-            NG_FORM.Show();
-            NG_FORM.Lb_inform_NG.Text = message;
-            NG_FORM.GroupBox3.Visible = false;
-            NG_FORM.GroupBox3.Enabled = false;
-            NG_FORM.ControlBox = true;
+            if ((Application.OpenForms["NG_FORM"] as NG_FORM) == null)
+            {
+                NG_FORM NG_FORM = new NG_FORM();
+                NG_FORM.Show();
+                NG_FORM.Lb_inform_NG.Text = message;
+                NG_FORM.GroupBox3.Visible = false;
+                NG_FORM.GroupBox3.Enabled = false;
+                NG_FORM.ControlBox = true;
+            }
+           
         }
         private void BtStart_Click(object sender, EventArgs e)
         {
@@ -654,7 +657,7 @@ namespace Line_Production
                 time_scanBarcode = DateAndTime.Now;
                 ProductPlan = (int)Math.Round(TimeCycleActual / CycleTimeModel, 0, MidpointRounding.AwayFromZero);
                 txtPlan.Text = ProductPlan.ToString();
-                if (IS_USING_FILE_LOG || !IsUseBarcode)
+                if (IS_USING_FILE_LOG)
                 {
                     return;
                 }
@@ -1204,10 +1207,9 @@ namespace Line_Production
                         }
 
                     }
-                    var IsUsingWip = bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkPathLog)) ||
-                        bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkWip));
+                    
                     // validate
-                    var checkValidateSerial = ValidateCommon.ValidateSerial(listBarcode, ModelCurrent,IsUsingWip);
+                    var checkValidateSerial = ValidateCommon.ValidateSerial(listBarcode, ModelCurrent,UseWip != USEWip.NoWip);
                     if (checkValidateSerial != "OK")
                     {
                         txtSerial.Enabled = true;
@@ -1232,7 +1234,7 @@ namespace Line_Production
                         }
 
                     }
-                    if (bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkPathLog)))
+                    if (UseWip == USEWip.UsePathLog)
                     {
                         // sinh ra log
                         foreach (var barcode in listBarcode)
@@ -1267,10 +1269,10 @@ namespace Line_Production
                             increaseInDb(listBarcode);
                         }
                     }
-                    else if (bool.Parse(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.LinkWip)))
+                    else if (UseWip == USEWip.UseLinkWip)
                     {
                         // Link wip
-                        string nameSoft = Common.FindApplication(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Process));
+                        string nameSoft = Common.FindApplication("Board Inspector");
                         int wipHandle = 0;
                         wipHandle = NativeWin32.FindWindow(null, nameSoft);
                         bool temp = Common.IsRunning(nameSoft);

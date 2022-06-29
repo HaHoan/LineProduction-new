@@ -64,7 +64,6 @@ namespace Line_Production
                                 WarnQuantity = float.Parse(txbWarmQuatity.Text.ToString()),
                                 MinQuantity = float.Parse(txbMnQuantity.Text.ToString()),
                                 CharModel = "",
-                                UseBarcode = ckbUseBarcode.Checked ? 1 : 0,
                                 NumberInModel = int.Parse(txbNumberInModel.Text.Trim()),
                                 PCB = int.Parse(txbPCB.Text.Trim()),
                                 Customer = cbbCustomer.Text.Trim(),
@@ -74,7 +73,9 @@ namespace Line_Production
                                 HistoryNo = txbHistoryNo.Text.Trim(),
                                 Modifier = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.CurrentUser),
                                 ModifyDate = DateTime.Now,
-                                ReadFileLog = cbReadLog.Checked
+                                ReadFileLog = cbReadLog.Checked,
+                                UseBarcode = cbReadLog.Checked ? 1 : 0,
+                                UseWip = CheckWipFromCheckBox()
                             };
                             db.LINE_MODEL.Add(model);
                             db.SaveChanges();
@@ -92,7 +93,7 @@ namespace Line_Production
                         modelInDb.WarnQuantity = float.Parse(txbWarmQuatity.Text.ToString());
                         modelInDb.MinQuantity = float.Parse(txbMnQuantity.Text.ToString());
                         modelInDb.CharModel = "";
-                        modelInDb.UseBarcode = ckbUseBarcode.Checked ? 1 : 0;
+                        modelInDb.UseBarcode = cbReadLog.Checked ? 1 : 0;
                         modelInDb.NumberInModel = int.Parse(txbNumberInModel.Text.Trim());
                         modelInDb.PCB = int.Parse(txbPCB.Text.Trim());
                         modelInDb.Customer = cbbCustomer.Text.Trim();
@@ -103,6 +104,7 @@ namespace Line_Production
                         modelInDb.Modifier = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.CurrentUser);
                         modelInDb.ModifyDate = DateTime.Now;
                         modelInDb.ReadFileLog = cbReadLog.Checked;
+                        modelInDb.UseWip = CheckWipFromCheckBox();
                         db.SaveChanges();
                         close();
                         Close();
@@ -118,7 +120,32 @@ namespace Line_Production
             }
 
         }
-
+        private string CheckWipFromCheckBox()
+        {
+            if (cbLinkWip.Checked)
+            {
+                return USEWip.UseLinkWip;
+            }
+            else if (cbLinkPathLog.Checked)
+            {
+                return USEWip.UsePathLog;
+            }
+            else return USEWip.NoWip;
+        }
+        private void CheckLinkWip(LINE_MODEL model)
+        {
+            if(model.UseWip == USEWip.UseLinkWip)
+            {
+                cbLinkWip.Checked = true;
+            }else if(model.UseWip == USEWip.UsePathLog)
+            {
+                cbLinkPathLog.Checked = true;
+            }else if(model.UseWip == USEWip.NoWip)
+            {
+                cbLinkPathLog.Checked = false;
+                cbLinkWip.Checked = false;
+            }
+        }
         private void AddModelForm_Shown(object sender, EventArgs e)
         {
             try
@@ -139,7 +166,6 @@ namespace Line_Production
                         txbCycle.Text = model.CycleTime.ToString();
                         txbWarmQuatity.Text = model.WarnQuantity.ToString();
                         txbMnQuantity.Text = model.MinQuantity.ToString();
-                        ckbUseBarcode.Checked = model.UseBarcode == 1 ? true : false;
                         txbNumberInModel.Text = model.NumberInModel.ToString();
                         txbPCB.Text = model.PCB.ToString();
                         cbbCustomer.Text = model.Customer.ToString();
@@ -154,6 +180,7 @@ namespace Line_Production
                         {
                             cbReadLog.Checked = readFileLog;
                         }
+                        CheckLinkWip(model);
                     }
                     else
                     {
@@ -188,13 +215,13 @@ namespace Line_Production
                             txbCycle.Text = model.CycleTime.ToString();
                             txbWarmQuatity.Text = model.WarnQuantity.ToString();
                             txbMnQuantity.Text = model.MinQuantity.ToString();
-                            ckbUseBarcode.Checked = model.UseBarcode == 1 ? true : false;
                             txbNumberInModel.Text = model.NumberInModel.ToString();
                             txbPCB.Text = model.PCB.ToString();
                             cbbCustomer.Text = model.Customer.ToString();
                             txbHistoryNo.Text = model.HistoryNo;
                             cbCheckFirst.Checked = model.CheckFirst is bool checkFirst;
                             cbReadLog.Checked = model.CheckFirst is bool readLog;
+                            CheckLinkWip(model);
                         }
                     }
                 }
@@ -218,6 +245,22 @@ namespace Line_Production
                     cbReadLog.Checked = false;
                 }
             }
+        }
+        private void cbLinkWip_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbLinkWip.Checked)
+            {
+                cbLinkPathLog.Checked = false;
+            }
+        }
+
+        private void cbLinkPathLog_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbLinkPathLog.Checked)
+            {
+                cbLinkWip.Checked = false;
+            }
+
         }
     }
 }

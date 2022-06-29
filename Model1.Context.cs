@@ -25,15 +25,15 @@ namespace Line_Production
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<LINE_PASSRATE> LINE_PASSRATE { get; set; }
-        public virtual DbSet<LINE_TIME> LINE_TIME { get; set; }
-        public virtual DbSet<LINE_TIMELINE> LINE_TIMELINE { get; set; }
-        public virtual DbSet<USER> USERs { get; set; }
+        public virtual DbSet<CONFIRM_FAULT_REASON> CONFIRM_FAULT_REASON { get; set; }
         public virtual DbSet<CUSTOMER> CUSTOMERs { get; set; }
         public virtual DbSet<HondaLock> HondaLocks { get; set; }
         public virtual DbSet<LINE_FAULT_REASON> LINE_FAULT_REASON { get; set; }
-        public virtual DbSet<STATE_HISTORY> STATE_HISTORY { get; set; }
-        public virtual DbSet<CONFIRM_FAULT_REASON> CONFIRM_FAULT_REASON { get; set; }
         public virtual DbSet<LINE_MODEL> LINE_MODEL { get; set; }
+        public virtual DbSet<LINE_PASSRATE> LINE_PASSRATE { get; set; }
+        public virtual DbSet<LINE_TIME> LINE_TIME { get; set; }
+        public virtual DbSet<LINE_TIMELINE> LINE_TIMELINE { get; set; }
+        public virtual DbSet<STATE_HISTORY> STATE_HISTORY { get; set; }
+        public virtual DbSet<USER> USERs { get; set; }
     }
 }

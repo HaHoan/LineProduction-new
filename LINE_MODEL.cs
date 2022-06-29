@@ -32,5 +32,6 @@ namespace Line_Production
         public string Modifier { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public Nullable<bool> ReadFileLog { get; set; }
+        public string UseWip { get; set; }
     }
 }
