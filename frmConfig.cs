@@ -138,11 +138,16 @@ namespace Line_Production
                 {
                     com.Write("S+0000000012001*");
                 }
+                else
+                {
+                    MessageBox.Show("Chưa mở cổng " + cbbCOM.Text);
+                    return;
+                }
                 com.Close();
             }
             catch (Exception ex)
             {
-               
+                MessageBox.Show("Không kết nối được với cổng " + cbbCOM.Text + ". Liên hệ LCA để xử lý!");
             }
         }
 

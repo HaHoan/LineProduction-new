@@ -110,7 +110,7 @@ namespace Line_Production
                             SetDataForListModel();
                         }
                     };
-                    addModelForm.ShowDialog();
+                    addModelForm.ShowDialog();                    
                 }
                 else
                 {

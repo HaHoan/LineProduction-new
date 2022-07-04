@@ -175,6 +175,7 @@
             this.dgrvListModel.ReadOnly = true;
             this.dgrvListModel.Size = new System.Drawing.Size(800, 302);
             this.dgrvListModel.TabIndex = 0;
+            this.dgrvListModel.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgrvListModel_CellClick);
             // 
             // ModelID
             // 
