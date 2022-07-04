@@ -619,7 +619,7 @@ namespace Line_Production
                 StateProduct = StateLine.RUNNING;
                 BtStart.Text = "Online";
                 BtStart.Image = Properties.Resources.pause;
-                Common.UpdateState(StateProduct);
+                Common.UpdateState(StateProduct,CountProduct.ToString(), ProductPlan.ToString());
                 int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
                 if (StatusLine == 0)
                 {
@@ -720,7 +720,7 @@ namespace Line_Production
             {
                 try
                 {
-                    Common.UpdateState(StateLine.STOP);
+                    Common.UpdateState(StateLine.STOP, CountProduct.ToString(), ProductPlan.ToString());
                     ProductionSave(StateLine.STOP);
                     BtStart.Text = "Dừng";
                     BtStart.Image = Properties.Resources.play;
@@ -794,7 +794,7 @@ namespace Line_Production
         {
             try
             {
-                Common.UpdateState(StateLine.STOP);
+                Common.UpdateState(StateLine.STOP, CountProduct.ToString(), ProductPlan.ToString());
                 ProductionSave(StateLine.STOP);
                 cbbModel.Visible = true;
                 lblModel.Visible = false;
@@ -1019,6 +1019,7 @@ namespace Line_Production
         {
             RecordProduction();
             ProductionSave(StateLine.STOP);
+            Common.UpdateState(StateLine.STOP, CountProduct.ToString(), ProductPlan.ToString());
             if (ComPressPort.IsOpen)
             {
                 ComPressPort.Close();

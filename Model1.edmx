@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="barcode_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="barcode_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CONFIRM_FAULT_REASON">
           <Key>
             <PropertyRef Name="Id" />
@@ -129,6 +129,8 @@
           <Property Name="HostName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Plan" Type="nvarchar" MaxLength="50" />
+          <Property Name="Actual" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="USER">
           <Key>
@@ -149,8 +151,7 @@
           <EntitySet Name="STATE_HISTORY" EntityType="Self.STATE_HISTORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="barcode_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -268,17 +269,6 @@
           <Property Name="TimeFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="STATE_HISTORY">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Line" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HostName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="USER">
           <Key>
             <PropertyRef Name="Code" />
@@ -295,9 +285,22 @@
           <EntitySet Name="LINE_PASSRATE" EntityType="Self.LINE_PASSRATE" />
           <EntitySet Name="LINE_TIME" EntityType="Self.LINE_TIME" />
           <EntitySet Name="LINE_TIMELINE" EntityType="Self.LINE_TIMELINE" />
-          <EntitySet Name="STATE_HISTORY" EntityType="Self.STATE_HISTORY" />
           <EntitySet Name="USERs" EntityType="Self.USER" />
+          <EntitySet Name="STATE_HISTORY" EntityType="barcode_dbModel.STATE_HISTORY" />
         </EntityContainer>
+        <EntityType Name="STATE_HISTORY">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Line" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HostName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Plan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Actual" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -426,23 +429,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="STATE_HISTORY">
-            <EntityTypeMapping TypeName="barcode_dbModel.STATE_HISTORY">
-              <MappingFragment StoreEntitySet="STATE_HISTORY">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Line" ColumnName="Line" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="HostName" ColumnName="HostName" />
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
-                <ScalarProperty Name="State" ColumnName="State" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="USERs">
             <EntityTypeMapping TypeName="barcode_dbModel.USER">
               <MappingFragment StoreEntitySet="USER">
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATE_HISTORY">
+            <EntityTypeMapping TypeName="barcode_dbModel.STATE_HISTORY">
+              <MappingFragment StoreEntitySet="STATE_HISTORY">
+                <ScalarProperty Name="Actual" ColumnName="Actual" />
+                <ScalarProperty Name="Plan" ColumnName="Plan" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

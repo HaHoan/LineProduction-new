@@ -33,7 +33,7 @@ namespace Line_Production
         public virtual DbSet<LINE_PASSRATE> LINE_PASSRATE { get; set; }
         public virtual DbSet<LINE_TIME> LINE_TIME { get; set; }
         public virtual DbSet<LINE_TIMELINE> LINE_TIMELINE { get; set; }
-        public virtual DbSet<STATE_HISTORY> STATE_HISTORY { get; set; }
         public virtual DbSet<USER> USERs { get; set; }
+        public virtual DbSet<STATE_HISTORY> STATE_HISTORY { get; set; }
     }
 }

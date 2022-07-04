@@ -22,7 +22,7 @@ namespace Line_Production
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
-            Common.UpdateState(StateLine.STOP);
+            //Common.UpdateState(StateLine.STOP, Control.CountProduct.ToString(), Control.ProductPlan.ToString());
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Line_Production
 {
     public partial class Common
     {
-        public static void UpdateState(string state)
+        public static void UpdateState(string state, string actual, string plan)
         {
             try
             {
@@ -37,7 +37,9 @@ namespace Line_Production
                         Model = GetValueRegistryKey(Constants.PathConfig, RegistryKeys.ModelCurrent),
                         State = state,
                         HostName = Environment.MachineName,
-                        UpdateTime = DateTime.Now
+                        UpdateTime = DateTime.Now,
+                        Actual = actual,
+                        Plan = plan
                     };
                     db.STATE_HISTORY.Add(stateModel);
                     db.SaveChanges();

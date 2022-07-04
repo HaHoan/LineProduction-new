@@ -20,5 +20,7 @@ namespace Line_Production
         public string HostName { get; set; }
         public System.DateTime UpdateTime { get; set; }
         public string State { get; set; }
+        public string Plan { get; set; }
+        public string Actual { get; set; }
     }
 }
