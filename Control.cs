@@ -1593,6 +1593,7 @@ namespace Line_Production
                         return;
                     }
                     PCBBOX = (int)BOX_INFO.OS_QTY;
+                    WO_SAP = BOX_INFO.TN_NO.Right(10);
                     if (IDCount >= PCBBOX)
                     {
                         ShowNGForm("Thùng đã kiểm tra xong!");

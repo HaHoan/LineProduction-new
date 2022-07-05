@@ -25,7 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>101</ApplicationRevision>
+    <ApplicationRevision>102</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -111,6 +111,7 @@
     <Compile Include="AddModelForm.Designer.cs">
       <DependentUpon>AddModelForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Business\StringExtension.cs" />
     <Compile Include="Business\USAPHelper.cs" />
     <Compile Include="Business\Validate.cs" />
     <Compile Include="Business\WIPHelper.cs" />
