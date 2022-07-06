@@ -10,44 +10,30 @@ using System.Windows.Forms;
 
 namespace Line_Production
 {
-    public partial class fmLogin : Form
+    public partial class FormLogin : Form
     {
         private PVSReference.PVSWebServiceSoapClient pvsservice = new PVSReference.PVSWebServiceSoapClient();
         public Action closeForm;
-        public fmLogin()
+        public FormLogin()
         {
             InitializeComponent();
-            txtUsername.Focus();
+            txbUsername.Focus();
         }
 
-        private bool _move;
-        private int move_x, move_y;
-
-        private void Label2_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void fmLogin_Load(object sender, EventArgs e)
-        {
-            btnLogin.FlatStyle = FlatStyle.Flat;
-            btnLogin.FlatAppearance.BorderSize = 0;
-            txtUsername.Select();
-        }
         private void btnLogin_Click(object sender, EventArgs e)
         {
             using (var db = new barcode_dbEntities())
             {
-                var username = txtUsername.Text.Trim();
-                var password = txtPassword.Text.Trim();
+                var username = txbUsername.Text.Trim();
+                var password = txbPassword.Text.Trim();
                 if (string.IsNullOrEmpty(username))
                 {
-                    txtUsername.Focus();
+                    txbUsername.Focus();
                     return;
                 }
                 if (string.IsNullOrEmpty(password))
                 {
-                    txtPassword.Focus();
+                    txbPassword.Focus();
                     return;
                 }
                 try
@@ -83,34 +69,12 @@ namespace Line_Production
 
         }
 
-        private void Panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            _move = true;
-            move_x = Cursor.Position.X - this.Left;
-            move_y = Cursor.Position.Y - this.Top;
-        }
 
-        private void Panel1_MouseUp(object sender, MouseEventArgs e)
-        {
-            _move = false;
-        }
-
-        private void TimerCaplock_Tick(object sender, EventArgs e)
-        {
-            if (Control.IsKeyLocked(Keys.CapsLock))
-            {
-                lblCapslock.Text = "Caps Lock is on";
-            }
-            else
-            {
-                lblCapslock.Text = "";
-            }
-        }
-
+       
         private void txtUsername_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                txtPassword.Focus();
+                txbPassword.Focus();
         }
 
         private void txtPassword_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -119,24 +83,15 @@ namespace Line_Production
                 btnLogin.Focus();
         }
 
-        private void btnChangePass_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            new ChangePassword().ShowDialog();
-        }
-
         private void fmLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
             closeForm();
         }
 
-        private void Panel1_MouseMove(object sender, MouseEventArgs e)
+        private void lblChangePassword_Click(object sender, EventArgs e)
         {
-            if (_move)
-            {
-                this.Top = Cursor.Position.Y - move_y;
-                this.Left = Cursor.Position.X - move_x;
-            }
+            this.Hide();
+            new ChangePassword().ShowDialog();
         }
     }
 }
