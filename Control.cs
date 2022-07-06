@@ -139,11 +139,17 @@ namespace Line_Production
                 var dateTimeNow = DateTime.Now;
                 foreach (var fileName in fileEntries)
                 {
+                    DateTime lastTimeWrite = File.GetLastWriteTime(fileName);
+                    if (lastTimeWrite.Date < dateTimeNow.Date || lastTimeWrite.Hour < 8)
+                    {
+                        File.Delete(fileName);
+                        break;
+                    }
                     if (fileName.Contains(".txt") == true & fileName.Contains(ModelCurrent.ToUpper()) == true)
                     {
                         string filecut = Strings.Mid(fileName, Strings.InStrRev(fileName, @"\", -1, CompareMethod.Text) + 1, fileName.Length);
-                        DateTime lastTimeWrite = File.GetLastWriteTime(fileName);
-                        if (lastTimeWrite.Date < dateTimeNow.Date) break;
+
+
                         if (lastTimeWrite.Hour >= 8 & lastTimeWrite.Hour <= 19)
                         {
                             File.Move(fileName, targetDirectory + @"\" + DateTime.Now.Date.ToString("yyyyMMdd") + @"\" + ModelCurrent + @"\CaNgay\" + filecut);
@@ -156,6 +162,8 @@ namespace Line_Production
                             CountFileCurrentNight = CountFileBeginNight + 1;
                             IncreaseProduct();
                         }
+
+
 
                     }
                 }
@@ -594,7 +602,7 @@ namespace Line_Production
                 NG_FORM.GroupBox3.Enabled = false;
                 NG_FORM.ControlBox = true;
             }
-           
+
         }
         private void BtStart_Click(object sender, EventArgs e)
         {
@@ -619,7 +627,7 @@ namespace Line_Production
                 StateProduct = StateLine.RUNNING;
                 BtStart.Text = "Online";
                 BtStart.Image = Properties.Resources.pause;
-                Common.UpdateState(StateProduct,CountProduct.ToString(), ProductPlan.ToString());
+                Common.UpdateState(StateProduct, CountProduct.ToString(), ProductPlan.ToString());
                 int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
                 if (StatusLine == 0)
                 {
@@ -1208,9 +1216,9 @@ namespace Line_Production
                         }
 
                     }
-                    
+
                     // validate
-                    var checkValidateSerial = ValidateCommon.ValidateSerial(listBarcode, ModelCurrent,UseWip != USEWip.NoWip);
+                    var checkValidateSerial = ValidateCommon.ValidateSerial(listBarcode, ModelCurrent, UseWip != USEWip.NoWip);
                     if (checkValidateSerial != "OK")
                     {
                         txtSerial.Enabled = true;
