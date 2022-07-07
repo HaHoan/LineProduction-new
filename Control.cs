@@ -140,7 +140,8 @@ namespace Line_Production
                 foreach (var fileName in fileEntries)
                 {
                     DateTime lastTimeWrite = File.GetLastWriteTime(fileName);
-                    if (lastTimeWrite.Date < dateTimeNow.Date || lastTimeWrite.Hour < 8)
+                    if (lastTimeWrite.Date < dateTimeNow.Date ||
+                        (lastTimeWrite.Date == dateTimeNow.Date && dateTimeNow.Hour >= 8 && lastTimeWrite.Hour < 8))
                     {
                         File.Delete(fileName);
                         break;
