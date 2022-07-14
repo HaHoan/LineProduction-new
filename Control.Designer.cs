@@ -239,6 +239,7 @@ namespace Line_Production
             // lblModel
             // 
             this.lblModel.BackColor = System.Drawing.Color.White;
+            this.lblModel.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.lblModel.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblModel.Location = new System.Drawing.Point(54, 44);
             this.lblModel.Name = "lblModel";
@@ -366,6 +367,7 @@ namespace Line_Production
             // 
             // txtSerial
             // 
+            this.txtSerial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSerial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSerial.Location = new System.Drawing.Point(12, 113);
             this.txtSerial.Name = "txtSerial";
@@ -407,6 +409,7 @@ namespace Line_Production
             // 
             // TextMacBox
             // 
+            this.TextMacBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.TextMacBox.Enabled = false;
             this.TextMacBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextMacBox.Location = new System.Drawing.Point(12, 42);
