@@ -212,27 +212,7 @@ namespace Line_Production
                 writer.Write(content.ToString());
             }
         }
-        public static bool SendToComport(string data, Action<string> result, string COM = null)
-        {
-            try
-            {
-                SerialPort com = new SerialPort() { PortName = GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM) };
-                if (!com.IsOpen) com.Open();
-                if (com.IsOpen == true)
-                {
-                    com.Write(data);
-                }
-                com.Close();
-                result(ConstantsText.OK);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                result(ConstantsText.NG + ex.Message.ToString());
-                return false;
-            }
-
-        }
+        
         public static string GetMACAddress()
         {
             ManagementObjectSearcher objMOS = new ManagementObjectSearcher("Select * FROM Win32_NetworkAdapterConfiguration");

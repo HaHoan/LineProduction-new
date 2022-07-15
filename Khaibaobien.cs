@@ -120,27 +120,8 @@ namespace Line_Production
                 pathWip = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip);
                 lblComcontrol.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM);
                 txtLine.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id);
-                CheckComPressPort();
             }
             catch (Exception e)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool CheckComPressPort()
-        {
-            try
-            {
-                ComPressPort.PortName = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM_PRESS);
-                if (!ComPressPort.IsOpen)
-                {
-                    ComPressPort.Open();
-                }
-
-            }
-            catch (Exception ex)
             {
                 return false;
             }

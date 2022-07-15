@@ -149,7 +149,6 @@ namespace Line_Production
             this.ShapeContainer2 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.Shape3 = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.Shape1 = new Microsoft.VisualBasic.PowerPacks.OvalShape();
-            this.ComPressPort = new System.IO.Ports.SerialPort(this.components);
             this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.GroupBox7 = new System.Windows.Forms.GroupBox();
             this.cbbFilter = new System.Windows.Forms.ComboBox();
@@ -1969,7 +1968,6 @@ namespace Line_Production
             // 
             this.timerCompress.Enabled = true;
             this.timerCompress.Interval = 8;
-            this.timerCompress.Tick += new System.EventHandler(this.timerCompress_Tick);
             // 
             // Control
             // 
@@ -2082,7 +2080,6 @@ namespace Line_Production
         internal Label Label18;
         internal GroupBox GroupBox3;
         internal TextBox txtPeople;
-        public  System.IO.Ports.SerialPort ComPressPort;
         internal Timer Timer1;
         internal Button BtStop;
         internal Button BtStart;

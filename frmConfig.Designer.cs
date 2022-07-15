@@ -52,9 +52,6 @@ namespace Line_Production
             this.txbSleepTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cbbCustomer = new System.Windows.Forms.ComboBox();
-            this.btnTestComPress = new System.Windows.Forms.Button();
-            this.cbbComPress = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Label1
@@ -153,7 +150,7 @@ namespace Line_Production
             this.btnSaveChanged.ForeColor = System.Drawing.Color.White;
             this.btnSaveChanged.Image = global::Line_Production.Properties.Resources.Save;
             this.btnSaveChanged.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveChanged.Location = new System.Drawing.Point(167, 248);
+            this.btnSaveChanged.Location = new System.Drawing.Point(167, 220);
             this.btnSaveChanged.Name = "btnSaveChanged";
             this.btnSaveChanged.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnSaveChanged.Size = new System.Drawing.Size(118, 30);
@@ -174,7 +171,7 @@ namespace Line_Production
             // 
             // txbSleepTime
             // 
-            this.txbSleepTime.Location = new System.Drawing.Point(83, 212);
+            this.txbSleepTime.Location = new System.Drawing.Point(83, 184);
             this.txbSleepTime.Name = "txbSleepTime";
             this.txbSleepTime.Size = new System.Drawing.Size(205, 20);
             this.txbSleepTime.TabIndex = 54;
@@ -184,7 +181,7 @@ namespace Line_Production
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 215);
+            this.label7.Location = new System.Drawing.Point(8, 187);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 13);
             this.label7.TabIndex = 53;
@@ -215,43 +212,12 @@ namespace Line_Production
             this.cbbCustomer.TabIndex = 56;
             this.cbbCustomer.ValueMember = "NAME";
             // 
-            // btnTestComPress
-            // 
-            this.btnTestComPress.Location = new System.Drawing.Point(212, 177);
-            this.btnTestComPress.Name = "btnTestComPress";
-            this.btnTestComPress.Size = new System.Drawing.Size(75, 23);
-            this.btnTestComPress.TabIndex = 60;
-            this.btnTestComPress.Text = "Test COM";
-            this.btnTestComPress.UseVisualStyleBackColor = true;
-            this.btnTestComPress.Click += new System.EventHandler(this.btnTestComPress_Click);
-            // 
-            // cbbComPress
-            // 
-            this.cbbComPress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbComPress.FormattingEnabled = true;
-            this.cbbComPress.Location = new System.Drawing.Point(82, 179);
-            this.cbbComPress.Name = "cbbComPress";
-            this.cbbComPress.Size = new System.Drawing.Size(121, 21);
-            this.cbbComPress.TabIndex = 59;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 184);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(70, 13);
-            this.label9.TabIndex = 58;
-            this.label9.Text = "COM PRESS";
-            // 
             // frmConfig
             // 
             this.AcceptButton = this.btnSaveChanged;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 290);
-            this.Controls.Add(this.btnTestComPress);
-            this.Controls.Add(this.cbbComPress);
-            this.Controls.Add(this.label9);
+            this.ClientSize = new System.Drawing.Size(350, 256);
             this.Controls.Add(this.cbbCustomer);
             this.Controls.Add(this.txbSleepTime);
             this.Controls.Add(this.label7);
@@ -293,8 +259,5 @@ namespace Line_Production
         internal TextBox txbSleepTime;
         internal Label label7;
         private ComboBox cbbCustomer;
-        private Button btnTestComPress;
-        private ComboBox cbbComPress;
-        private Label label9;
     }
 }

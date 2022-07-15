@@ -30,6 +30,7 @@ namespace Line_Production
         private int _index = 0;
         private int _counter = 0;
         private bool IS_USING_FILE_LOG = false;
+        private CommPort com;
         public Control()
         {
             InitializeComponent();
@@ -38,9 +39,21 @@ namespace Line_Production
             {
                 MessageBox.Show("Vào Config để điền đây đủ các mục setting!");
             }
+            com = CommPort.Instance;
+            com.StatusChanged += OnStatusChanged;
+            com.Open();
         }
-
-
+        private delegate void StringDelegate(string data);
+        private void OnStatusChanged(string status)
+        {
+            //Handle multi-threading
+            if (InvokeRequired)
+            {
+                Invoke(new StringDelegate(OnStatusChanged), new object[] { status });
+                return;
+            }
+            lblState.Text = status;
+        }
         int CountFileBeginDay = 0;
         int CountFileBeginNight = 0;
         int CountFileCurrentDay = 0;
@@ -280,16 +293,8 @@ namespace Line_Production
 
         public void SetupDisplay()
         {
-            Common.SendToComport("S0000000000000R", (result) =>
-            {
-                lblState.Text = result;
-            });
-            Common.SendToComport("C", (result) =>
-            {
-                lblState.Text = result;
-            });
-
-
+            com.Send("S0000000000000R");
+            com.Send("C");
             cbbModel.Visible = true;
             cbbModel.Text = "";
             for (int index = 1; index <= 10; index++)
@@ -500,88 +505,90 @@ namespace Line_Production
             {
                 case 0:
                     {
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            // LabelStatus.Text = "Tình trạng Line:       "
+                            LabelShapeOnline.Visible = false;
+                            LabelShapeOffLine.Visible = false;
+                            LabelShapeError.Visible = false;
+                            Shape1.Visible = false;
+                            Shape2.Visible = false;
+                            Shape3.Visible = false;
 
-                        // LabelStatus.Text = "Tình trạng Line:       "
-                        LabelShapeOnline.Visible = false;
-                        LabelShapeOffLine.Visible = false;
-                        LabelShapeError.Visible = false;
-                        Shape1.Visible = false;
-                        Shape2.Visible = false;
-                        Shape3.Visible = false;
+                        }));
                         break;
                     }
 
                 case 1:
                     {
-                        // LabelStatus.Text = "Tình trạng Line:Online"
-                        LabelShapeOnline.Visible = VisibleShow;
-                        LabelShapeOffLine.Visible = false;
-                        LabelShapeError.Visible = false;
-                        Shape1.Visible = VisibleShow;
-                        if (VisibleShow == false)
+                        this.BeginInvoke(new Action(() =>
                         {
-                            Common.SendToComport("R", result =>
-                             {
-                                 lblState.Text = result;
-                             });
-                        }
-                        else
-                        {
-                            Common.SendToComport("X", result =>
+                            // LabelStatus.Text = "Tình trạng Line:Online"
+                            LabelShapeOnline.Visible = VisibleShow;
+                            LabelShapeOffLine.Visible = false;
+                            LabelShapeError.Visible = false;
+                            Shape1.Visible = VisibleShow;
+                            if (VisibleShow == false)
                             {
-                                lblState.Text = result;
-                            });
-                        }
-                        Shape2.Visible = false;
-                        Shape3.Visible = false;
+                                com.Send("R");
+                            }
+                            else
+                            {
+                                com.Send("X");
+                            }
+                            Shape2.Visible = false;
+                            Shape3.Visible = false;
+                        }));
+
                         break;
                     }
 
                 case 2:
                     {
-                        // LabelStatus.Text = "Tình trạng Line: Bao Dong"
-                        LabelShapeOnline.Visible = false;
-                        LabelShapeOffLine.Visible = VisibleShow;
-                        LabelShapeError.Visible = false;
-                        Shape1.Visible = false;
-                        Shape2.Visible = VisibleShow;
-                        if (VisibleShow == false)
+                        this.BeginInvoke(new Action(() =>
                         {
-                            Common.SendToComport("R", result =>
+                            // LabelStatus.Text = "Tình trạng Line: Bao Dong"
+                            LabelShapeOnline.Visible = false;
+                            LabelShapeOffLine.Visible = VisibleShow;
+                            LabelShapeError.Visible = false;
+                            Shape1.Visible = false;
+                            Shape2.Visible = VisibleShow;
+                            if (VisibleShow == false)
                             {
-                                lblState.Text = result;
-                            });
-                        }
-                        else
-                        {
-                            Common.SendToComport("V", result =>
+                                com.Send("R");
+                            }
+                            else
                             {
-                                lblState.Text = result;
-                            });
-                        }
+                                com.Send("V");
+                            }
 
-                        Shape3.Visible = false;
+                            Shape3.Visible = false;
+                        }));
+
                         break;
                     }
 
                 case 3:
                     {
-                        // LabelStatus.Text = "Tình trạng Line: Bat Thuong"
-                        LabelShapeOnline.Visible = false;
-                        LabelShapeOffLine.Visible = false;
-                        LabelShapeError.Visible = VisibleShow;
-                        Shape1.Visible = false;
-                        Shape2.Visible = false;
-                        Shape3.Visible = VisibleShow;
-                        if (VisibleShow == false)
+                        this.BeginInvoke(new Action(() =>
                         {
-                            Common.SendToComport("R", result => { lblState.Text = result; });
+                            // LabelStatus.Text = "Tình trạng Line: Bat Thuong"
+                            LabelShapeOnline.Visible = false;
+                            LabelShapeOffLine.Visible = false;
+                            LabelShapeError.Visible = VisibleShow;
+                            Shape1.Visible = false;
+                            Shape2.Visible = false;
+                            Shape3.Visible = VisibleShow;
+                            if (VisibleShow == false)
+                            {
+                                com.Send("R");
+                            }
+                            else
+                            {
+                                com.Send("D");
+                            }
 
-                        }
-                        else
-                        {
-                            Common.SendToComport("D", result => { lblState.Text = result; });
-                        }
+                        }));
 
                         break;
                     }
@@ -918,41 +925,8 @@ namespace Line_Production
                 {
                     CheckLinePause();
                     ProcessDirectory(Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip));
-                    //CaculatorPlan();
                     _counter++;
-                    //int sumtime = DateAndTime.Now.Hour * 100 + DateAndTime.Now.Minute;
-                    //int indexCurrent = 0;
-                    //for (int index = 1; index <= 20; index++)
-                    //{
-                    //    if (index % 2 != 0)
-                    //    {
-                    //        if (sumtime >= TimeLine[index].Hour * 100 + TimeLine[index].Minute & sumtime <= TimeLine[index + 1].Hour * 100 + TimeLine[index + 1].Minute)
-                    //        {
-                    //            bien_dem = bien_dem + 1;
-                    //            indexCurrent = index / 2 + 1;
-                    //            IsPauseByTime = false;
-                    //            break;
-                    //        }
-                    //        else
-                    //        {
-                    //            bien_dem = 0;
-                    //        }
-                    //    }
-                    //    else if (index == 20)
-                    //    {
-                    //        IsPauseByTime = true;
-                    //    }
-                    //}
-
-                    //if (bien_dem == 0)
-                    //{
-                    //    time_scanBarcode = DateAndTime.Now;
-
-                    //}
-
-
                     BalanceProduction = CountProduct - ProductPlan;
-
                     var perBalanceProduction = ProductPlan == 0 ? 0 : BalanceProduction * 100 / ProductPlan;
                     if (perBalanceProduction < BalanceErrorSetup)
                     {
@@ -974,11 +948,8 @@ namespace Line_Production
                     txtActual.Text = CountProduct.ToString();
                     TextBalance.Text = BalanceProduction.ToString();
                     int total = 0;
-                    try
-                    {
-                        total = int.Parse(lblTotal.Text);
-                    }
-                    catch { }
+                    total = int.Parse(lblTotal.Text);
+
                     if (BalanceProduction < 0)
                     {
                         if (Math.Abs(BalanceProduction) >= 1000)
@@ -994,7 +965,7 @@ namespace Line_Production
                     {
                         ArraySend = "S+" + Strings.Format(BalanceProduction, "000") + Strings.Format(CountProduct, "0000") + Strings.Format(total, "0000") + Strings.Format(NoPeople, "00") + "*";
                     }
-                    Common.SendToComport(ArraySend, result => { lblState.Text = result; });
+                    com.Send(ArraySend);
 
                     if (_counter > 60)
                     {
@@ -1007,9 +978,7 @@ namespace Line_Production
             }
             catch (Exception ex)
             {
-
-                //LogFileWritter.WriteLog(@"\\172.28.10.12\Share\18 IT\U34811(hoanht)\7.ERRORS\CANON\aa.txt", "UpdateRealtime error!", ex);
-                LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
+                //LogFileWritter.WriteLog(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "UpdateRealtime error!", ex);
                 Console.Write(ex.ToString());
             }
         }
@@ -1029,11 +998,9 @@ namespace Line_Production
             RecordProduction();
             ProductionSave(StateLine.STOP);
             Common.UpdateState(StateLine.STOP, CountProduct.ToString(), ProductPlan.ToString());
-            if (ComPressPort.IsOpen)
-            {
-                ComPressPort.Close();
-            }
             SetupDisplay();
+            CommPort com = CommPort.Instance;
+            com.Close();
             Application.Exit();
         }
 
@@ -1104,28 +1071,7 @@ namespace Line_Production
         {
             CaculatorPlan();
         }
-        private void CompressEvent()
-        {
-            try
-            {
-                if (ComPressPort.IsOpen)
-                {
-                    ComPressPort.Write("B");
-                    if (ComPressPort.ReadExisting() == "B")
-                        BitPress = true;
-                    else if (ComPressPort.ReadExisting() != "B" & BitPress == true)
-                    {
-                        BitPress = false;
-                        IncreaseProduct();
-                    }
-                }
-
-            }
-            catch (Exception)
-            {
-            }
-
-        }
+       
         private void chkOK_CheckedChanged(object sender, EventArgs e)
         {
             if (chkOK.Checked)
@@ -1568,14 +1514,6 @@ namespace Line_Production
                 throw;
             }
 
-        }
-
-        private void timerCompress_Tick(object sender, EventArgs e)
-        {
-            if (BtStart.Text != "Bắt đầu")
-            {
-                CompressEvent();
-            }
         }
 
         private void TextMacBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)

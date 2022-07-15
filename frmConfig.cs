@@ -22,7 +22,6 @@ namespace Line_Production
         {
             InitializeComponent();
             cbbCOM.DataSource = SerialPort.GetPortNames();
-            cbbComPress.DataSource = SerialPort.GetPortNames();
             using(var db = new barcode_dbEntities())
             {
                 cbbCustomer.DataSource = db.CUSTOMERs.ToList();
@@ -79,7 +78,6 @@ namespace Line_Production
             Common.WriteRegistry(Constants.PathConfig, RegistryKeys.pathWip, txtLog.Text);
             Common.WriteRegistry(Constants.PathConfig, RegistryKeys.station, txtStation.Text.Trim());
             Common.WriteRegistry(Constants.PathConfig, RegistryKeys.COM, cbbCOM.Text.Trim());
-            Common.WriteRegistry(Constants.PathConfig, RegistryKeys.COM_PRESS, cbbComPress.Text.Trim());
             Common.WriteRegistry(Constants.PathConfig, RegistryKeys.Customer, cbbCustomer.Text.Trim());
             Common.WriteRegistry(Constants.PathConfig, RegistryKeys.SleepTime, txbSleepTime.Text.Trim());
             var confirm = MessageBox.Show("Save success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -113,7 +111,6 @@ namespace Line_Production
             txtId.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id);
             txtLog.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.pathWip);
             cbbCOM.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM);
-            cbbComPress.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM_PRESS);
             cbbCustomer.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Customer);
             txbSleepTime.Text = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.SleepTime);
         }
@@ -166,11 +163,5 @@ namespace Line_Production
             }
         }
 
-       
-
-        private void btnTestComPress_Click(object sender, EventArgs e)
-        {
-            Common.SendToComport("B", result => { MessageBox.Show("Test COM connection : " + result); },Common.GetValueRegistryKey(Constants.PathConfig,RegistryKeys.COM_PRESS));
-        }
     }
 }
