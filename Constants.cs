@@ -51,6 +51,7 @@ namespace Line_Production
         public static string LinkWip = "LinkWip";
         public static string CurrentUser = "CurrentUser";
         public static string ModelCurrent = "ModelCurrent";
+        public static string Customer_ID = "Customer_ID";
     }
     public static class CaSX
     {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -31,6 +32,18 @@ namespace Line_Production
             {
                 using (var db = new barcode_dbEntities())
                 {
+                    var customerID = GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Customer_ID);
+                    if(string.IsNullOrEmpty(customerID))
+                    {
+                        var customerName = GetValueRegistryKey(Constants.PathConfig, RegistryKeys.Customer);
+                        var customer = db.CUSTOMERs.Where(m => m.NAME == customerName).FirstOrDefault();
+                        if (customer != null)
+                        {
+                            customerID = customer.CUS;
+                            WriteRegistry(Constants.PathConfig, RegistryKeys.Customer_ID, customer.CUS);
+                        }
+                    }
+                    
                     var stateModel = new STATE_HISTORY()
                     {
                         Line = GetValueRegistryKey(Constants.PathConfig, RegistryKeys.id),
@@ -39,7 +52,8 @@ namespace Line_Production
                         HostName = Environment.MachineName,
                         UpdateTime = DateTime.Now,
                         Actual = actual,
-                        Plan = plan
+                        Plan = plan,
+                        Customer = customerID
                     };
                     db.STATE_HISTORY.Add(stateModel);
                     db.SaveChanges();
@@ -212,7 +226,7 @@ namespace Line_Production
                 writer.Write(content.ToString());
             }
         }
-        
+
         public static string GetMACAddress()
         {
             ManagementObjectSearcher objMOS = new ManagementObjectSearcher("Select * FROM Win32_NetworkAdapterConfiguration");

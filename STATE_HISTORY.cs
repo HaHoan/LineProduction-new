@@ -16,6 +16,7 @@ namespace Line_Production
     {
         public int Id { get; set; }
         public string Line { get; set; }
+        public string Customer { get; set; }
         public string Model { get; set; }
         public string HostName { get; set; }
         public System.DateTime UpdateTime { get; set; }
