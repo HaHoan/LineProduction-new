@@ -1,4 +1,5 @@
-﻿using Line_Production.Database;
+﻿using Line_Production.Business;
+using Line_Production.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace Line_Production
     {
         public Action updateAfterSetting;
         private PVSReference.PVSWebServiceSoapClient pvsservice;
-
+        private CommPort com;
         public frmConfig()
         {
             InitializeComponent();
@@ -29,9 +30,15 @@ namespace Line_Production
             
             GetTaskWindows();
             pvsservice = new PVSReference.PVSWebServiceSoapClient();
-           
+            com = CommPort.Instance;
+            com.StatusChanged += OnStatusChanged;
         }
-        
+
+        private void OnStatusChanged(string param)
+        {
+            lblStatus.Text = param;
+        }
+
         private void GetTaskWindows()
         {
             // Get the desktopwindow handle
@@ -80,6 +87,10 @@ namespace Line_Production
             Common.WriteRegistry(Constants.PathConfig, RegistryKeys.COM, cbbCOM.Text.Trim());
             Common.WriteRegistry(Constants.PathConfig, RegistryKeys.Customer, cbbCustomer.Text.Trim());
             Common.WriteRegistry(Constants.PathConfig, RegistryKeys.SleepTime, txbSleepTime.Text.Trim());
+            if(com != null)
+            {
+                com.Open();
+            }
             var confirm = MessageBox.Show("Save success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (confirm == DialogResult.OK)
             {
@@ -129,18 +140,9 @@ namespace Line_Production
         {
             try
             {
-                SerialPort com = new SerialPort() { PortName = cbbCOM.Text };
-                if (!com.IsOpen) com.Open();
-                if (com.IsOpen == true)
-                {
-                    com.Write("S+0000000012001*");
-                }
-                else
-                {
-                    MessageBox.Show("Chưa mở cổng " + cbbCOM.Text);
-                    return;
-                }
-                com.Close();
+                Common.WriteRegistry(Constants.PathConfig, RegistryKeys.COM, cbbCOM.Text);
+                com.Open();
+                com.Send("S+0000000012001*");
             }
             catch (Exception ex)
             {

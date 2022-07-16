@@ -52,6 +52,7 @@ namespace Line_Production
             this.txbSleepTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cbbCustomer = new System.Windows.Forms.ComboBox();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Label1
@@ -212,12 +213,22 @@ namespace Line_Production
             this.cbbCustomer.TabIndex = 56;
             this.cbbCustomer.ValueMember = "NAME";
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.ForeColor = System.Drawing.Color.Maroon;
+            this.lblStatus.Location = new System.Drawing.Point(6, 231);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 13);
+            this.lblStatus.TabIndex = 57;
+            // 
             // frmConfig
             // 
             this.AcceptButton = this.btnSaveChanged;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 256);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.cbbCustomer);
             this.Controls.Add(this.txbSleepTime);
             this.Controls.Add(this.label7);
@@ -259,5 +270,6 @@ namespace Line_Production
         internal TextBox txbSleepTime;
         internal Label label7;
         private ComboBox cbbCustomer;
+        private Label lblStatus;
     }
 }

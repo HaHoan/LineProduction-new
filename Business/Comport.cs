@@ -112,6 +112,23 @@ namespace Line_Production.Business
 
                 _serialPort.Open();
                 StartReading();
+
+                // Update the status
+                if (_serialPort.IsOpen)
+                {
+                    string p = _serialPort.Parity.ToString().Substring(0, 1);   //First char
+                    string h = _serialPort.Handshake.ToString();
+                    if (_serialPort.Handshake == Handshake.None)
+                        h = "no handshake"; // more descriptive than "None"
+
+                    StatusChanged(String.Format("{0}: {1} bps, {2}{3}{4}, {5}",
+                        _serialPort.PortName, _serialPort.BaudRate,
+                        _serialPort.DataBits, p, (int)_serialPort.StopBits, h));
+                }
+                else
+                {
+                    StatusChanged(String.Format("{0} already in use", portName));
+                }
             }
             catch (IOException)
             {
@@ -124,23 +141,6 @@ namespace Line_Production.Business
             catch (Exception ex)
             {
                 StatusChanged(String.Format("{0}", ex.ToString()));
-            }
-
-            // Update the status
-            if (_serialPort.IsOpen)
-            {
-                string p = _serialPort.Parity.ToString().Substring(0, 1);   //First char
-                string h = _serialPort.Handshake.ToString();
-                if (_serialPort.Handshake == Handshake.None)
-                    h = "no handshake"; // more descriptive than "None"
-
-                StatusChanged(String.Format("{0}: {1} bps, {2}{3}{4}, {5}",
-                    _serialPort.PortName, _serialPort.BaudRate,
-                    _serialPort.DataBits, p, (int)_serialPort.StopBits, h));
-            }
-            else
-            {
-                StatusChanged(String.Format("{0} already in use", portName));
             }
         }
 
