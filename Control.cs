@@ -43,15 +43,15 @@ namespace Line_Production
             com.StatusChanged += OnStatusChanged;
             com.Open();
         }
-        private delegate void StringDelegate(string data);
+        //private delegate void StringDelegate(string data);
         private void OnStatusChanged(string status)
         {
-            //Handle multi-threading
-            if (InvokeRequired)
-            {
-                Invoke(new StringDelegate(OnStatusChanged), new object[] { status });
-                return;
-            }
+            ////Handle multi-threading
+            //if (InvokeRequired)
+            //{
+            //    Invoke(new StringDelegate(OnStatusChanged), new object[] { status });
+            //    return;
+            //}
             lblState.Text = status;
         }
         int CountFileBeginDay = 0;

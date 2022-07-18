@@ -105,30 +105,8 @@ namespace Line_Production.Business
             {
                 portName = Common.GetValueRegistryKey(Constants.PathConfig, RegistryKeys.COM);
                 _serialPort.PortName = portName;
-
-                // Set the read/write timeouts
-                _serialPort.ReadTimeout = 50;
-                _serialPort.WriteTimeout = 50;
-
                 _serialPort.Open();
-                StartReading();
-
-                // Update the status
-                if (_serialPort.IsOpen)
-                {
-                    string p = _serialPort.Parity.ToString().Substring(0, 1);   //First char
-                    string h = _serialPort.Handshake.ToString();
-                    if (_serialPort.Handshake == Handshake.None)
-                        h = "no handshake"; // more descriptive than "None"
-
-                    StatusChanged(String.Format("{0}: {1} bps, {2}{3}{4}, {5}",
-                        _serialPort.PortName, _serialPort.BaudRate,
-                        _serialPort.DataBits, p, (int)_serialPort.StopBits, h));
-                }
-                else
-                {
-                    StatusChanged(String.Format("{0} already in use", portName));
-                }
+                StatusChanged(String.Format("{0} OK", portName));
             }
             catch (IOException)
             {
@@ -147,7 +125,6 @@ namespace Line_Production.Business
         /// <summary> Close the serial port. </summary>
         public void Close()
         {
-            StopReading();
             _serialPort.Close();
             StatusChanged("connection closed");
         }
